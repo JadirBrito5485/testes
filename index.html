@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum de Família - 67 Fotos</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #222; font-family: sans-serif; }
+        .moldura { background: white; padding: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); width: 800px; text-align: center; }
+        .slide { display: none; }
+        .slide img { width: 100%; max-height: 80vh; object-fit: contain; background: #eee; border-radius: 4px; }
+        .fade { animation: fade 0.8s; } /* Transição um pouco mais rápida para combinar com os 3s */
+        @keyframes fade { from {opacity: 0.4} to {opacity: 1} }
+    </style>
+</head>
+<body>
+
+    <div class="moldura">
+        <div id="container-fotos"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container-fotos');
+        const totalFotos = 67;
+
+        // Criando as 67 divisões de fotos automaticamente para você não digitar uma por uma
+        for (let i = 1; i <= totalFotos; i++) {
+            const div = document.createElement('div');
+            div.className = 'slide fade';
+            
+            // Ajuste do nome conforme o padrão do Windows: 1 (1), 1 (2)... ou apenas 1 (i)
+            // Se a primeira for "1 (1).jpg", o código abaixo resolve:
+            div.innerHTML = `<img src="fotos/1 (${i}).jpg" alt="Foto ${i}">`;
+            
+            container.appendChild(div);
+        }
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            for (i = 0; i < slides.length; i++) { 
+                slides[i].style.display = "none"; 
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            
+            // Tempo alterado para 3 segundos (3000ms)
+            setTimeout(showSlides, 3000); 
+        }
+    </script>
+</body>
+</html>
