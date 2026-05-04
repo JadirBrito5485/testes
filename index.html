@@ -35,7 +35,7 @@
         .black-bg { background-color: #000; }
         .banner-p1 { height: 500px; }
         .banner-p3 { width: 1080px; height: 400px; max-width: 100%; margin: 0 auto; cursor: pointer; position: relative; }
-        .moldura-4x4 { width: 220px; height: 220px; object-fit: cover; border-radius: 8px; border: 4px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .moldura-4x4 { width: 250px; height: 250px; object-fit: cover; border-radius: 10px; border: 4px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .modal-full { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 5000; overflow-y: auto; }
         .zoom-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:6000; cursor: zoom-out; justify-content: center; align-items: center; }
         .zoom-overlay img { max-width: 90%; max-height: 90%; border: 3px solid white; }
@@ -48,20 +48,20 @@
         @keyframes led-blink { 0% { opacity: 1; box-shadow: 0 0 5px #00ff00; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
         .adm-panel { display: none; background: #fff; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; padding: 20px; overflow-y: auto; color: #000; }
         .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; border-radius: 50%; }
-        .btn-whats-clas { background: #25D366; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 8px; border-radius: 8px; font-size: 12px; }
+        .btn-whats-clas { background: #25D366; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 10px; border-radius: 8px; font-size: 14px; }
     </style>
 </head>
 <body oncontextmenu="return false">
 
     <!-- TOPO -->
     <header class="black-bg p-4 flex flex-wrap items-center justify-between sticky top-0 z-50">
-        <div class="w-full md:w-1/4 mb-2 md:mb-0">
+        <div class="w-full md:w-1/4">
             <img id="view-logo" src="" alt="Logo" class="h-10 object-contain bg-white rounded p-1">
         </div>
         <div class="w-full md:w-2/4 px-4">
-            <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full p-2 rounded text-black outline-none border-none shadow-md">
+            <input type="text" id="searchInput" placeholder="O que você procura?" class="w-full p-2 rounded text-black outline-none border-none">
         </div>
-        <div class="w-full md:w-1/4 flex justify-end items-center">
+        <div class="w-full md:w-1/4 flex justify-end">
             <div class="relative cursor-pointer mr-4" onclick="toggleCart()">
                 <span class="text-white text-3xl">🛒</span>
                 <span id="cartCount" class="cart-badge">0</span>
@@ -74,14 +74,14 @@
 
     <!-- P2: LOJA -->
     <section class="p-6 bg-white relative">
-        <h2 id="title-p2" class="text-xl font-black mb-4 uppercase">LOJA</h2>
+        <h2 id="title-p2" class="text-xl font-black mb-4 uppercase">Loja</h2>
         <div class="relative">
             <div onclick="scrollProd(-250)" class="arrow left-0 ml-2">❮</div>
             <div id="part2" class="product-carousel p-2"></div>
             <div onclick="scrollProd(250)" class="arrow right-0 mr-2">❯</div>
         </div>
         <div class="mt-8 bg-gray-50 p-6 rounded-xl border-2 border-dashed border-gray-300 max-w-xl mx-auto text-center">
-            <p class="text-xs font-bold text-gray-500 mb-2 uppercase">Não encontrou o produto? Peça agora:</p>
+            <p class="text-xs font-bold text-gray-500 mb-2 uppercase">Não encontrou o produto? Peça aqui:</p>
             <div class="flex gap-2">
                 <input type="text" id="specialOrderInput" placeholder="Nome do produto..." class="flex-1 p-2 border rounded text-sm outline-none">
                 <button onclick="sendSpecialOrder()" class="bg-blue-600 text-white px-6 py-2 rounded font-bold text-sm">ENVIAR</button>
@@ -94,13 +94,13 @@
         <h2 id="title-p3" class="text-center text-3xl font-black mb-6 uppercase tracking-widest">Classificados</h2>
         <div id="part3" class="relative banner-p3 overflow-hidden shadow-2xl rounded-xl bg-gray-100"></div>
         <div class="mt-6 text-center">
-            <button onclick="openClassifiedForm()" class="bg-orange-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition uppercase text-xs">Anunciar Classificado (Upload Foto)</button>
+            <button onclick="openClassifiedForm()" class="bg-orange-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition uppercase text-xs tracking-widest">Anunciar</button>
         </div>
     </section>
 
     <!-- P4: ENQUETE -->
     <section class="max-w-xl mx-auto p-8 my-10 bg-white shadow-xl rounded-3xl border border-gray-100">
-        <h2 id="title-p4" class="text-xl font-black mb-6 text-center text-blue-900 border-b-2 pb-2 uppercase">ENQUETE</h2>
+        <h2 id="title-p4" class="text-xl font-black mb-6 text-center text-blue-900 border-b pb-2 uppercase">Enquete</h2>
         <div id="poll-container">
             <h3 id="poll-question" class="font-bold text-center mb-6">...</h3>
             <div id="poll-options" class="space-y-3"></div>
@@ -116,7 +116,7 @@
 
     <!-- RODAPÉ -->
     <footer class="black-bg p-10 text-white text-center">
-        <div class="flex justify-between items-center max-w-6xl mx-auto opacity-50">
+        <div class="flex justify-between items-center max-w-6xl mx-auto opacity-30">
             <button onclick="openAdm()" class="text-white text-[10px] font-bold">A</button>
             <p class="text-xs">@2026 Todos os direitos reservados a Jadir Brito</p>
             <div class="w-10"></div>
@@ -136,29 +136,29 @@
     
     <div id="prodModal" class="modal-full p-6">
         <div id="prodDetail" class="max-w-2xl mx-auto"></div>
-        <div class="flex justify-center mt-10 pb-20"><button onclick="closeProdModal()" class="bg-black text-white px-10 py-3 rounded-full font-bold">FECHAR</button></div>
+        <div class="flex justify-center mt-10 pb-20"><button onclick="closeProdModal()" class="bg-black text-white px-10 py-3 rounded-full font-bold uppercase">Fechar Descrição</button></div>
     </div>
 
-    <!-- MODAL FORM CLASSIFICADO (UPLOAD REAL) -->
+    <!-- MODAL ANUNCIAR CLASSIFICADO (UPLOAD REAL) -->
     <div id="classifiedFormModal" class="modal-full p-6 flex items-center justify-center bg-gray-900/10">
         <div class="max-w-lg w-full bg-white p-8 rounded-3xl shadow-2xl">
-            <h2 class="text-2xl font-black mb-6 text-center uppercase tracking-tighter">Anunciar Produto</h2>
+            <h2 class="text-2xl font-black mb-6 text-center uppercase">Novo Anúncio</h2>
             <div class="space-y-4">
-                <input type="text" id="uClasTitle" placeholder="O que você está vendendo?" class="w-full p-3 border rounded-xl outline-none">
+                <input type="text" id="uClasTitle" placeholder="Título do Anúncio" class="w-full p-3 border rounded-xl outline-none">
                 <div class="border-2 border-dashed p-4 rounded-xl text-center">
-                    <p class="text-xs font-bold text-gray-400 mb-2">FOTO DO PRODUTO (ARQUIVO)</p>
+                    <p class="text-xs font-bold text-gray-400 mb-2 uppercase">Escolha a Foto (Arquivo)</p>
                     <input type="file" id="uClasFile" accept="image/*" class="text-xs">
                 </div>
-                <textarea id="uClasText" placeholder="Descrição e detalhes..." class="w-full p-3 border h-24 rounded-xl outline-none"></textarea>
-                <input type="text" id="uClasPrice" placeholder="Valor (Ex: R$ 500,00)" class="w-full p-3 border rounded-xl outline-none">
-                <input type="text" id="uClasPhone" placeholder="Seu WhatsApp (Ex: 47999999999)" class="w-full p-3 border rounded-xl outline-none">
-                <select id="uClasType" class="w-full p-3 border rounded-xl outline-none bg-white">
+                <textarea id="uClasText" placeholder="Descrição completa..." class="w-full p-3 border h-24 rounded-xl outline-none"></textarea>
+                <input type="text" id="uClasPrice" placeholder="Valor (R$)" class="w-full p-3 border rounded-xl outline-none">
+                <input type="text" id="uClasPhone" placeholder="Seu WhatsApp (Ex: 47988887777)" class="w-full p-3 border rounded-xl outline-none">
+                <select id="uClasType" class="w-full p-3 border rounded-xl outline-none bg-white font-bold">
                     <option value="VENDA">VENDA</option>
                     <option value="TROCA">TROCA</option>
                     <option value="ALUGA-SE">ALUGA-SE</option>
                 </select>
-                <button id="btnSubmitClas" onclick="submitUserClassified()" class="w-full bg-orange-600 text-white p-4 rounded-xl font-bold uppercase">ENVIAR PARA ANÁLISE</button>
-                <button onclick="closeClassifiedForm()" class="w-full bg-gray-200 p-3 rounded-xl font-bold uppercase text-xs">CANCELAR</button>
+                <button id="btnSubmitClas" onclick="submitUserClassified()" class="w-full bg-orange-600 text-white p-4 rounded-xl font-bold uppercase">Enviar para Análise</button>
+                <button onclick="closeClassifiedForm()" class="w-full bg-gray-200 p-3 rounded-xl font-bold uppercase text-xs">Cancelar</button>
             </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
             <h2 class="text-2xl font-black mb-6 uppercase">Carrinho</h2>
             <div id="cartItems" class="space-y-3 mb-6 text-left"></div>
             <p class="text-xl font-black mb-8">Total: R$ <span id="cartTotal">0,00</span></p>
-            <button onclick="finalizeOrder()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold mb-3">FINALIZAR NO WHATSAPP</button>
+            <button onclick="finalizeOrder()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold mb-3 uppercase text-xs">Finalizar WhatsApp</button>
             <button onclick="toggleCart()" class="w-full bg-gray-200 p-4 rounded-xl font-bold uppercase text-xs">Continuar Comprando</button>
         </div>
     </div>
@@ -178,51 +178,51 @@
     <div id="admPanel" class="adm-panel">
         <div class="max-w-6xl mx-auto pb-40">
             <div class="flex justify-between items-center mb-10 bg-gray-100 p-6 rounded-2xl">
-                <h1 class="text-2xl font-black uppercase">Administração</h1>
-                <button onclick="location.reload()" class="bg-red-600 text-white px-6 py-2 rounded-full font-bold">SAIR</button>
+                <h1 class="text-2xl font-black">ADMINISTRAÇÃO</h1>
+                <button onclick="location.reload()" class="bg-red-600 text-white px-8 py-2 rounded-full font-bold">SAIR</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- APROVAÇÃO CLASSIFICADOS -->
+                <!-- MODERAÇÃO DE CLASSIFICADOS -->
                 <div class="bg-orange-50 p-6 rounded-3xl border border-orange-200 shadow-md">
-                    <h3 class="font-bold mb-4 border-b border-orange-200 pb-2 text-orange-700">Aprovar Anúncios</h3>
-                    <div id="admClassPending" class="space-y-4 max-h-80 overflow-y-auto"></div>
+                    <h3 class="font-bold mb-4 border-b border-orange-200 pb-2 text-orange-700 uppercase">Aprovar Classificados</h3>
+                    <div id="admClassPending" class="space-y-4 max-h-[400px] overflow-y-auto"></div>
                 </div>
 
                 <!-- CONFIGS -->
                 <div class="bg-gray-50 p-6 rounded-3xl border shadow-sm">
-                    <h3 class="font-bold mb-4 border-b">Títulos e Geral</h3>
-                    <input type="text" id="admLogo" placeholder="Logo Link" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admTitleP2" placeholder="Título Loja" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admTitleP3" placeholder="Título Classificados" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admTitleP4" placeholder="Título Enquete" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admTitleP5" placeholder="Título Galeria" class="w-full p-2 mb-3 border text-xs">
-                    <input type="text" id="admWaFinal" placeholder="Whats Vendas" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admWaChat" placeholder="Whats Chat" class="w-full p-2 mb-3 border text-xs">
-                    <button onclick="saveSettings()" class="bg-blue-600 text-white w-full py-2 rounded-xl font-bold">SALVAR CONFIGS</button>
+                    <h3 class="font-bold mb-4 border-b pb-2 text-blue-600">Configurações e Títulos</h3>
+                    <input type="text" id="admLogo" placeholder="Logo Link" class="w-full p-2 mb-2 border text-xs rounded-lg">
+                    <input type="text" id="admTitleP2" placeholder="Título Loja" class="w-full p-2 mb-2 border text-xs rounded-lg">
+                    <input type="text" id="admTitleP3" placeholder="Título Classificados" class="w-full p-2 mb-2 border text-xs rounded-lg">
+                    <input type="text" id="admTitleP4" placeholder="Título Enquete" class="w-full p-2 mb-2 border text-xs rounded-lg">
+                    <input type="text" id="admTitleP5" placeholder="Título Galeria" class="w-full p-2 mb-4 border text-xs rounded-lg">
+                    <input type="text" id="admWaFinal" placeholder="WhatsApp Vendas" class="w-full p-2 mb-2 border text-xs rounded-lg">
+                    <input type="text" id="admWaChat" placeholder="WhatsApp Chat" class="w-full p-2 mb-4 border text-xs rounded-lg">
+                    <button onclick="saveSettings()" class="bg-blue-600 text-white w-full py-3 rounded-xl font-bold">SALVAR CONFIGURAÇÕES</button>
                 </div>
 
-                <!-- NEWS -->
+                <!-- POST P1 -->
                 <div class="bg-gray-50 p-6 rounded-3xl border shadow-sm">
-                    <h3 class="font-bold mb-4 border-b">Notícia (P1)</h3>
-                    <input type="text" id="admNewsTitle" placeholder="Título" class="w-full p-2 mb-1 border text-xs">
-                    <input type="text" id="admNewsImg" placeholder="Link Imagem" class="w-full p-2 mb-1 border text-xs">
-                    <textarea id="admNewsContent" placeholder="Texto" class="w-full p-2 mb-2 border h-14 text-xs"></textarea>
-                    <button onclick="saveNews()" class="bg-black text-white w-full py-2 rounded-xl font-bold">POSTAR P1</button>
+                    <h3 class="font-bold mb-4 border-b pb-2">Postar Notícia (P1)</h3>
+                    <input type="text" id="admNewsTitle" placeholder="Título" class="w-full p-3 mb-2 border rounded-xl text-sm">
+                    <input type="text" id="admNewsImg" placeholder="Link Imagem" class="w-full p-3 mb-2 border rounded-xl text-sm">
+                    <textarea id="admNewsContent" placeholder="Conteúdo" class="w-full p-3 mb-3 border h-24 rounded-xl text-sm"></textarea>
+                    <button onclick="saveNews()" class="bg-black text-white w-full py-3 rounded-xl font-bold uppercase">PUBLICAR</button>
                 </div>
             </div>
-            
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-4 gap-4 text-[10px] uppercase font-bold">
-                <div class="bg-white p-2 border"><h4 class="border-b">Notícias</h4><div id="admNewsList" class="mt-2"></div></div>
-                <div class="bg-white p-2 border"><h4 class="border-b">Produtos</h4><div id="admProdList" class="mt-2"></div></div>
-                <div class="bg-white p-2 border"><h4 class="border-b">Banners</h4><div id="admP3List" class="mt-2"></div></div>
-                <div class="bg-white p-2 border"><h4 class="border-b">Galeria</h4><div id="admP5List" class="mt-2"></div></div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-4 gap-4 text-[10px] uppercase font-bold">
+                <div class="bg-white p-4 border rounded-xl"><h4>Notícias</h4><div id="admNewsList" class="mt-2"></div></div>
+                <div class="bg-white p-4 border rounded-xl"><h4>Produtos</h4><div id="admProdList" class="mt-2"></div></div>
+                <div class="bg-white p-4 border rounded-xl"><h4>Banners</h4><div id="admP3List" class="mt-2"></div></div>
+                <div class="bg-white p-4 border rounded-xl"><h4>Galeria</h4><div id="admP5List" class="mt-2"></div></div>
             </div>
         </div>
     </div>
 
     <script>
-        // BLOQUEIO
+        // SEGURANÇA
         document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; };
 
         let cart = [];
@@ -263,7 +263,7 @@
             setInterval(() => scrollProd(205), 4000);
         };
 
-        // --- SISTEMA CLASSIFICADOS (UPLOAD REAL) ---
+        // --- SISTEMA CLASSIFICADOS ---
         function openClassifiedForm() { document.getElementById('classifiedFormModal').style.display = 'flex'; }
         function closeClassifiedForm() { document.getElementById('classifiedFormModal').style.display = 'none'; }
         
@@ -276,7 +276,7 @@
             const phone = document.getElementById('uClasPhone').value;
             const type = document.getElementById('uClasType').value;
 
-            if(!file || !title || !phone) return alert("Preencha o título, WhatsApp e escolha uma foto.");
+            if(!file || !title || !phone) return alert("Título, Foto e WhatsApp são obrigatórios.");
             
             btn.innerText = "ENVIANDO..."; btn.disabled = true;
 
@@ -291,8 +291,9 @@
                     title, img: url, content: text, price, phone, type, order: 0, link: ""
                 });
 
-                alert("Enviado para aprovação!"); closeClassifiedForm();
-            } catch (e) { alert("Erro no upload."); } finally { btn.innerText = "ENVIAR PARA ANÁLISE"; btn.disabled = false; }
+                alert("Sucesso! Aguarde aprovação do administrador.");
+                closeClassifiedForm();
+            } catch (e) { alert("Erro ao enviar."); } finally { btn.innerText = "ENVIAR PARA ANÁLISE"; btn.disabled = false; }
         }
 
         function renderClass(data) {
@@ -302,10 +303,10 @@
             items.forEach(([k, v], i) => {
                 el.innerHTML += `<div class="slide ${i==0?'active':''} h-full relative">
                     <img src="${v.img}" class="w-full h-full object-cover">
-                    <div class="absolute bottom-4 right-4 bg-black/80 p-4 rounded-xl text-white max-w-xs shadow-2xl">
-                        <p class="text-[9px] uppercase font-bold text-orange-400">${v.type || 'VENDA'}</p>
+                    <div class="absolute bottom-4 right-4 bg-black/90 p-4 rounded-xl text-white max-w-xs shadow-2xl border border-white/10">
+                        <p class="text-[9px] uppercase font-black text-orange-400 mb-1 tracking-widest">${v.type || 'VENDA'}</p>
                         <h4 class="text-sm font-black uppercase mb-1">${v.title}</h4>
-                        <p class="text-[10px] line-clamp-1 mb-2">${v.price || ''}</p>
+                        <p class="text-[10px] mb-3 text-green-400 font-bold">${v.price || ''}</p>
                         <a href="https://wa.me/${v.phone}" target="_blank" class="btn-whats-clas">
                             <span class="led-blink">CLIQUE AQUI</span> FALE COM ANUNCIANTE
                         </a>
@@ -320,7 +321,7 @@
             const el = document.getElementById(id); el.innerHTML = "";
             if(!data) return;
             Object.entries(data).sort((a,b) => (a[1].order || 0) - (b[1].order || 0)).forEach(([k, v], i) => {
-                el.innerHTML += `<div class="slide ${i==0?'active':''} h-full relative" data-search="${v.title}"><img src="${v.img}" class="w-full h-full object-cover"><div class="absolute bottom-0 p-8 bg-gradient-to-t from-black text-white w-full"><h2 class="text-2xl font-black mb-1 uppercase tracking-tighter">${v.title}</h2><p class="line-clamp-2 opacity-80 mb-3 text-[10px]">${v.content}</p><button onclick="readNews('${k}')" class="bg-white text-black px-6 py-2 rounded-full font-black text-[10px] uppercase">Ler Matéria</button></div></div>`;
+                el.innerHTML += `<div class="slide ${i==0?'active':''} h-full relative" data-search="${v.title}"><img src="${v.img}" class="w-full h-full object-cover"><div class="absolute bottom-0 p-10 bg-gradient-to-t from-black text-white w-full"><h2 class="text-3xl font-black mb-1 uppercase">${v.title}</h2><p class="line-clamp-2 opacity-80 mb-5 text-sm">${v.content}</p><button onclick="readNews('${k}')" class="bg-white text-black px-8 py-2 rounded-full font-black text-[10px] uppercase tracking-widest">Ler Completo</button></div></div>`;
             });
             if(slider) initSlider(id);
         }
@@ -330,12 +331,12 @@
             if(!data) return;
             Object.entries(data).sort((a,b) => (a[1].order||0)-(b[1].order||0)).forEach(([k,v]) => {
                 el.innerHTML += `<div class="min-w-[190px] max-w-[190px] bg-white rounded-2xl shadow-lg border p-4 flex flex-col" data-search="${v.title}">
-                    <img src="${v.img}" class="w-full h-28 object-cover rounded-xl mb-2 cursor-zoom-in" onclick="zoom('${v.img}')">
+                    <img src="${v.img}" class="w-full h-28 object-cover rounded-xl mb-3 cursor-zoom-in" onclick="zoom('${v.img}')">
                     <h4 class="font-bold text-[10px] h-8 overflow-hidden uppercase">${v.title}</h4>
-                    <p onclick="readProd('${k}')" class="text-[9px] text-blue-600 font-bold mb-3 cursor-pointer">MENU DESCRIÇÃO</p>
+                    <p onclick="readProd('${k}')" class="text-[9px] text-blue-600 font-black mb-3 cursor-pointer uppercase">Menu Descrição</p>
                     <div class="mt-auto">
                         <span class="text-lg font-black text-green-600 block">R$ ${v.price}</span>
-                        <div class="led-blink mb-2 block text-center">Frete Grátis Chega amanhã</div>
+                        <div class="led-blink mb-2 block text-center uppercase tracking-tighter">Frete Grátis Chega amanhã</div>
                         <button onclick="addToCart('${v.title}', ${v.price})" class="w-full bg-black text-white py-2 rounded-lg font-bold text-[10px]">COMPRAR</button>
                     </div></div>`;
             });
@@ -349,7 +350,7 @@
             });
         }
 
-        // --- AUXILIARES ---
+        // --- LÓGICA ---
         function initSlider(id) {
             setInterval(() => {
                 const slides = document.querySelectorAll(`#${id} .slide`);
@@ -376,11 +377,11 @@
                 const total = (data.v1||0)+(data.v2||0) || 1;
                 [1,2].forEach(i => {
                     const v = data['v'+i] || 0; const p = ((v/total)*100).toFixed(0);
-                    if(data['o'+i]) res.innerHTML += `<div class="text-[10px] font-bold uppercase"><div class="flex justify-between mb-1"><span>${data['o'+i]}</span><span>${p}%</span></div><div class="bg-gray-200 h-2 rounded-full overflow-hidden"><div class="bg-blue-600 h-2 transition-all" style="width:${p}%"></div></div></div>`;
+                    if(data['o'+i]) res.innerHTML += `<div class="text-[10px] font-bold uppercase"><div class="flex justify-between mb-1"><span>${data['o'+i]}</span><span>${p}%</span></div><div class="bg-gray-200 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-600 h-1.5 transition-all" style="width:${p}%"></div></div></div>`;
                 });
             } else {
                 opts.classList.remove('hidden'); res.classList.add('hidden');
-                [1,2].forEach(i => { if(data['o'+i]) opts.innerHTML += `<button onclick="vote(${i}, '${data.id}')" class="w-full p-4 border-2 rounded-xl text-xs text-left font-black uppercase hover:bg-blue-50">${data['o'+i]}</button>`; });
+                [1,2].forEach(i => { if(data['o'+i]) opts.innerHTML += `<button onclick="vote(${i}, '${data.id}')" class="w-full p-4 border-2 rounded-2xl text-xs text-left font-black uppercase hover:bg-blue-50">${data['o'+i]}</button>`; });
             }
         }
 
@@ -397,7 +398,7 @@
             const { onValue, ref } = dbAction();
             onValue(ref(window.db, `part1/${key}`), (s) => {
                 const v = s.val();
-                document.getElementById('newsDetail').innerHTML = `<h1 class="text-3xl font-black mb-4">${v.title}</h1><img src="${v.img}" class="w-full rounded-2xl mb-8 shadow-xl"><div class="text-lg text-gray-700 whitespace-pre-line">${v.content}</div><p class="mt-8 pt-4 border-t font-black uppercase text-xs">Postado por Jadir Brito</p>`;
+                document.getElementById('newsDetail').innerHTML = `<h1 class="text-3xl font-black mb-6 uppercase tracking-tighter">${v.title}</h1><img src="${v.img}" class="w-full rounded-2xl mb-8 shadow-xl"><div class="text-xl text-gray-700 whitespace-pre-line">${v.content}</div><p class="mt-8 pt-4 border-t font-black uppercase text-xs">Postado por Jadir Brito</p>`;
                 document.getElementById('newsModal').style.display = 'block';
             }, {onlyOnce: true});
         }
@@ -406,7 +407,7 @@
             const { onValue, ref } = dbAction();
             onValue(ref(window.db, `products/${key}`), (s) => {
                 const v = s.val();
-                document.getElementById('prodDetail').innerHTML = `<h1 class="text-2xl font-black mb-6 uppercase text-center">${v.title}</h1><img src="${v.img}" class="w-48 h-48 object-cover mx-auto rounded-2xl mb-6 shadow-xl"><div class="text-sm text-gray-700 whitespace-pre-line border-t pt-4">${v.desc || 'Sem descrição.'}</div><p class="mt-6 text-xl font-black text-green-600 text-center uppercase tracking-tighter">Valor: R$ ${v.price}</p>`;
+                document.getElementById('prodDetail').innerHTML = `<h1 class="text-2xl font-black mb-6 uppercase text-center">${v.title}</h1><img src="${v.img}" class="w-48 h-48 object-cover mx-auto rounded-2xl mb-8 shadow-xl"><div class="text-sm text-gray-700 whitespace-pre-line border-t pt-4">${v.desc || 'Sem descrição.'}</div><p class="mt-6 text-xl font-black text-green-600 text-center uppercase tracking-tighter">Valor: R$ ${v.price}</p>`;
                 document.getElementById('prodModal').style.display = 'block';
             }, {onlyOnce: true});
         }
@@ -421,7 +422,7 @@
             if(m.style.display == 'block') m.style.display = 'none';
             else {
                 const list = document.getElementById('cartItems'); let tot = 0; list.innerHTML = "";
-                cart.forEach(i => { tot += parseFloat(i.p); list.innerHTML += `<div class="flex justify-between border-b py-2 font-bold text-[10px] uppercase"><span>${i.t}</span><b>R$ ${i.p}</b></div>`; });
+                cart.forEach(i => { tot += parseFloat(i.p); list.innerHTML += `<div class="flex justify-between border-b-2 py-2 font-bold text-[10px] uppercase"><span>${i.t}</span><b>R$ ${i.p}</b></div>`; });
                 document.getElementById('cartTotal').innerText = tot.toLocaleString('pt-br',{minimumFractionDigits:2});
                 m.style.display = 'block';
             }
@@ -441,7 +442,7 @@
             document.getElementById('specialOrderInput').value = "";
         }
 
-        // --- ADM LOGIC ---
+        // --- ADM ---
         function openAdm() { if(prompt("Senha:") === "848218") { document.getElementById('admPanel').style.display = 'block'; loadAdmLists(); loadPendingClassifieds(); } }
         
         function loadPendingClassifieds() {
@@ -449,12 +450,13 @@
             onValue(ref(window.db, 'pending_classifieds'), (s) => {
                 const list = document.getElementById('admClassPending'); list.innerHTML = "";
                 if(s.val()) Object.entries(s.val()).forEach(([k, v]) => {
-                    list.innerHTML += `<div class="bg-white p-2 rounded-lg border text-[9px] mb-2">
-                        <img src="${v.img}" class="h-8 w-8 object-cover mb-1">
+                    list.innerHTML += `<div class="bg-white p-2 rounded border text-[9px] mb-2">
+                        <img src="${v.img}" class="h-10 w-10 object-cover rounded mb-1">
                         <p><b>${v.title}</b> | ${v.type}</p>
+                        <p>${v.phone}</p>
                         <div class="flex gap-1 mt-1">
-                            <button onclick="approveClass('${k}')" class="bg-green-600 text-white px-2 py-0.5 rounded">OK</button>
-                            <button onclick="del('pending_classifieds','${k}')" class="bg-red-600 text-white px-2 py-0.5 rounded">X</button>
+                            <button onclick="approveClass('${k}')" class="bg-green-600 text-white px-2 py-0.5 rounded">APROVAR</button>
+                            <button onclick="del('pending_classifieds','${k}')" class="bg-red-600 text-white px-2 py-0.5 rounded">REJEITAR</button>
                         </div></div>`;
                 });
             });
@@ -471,12 +473,12 @@
             }, {onlyOnce: true});
         }
 
-        function saveSettings() { const { ref, update } = dbAction(); update(ref(window.db, 'settings'), siteSettings).then(() => alert("Ok!")); }
+        function saveSettings() { const { ref, update } = dbAction(); update(ref(window.db, 'settings'), siteSettings).then(() => alert("Salvo!")); }
         function saveNews() { const { ref, push } = dbAction(); push(ref(window.db, 'part1'), { title: document.getElementById('admNewsTitle').value, img: document.getElementById('admNewsImg').value, content: document.getElementById('admNewsContent').value, order: 0 }).then(() => loadAdmLists()); }
         function saveProduct() { const { ref, push } = dbAction(); push(ref(window.db, 'products'), { title: document.getElementById('admProdTitle').value, img: document.getElementById('admProdImg').value, price: document.getElementById('admProdPrice').value, desc: document.getElementById('admProdDesc').value, order: 0 }).then(() => loadAdmLists()); }
         function saveP3() { const { ref, push } = dbAction(); push(ref(window.db, 'part3'), { img: document.getElementById('admP3Img').value, link: document.getElementById('admP3Link').value, order: 0 }).then(() => loadAdmLists()); }
         function saveP5() { const { ref, push } = dbAction(); push(ref(window.db, 'part5'), { img: document.getElementById('admP5Img').value, order: 0 }).then(() => loadAdmLists()); }
-        function savePoll() { const { ref, set } = dbAction(); set(ref(window.db, 'poll'), { id: Date.now(), question: document.getElementById('admPollQuest').value, o1: document.getElementById('admPollOpt1').value, o2: document.getElementById('admPollOpt2').value, v1: 0, v2: 0 }).then(() => alert("Ok!")); }
+        function savePoll() { const { ref, set } = dbAction(); set(ref(window.db, 'poll'), { id: Date.now(), question: document.getElementById('admPollQuest').value, o1: document.getElementById('admPollOpt1').value, o2: document.getElementById('admPollOpt2').value, v1: 0, v2: 0 }).then(() => alert("Lançada!")); }
 
         function loadAdmLists() {
             const { onValue, ref } = dbAction();
