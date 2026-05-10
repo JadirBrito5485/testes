@@ -4,936 +4,659 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Relacionamento Cristão</title>
-
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-  background:#d9e6f7;
-  color:#333;
-}
-
-header{
-  background:#3b5998;
-  color:white;
-  padding:14px 25px;
-  box-shadow:0 3px 8px #0002;
-}
-
-header h1{
-  font-size:28px;
-}
-
-header p{
-  font-size:14px;
-  opacity:.9;
-}
-
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:18px;
-}
-
-.card{
-  background:white;
-  border-radius:8px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px #0002;
-  border:1px solid #c8d6e8;
-}
-
-input,select,textarea,button{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  border-radius:6px;
-  border:1px solid #b8c7dc;
-  font-size:15px;
-}
-
-textarea{
-  min-height:85px;
-  resize:vertical;
-}
-
-button{
-  background:#3b5998;
-  color:white;
-  font-weight:bold;
-  border:none;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:.9;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.loginBox{
-  max-width:430px;
-  margin:50px auto;
-}
-
-.nav{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:8px;
-  margin-bottom:15px;
-}
-
-.nav button{
-  background:#5278bd;
-}
-
-.red{
-  background:#c0392b!important;
-}
-
-.dark{
-  background:#222!important;
-}
-
-.orkutLayout{
-  display:grid;
-  grid-template-columns:260px 1fr 280px;
-  gap:15px;
-}
-
-@media(max-width:900px){
-  .orkutLayout{
-    grid-template-columns:1fr;
-  }
-}
-
-.sidebarProfile{
-  text-align:center;
-}
-
-.mainPhoto{
-  width:100%;
-  max-height:280px;
-  object-fit:cover;
-  border-radius:8px;
-  border:1px solid #b8c7dc;
-  background:#eee;
-}
-
-.nomePerfil{
-  color:#214478;
-  margin:10px 0 5px;
-  font-size:24px;
-}
-
-.infoLine{
-  font-size:14px;
-  margin:4px 0;
-}
-
-.album{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(85px,1fr));
-  gap:8px;
-  margin-top:10px;
-}
-
-.album img{
-  width:100%;
-  height:90px;
-  object-fit:cover;
-  border-radius:6px;
-  border:2px solid #c8d6e8;
-}
-
-.previewFotos{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-  gap:10px;
-}
-
-.previewFotos img{
-  width:100%;
-  height:110px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.badge{
-  display:inline-block;
-  background:#e8f0ff;
-  color:#214478;
-  padding:6px 9px;
-  border-radius:20px;
-  margin:3px;
-  font-size:13px;
-  border:1px solid #c8d6e8;
-}
-
-.sectionTitle{
-  background:#edf4ff;
-  color:#214478;
-  padding:9px;
-  border-radius:6px;
-  margin-bottom:10px;
-  font-weight:bold;
-}
-
-.gridPerfis{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:15px;
-}
-
-.perfilCard{
-  background:white;
-  border:1px solid #c8d6e8;
-  border-radius:8px;
-  padding:12px;
-  box-shadow:0 2px 8px #0001;
-}
-
-.perfilTop{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.perfilTop img{
-  width:95px;
-  height:95px;
-  object-fit:cover;
-  border-radius:8px;
-  border:1px solid #c8d6e8;
-}
-
-.match{
-  color:#3b5998;
-  font-size:26px;
-  font-weight:bold;
-}
-
-.notice{
-  background:#fff8d8;
-  border:1px solid #eadb8c;
-  border-radius:8px;
-  padding:10px;
-  margin:8px 0;
-}
-
-.chatBox{
-  height:320px;
-  overflow:auto;
-  background:#edf4ff;
-  border-radius:8px;
-  padding:12px;
-  border:1px solid #c8d6e8;
-}
-
-.msg{
-  max-width:80%;
-  padding:10px;
-  border-radius:10px;
-  margin:8px 0;
-  font-size:14px;
-}
-
-.me{
-  background:#3b5998;
-  color:white;
-  margin-left:auto;
-}
-
-.other{
-  background:white;
-  border:1px solid #c8d6e8;
-}
-
-.adminBtn{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:#222;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 4px 12px #0005;
-}
-
-.small{
-  font-size:13px;
-  color:#666;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+body{background:#d9e6f7;color:#222}
+header{background:#3b5998;color:white;padding:15px 25px}
+.container{max-width:1200px;margin:auto;padding:18px}
+.card{background:white;border:1px solid #b9cbe3;border-radius:8px;padding:18px;margin-bottom:15px;box-shadow:0 2px 8px #0002}
+input,select,textarea,button{width:100%;padding:12px;margin:6px 0;border:1px solid #b8c7dc;border-radius:6px;font-size:15px}
+textarea{min-height:85px}
+button{background:#3b5998;color:white;border:none;font-weight:bold;cursor:pointer}
+.hidden{display:none!important}
+.loginBox{max-width:430px;margin:40px auto}
+.nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:15px}
+.nav button{background:#5278bd}
+.red{background:#c0392b!important}.dark{background:#222!important}
+.orkut{display:grid;grid-template-columns:260px 1fr 280px;gap:15px}
+@media(max-width:900px){.orkut{grid-template-columns:1fr}}
+.mainPhoto{width:100%;height:280px;object-fit:cover;border-radius:8px;border:1px solid #b8c7dc}
+.nome{color:#214478;margin:10px 0;font-size:24px}
+.album{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-top:10px}
+.album img{width:100%;height:90px;object-fit:cover;border-radius:6px;border:2px solid #c8d6e8}
+.preview{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.preview img{width:100%;height:110px;object-fit:cover;border-radius:8px}
+.title{background:#edf4ff;color:#214478;padding:9px;border-radius:6px;margin-bottom:10px;font-weight:bold}
+.badge{display:inline-block;background:#e8f0ff;color:#214478;padding:6px 9px;border-radius:20px;margin:3px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
+.perfil{border:1px solid #c8d6e8;border-radius:8px;padding:12px;background:white}
+.perfilTop{display:flex;gap:10px;align-items:center}
+.perfilTop img{width:95px;height:95px;object-fit:cover;border-radius:8px}
+.match{color:#3b5998;font-size:26px;font-weight:bold}
+.notice{background:#fff8d8;border:1px solid #eadb8c;border-radius:8px;padding:10px;margin:8px 0}
+.chatBox{height:320px;overflow:auto;background:#edf4ff;border-radius:8px;padding:12px}
+.msg{max-width:80%;padding:10px;border-radius:10px;margin:8px 0}
+.me{background:#3b5998;color:white;margin-left:auto}.other{background:white;border:1px solid #c8d6e8}
+.adminBtn{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;background:#222;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>Relacionamento Cristão</h1>
-  <p>Uma comunidade cristã para pessoas com fé, propósito e valores</p>
+<h1>Relacionamento Cristão</h1>
+<p>Perfis cristãos, compatibilidade e chat VIP</p>
 </header>
 
 <div class="container">
 
-  <div id="auth" class="card loginBox">
-    <h2>Entrar</h2>
-    <input id="loginEmail" placeholder="E-mail">
-    <input id="loginSenha" type="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-    <button onclick="abrirCadastro()">Criar cadastro</button>
-    <p class="small">Somente maiores de 18 anos.</p>
-  </div>
+<div id="authBox" class="card loginBox">
+<h2>Login</h2>
+<input id="loginEmail" placeholder="E-mail">
+<input id="loginSenha" type="password" placeholder="Senha">
+<button onclick="login()">Entrar</button>
+<button onclick="abrirCadastro()">Criar cadastro</button>
+</div>
 
-  <div id="cadastro" class="card hidden">
-    <h2>Cadastro cristão</h2>
+<div id="cadastroBox" class="card hidden">
+<h2>Cadastro Cristão</h2>
 
-    <input id="nome" placeholder="Nome">
-    <input id="sobrenome" placeholder="Sobrenome">
-    <label>Data de nascimento</label>
-    <input id="nascimento" type="date">
-    <input id="cpf" placeholder="CPF">
+<input id="nome" placeholder="Nome">
+<input id="sobrenome" placeholder="Sobrenome">
+<label>Data de nascimento</label>
+<input id="nascimento" type="date">
+<input id="cpf" placeholder="CPF">
 
-    <select id="genero">
-      <option value="">Gênero</option>
-      <option>Homem</option>
-      <option>Mulher</option>
-    </select>
+<select id="genero">
+<option value="">Gênero</option>
+<option>Homem</option>
+<option>Mulher</option>
+</select>
 
-    <input id="email" placeholder="E-mail">
-    <input id="senha" type="password" placeholder="Senha">
-    <input id="whatsapp" placeholder="WhatsApp">
-    <input id="cidade" placeholder="Cidade">
-    <input id="estado" placeholder="Estado">
+<input id="email" placeholder="E-mail">
+<input id="senha" type="password" placeholder="Senha">
+<input id="whatsapp" placeholder="WhatsApp">
+<input id="cidade" placeholder="Cidade">
+<input id="estado" placeholder="Estado">
 
-    <select id="religiao">
-      <option value="">Religião</option>
-      <option>Evangélica</option>
-      <option>Católica</option>
-      <option>Cristã</option>
-      <option>Outra</option>
-    </select>
+<select id="religiao">
+<option value="">Religião</option>
+<option>Evangélica</option>
+<option>Católica</option>
+<option>Cristã</option>
+<option>Outra</option>
+</select>
 
-    <input id="denominacao" placeholder="Denominação">
-    <input id="localCulto" placeholder="Nome da denominação / local físico onde cultua">
+<input id="denominacao" placeholder="Denominação">
+<input id="localCulto" placeholder="Nome da denominação / local físico onde cultua">
 
-    <select id="estadoCivil">
-      <option value="">Estado civil</option>
-      <option>Solteiro(a)</option>
-      <option>Viúvo(a)</option>
-      <option>Divorciado(a)</option>
-    </select>
+<select id="estadoCivil">
+<option value="">Estado civil</option>
+<option>Solteiro(a)</option>
+<option>Viúvo(a)</option>
+<option>Divorciado(a)</option>
+</select>
 
-    <input id="tempoEstadoCivil" placeholder="Se viúvo(a) ou divorciado(a), há quanto tempo?">
-    <input id="filhos" placeholder="Número de filhos, se tiver">
-    <input id="idadeFilhos" placeholder="Idade dos filhos">
+<input id="tempoEstadoCivil" placeholder="Se viúvo(a) ou divorciado(a), há quanto tempo?">
+<input id="filhos" placeholder="Número de filhos">
+<input id="idadeFilhos" placeholder="Idade dos filhos">
 
-    <h3>Vida espiritual</h3>
-    <input id="oraDia" placeholder="Ora quantas vezes por dia?">
-    <input id="horariosOracao" placeholder="Ora em quais horários?">
-    <input id="tempoOracao" placeholder="Quanto tempo de oração?">
-    <input id="bibliaDia" placeholder="Lê a Bíblia quantas vezes no dia?">
-    <input id="jejumSemana" placeholder="Jejua quantas vezes na semana?">
-    <input id="igrejaSemana" placeholder="Frequenta a igreja quantas vezes na semana?">
-    <input id="cargoIgreja" placeholder="Tem cargo na igreja? Qual?">
-    <input id="batizadoTempo" placeholder="Batizado(a) há quanto tempo?">
-    <input id="origemReligiosa" placeholder="Nasceu evangélico, crente, católico, ateu ou sem religião?">
-    <input id="musica" placeholder="Que tipo de música gosta?">
+<h3>Vida espiritual</h3>
+<input id="oraDia" placeholder="Ora quantas vezes por dia?">
+<input id="horariosOracao" placeholder="Ora em quais horários?">
+<input id="tempoOracao" placeholder="Quanto tempo de oração?">
+<input id="bibliaDia" placeholder="Lê a Bíblia quantas vezes no dia?">
+<input id="jejumSemana" placeholder="Jejua quantas vezes na semana?">
+<input id="igrejaSemana" placeholder="Frequenta a igreja quantas vezes na semana?">
+<input id="cargoIgreja" placeholder="Tem cargo na igreja? Qual?">
+<input id="batizadoTempo" placeholder="Batizado(a) há quanto tempo?">
+<input id="origemReligiosa" placeholder="Nasceu evangélico, crente, católico, ateu ou sem religião?">
+<input id="musica" placeholder="Que tipo de música gosta?">
 
-    <h3>Quem você busca?</h3>
-    <select id="buscaGenero">
-      <option value="">Busca</option>
-      <option>Homem</option>
-      <option>Mulher</option>
-    </select>
+<h3>Quem você busca?</h3>
+<select id="buscaGenero">
+<option value="">Busca</option>
+<option>Homem</option>
+<option>Mulher</option>
+</select>
 
-    <input id="buscaReligiao" placeholder="Religião que busca">
-    <input id="buscaDenominacao" placeholder="Denominação que busca">
-    <input id="buscaEstadoCivil" placeholder="Estado civil que aceita">
-    <input id="buscaIgrejaSemana" placeholder="Frequência na igreja que busca">
-    <input id="buscaJejumSemana" placeholder="Jejum semanal que busca">
-    <input id="buscaBibliaDia" placeholder="Leitura bíblica que busca">
+<input id="buscaReligiao" placeholder="Religião que busca">
+<input id="buscaDenominacao" placeholder="Denominação que busca">
+<input id="buscaEstadoCivil" placeholder="Estado civil que aceita">
+<input id="buscaIgrejaSemana" placeholder="Frequência na igreja que busca">
+<input id="buscaJejumSemana" placeholder="Jejum semanal que busca">
+<input id="buscaBibliaDia" placeholder="Leitura bíblica que busca">
 
-    <textarea id="quemSou" placeholder="Quem sou eu? Escreva com suas palavras"></textarea>
-    <textarea id="procura" placeholder="Descreva a pessoa que você procura"></textarea>
+<textarea id="quemSou" placeholder="Quem sou eu?"></textarea>
+<textarea id="procura" placeholder="Descreva a pessoa que você procura"></textarea>
 
-    <h3>Enviar 7 fotos</h3>
-    <input id="fotos" type="file" accept="image/*" multiple onchange="carregarFotos()">
-    <p class="small">Envie até 7 fotos e escolha uma como foto principal.</p>
-    <div id="previewFotos" class="previewFotos"></div>
+<h3>Enviar 7 fotos</h3>
+<input id="fotos" type="file" accept="image/*" multiple onchange="carregarFotos()">
+<div id="previewFotos" class="preview"></div>
 
-    <button onclick="salvarCadastro()">Finalizar cadastro</button>
-  </div>
+<button onclick="salvarCadastro()">Finalizar cadastro</button>
+</div>
 
-  <div id="app" class="hidden">
+<div id="appBox" class="hidden">
+<div class="nav">
+<button onclick="mostrar('painel')">Meu perfil</button>
+<button onclick="mostrar('compat')">Compatíveis 50%+</button>
+<button onclick="mostrar('msgs')">Mensagens <span id="noti"></span></button>
+<button class="red" onclick="sair()">Sair</button>
+</div>
 
-    <div class="nav">
-      <button onclick="mostrar('painel')">Meu perfil</button>
-      <button onclick="mostrar('compat')">Compatíveis 50%+</button>
-      <button onclick="mostrar('msgs')">Mensagens <span id="noti"></span></button>
-      <button class="red" onclick="sair()">Sair</button>
-    </div>
+<div id="painel"></div>
 
-    <div id="painel"></div>
+<div id="compat" class="card hidden">
+<div class="title">Pessoas compatíveis</div>
+<div id="listaPerfis" class="grid"></div>
+</div>
 
-    <div id="compat" class="card hidden">
-      <div class="sectionTitle">Pessoas compatíveis com você</div>
-      <div id="listaPerfis" class="gridPerfis"></div>
-    </div>
+<div id="msgs" class="card hidden">
+<div class="title">Chat VIP individual</div>
+<div id="listaConversas"></div>
 
-    <div id="msgs" class="card hidden">
-      <div class="sectionTitle">Chat VIP individual</div>
-      <div id="listaConversas"></div>
+<div id="chatAberto" class="hidden">
+<h3 id="chatTitulo"></h3>
+<div id="chatBox" class="chatBox"></div>
+<textarea id="textoMensagem" placeholder="Digite sua mensagem"></textarea>
+<button onclick="enviarMensagem()">Enviar mensagem</button>
+<button class="red" onclick="abrirBloqueio()">Bloquear / Banir usuário</button>
+</div>
+</div>
+</div>
 
-      <div id="chatAberto" class="hidden">
-        <h3 id="chatTitulo"></h3>
-        <div id="chatBox" class="chatBox"></div>
-        <textarea id="textoMensagem" placeholder="Digite sua mensagem"></textarea>
-        <button onclick="enviarMensagem()">Enviar mensagem</button>
-        <button class="red" onclick="abrirBloqueio()">Bloquear / Banir usuário</button>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="adm" class="card hidden">
-    <h2>Painel ADM</h2>
-    <button class="dark" onclick="fecharAdm()">Fechar ADM</button>
-    <div class="sectionTitle">Notificações de banimento</div>
-    <div id="listaDenuncias"></div>
-  </div>
+<div id="admBox" class="card hidden">
+<h2>Painel ADM</h2>
+<button class="dark" onclick="fecharAdm()">Fechar ADM</button>
+<div class="title">Pedidos de banimento</div>
+<div id="listaDenuncias"></div>
+</div>
 
 </div>
 
 <div class="adminBtn" onclick="loginAdm()">A</div>
 
-<script>
-let atual = localStorage.getItem("cristaoAtual");
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getDatabase, ref, set, push, onValue, get, update } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCf6_DCNSh4a3IiOtTv5Uf_N8YaxQtBczw",
+  authDomain: "loja-a33e1.firebaseapp.com",
+  databaseURL: "https://loja-a33e1-default-rtdb.firebaseio.com",
+  projectId: "loja-a33e1",
+  storageBucket: "loja-a33e1.firebasestorage.app",
+  messagingSenderId: "304798626706",
+  appId: "1:304798626706:web:23a0672e6a98ae432c474b",
+  measurementId: "G-QSB41880QG"
+};
+
+const app = initializeApp(firebaseConfig);
+getAnalytics(app);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+let uidAtual = null;
+let perfilAtual = null;
+let todosPerfis = {};
 let fotosTemp = [];
 let fotoPrincipal = 0;
 let conversaAtual = null;
 
-function getUsers(){
-  return JSON.parse(localStorage.getItem("cristaoUsers")) || [];
+window.abrirCadastro = function(){
+  authBox.classList.add("hidden");
+  cadastroBox.classList.remove("hidden");
+};
+
+function idade(data){
+  let n = new Date(data), h = new Date();
+  let i = h.getFullYear() - n.getFullYear();
+  let m = h.getMonth() - n.getMonth();
+  if(m < 0 || (m === 0 && h.getDate() < n.getDate())) i--;
+  return i;
 }
 
-function setUsers(dados){
-  localStorage.setItem("cristaoUsers", JSON.stringify(dados));
-}
-
-function getMsgs(){
-  return JSON.parse(localStorage.getItem("cristaoMsgs")) || [];
-}
-
-function setMsgs(dados){
-  localStorage.setItem("cristaoMsgs", JSON.stringify(dados));
-}
-
-function getDenuncias(){
-  return JSON.parse(localStorage.getItem("cristaoDenuncias")) || [];
-}
-
-function setDenuncias(dados){
-  localStorage.setItem("cristaoDenuncias", JSON.stringify(dados));
-}
-
-function abrirCadastro(){
-  auth.classList.add("hidden");
-  cadastro.classList.remove("hidden");
-}
-
-function calcularIdade(data){
-  let nasc = new Date(data);
-  let hoje = new Date();
-  let idade = hoje.getFullYear() - nasc.getFullYear();
-  let mes = hoje.getMonth() - nasc.getMonth();
-
-  if(mes < 0 || (mes === 0 && hoje.getDate() < nasc.getDate())){
-    idade--;
-  }
-
-  return idade;
-}
-
-function carregarFotos(){
-  let arquivos = Array.from(fotos.files).slice(0,7);
-  fotosTemp = [];
-  previewFotos.innerHTML = "";
-
-  arquivos.forEach((file,index)=>{
-    let reader = new FileReader();
-
+function reduzirImagem(file){
+  return new Promise(resolve=>{
+    const reader = new FileReader();
     reader.onload = e=>{
-      fotosTemp[index] = e.target.result;
-      renderFotos();
+      const img = new Image();
+      img.onload = ()=>{
+        const canvas = document.createElement("canvas");
+        const max = 700;
+        let w = img.width, h = img.height;
+        if(w > h && w > max){h *= max / w; w = max;}
+        if(h > w && h > max){w *= max / h; h = max;}
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext("2d").drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL("image/jpeg",0.72));
+      };
+      img.src = e.target.result;
     };
-
     reader.readAsDataURL(file);
   });
 }
 
+window.carregarFotos = async function(){
+  const arquivos = Array.from(fotos.files).slice(0,7);
+  fotosTemp = [];
+
+  for(const arq of arquivos){
+    fotosTemp.push(await reduzirImagem(arq));
+  }
+
+  renderFotos();
+};
+
 function renderFotos(){
-  previewFotos.innerHTML = fotosTemp.map((foto,index)=>`
+  previewFotos.innerHTML = fotosTemp.map((f,i)=>`
     <div>
-      <img src="${foto}" style="border:${index === fotoPrincipal ? '4px solid #3b5998' : '2px solid #c8d6e8'}">
+      <img src="${f}" style="border:${i===fotoPrincipal?'4px solid #3b5998':'2px solid #c8d6e8'}">
       <label>
-        <input type="radio" name="fotoPrincipal" ${index === fotoPrincipal ? 'checked' : ''} onclick="fotoPrincipal=${index};renderFotos()">
+        <input type="radio" name="principal" ${i===fotoPrincipal?'checked':''} onclick="window.escolherFoto(${i})">
         Principal
       </label>
     </div>
   `).join("");
 }
 
-function salvarCadastro(){
-  if(!nome.value || !email.value || !senha.value){
-    alert("Preencha nome, e-mail e senha.");
-    return;
+window.escolherFoto = function(i){
+  fotoPrincipal = i;
+  renderFotos();
+};
+
+window.salvarCadastro = async function(){
+  try{
+    if(!nome.value || !email.value || !senha.value){
+      alert("Preencha nome, e-mail e senha.");
+      return;
+    }
+
+    if(fotosTemp.length < 1){
+      alert("Envie pelo menos 1 foto.");
+      return;
+    }
+
+    const idadeFinal = idade(nascimento.value);
+    if(!idadeFinal || idadeFinal < 18){
+      alert("Somente maiores de 18 anos.");
+      return;
+    }
+
+    const cred = await createUserWithEmailAndPassword(auth, email.value, senha.value);
+    const uid = cred.user.uid;
+
+    const perfil = {
+      uid,
+      nome:nome.value,
+      sobrenome:sobrenome.value,
+      nascimento:nascimento.value,
+      idade:idadeFinal,
+      cpf:cpf.value,
+      genero:genero.value,
+      email:email.value,
+      whatsapp:whatsapp.value,
+      cidade:cidade.value,
+      estado:estado.value,
+      religiao:religiao.value,
+      denominacao:denominacao.value,
+      localCulto:localCulto.value,
+      estadoCivil:estadoCivil.value,
+      tempoEstadoCivil:tempoEstadoCivil.value,
+      filhos:filhos.value,
+      idadeFilhos:idadeFilhos.value,
+      oraDia:oraDia.value,
+      horariosOracao:horariosOracao.value,
+      tempoOracao:tempoOracao.value,
+      bibliaDia:bibliaDia.value,
+      jejumSemana:jejumSemana.value,
+      igrejaSemana:igrejaSemana.value,
+      cargoIgreja:cargoIgreja.value,
+      batizadoTempo:batizadoTempo.value,
+      origemReligiosa:origemReligiosa.value,
+      musica:musica.value,
+      buscaGenero:buscaGenero.value,
+      buscaReligiao:buscaReligiao.value,
+      buscaDenominacao:buscaDenominacao.value,
+      buscaEstadoCivil:buscaEstadoCivil.value,
+      buscaIgrejaSemana:buscaIgrejaSemana.value,
+      buscaJejumSemana:buscaJejumSemana.value,
+      buscaBibliaDia:buscaBibliaDia.value,
+      quemSou:quemSou.value,
+      procura:procura.value,
+      fotos:fotosTemp,
+      fotoPrincipal,
+      bloqueados:{},
+      criadoEm:Date.now()
+    };
+
+    await set(ref(db,"perfis/"+uid), perfil);
+    uidAtual = uid;
+    perfilAtual = perfil;
+    abrirApp();
+    mostrar("painel");
+  }catch(e){
+    alert("Erro ao cadastrar: " + e.message);
   }
+};
 
-  if(fotosTemp.length < 1){
-    alert("Envie pelo menos 1 foto.");
-    return;
+window.login = async function(){
+  try{
+    await signInWithEmailAndPassword(auth, loginEmail.value, loginSenha.value);
+  }catch(e){
+    alert("Erro ao entrar: " + e.message);
   }
+};
 
-  let idade = calcularIdade(nascimento.value);
-
-  if(!idade || idade < 18){
-    alert("Cadastro permitido somente para maiores de 18 anos.");
-    return;
+onAuthStateChanged(auth, async user=>{
+  if(user){
+    uidAtual = user.uid;
+    const snap = await get(ref(db,"perfis/"+uidAtual));
+    if(snap.exists()){
+      perfilAtual = snap.val();
+      abrirApp();
+    }
   }
-
-  let users = getUsers();
-
-  if(users.find(u => u.email === email.value)){
-    alert("Esse e-mail já está cadastrado.");
-    return;
-  }
-
-  let novoUsuario = {
-    id:Date.now(),
-    nome:nome.value,
-    sobrenome:sobrenome.value,
-    nascimento:nascimento.value,
-    idade:idade,
-    cpf:cpf.value,
-    genero:genero.value,
-    email:email.value,
-    senha:senha.value,
-    whatsapp:whatsapp.value,
-    cidade:cidade.value,
-    estado:estado.value,
-    religiao:religiao.value,
-    denominacao:denominacao.value,
-    localCulto:localCulto.value,
-    estadoCivil:estadoCivil.value,
-    tempoEstadoCivil:tempoEstadoCivil.value,
-    filhos:filhos.value,
-    idadeFilhos:idadeFilhos.value,
-    oraDia:oraDia.value,
-    horariosOracao:horariosOracao.value,
-    tempoOracao:tempoOracao.value,
-    bibliaDia:bibliaDia.value,
-    jejumSemana:jejumSemana.value,
-    igrejaSemana:igrejaSemana.value,
-    cargoIgreja:cargoIgreja.value,
-    batizadoTempo:batizadoTempo.value,
-    origemReligiosa:origemReligiosa.value,
-    musica:musica.value,
-    buscaGenero:buscaGenero.value,
-    buscaReligiao:buscaReligiao.value,
-    buscaDenominacao:buscaDenominacao.value,
-    buscaEstadoCivil:buscaEstadoCivil.value,
-    buscaIgrejaSemana:buscaIgrejaSemana.value,
-    buscaJejumSemana:buscaJejumSemana.value,
-    buscaBibliaDia:buscaBibliaDia.value,
-    quemSou:quemSou.value,
-    procura:procura.value,
-    fotos:fotosTemp,
-    fotoPrincipal:fotoPrincipal,
-    bloqueados:[]
-  };
-
-  users.push(novoUsuario);
-  setUsers(users);
-
-  localStorage.setItem("cristaoAtual", novoUsuario.email);
-  atual = novoUsuario.email;
-
-  abrirApp();
-  mostrar("painel");
-}
-
-function login(){
-  let user = getUsers().find(u => u.email === loginEmail.value && u.senha === loginSenha.value);
-
-  if(!user){
-    alert("E-mail ou senha incorretos.");
-    return;
-  }
-
-  localStorage.setItem("cristaoAtual", user.email);
-  atual = user.email;
-  abrirApp();
-}
-
-function eu(){
-  return getUsers().find(u => u.email === atual);
-}
+});
 
 function abrirApp(){
-  if(!atual) return;
+  authBox.classList.add("hidden");
+  cadastroBox.classList.add("hidden");
+  appBox.classList.remove("hidden");
 
-  auth.classList.add("hidden");
-  cadastro.classList.add("hidden");
-  app.classList.remove("hidden");
-
+  carregarPerfisTempoReal();
+  carregarMensagensTempoReal();
+  carregarDenunciasTempoReal();
   carregarPainel();
-  carregarPerfis();
-  notificar();
 }
 
 function montarPerfilOrkut(user, proprio=false){
   return `
-    <div class="orkutLayout">
-
-      <div class="card sidebarProfile">
-        <img class="mainPhoto" src="${user.fotos[user.fotoPrincipal]}">
-        <h2 class="nomePerfil">${user.nome} ${user.sobrenome}</h2>
-        <p class="infoLine">${user.cidade} - ${user.estado}</p>
-        <p class="infoLine">${user.idade} anos</p>
-        <p class="infoLine">${user.religiao}</p>
-        ${!proprio ? `<button onclick="abrirConversa('${user.email}')">Enviar mensagem</button>` : ""}
-      </div>
-
-      <div class="card">
-        <div class="sectionTitle">Perfil</div>
-        <p><b>Estado civil:</b> ${user.estadoCivil || ""}</p>
-        <p><b>Denominação:</b> ${user.denominacao || ""}</p>
-        <p><b>Igreja/local onde cultua:</b> ${user.localCulto || ""}</p>
-        <p><b>Filhos:</b> ${user.filhos || "Não informado"}</p>
-        <p><b>Idade dos filhos:</b> ${user.idadeFilhos || "Não informado"}</p>
-
-        <br>
-        <div class="sectionTitle">Álbum de fotos</div>
-        <div class="album">
-          ${user.fotos.map(foto => `<img src="${foto}">`).join("")}
-        </div>
-
-        <br>
-        <div class="sectionTitle">Quem sou eu</div>
-        <p>${user.quemSou || ""}</p>
-
-        <br>
-        <div class="sectionTitle">O que procuro</div>
-        <p>${user.procura || ""}</p>
-      </div>
-
-      <div class="card">
-        <div class="sectionTitle">Vida cristã</div>
-        <span class="badge">Ora ${user.oraDia || ""}</span>
-        <span class="badge">Bíblia ${user.bibliaDia || ""}</span>
-        <span class="badge">Jejum ${user.jejumSemana || ""}</span>
-        <span class="badge">Igreja ${user.igrejaSemana || ""}</span>
-
-        <p><b>Horários de oração:</b> ${user.horariosOracao || ""}</p>
-        <p><b>Tempo de oração:</b> ${user.tempoOracao || ""}</p>
-        <p><b>Cargo na igreja:</b> ${user.cargoIgreja || ""}</p>
-        <p><b>Batizado(a):</b> ${user.batizadoTempo || ""}</p>
-        <p><b>Origem religiosa:</b> ${user.origemReligiosa || ""}</p>
-        <p><b>Música:</b> ${user.musica || ""}</p>
-      </div>
-
+  <div class="orkut">
+    <div class="card" style="text-align:center">
+      <img class="mainPhoto" src="${user.fotos?.[user.fotoPrincipal] || ''}">
+      <h2 class="nome">${user.nome || ''} ${user.sobrenome || ''}</h2>
+      <p>${user.cidade || ''} - ${user.estado || ''}</p>
+      <p>${user.idade || ''} anos</p>
+      <p>${user.religiao || ''}</p>
+      ${!proprio ? `<button onclick="abrirConversa('${user.uid}')">Enviar mensagem</button>` : ""}
     </div>
-  `;
-}
 
-function montarCardPerfil(user, match){
-  return `
-    <div class="perfilCard">
-      <div class="perfilTop">
-        <img src="${user.fotos[user.fotoPrincipal]}">
-        <div>
-          <div class="match">${match}%</div>
-          <h3>${user.nome}</h3>
-          <p>${user.cidade} - ${user.estado}</p>
-          <p>${user.idade} anos</p>
-          <p>${user.religiao}</p>
-        </div>
-      </div>
+    <div class="card">
+      <div class="title">Perfil estilo Orkut</div>
+      <p><b>Estado civil:</b> ${user.estadoCivil || ""}</p>
+      <p><b>Denominação:</b> ${user.denominacao || ""}</p>
+      <p><b>Igreja/local:</b> ${user.localCulto || ""}</p>
+      <p><b>Filhos:</b> ${user.filhos || "Não informado"}</p>
+      <p><b>Idade dos filhos:</b> ${user.idadeFilhos || "Não informado"}</p>
 
-      <p style="margin-top:10px">${(user.quemSou || "").slice(0,120)}...</p>
+      <br><div class="title">Álbum de fotos</div>
+      <div class="album">${(user.fotos || []).map(f=>`<img src="${f}">`).join("")}</div>
 
-      <button onclick="verPerfil('${user.email}')">Ver perfil estilo Orkut</button>
-      <button onclick="abrirConversa('${user.email}')">Enviar mensagem</button>
+      <br><div class="title">Quem sou eu</div>
+      <p>${user.quemSou || ""}</p>
+
+      <br><div class="title">O que procuro</div>
+      <p>${user.procura || ""}</p>
     </div>
-  `;
+
+    <div class="card">
+      <div class="title">Vida cristã</div>
+      <span class="badge">Ora ${user.oraDia || ""}</span>
+      <span class="badge">Bíblia ${user.bibliaDia || ""}</span>
+      <span class="badge">Jejum ${user.jejumSemana || ""}</span>
+      <span class="badge">Igreja ${user.igrejaSemana || ""}</span>
+      <p><b>Horários:</b> ${user.horariosOracao || ""}</p>
+      <p><b>Tempo oração:</b> ${user.tempoOracao || ""}</p>
+      <p><b>Cargo:</b> ${user.cargoIgreja || ""}</p>
+      <p><b>Batizado:</b> ${user.batizadoTempo || ""}</p>
+      <p><b>Origem:</b> ${user.origemReligiosa || ""}</p>
+      <p><b>Música:</b> ${user.musica || ""}</p>
+    </div>
+  </div>`;
 }
 
 function carregarPainel(){
-  painel.innerHTML = montarPerfilOrkut(eu(), true);
+  painel.innerHTML = montarPerfilOrkut(perfilAtual,true);
 }
 
 function compatibilidade(a,b){
-  let pontos = 0;
-  let total = 0;
-
-  function comparar(campoA, campoB, peso){
-    total += peso;
-    if(String(campoA).toLowerCase().trim() === String(campoB).toLowerCase().trim()){
-      pontos += peso;
-    }
+  let pontos=0,total=0;
+  function c(x,y,p){
+    total += p;
+    if(String(x||"").toLowerCase().trim() === String(y||"").toLowerCase().trim()) pontos += p;
   }
+  c(a.buscaGenero,b.genero,20);
+  c(a.buscaReligiao,b.religiao,15);
+  c(a.buscaDenominacao,b.denominacao,15);
+  c(a.buscaEstadoCivil,b.estadoCivil,10);
+  c(a.cidade,b.cidade,10);
+  c(a.buscaIgrejaSemana,b.igrejaSemana,10);
+  c(a.buscaJejumSemana,b.jejumSemana,10);
+  c(a.buscaBibliaDia,b.bibliaDia,10);
+  return Math.round((pontos/total)*100);
+}
 
-  comparar(a.buscaGenero, b.genero, 20);
-  comparar(a.buscaReligiao, b.religiao, 15);
-  comparar(a.buscaDenominacao, b.denominacao, 15);
-  comparar(a.buscaEstadoCivil, b.estadoCivil, 10);
-  comparar(a.cidade, b.cidade, 10);
-  comparar(a.buscaIgrejaSemana, b.igrejaSemana, 10);
-  comparar(a.buscaJejumSemana, b.jejumSemana, 10);
-  comparar(a.buscaBibliaDia, b.bibliaDia, 10);
-
-  return Math.round((pontos / total) * 100);
+function carregarPerfisTempoReal(){
+  onValue(ref(db,"perfis"), snap=>{
+    todosPerfis = snap.val() || {};
+    if(todosPerfis[uidAtual]) perfilAtual = todosPerfis[uidAtual];
+    carregarPainel();
+    carregarPerfis();
+  });
 }
 
 function carregarPerfis(){
-  let user = eu();
-
-  let lista = getUsers()
-    .filter(u => u.email !== atual)
-    .filter(u => !(user.bloqueados || []).includes(u.email))
-    .map(u => ({...u, match:compatibilidade(user,u)}))
-    .filter(u => u.match >= 50)
-    .sort((a,b) => b.match - a.match);
+  const bloqueados = perfilAtual.bloqueados || {};
+  const lista = Object.values(todosPerfis)
+    .filter(u=>u.uid !== uidAtual)
+    .filter(u=>!bloqueados[u.uid])
+    .map(u=>({...u,match:compatibilidade(perfilAtual,u)}))
+    .filter(u=>u.match >= 50)
+    .sort((a,b)=>b.match-a.match);
 
   if(lista.length === 0){
-    listaPerfis.innerHTML = "<p>Nenhum usuário compatível acima de 50% encontrado.</p>";
+    listaPerfis.innerHTML = "<p>Nenhum perfil acima de 50% encontrado.</p>";
     return;
   }
 
-  listaPerfis.innerHTML = lista.map(u => montarCardPerfil(u, u.match)).join("");
+  listaPerfis.innerHTML = lista.map(u=>`
+    <div class="perfil">
+      <div class="perfilTop">
+        <img src="${u.fotos?.[u.fotoPrincipal] || ''}">
+        <div>
+          <div class="match">${u.match}%</div>
+          <h3>${u.nome}</h3>
+          <p>${u.cidade} - ${u.estado}</p>
+          <p>${u.idade} anos</p>
+          <p>${u.religiao}</p>
+        </div>
+      </div>
+      <p>${(u.quemSou || "").slice(0,120)}...</p>
+      <button onclick="verPerfil('${u.uid}')">Ver perfil estilo Orkut</button>
+      <button onclick="abrirConversa('${u.uid}')">Enviar mensagem</button>
+    </div>
+  `).join("");
 }
 
-function verPerfil(email){
-  let user = getUsers().find(u => u.email === email);
-  painel.innerHTML = montarPerfilOrkut(user, false);
+window.verPerfil = function(uid){
+  painel.innerHTML = montarPerfilOrkut(todosPerfis[uid],false);
   mostrar("painel");
+};
+
+function conversaId(a,b){
+  return [a,b].sort().join("_");
 }
 
-function abrirConversa(email){
-  conversaAtual = email;
+window.abrirConversa = function(uid){
+  conversaAtual = uid;
   mostrar("msgs");
-  renderConversas();
+
+  update(ref(db,"conversas/"+conversaId(uidAtual,uid)+"/lidas/"+uidAtual), {tempo:Date.now()});
   renderChat();
+};
 
-  let mensagens = getMsgs();
-  mensagens.forEach(m => {
-    if(m.para === atual && m.de === conversaAtual){
-      m.lida = true;
-    }
-  });
+window.enviarMensagem = async function(){
+  if(!textoMensagem.value.trim() || !conversaAtual) return;
 
-  setMsgs(mensagens);
-  notificar();
-}
-
-function enviarMensagem(){
-  if(!textoMensagem.value.trim()) return;
-
-  let users = getUsers();
-  let meuUser = eu();
-  let outroUser = users.find(u => u.email === conversaAtual);
-
-  if((meuUser.bloqueados || []).includes(conversaAtual) || (outroUser.bloqueados || []).includes(atual)){
+  const outro = todosPerfis[conversaAtual];
+  if(perfilAtual.bloqueados?.[conversaAtual] || outro?.bloqueados?.[uidAtual]){
     alert("Essa conversa está bloqueada.");
     return;
   }
 
-  let mensagens = getMsgs();
-
-  mensagens.push({
-    id:Date.now(),
-    de:atual,
+  const id = conversaId(uidAtual,conversaAtual);
+  await push(ref(db,"conversas/"+id+"/mensagens"),{
+    de:uidAtual,
     para:conversaAtual,
     texto:textoMensagem.value,
-    data:new Date().toLocaleString("pt-BR"),
-    lida:false
+    data:Date.now()
   });
 
-  setMsgs(mensagens);
+  await set(ref(db,"conversas/"+id+"/participantes"),{
+    [uidAtual]:true,
+    [conversaAtual]:true
+  });
+
   textoMensagem.value = "";
-  renderChat();
-  renderConversas();
-  notificar();
+};
+
+function carregarMensagensTempoReal(){
+  onValue(ref(db,"conversas"), snap=>{
+    window.conversas = snap.val() || {};
+    renderConversas();
+    renderChat();
+    notificar();
+  });
+}
+
+function renderConversas(){
+  const convs = window.conversas || {};
+  const lista = Object.entries(convs).filter(([id,c])=>c.participantes && c.participantes[uidAtual]);
+
+  if(lista.length === 0){
+    listaConversas.innerHTML = "<p>Nenhuma conversa ainda.</p>";
+    return;
+  }
+
+  listaConversas.innerHTML = lista.map(([id,c])=>{
+    const outroUid = Object.keys(c.participantes).find(x=>x!==uidAtual);
+    const u = todosPerfis[outroUid] || {};
+    return `<div class="notice">
+      <b>${u.nome || "Usuário"}</b>
+      <button onclick="abrirConversa('${outroUid}')">Abrir chat</button>
+    </div>`;
+  }).join("");
 }
 
 function renderChat(){
-  let user = getUsers().find(u => u.email === conversaAtual);
-  if(!user) return;
+  if(!conversaAtual || !window.conversas) return;
+  const id = conversaId(uidAtual,conversaAtual);
+  const c = window.conversas[id];
+  const u = todosPerfis[conversaAtual];
+
+  if(!c || !u) return;
 
   chatAberto.classList.remove("hidden");
-  chatTitulo.innerText = "Conversa VIP com " + user.nome;
+  chatTitulo.innerText = "Conversa VIP com " + u.nome;
 
-  let mensagens = getMsgs().filter(m =>
-    (m.de === atual && m.para === conversaAtual) ||
-    (m.de === conversaAtual && m.para === atual)
-  );
-
-  chatBox.innerHTML = mensagens.map(m => `
-    <div class="msg ${m.de === atual ? 'me' : 'other'}">
-      ${m.texto}<br>
-      <small>${m.data}</small>
+  const msgs = Object.values(c.mensagens || {}).sort((a,b)=>a.data-b.data);
+  chatBox.innerHTML = msgs.map(m=>`
+    <div class="msg ${m.de===uidAtual?'me':'other'}">
+      ${m.texto}<br><small>${new Date(m.data).toLocaleString("pt-BR")}</small>
     </div>
   `).join("");
 
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function renderConversas(){
-  let mensagens = getMsgs().filter(m => m.de === atual || m.para === atual);
+function notificar(){
+  const convs = window.conversas || {};
+  let total = 0;
 
-  let emails = [...new Set(mensagens.map(m => m.de === atual ? m.para : m.de))];
-
-  if(emails.length === 0){
-    listaConversas.innerHTML = "<p>Nenhuma conversa ainda.</p>";
-    return;
-  }
-
-  listaConversas.innerHTML = emails.map(email => {
-    let user = getUsers().find(u => u.email === email);
-    let novas = getMsgs().filter(m => m.de === email && m.para === atual && !m.lida).length;
-
-    return `
-      <div class="notice">
-        <b>${user ? user.nome : email}</b>
-        ${novas > 0 ? ` - ${novas} nova(s) mensagem(ns)` : ""}
-        <button onclick="abrirConversa('${email}')">Abrir chat</button>
-      </div>
-    `;
-  }).join("");
-}
-
-function abrirBloqueio(){
-  if(!conversaAtual){
-    alert("Abra uma conversa primeiro.");
-    return;
-  }
-
-  let motivo = prompt("Escreva o motivo que deseja bloquear/banir este usuário:");
-
-  if(!motivo) return;
-
-  let users = getUsers();
-  let index = users.findIndex(u => u.email === atual);
-
-  if(!users[index].bloqueados){
-    users[index].bloqueados = [];
-  }
-
-  if(!users[index].bloqueados.includes(conversaAtual)){
-    users[index].bloqueados.push(conversaAtual);
-  }
-
-  setUsers(users);
-
-  let denuncias = getDenuncias();
-
-  denuncias.push({
-    id:Date.now(),
-    denunciante:atual,
-    denunciado:conversaAtual,
-    motivo:motivo,
-    data:new Date().toLocaleString("pt-BR")
+  Object.values(convs).forEach(c=>{
+    if(!c.participantes || !c.participantes[uidAtual]) return;
+    const lidaTempo = c.lidas?.[uidAtual]?.tempo || 0;
+    Object.values(c.mensagens || {}).forEach(m=>{
+      if(m.para === uidAtual && m.data > lidaTempo) total++;
+    });
   });
 
-  setDenuncias(denuncias);
-
-  alert("Usuário bloqueado e notificação enviada ao ADM.");
-  chatAberto.classList.add("hidden");
-  carregarPerfis();
+  noti.innerText = total ? `(${total})` : "";
 }
 
-function notificar(){
-  let novas = getMsgs().filter(m => m.para === atual && !m.lida).length;
-  noti.innerText = novas > 0 ? `(${novas})` : "";
-}
+window.abrirBloqueio = async function(){
+  if(!conversaAtual) return alert("Abra uma conversa primeiro.");
 
-function mostrar(id){
+  const motivo = prompt("Escreva o motivo para bloquear/banir:");
+  if(!motivo) return;
+
+  await update(ref(db,"perfis/"+uidAtual+"/bloqueados"),{
+    [conversaAtual]:true
+  });
+
+  await push(ref(db,"denuncias"),{
+    denunciante:uidAtual,
+    denunciado:conversaAtual,
+    motivo,
+    data:Date.now()
+  });
+
+  alert("Usuário bloqueado e denúncia enviada ao ADM.");
+};
+
+window.mostrar = function(id){
   painel.classList.add("hidden");
   compat.classList.add("hidden");
   msgs.classList.add("hidden");
-
   document.getElementById(id).classList.remove("hidden");
+  if(id==="compat") carregarPerfis();
+  if(id==="msgs") renderConversas();
+};
 
-  if(id === "compat"){
-    carregarPerfis();
-  }
-
-  if(id === "msgs"){
-    renderConversas();
-  }
-}
-
-function sair(){
-  localStorage.removeItem("cristaoAtual");
+window.sair = async function(){
+  await signOut(auth);
   location.reload();
+};
+
+window.loginAdm = function(){
+  const senha = prompt("Senha ADM:");
+  if(senha !== "84821821") return alert("Senha incorreta.");
+
+  authBox.classList.add("hidden");
+  cadastroBox.classList.add("hidden");
+  appBox.classList.add("hidden");
+  admBox.classList.remove("hidden");
+};
+
+function carregarDenunciasTempoReal(){
+  onValue(ref(db,"denuncias"), snap=>{
+    const d = snap.val() || {};
+    const lista = Object.values(d).sort((a,b)=>b.data-a.data);
+
+    if(lista.length === 0){
+      listaDenuncias.innerHTML = "<p>Nenhum pedido de banimento.</p>";
+      return;
+    }
+
+    listaDenuncias.innerHTML = lista.map(x=>`
+      <div class="notice">
+        <p><b>Denunciante:</b> ${todosPerfis[x.denunciante]?.nome || x.denunciante}</p>
+        <p><b>Denunciado:</b> ${todosPerfis[x.denunciado]?.nome || x.denunciado}</p>
+        <p><b>Motivo:</b> ${x.motivo}</p>
+        <p><b>Data:</b> ${new Date(x.data).toLocaleString("pt-BR")}</p>
+      </div>
+    `).join("");
+  });
 }
 
-function loginAdm(){
-  let senha = prompt("Senha ADM:");
-
-  if(senha !== "84821821"){
-    alert("Senha incorreta.");
-    return;
-  }
-
-  auth.classList.add("hidden");
-  cadastro.classList.add("hidden");
-  app.classList.add("hidden");
-  adm.classList.remove("hidden");
-
-  carregarAdm();
-}
-
-function carregarAdm(){
-  let denuncias = getDenuncias();
-
-  if(denuncias.length === 0){
-    listaDenuncias.innerHTML = "<p>Nenhum pedido de banimento recebido.</p>";
-    return;
-  }
-
-  listaDenuncias.innerHTML = denuncias.map(d => `
-    <div class="notice">
-      <p><b>Denunciante:</b> ${d.denunciante}</p>
-      <p><b>Denunciado:</b> ${d.denunciado}</p>
-      <p><b>Motivo:</b> ${d.motivo}</p>
-      <p><b>Data:</b> ${d.data}</p>
-    </div>
-  `).join("");
-}
-
-function fecharAdm(){
-  adm.classList.add("hidden");
-  auth.classList.remove("hidden");
-}
-
-abrirApp();
+window.fecharAdm = function(){
+  admBox.classList.add("hidden");
+  authBox.classList.remove("hidden");
+};
 </script>
 
 </body>
