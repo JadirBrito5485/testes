@@ -20,7 +20,7 @@ button:hover{opacity:.9}
 .nav button{background:#5278bd}
 .red{background:#c0392b!important}.dark{background:#222!important}.green{background:#16803c!important}
 .layout{display:grid;grid-template-columns:260px 1fr 280px;gap:15px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}header{text-align:center}.container{padding:10px}}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.container{padding:10px}header{text-align:center}}
 .mainPhoto{width:100%;height:280px;object-fit:cover;border-radius:8px;border:1px solid #b8c7dc}
 .nome{color:#214478;margin:10px 0;font-size:24px}
 .album{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-top:10px}
@@ -39,7 +39,6 @@ button:hover{opacity:.9}
 .msg{max-width:80%;padding:10px;border-radius:10px;margin:8px 0}
 .me{background:#3b5998;color:white;margin-left:auto}.other{background:white;border:1px solid #c8d6e8}
 .adminBtn{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;background:#222;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;z-index:99}
-.small{font-size:13px;color:#666}
 </style>
 </head>
 <body>
@@ -57,7 +56,7 @@ button:hover{opacity:.9}
 <input id="loginSenha" type="password" placeholder="Senha">
 <button onclick="login()" id="txtBtnEntrar">Entrar</button>
 <button onclick="abrirCadastro()" id="txtBtnCadastro">Criar cadastro</button>
-<p class="small" id="txtMaioridade">Somente maiores de 18 anos.</p>
+<p id="txtMaioridade">Somente maiores de 18 anos.</p>
 </div>
 
 <div id="cadastroBox" class="card hidden">
@@ -108,6 +107,8 @@ button:hover{opacity:.9}
 <input id="buscaJejumSemana" placeholder="Jejum semanal que busca">
 <input id="buscaBibliaDia" placeholder="Leitura bíblica que busca">
 
+<div id="camposExtrasCadastro"></div>
+
 <textarea id="quemSou" placeholder="Quem sou eu? Escreva com suas palavras"></textarea>
 <textarea id="procura" placeholder="Descreva a pessoa que você procura"></textarea>
 
@@ -116,6 +117,7 @@ button:hover{opacity:.9}
 <div id="previewFotos" class="preview"></div>
 
 <button onclick="salvarCadastro()" id="btnSalvarCadastro">Finalizar cadastro</button>
+<button class="dark hidden" id="btnSairSemSalvar" onclick="sairSemSalvar()">Sair sem salvar</button>
 </div>
 
 <div id="appBox" class="hidden">
@@ -160,7 +162,13 @@ button:hover{opacity:.9}
 <input id="admTextoMaioridade" placeholder="Texto maioridade">
 <input id="admTituloCadastro" placeholder="Título cadastro">
 <input id="admBotaoFinalizar" placeholder="Botão finalizar cadastro">
-<button class="green" onclick="salvarTextosAdm()">Salvar textos do site</button>
+<button class="green" onclick="salvarTextosAdm()">Salvar textos</button>
+
+<br><br>
+<div class="title">Criar / editar perguntas do cadastro</div>
+<input id="novaPergunta" placeholder="Digite uma nova pergunta para o cadastro">
+<button class="green" onclick="adicionarPergunta()">Adicionar pergunta</button>
+<div id="listaPerguntasAdm"></div>
 
 <br><br>
 <div class="title">Pedidos de banimento</div>
@@ -175,7 +183,7 @@ button:hover{opacity:.9}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, get, update } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+import { getDatabase, ref, set, push, onValue, get, update, remove } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
@@ -193,7 +201,7 @@ getAnalytics(app);
 const auth=getAuth(app);
 const db=getDatabase(app);
 
-let uidAtual=null,perfilAtual=null,todosPerfis={},fotosTemp=[],fotoPrincipal=0,conversaAtual=null,editando=false;
+let uidAtual=null,perfilAtual=null,todosPerfis={},fotosTemp=[],fotoPrincipal=0,conversaAtual=null,editando=false,perguntasExtras={};
 window.conversas={};
 
 const campos=["nome","sobrenome","nascimento","cpf","genero","email","whatsapp","cidade","estado","religiao","denominacao","localCulto","estadoCivil","tempoEstadoCivil","filhos","idadeFilhos","oraDia","horariosOracao","tempoOracao","bibliaDia","jejumSemana","igrejaSemana","cargoIgreja","batizadoTempo","origemReligiosa","musica","buscaGenero","buscaReligiao","buscaDenominacao","buscaEstadoCivil","buscaIgrejaSemana","buscaJejumSemana","buscaBibliaDia","quemSou","procura"];
@@ -205,6 +213,7 @@ authBox.classList.add("hidden");
 cadastroBox.classList.remove("hidden");
 tituloCadastro.innerText="Cadastro Cristão";
 btnSalvarCadastro.innerText="Finalizar cadastro";
+btnSairSemSalvar.classList.add("hidden");
 };
 
 function limparCadastro(){
@@ -212,7 +221,15 @@ campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).valu
 senha.value="";
 fotosTemp=[];fotoPrincipal=0;previewFotos.innerHTML="";
 email.disabled=false;senha.disabled=false;
+renderCamposExtras();
 }
+
+window.sairSemSalvar=function(){
+cadastroBox.classList.add("hidden");
+appBox.classList.remove("hidden");
+editando=false;
+mostrar("painel");
+};
 
 function idade(data){
 let n=new Date(data),h=new Date(),i=h.getFullYear()-n.getFullYear(),m=h.getMonth()-n.getMonth();
@@ -256,6 +273,12 @@ previewFotos.innerHTML=fotosTemp.map((f,i)=>`
 
 window.escolherFoto=function(i){fotoPrincipal=i;renderFotos()};
 
+function renderCamposExtras(){
+camposExtrasCadastro.innerHTML=Object.entries(perguntasExtras).map(([id,p])=>`
+<input data-extra="${id}" placeholder="${p.texto||''}" value="${perfilAtual?.extras?.[id]||''}">
+`).join("");
+}
+
 window.salvarCadastro=async function(){
 try{
 if(!nome.value||!email.value){alert("Preencha nome e e-mail.");return}
@@ -271,6 +294,9 @@ const cred=await createUserWithEmailAndPassword(auth,email.value,senha.value);
 uid=cred.user.uid;
 }
 
+let extras={};
+document.querySelectorAll("[data-extra]").forEach(inp=>extras[inp.dataset.extra]=inp.value);
+
 const perfil={
 uid,
 nome:nome.value,sobrenome:sobrenome.value,nascimento:nascimento.value,idade:idadeFinal,cpf:cpf.value,genero:genero.value,
@@ -282,6 +308,7 @@ cargoIgreja:cargoIgreja.value,batizadoTempo:batizadoTempo.value,origemReligiosa:
 buscaGenero:buscaGenero.value,buscaReligiao:buscaReligiao.value,buscaDenominacao:buscaDenominacao.value,
 buscaEstadoCivil:buscaEstadoCivil.value,buscaIgrejaSemana:buscaIgrejaSemana.value,buscaJejumSemana:buscaJejumSemana.value,
 buscaBibliaDia:buscaBibliaDia.value,quemSou:quemSou.value,procura:procura.value,
+extras,
 fotos:fotosTemp.length?fotosTemp:(perfilAtual?.fotos||[]),
 fotoPrincipal,
 bloqueados:perfilAtual?.bloqueados||{},
@@ -312,6 +339,7 @@ if(snap.exists()){perfilAtual=snap.val();abrirApp()}
 function abrirApp(){
 authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.remove("hidden");
 carregarTextos();
+carregarPerguntas();
 carregarPerfisTempoReal();
 carregarMensagensTempoReal();
 carregarPainel();
@@ -324,14 +352,17 @@ authBox.classList.add("hidden");
 appBox.classList.add("hidden");
 tituloCadastro.innerText="Editar perfil";
 btnSalvarCadastro.innerText="Salvar alterações";
+btnSairSemSalvar.classList.remove("hidden");
 email.disabled=true;senha.disabled=true;
 campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).value=perfilAtual?.[c]||""});
 fotosTemp=perfilAtual?.fotos||[];
 fotoPrincipal=perfilAtual?.fotoPrincipal||0;
 renderFotos();
+renderCamposExtras();
 };
 
 function montarPerfil(user,proprio=false){
+let extrasHtml=Object.entries(perguntasExtras).map(([id,p])=>user.extras?.[id]?`<p><b>${p.texto}:</b> ${user.extras[id]}</p>`:"").join("");
 return `<div class="layout">
 <div class="card" style="text-align:center">
 <img class="mainPhoto" src="${user.fotos?.[user.fotoPrincipal]||''}">
@@ -354,13 +385,11 @@ ${proprio?`<button onclick="abrirEdicaoPerfil()">Editar perfil</button>`:""}
 <p><b>Igreja/local:</b> ${user.localCulto||''}</p>
 <p><b>Filhos:</b> ${user.filhos||'Não informado'}</p>
 <p><b>Idade dos filhos:</b> ${user.idadeFilhos||'Não informado'}</p>
-
+${extrasHtml}
 <br><div class="title">Álbum de fotos</div>
 <div class="album">${(user.fotos||[]).map(f=>`<img src="${f}">`).join("")}</div>
-
 <br><div class="title">Quem sou eu</div>
 <p>${user.quemSou||''}</p>
-
 <br><div class="title">O que procuro</div>
 <p>${user.procura||''}</p>
 </div>
@@ -406,7 +435,7 @@ const bloqueados=perfilAtual.bloqueados||{};
 const lista=Object.values(todosPerfis).filter(u=>u.uid!==uidAtual).filter(u=>!bloqueados[u.uid])
 .map(u=>({...u,match:compatibilidade(perfilAtual,u)})).filter(u=>u.match>=50).sort((a,b)=>b.match-a.match);
 totalSemelhantes.innerText=lista.length?`(${lista.length})`:"";
-if(!lista.length){listaPerfis.innerHTML="<p>Nenhum perfil semelhante acima de 50% encontrado.</p>";return}
+if(!lista.length){listaPerfis.innerHTML="";return}
 listaPerfis.innerHTML=lista.map(u=>`
 <div class="perfil">
 <div class="perfilTop"><img src="${u.fotos?.[u.fotoPrincipal]||''}">
@@ -495,7 +524,7 @@ window.loginAdm=function(){
 const senhaAdm=prompt("Senha ADM:");
 if(senhaAdm!=="848218"){alert("Senha incorreta.");return}
 authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.add("hidden");admBox.classList.remove("hidden");
-carregarTextosAdm();carregarDenuncias();
+carregarTextosAdm();carregarPerguntasAdm();carregarDenuncias();
 };
 
 function carregarDenuncias(){
@@ -550,7 +579,44 @@ btnSalvarCadastro:admBotaoFinalizar.value
 alert("Textos salvos.");
 };
 
+function carregarPerguntas(){
+onValue(ref(db,"config/perguntasExtras"),snap=>{
+perguntasExtras=snap.val()||{};
+renderCamposExtras();
+if(perfilAtual)carregarPainel();
+});
+}
+
+function carregarPerguntasAdm(){
+onValue(ref(db,"config/perguntasExtras"),snap=>{
+perguntasExtras=snap.val()||{};
+listaPerguntasAdm.innerHTML=Object.entries(perguntasExtras).map(([id,p])=>`
+<div class="notice">
+<input value="${p.texto||''}" id="edit_${id}">
+<button onclick="editarPergunta('${id}')">Salvar pergunta</button>
+<button class="red" onclick="apagarPergunta('${id}')">Apagar</button>
+</div>
+`).join("");
+});
+}
+
+window.adicionarPergunta=async function(){
+if(!novaPergunta.value.trim())return;
+await push(ref(db,"config/perguntasExtras"),{texto:novaPergunta.value.trim(),criadoEm:Date.now()});
+novaPergunta.value="";
+};
+
+window.editarPergunta=async function(id){
+await update(ref(db,"config/perguntasExtras/"+id),{texto:document.getElementById("edit_"+id).value});
+alert("Pergunta atualizada.");
+};
+
+window.apagarPergunta=async function(id){
+if(confirm("Apagar essa pergunta?"))await remove(ref(db,"config/perguntasExtras/"+id));
+};
+
 carregarTextos();
+carregarPerguntas();
 </script>
 
 </body>
