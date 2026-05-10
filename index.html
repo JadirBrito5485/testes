@@ -45,7 +45,7 @@ button:hover{opacity:.9}
 
 <header>
 <h1 id="txtTituloSite">Namoro Cristão</h1>
-<p id="txtSubtituloSite">Relacionamento cristão com perfil, chat VIP e compatibilidade</p>
+<p id="txtSubtituloSite">Relacionamento cristão com perfil, chat VIP e conexões</p>
 </header>
 
 <div class="container">
@@ -62,55 +62,55 @@ button:hover{opacity:.9}
 <div id="cadastroBox" class="card hidden">
 <h2 id="tituloCadastro">Cadastro Cristão</h2>
 
-<input id="nome" placeholder="Nome">
-<input id="sobrenome" placeholder="Sobrenome">
-<label>Data de nascimento</label>
-<input id="nascimento" type="date">
-<input id="cpf" placeholder="CPF">
-<select id="genero"><option value="">Gênero</option><option>Homem</option><option>Mulher</option></select>
-<input id="email" placeholder="E-mail">
-<input id="senha" type="password" placeholder="Senha">
-<input id="whatsapp" placeholder="WhatsApp">
-<input id="cidade" placeholder="Cidade">
-<input id="estado" placeholder="Estado">
+<label id="lblNome">Nome</label><input id="nome">
+<label id="lblSobrenome">Sobrenome</label><input id="sobrenome">
+<label id="lblNascimento">Data de nascimento</label><input id="nascimento" type="date">
+<label id="lblCpf">CPF</label><input id="cpf">
+<label id="lblGenero">Gênero</label>
+<select id="genero"><option value="">Selecione</option><option>Homem</option><option>Mulher</option></select>
 
-<select id="religiao">
-<option value="">Religião</option>
-<option>Evangélica</option><option>Católica</option><option>Cristã</option><option>Outra</option>
-</select>
+<label id="lblEmail">E-mail</label><input id="email">
+<label id="lblSenha">Senha</label><input id="senha" type="password">
+<label id="lblWhatsapp">WhatsApp</label><input id="whatsapp">
+<label id="lblCidade">Cidade</label><input id="cidade">
+<label id="lblEstado">Estado</label><input id="estado">
 
-<input id="denominacao" placeholder="Denominação">
-<input id="localCulto" placeholder="Nome da denominação / local físico onde cultua">
-<select id="estadoCivil"><option value="">Estado civil</option><option>Solteiro(a)</option><option>Viúvo(a)</option><option>Divorciado(a)</option></select>
-<input id="tempoEstadoCivil" placeholder="Se viúvo(a) ou divorciado(a), há quanto tempo?">
-<input id="filhos" placeholder="Número de filhos">
-<input id="idadeFilhos" placeholder="Idade dos filhos">
+<label id="lblReligiao">Qual a sua religião?</label><input id="religiao">
+<label id="lblDenominacao">Denominação</label><input id="denominacao">
+<label id="lblLocalCulto">Nome da denominação / local físico onde cultua</label><input id="localCulto">
+
+<label id="lblEstadoCivil">Estado civil</label>
+<select id="estadoCivil"><option value="">Selecione</option><option>Solteiro(a)</option><option>Viúvo(a)</option><option>Divorciado(a)</option></select>
+
+<label id="lblTempoEstadoCivil">Se viúvo(a) ou divorciado(a), há quanto tempo?</label><input id="tempoEstadoCivil">
+<label id="lblFilhos">Número de filhos, se tiver</label><input id="filhos">
+<label id="lblIdadeFilhos">Idade dos filhos</label><input id="idadeFilhos">
 
 <h3>Vida espiritual</h3>
-<input id="oraDia" placeholder="Ora quantas vezes por dia?">
-<input id="horariosOracao" placeholder="Ora em quais horários?">
-<input id="tempoOracao" placeholder="Quanto tempo de oração?">
-<input id="bibliaDia" placeholder="Lê a Bíblia quantas vezes no dia?">
-<input id="jejumSemana" placeholder="Jejua quantas vezes na semana?">
-<input id="igrejaSemana" placeholder="Frequenta a igreja quantas vezes na semana?">
-<input id="cargoIgreja" placeholder="Tem cargo na igreja? Qual?">
-<input id="batizadoTempo" placeholder="Batizado(a) há quanto tempo?">
-<input id="origemReligiosa" placeholder="Nasceu evangélico, crente, católico, ateu ou sem religião?">
-<input id="musica" placeholder="Que tipo de música gosta?">
+<label id="lblBatizadoTempo">Batizado em águas há quanto tempo?</label><input id="batizadoTempo">
+<label id="lblHorariosOracao">Qual horário você costuma orar no dia?</label><input id="horariosOracao">
+<label id="lblBibliaDia">Lê a Bíblia diariamente?</label><input id="bibliaDia">
+<label id="lblJejumSemana">Jejua durante a semana?</label><input id="jejumSemana">
+<label id="lblIgrejaSemana">Frequenta a igreja quantas vezes na semana?</label><input id="igrejaSemana">
+<label id="lblAfastado">Está afastado(a) da igreja há quanto tempo?</label><input id="afastado">
+<label id="lblCargoIgreja">Exerce algum cargo na igreja? Qual?</label><input id="cargoIgreja">
+<label id="lblMusica">Que tipo de música ouve?</label><input id="musica">
 
 <h3>Quem você busca?</h3>
-<select id="buscaGenero"><option value="">Busca</option><option>Homem</option><option>Mulher</option></select>
-<input id="buscaReligiao" placeholder="Religião que busca">
-<input id="buscaDenominacao" placeholder="Denominação que busca">
-<input id="buscaEstadoCivil" placeholder="Estado civil que aceita">
-<input id="buscaIgrejaSemana" placeholder="Frequência na igreja que busca">
-<input id="buscaJejumSemana" placeholder="Jejum semanal que busca">
-<input id="buscaBibliaDia" placeholder="Leitura bíblica que busca">
+<label id="lblBuscaReligiao">Religião que busca</label><input id="buscaReligiao">
+<label id="lblBuscaDenominacao">Denominação que busca</label><input id="buscaDenominacao">
+<label id="lblBuscaEstadoCivil">Estado civil que aceita</label><input id="buscaEstadoCivil">
+<label id="lblBuscaIgrejaSemana">Frequência na igreja que busca</label><input id="buscaIgrejaSemana">
+<label id="lblBuscaJejumSemana">Jejum semanal que busca</label><input id="buscaJejumSemana">
+<label id="lblBuscaBibliaDia">Leitura bíblica que busca</label><input id="buscaBibliaDia">
 
 <div id="camposExtrasCadastro"></div>
 
-<textarea id="quemSou" placeholder="Quem sou eu? Escreva com suas palavras"></textarea>
-<textarea id="procura" placeholder="Descreva a pessoa que você procura"></textarea>
+<label id="lblQuemSou">Quem sou eu?</label>
+<textarea id="quemSou" placeholder="Escreva com suas palavras"></textarea>
+
+<label id="lblProcura">Descreva a pessoa que você procura</label>
+<textarea id="procura"></textarea>
 
 <h3>Enviar até 7 fotos</h3>
 <input id="fotos" type="file" accept="image/*" multiple onchange="carregarFotos()">
@@ -124,500 +124,4 @@ button:hover{opacity:.9}
 <div class="nav">
 <button onclick="mostrar('painel')">Meu perfil</button>
 <button onclick="abrirEdicaoPerfil()">Editar perfil</button>
-<button onclick="mostrar('semelhantes')">Perfil semelhante <span id="totalSemelhantes"></span></button>
-<button onclick="mostrar('msgs')">Mensagens <span id="noti"></span></button>
-<button class="red" onclick="sair()">Sair</button>
-</div>
-
-<div id="painel"></div>
-
-<div id="semelhantes" class="card hidden">
-<div class="title">Perfil semelhante</div>
-<div id="listaPerfis" class="grid"></div>
-</div>
-
-<div id="msgs" class="card hidden">
-<div class="title">Chat VIP individual</div>
-<div id="listaConversas"></div>
-<div id="chatAberto" class="hidden">
-<h3 id="chatTitulo"></h3>
-<div id="chatBox" class="chatBox"></div>
-<textarea id="textoMensagem" placeholder="Digite sua mensagem"></textarea>
-<button onclick="enviarMensagem()">Enviar mensagem</button>
-<button class="red" onclick="abrirBloqueio()">Bloquear / Banir usuário</button>
-</div>
-</div>
-</div>
-
-<div id="admBox" class="card hidden">
-<h2>Painel ADM</h2>
-<button class="dark" onclick="fecharAdm()">Fechar ADM</button>
-
-<div class="title">Editar textos do site</div>
-<input id="admTituloSite" placeholder="Título do site">
-<input id="admSubtituloSite" placeholder="Subtítulo do site">
-<input id="admTextoEntrar" placeholder="Texto Entrar">
-<input id="admTextoBtnEntrar" placeholder="Botão Entrar">
-<input id="admTextoBtnCadastro" placeholder="Botão Criar cadastro">
-<input id="admTextoMaioridade" placeholder="Texto maioridade">
-<input id="admTituloCadastro" placeholder="Título cadastro">
-<input id="admBotaoFinalizar" placeholder="Botão finalizar cadastro">
-<button class="green" onclick="salvarTextosAdm()">Salvar textos</button>
-
-<br><br>
-<div class="title">Criar / editar perguntas do cadastro</div>
-<input id="novaPergunta" placeholder="Digite uma nova pergunta para o cadastro">
-<button class="green" onclick="adicionarPergunta()">Adicionar pergunta</button>
-<div id="listaPerguntasAdm"></div>
-
-<br><br>
-<div class="title">Pedidos de banimento</div>
-<div id="listaDenuncias"></div>
-</div>
-
-</div>
-
-<div class="adminBtn" onclick="loginAdm()">A</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, get, update, remove } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
-
-const firebaseConfig={
-apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-authDomain:"namoro-f18ac.firebaseapp.com",
-databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
-projectId:"namoro-f18ac",
-storageBucket:"namoro-f18ac.firebasestorage.app",
-messagingSenderId:"336479537433",
-appId:"1:336479537433:web:dd282c67e98ca196e05d88",
-measurementId:"G-1YLR1JNZYY"
-};
-
-const app=initializeApp(firebaseConfig);
-getAnalytics(app);
-const auth=getAuth(app);
-const db=getDatabase(app);
-
-let uidAtual=null,perfilAtual=null,todosPerfis={},fotosTemp=[],fotoPrincipal=0,conversaAtual=null,editando=false,perguntasExtras={};
-window.conversas={};
-
-const campos=["nome","sobrenome","nascimento","cpf","genero","email","whatsapp","cidade","estado","religiao","denominacao","localCulto","estadoCivil","tempoEstadoCivil","filhos","idadeFilhos","oraDia","horariosOracao","tempoOracao","bibliaDia","jejumSemana","igrejaSemana","cargoIgreja","batizadoTempo","origemReligiosa","musica","buscaGenero","buscaReligiao","buscaDenominacao","buscaEstadoCivil","buscaIgrejaSemana","buscaJejumSemana","buscaBibliaDia","quemSou","procura"];
-
-window.abrirCadastro=function(){
-editando=false;
-limparCadastro();
-authBox.classList.add("hidden");
-cadastroBox.classList.remove("hidden");
-tituloCadastro.innerText="Cadastro Cristão";
-btnSalvarCadastro.innerText="Finalizar cadastro";
-btnSairSemSalvar.classList.add("hidden");
-};
-
-function limparCadastro(){
-campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).value=""});
-senha.value="";
-fotosTemp=[];fotoPrincipal=0;previewFotos.innerHTML="";
-email.disabled=false;senha.disabled=false;
-renderCamposExtras();
-}
-
-window.sairSemSalvar=function(){
-cadastroBox.classList.add("hidden");
-appBox.classList.remove("hidden");
-editando=false;
-mostrar("painel");
-};
-
-function idade(data){
-let n=new Date(data),h=new Date(),i=h.getFullYear()-n.getFullYear(),m=h.getMonth()-n.getMonth();
-if(m<0||(m===0&&h.getDate()<n.getDate()))i--;
-return i;
-}
-
-function reduzirImagem(file){
-return new Promise(resolve=>{
-const reader=new FileReader();
-reader.onload=e=>{
-const img=new Image();
-img.onload=()=>{
-const canvas=document.createElement("canvas"),max=700;
-let w=img.width,h=img.height;
-if(w>h&&w>max){h*=max/w;w=max}else if(h>w&&h>max){w*=max/h;h=max}
-canvas.width=w;canvas.height=h;
-canvas.getContext("2d").drawImage(img,0,0,w,h);
-resolve(canvas.toDataURL("image/jpeg",.72));
-};
-img.src=e.target.result;
-};
-reader.readAsDataURL(file);
-});
-}
-
-window.carregarFotos=async function(){
-const arquivos=Array.from(fotos.files).slice(0,7);
-fotosTemp=[];
-for(const arq of arquivos){fotosTemp.push(await reduzirImagem(arq))}
-renderFotos();
-};
-
-function renderFotos(){
-previewFotos.innerHTML=fotosTemp.map((f,i)=>`
-<div>
-<img src="${f}" style="border:${i===fotoPrincipal?'4px solid #3b5998':'2px solid #c8d6e8'}">
-<label><input type="radio" name="principal" ${i===fotoPrincipal?'checked':''} onclick="window.escolherFoto(${i})"> Principal</label>
-</div>`).join("");
-}
-
-window.escolherFoto=function(i){fotoPrincipal=i;renderFotos()};
-
-function renderCamposExtras(){
-camposExtrasCadastro.innerHTML=Object.entries(perguntasExtras).map(([id,p])=>`
-<input data-extra="${id}" placeholder="${p.texto||''}" value="${perfilAtual?.extras?.[id]||''}">
-`).join("");
-}
-
-window.salvarCadastro=async function(){
-try{
-if(!nome.value||!email.value){alert("Preencha nome e e-mail.");return}
-const idadeFinal=idade(nascimento.value);
-if(!idadeFinal||idadeFinal<18){alert("Somente maiores de 18 anos.");return}
-
-let uid=uidAtual;
-
-if(!editando){
-if(!senha.value){alert("Digite uma senha.");return}
-if(fotosTemp.length<1){alert("Envie pelo menos 1 foto.");return}
-const cred=await createUserWithEmailAndPassword(auth,email.value,senha.value);
-uid=cred.user.uid;
-}
-
-let extras={};
-document.querySelectorAll("[data-extra]").forEach(inp=>extras[inp.dataset.extra]=inp.value);
-
-const perfil={
-uid,
-nome:nome.value,sobrenome:sobrenome.value,nascimento:nascimento.value,idade:idadeFinal,cpf:cpf.value,genero:genero.value,
-email:email.value,whatsapp:whatsapp.value,cidade:cidade.value,estado:estado.value,religiao:religiao.value,
-denominacao:denominacao.value,localCulto:localCulto.value,estadoCivil:estadoCivil.value,tempoEstadoCivil:tempoEstadoCivil.value,
-filhos:filhos.value,idadeFilhos:idadeFilhos.value,oraDia:oraDia.value,horariosOracao:horariosOracao.value,
-tempoOracao:tempoOracao.value,bibliaDia:bibliaDia.value,jejumSemana:jejumSemana.value,igrejaSemana:igrejaSemana.value,
-cargoIgreja:cargoIgreja.value,batizadoTempo:batizadoTempo.value,origemReligiosa:origemReligiosa.value,musica:musica.value,
-buscaGenero:buscaGenero.value,buscaReligiao:buscaReligiao.value,buscaDenominacao:buscaDenominacao.value,
-buscaEstadoCivil:buscaEstadoCivil.value,buscaIgrejaSemana:buscaIgrejaSemana.value,buscaJejumSemana:buscaJejumSemana.value,
-buscaBibliaDia:buscaBibliaDia.value,quemSou:quemSou.value,procura:procura.value,
-extras,
-fotos:fotosTemp.length?fotosTemp:(perfilAtual?.fotos||[]),
-fotoPrincipal,
-bloqueados:perfilAtual?.bloqueados||{},
-criadoEm:perfilAtual?.criadoEm||Date.now(),
-atualizadoEm:Date.now()
-};
-
-await set(ref(db,"perfis/"+uid),perfil);
-uidAtual=uid;perfilAtual=perfil;
-editando=false;
-abrirApp();mostrar("painel");
-}catch(e){alert("Erro: "+e.message)}
-};
-
-window.login=async function(){
-try{await signInWithEmailAndPassword(auth,loginEmail.value,loginSenha.value)}
-catch(e){alert("Erro ao entrar: "+e.message)}
-};
-
-onAuthStateChanged(auth,async user=>{
-if(user){
-uidAtual=user.uid;
-const snap=await get(ref(db,"perfis/"+uidAtual));
-if(snap.exists()){perfilAtual=snap.val();abrirApp()}
-}
-});
-
-function abrirApp(){
-authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.remove("hidden");
-carregarTextos();
-carregarPerguntas();
-carregarPerfisTempoReal();
-carregarMensagensTempoReal();
-carregarPainel();
-}
-
-window.abrirEdicaoPerfil=function(){
-editando=true;
-cadastroBox.classList.remove("hidden");
-authBox.classList.add("hidden");
-appBox.classList.add("hidden");
-tituloCadastro.innerText="Editar perfil";
-btnSalvarCadastro.innerText="Salvar alterações";
-btnSairSemSalvar.classList.remove("hidden");
-email.disabled=true;senha.disabled=true;
-campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).value=perfilAtual?.[c]||""});
-fotosTemp=perfilAtual?.fotos||[];
-fotoPrincipal=perfilAtual?.fotoPrincipal||0;
-renderFotos();
-renderCamposExtras();
-};
-
-function montarPerfil(user,proprio=false){
-let extrasHtml=Object.entries(perguntasExtras).map(([id,p])=>user.extras?.[id]?`<p><b>${p.texto}:</b> ${user.extras[id]}</p>`:"").join("");
-return `<div class="layout">
-<div class="card" style="text-align:center">
-<img class="mainPhoto" src="${user.fotos?.[user.fotoPrincipal]||''}">
-<h2 class="nome">${user.nome||''} ${user.sobrenome||''}</h2>
-<p>${user.idade||''} anos</p>
-<p>${user.religiao||''}</p>
-<p>${user.cidade||''} - ${user.estado||''}</p>
-${!proprio?`<button onclick="abrirConversa('${user.uid}')">Enviar mensagem</button>`:""}
-${proprio?`<button onclick="abrirEdicaoPerfil()">Editar perfil</button>`:""}
-</div>
-
-<div class="card">
-<div class="title">Perfil</div>
-<p><b>Nome completo:</b> ${user.nome||''} ${user.sobrenome||''}</p>
-<p><b>Idade:</b> ${user.idade||''}</p>
-<p><b>Religião:</b> ${user.religiao||''}</p>
-<p><b>Cidade/Estado:</b> ${user.cidade||''} - ${user.estado||''}</p>
-<p><b>Estado civil:</b> ${user.estadoCivil||''}</p>
-<p><b>Denominação:</b> ${user.denominacao||''}</p>
-<p><b>Igreja/local:</b> ${user.localCulto||''}</p>
-<p><b>Filhos:</b> ${user.filhos||'Não informado'}</p>
-<p><b>Idade dos filhos:</b> ${user.idadeFilhos||'Não informado'}</p>
-${extrasHtml}
-<br><div class="title">Álbum de fotos</div>
-<div class="album">${(user.fotos||[]).map(f=>`<img src="${f}">`).join("")}</div>
-<br><div class="title">Quem sou eu</div>
-<p>${user.quemSou||''}</p>
-<br><div class="title">O que procuro</div>
-<p>${user.procura||''}</p>
-</div>
-
-<div class="card">
-<div class="title">Vida cristã</div>
-<span class="badge">Ora ${user.oraDia||''}</span>
-<span class="badge">Bíblia ${user.bibliaDia||''}</span>
-<span class="badge">Jejum ${user.jejumSemana||''}</span>
-<span class="badge">Igreja ${user.igrejaSemana||''}</span>
-<p><b>Horários de oração:</b> ${user.horariosOracao||''}</p>
-<p><b>Tempo de oração:</b> ${user.tempoOracao||''}</p>
-<p><b>Cargo:</b> ${user.cargoIgreja||''}</p>
-<p><b>Batizado(a):</b> ${user.batizadoTempo||''}</p>
-<p><b>Origem religiosa:</b> ${user.origemReligiosa||''}</p>
-<p><b>Música:</b> ${user.musica||''}</p>
-</div>
-</div>`;
-}
-
-function carregarPainel(){if(perfilAtual)painel.innerHTML=montarPerfil(perfilAtual,true)}
-
-function compatibilidade(a,b){
-let pontos=0,total=0;
-function c(x,y,p){total+=p;if(String(x||"").toLowerCase().trim()===String(y||"").toLowerCase().trim())pontos+=p}
-c(a.buscaGenero,b.genero,20);c(a.buscaReligiao,b.religiao,15);c(a.buscaDenominacao,b.denominacao,15);
-c(a.buscaEstadoCivil,b.estadoCivil,10);c(a.cidade,b.cidade,10);c(a.buscaIgrejaSemana,b.igrejaSemana,10);
-c(a.buscaJejumSemana,b.jejumSemana,10);c(a.buscaBibliaDia,b.bibliaDia,10);
-return Math.round((pontos/total)*100);
-}
-
-function carregarPerfisTempoReal(){
-onValue(ref(db,"perfis"),snap=>{
-todosPerfis=snap.val()||{};
-if(todosPerfis[uidAtual])perfilAtual=todosPerfis[uidAtual];
-carregarPainel();carregarPerfis();
-});
-}
-
-function carregarPerfis(){
-if(!perfilAtual)return;
-const bloqueados=perfilAtual.bloqueados||{};
-const lista=Object.values(todosPerfis).filter(u=>u.uid!==uidAtual).filter(u=>!bloqueados[u.uid])
-.map(u=>({...u,match:compatibilidade(perfilAtual,u)})).filter(u=>u.match>=50).sort((a,b)=>b.match-a.match);
-totalSemelhantes.innerText=lista.length?`(${lista.length})`:"";
-if(!lista.length){listaPerfis.innerHTML="";return}
-listaPerfis.innerHTML=lista.map(u=>`
-<div class="perfil">
-<div class="perfilTop"><img src="${u.fotos?.[u.fotoPrincipal]||''}">
-<div><div class="match">${u.match}%</div><h3>${u.nome} ${u.sobrenome||''}</h3><p>${u.idade} anos</p><p>${u.religiao}</p><p>${u.cidade} - ${u.estado}</p></div></div>
-<p>${(u.quemSou||"").slice(0,120)}...</p>
-<button onclick="verPerfil('${u.uid}')">Ver perfil</button>
-<button onclick="abrirConversa('${u.uid}')">Enviar mensagem</button>
-</div>`).join("");
-}
-
-window.verPerfil=function(uid){painel.innerHTML=montarPerfil(todosPerfis[uid],false);mostrar("painel")};
-
-function conversaId(a,b){return[a,b].sort().join("_")}
-
-window.abrirConversa=function(uid){
-conversaAtual=uid;mostrar("msgs");
-update(ref(db,"conversas/"+conversaId(uidAtual,uid)+"/lidas/"+uidAtual),{tempo:Date.now()});
-renderConversas();renderChat();
-};
-
-window.enviarMensagem=async function(){
-if(!textoMensagem.value.trim()||!conversaAtual)return;
-const outro=todosPerfis[conversaAtual];
-if(perfilAtual.bloqueados?.[conversaAtual]||outro?.bloqueados?.[uidAtual]){alert("Essa conversa está bloqueada.");return}
-const id=conversaId(uidAtual,conversaAtual);
-await push(ref(db,"conversas/"+id+"/mensagens"),{de:uidAtual,para:conversaAtual,texto:textoMensagem.value,data:Date.now()});
-await set(ref(db,"conversas/"+id+"/participantes"),{[uidAtual]:true,[conversaAtual]:true});
-textoMensagem.value="";
-};
-
-function carregarMensagensTempoReal(){
-onValue(ref(db,"conversas"),snap=>{window.conversas=snap.val()||{};renderConversas();renderChat();notificar()});
-}
-
-function renderConversas(){
-const lista=Object.entries(window.conversas||{}).filter(([id,c])=>c.participantes&&c.participantes[uidAtual]);
-if(!lista.length){listaConversas.innerHTML="<p>Nenhuma conversa ainda.</p>";return}
-listaConversas.innerHTML=lista.map(([id,c])=>{
-const outroUid=Object.keys(c.participantes).find(x=>x!==uidAtual),u=todosPerfis[outroUid]||{};
-return `<div class="notice"><b>${u.nome||"Usuário"}</b><button onclick="abrirConversa('${outroUid}')">Abrir chat</button></div>`;
-}).join("");
-}
-
-function renderChat(){
-if(!conversaAtual||!window.conversas)return;
-const id=conversaId(uidAtual,conversaAtual),c=window.conversas[id],u=todosPerfis[conversaAtual];
-if(!u)return;
-chatAberto.classList.remove("hidden");
-chatTitulo.innerText="Conversa VIP com "+u.nome;
-if(!c){chatBox.innerHTML="<p>Nenhuma mensagem ainda.</p>";return}
-const msgs=Object.values(c.mensagens||{}).sort((a,b)=>a.data-b.data);
-chatBox.innerHTML=msgs.map(m=>`<div class="msg ${m.de===uidAtual?'me':'other'}">${m.texto}<br><small>${new Date(m.data).toLocaleString("pt-BR")}</small></div>`).join("");
-chatBox.scrollTop=chatBox.scrollHeight;
-}
-
-function notificar(){
-let total=0;
-Object.values(window.conversas||{}).forEach(c=>{
-if(!c.participantes||!c.participantes[uidAtual])return;
-const lida=c.lidas?.[uidAtual]?.tempo||0;
-Object.values(c.mensagens||{}).forEach(m=>{if(m.para===uidAtual&&m.data>lida)total++});
-});
-noti.innerText=total?`(${total})`:"";
-}
-
-window.abrirBloqueio=async function(){
-if(!conversaAtual){alert("Abra uma conversa primeiro.");return}
-const motivo=prompt("Escreva o motivo para bloquear/banir este usuário:");
-if(!motivo)return;
-await update(ref(db,"perfis/"+uidAtual+"/bloqueados"),{[conversaAtual]:true});
-await push(ref(db,"denuncias"),{denunciante:uidAtual,denunciado:conversaAtual,motivo,data:Date.now()});
-alert("Usuário bloqueado e denúncia enviada ao ADM.");
-chatAberto.classList.add("hidden");carregarPerfis();
-};
-
-window.mostrar=function(id){
-painel.classList.add("hidden");semelhantes.classList.add("hidden");msgs.classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
-if(id==="semelhantes")carregarPerfis();
-if(id==="msgs")renderConversas();
-};
-
-window.sair=async function(){await signOut(auth);location.reload()};
-
-window.loginAdm=function(){
-const senhaAdm=prompt("Senha ADM:");
-if(senhaAdm!=="848218"){alert("Senha incorreta.");return}
-authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.add("hidden");admBox.classList.remove("hidden");
-carregarTextosAdm();carregarPerguntasAdm();carregarDenuncias();
-};
-
-function carregarDenuncias(){
-onValue(ref(db,"denuncias"),snap=>{
-const d=snap.val()||{},lista=Object.values(d).sort((a,b)=>b.data-a.data);
-if(!lista.length){listaDenuncias.innerHTML="<p>Nenhum pedido de banimento.</p>";return}
-listaDenuncias.innerHTML=lista.map(x=>`<div class="notice">
-<p><b>Denunciante:</b> ${todosPerfis[x.denunciante]?.nome||x.denunciante}</p>
-<p><b>Denunciado:</b> ${todosPerfis[x.denunciado]?.nome||x.denunciado}</p>
-<p><b>Motivo:</b> ${x.motivo}</p>
-<p><b>Data:</b> ${new Date(x.data).toLocaleString("pt-BR")}</p>
-</div>`).join("");
-});
-}
-
-window.fecharAdm=function(){admBox.classList.add("hidden");authBox.classList.remove("hidden")};
-
-const textoIds=["txtTituloSite","txtSubtituloSite","txtEntrar","txtBtnEntrar","txtBtnCadastro","txtMaioridade","tituloCadastro","btnSalvarCadastro"];
-
-function carregarTextos(){
-onValue(ref(db,"config/textos"),snap=>{
-const t=snap.val()||{};
-textoIds.forEach(id=>{if(t[id]&&document.getElementById(id))document.getElementById(id).innerText=t[id]});
-});
-}
-
-function carregarTextosAdm(){
-get(ref(db,"config/textos")).then(snap=>{
-const t=snap.val()||{};
-admTituloSite.value=t.txtTituloSite||txtTituloSite.innerText;
-admSubtituloSite.value=t.txtSubtituloSite||txtSubtituloSite.innerText;
-admTextoEntrar.value=t.txtEntrar||txtEntrar.innerText;
-admTextoBtnEntrar.value=t.txtBtnEntrar||txtBtnEntrar.innerText;
-admTextoBtnCadastro.value=t.txtBtnCadastro||txtBtnCadastro.innerText;
-admTextoMaioridade.value=t.txtMaioridade||txtMaioridade.innerText;
-admTituloCadastro.value=t.tituloCadastro||tituloCadastro.innerText;
-admBotaoFinalizar.value=t.btnSalvarCadastro||btnSalvarCadastro.innerText;
-});
-}
-
-window.salvarTextosAdm=async function(){
-await set(ref(db,"config/textos"),{
-txtTituloSite:admTituloSite.value,
-txtSubtituloSite:admSubtituloSite.value,
-txtEntrar:admTextoEntrar.value,
-txtBtnEntrar:admTextoBtnEntrar.value,
-txtBtnCadastro:admTextoBtnCadastro.value,
-txtMaioridade:admTextoMaioridade.value,
-tituloCadastro:admTituloCadastro.value,
-btnSalvarCadastro:admBotaoFinalizar.value
-});
-alert("Textos salvos.");
-};
-
-function carregarPerguntas(){
-onValue(ref(db,"config/perguntasExtras"),snap=>{
-perguntasExtras=snap.val()||{};
-renderCamposExtras();
-if(perfilAtual)carregarPainel();
-});
-}
-
-function carregarPerguntasAdm(){
-onValue(ref(db,"config/perguntasExtras"),snap=>{
-perguntasExtras=snap.val()||{};
-listaPerguntasAdm.innerHTML=Object.entries(perguntasExtras).map(([id,p])=>`
-<div class="notice">
-<input value="${p.texto||''}" id="edit_${id}">
-<button onclick="editarPergunta('${id}')">Salvar pergunta</button>
-<button class="red" onclick="apagarPergunta('${id}')">Apagar</button>
-</div>
-`).join("");
-});
-}
-
-window.adicionarPergunta=async function(){
-if(!novaPergunta.value.trim())return;
-await push(ref(db,"config/perguntasExtras"),{texto:novaPergunta.value.trim(),criadoEm:Date.now()});
-novaPergunta.value="";
-};
-
-window.editarPergunta=async function(id){
-await update(ref(db,"config/perguntasExtras/"+id),{texto:document.getElementById("edit_"+id).value});
-alert("Pergunta atualizada.");
-};
-
-window.apagarPergunta=async function(id){
-if(confirm("Apagar essa pergunta?"))await remove(ref(db,"config/perguntasExtras/"+id));
-};
-
-carregarTextos();
-carregarPerguntas();
-</script>
-
-</body>
-</html>
+<button onclick="mostrar('conexoes')">Conexões <span id="totalConexoes"></span></
