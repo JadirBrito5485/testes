@@ -2,28 +2,25 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Namoro Cristão</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{background:#d9e6f7;color:#222}
 header{background:#3b5998;color:white;padding:16px 25px}
-header h1{font-size:28px}
-.container{max-width:1200px;margin:auto;padding:18px}
+.container{max-width:1200px;margin:auto;padding:16px}
 .card{background:white;border:1px solid #b9cbe3;border-radius:8px;padding:18px;margin-bottom:15px;box-shadow:0 2px 8px #0002}
 input,select,textarea,button{width:100%;padding:12px;margin:6px 0;border:1px solid #b8c7dc;border-radius:6px;font-size:15px}
 textarea{min-height:85px}
 button{background:#3b5998;color:white;border:none;font-weight:bold;cursor:pointer}
 button:hover{opacity:.9}
 .hidden{display:none!important}
-.loginBox{max-width:430px;margin:40px auto}
-.nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:15px}
+.loginBox{max-width:430px;margin:35px auto}
+.nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-bottom:15px}
 .nav button{background:#5278bd}
-.red{background:#c0392b!important}
-.dark{background:#222!important}
-.orkut{display:grid;grid-template-columns:260px 1fr 280px;gap:15px}
-@media(max-width:900px){.orkut{grid-template-columns:1fr}}
+.red{background:#c0392b!important}.dark{background:#222!important}.green{background:#16803c!important}
+.layout{display:grid;grid-template-columns:260px 1fr 280px;gap:15px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}header{text-align:center}.container{padding:10px}}
 .mainPhoto{width:100%;height:280px;object-fit:cover;border-radius:8px;border:1px solid #b8c7dc}
 .nome{color:#214478;margin:10px 0;font-size:24px}
 .album{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-top:10px}
@@ -40,46 +37,38 @@ button:hover{opacity:.9}
 .notice{background:#fff8d8;border:1px solid #eadb8c;border-radius:8px;padding:10px;margin:8px 0}
 .chatBox{height:320px;overflow:auto;background:#edf4ff;border-radius:8px;padding:12px}
 .msg{max-width:80%;padding:10px;border-radius:10px;margin:8px 0}
-.me{background:#3b5998;color:white;margin-left:auto}
-.other{background:white;border:1px solid #c8d6e8}
-.adminBtn{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;background:#222;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer}
+.me{background:#3b5998;color:white;margin-left:auto}.other{background:white;border:1px solid #c8d6e8}
+.adminBtn{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;background:#222;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;z-index:99}
 .small{font-size:13px;color:#666}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>Namoro Cristão</h1>
-<p>Relacionamento cristão com perfil estilo Orkut, chat VIP e compatibilidade</p>
+<h1 id="txtTituloSite">Namoro Cristão</h1>
+<p id="txtSubtituloSite">Relacionamento cristão com perfil, chat VIP e compatibilidade</p>
 </header>
 
 <div class="container">
 
 <div id="authBox" class="card loginBox">
-<h2>Entrar</h2>
+<h2 id="txtEntrar">Entrar</h2>
 <input id="loginEmail" placeholder="E-mail">
 <input id="loginSenha" type="password" placeholder="Senha">
-<button onclick="login()">Entrar</button>
-<button onclick="abrirCadastro()">Criar cadastro</button>
-<p class="small">Somente maiores de 18 anos.</p>
+<button onclick="login()" id="txtBtnEntrar">Entrar</button>
+<button onclick="abrirCadastro()" id="txtBtnCadastro">Criar cadastro</button>
+<p class="small" id="txtMaioridade">Somente maiores de 18 anos.</p>
 </div>
 
 <div id="cadastroBox" class="card hidden">
-<h2>Cadastro Cristão</h2>
+<h2 id="tituloCadastro">Cadastro Cristão</h2>
 
 <input id="nome" placeholder="Nome">
 <input id="sobrenome" placeholder="Sobrenome">
 <label>Data de nascimento</label>
 <input id="nascimento" type="date">
 <input id="cpf" placeholder="CPF">
-
-<select id="genero">
-<option value="">Gênero</option>
-<option>Homem</option>
-<option>Mulher</option>
-</select>
-
+<select id="genero"><option value="">Gênero</option><option>Homem</option><option>Mulher</option></select>
 <input id="email" placeholder="E-mail">
 <input id="senha" type="password" placeholder="Senha">
 <input id="whatsapp" placeholder="WhatsApp">
@@ -88,22 +77,12 @@ button:hover{opacity:.9}
 
 <select id="religiao">
 <option value="">Religião</option>
-<option>Evangélica</option>
-<option>Católica</option>
-<option>Cristã</option>
-<option>Outra</option>
+<option>Evangélica</option><option>Católica</option><option>Cristã</option><option>Outra</option>
 </select>
 
 <input id="denominacao" placeholder="Denominação">
 <input id="localCulto" placeholder="Nome da denominação / local físico onde cultua">
-
-<select id="estadoCivil">
-<option value="">Estado civil</option>
-<option>Solteiro(a)</option>
-<option>Viúvo(a)</option>
-<option>Divorciado(a)</option>
-</select>
-
+<select id="estadoCivil"><option value="">Estado civil</option><option>Solteiro(a)</option><option>Viúvo(a)</option><option>Divorciado(a)</option></select>
 <input id="tempoEstadoCivil" placeholder="Se viúvo(a) ou divorciado(a), há quanto tempo?">
 <input id="filhos" placeholder="Número de filhos">
 <input id="idadeFilhos" placeholder="Idade dos filhos">
@@ -121,13 +100,7 @@ button:hover{opacity:.9}
 <input id="musica" placeholder="Que tipo de música gosta?">
 
 <h3>Quem você busca?</h3>
-
-<select id="buscaGenero">
-<option value="">Busca</option>
-<option>Homem</option>
-<option>Mulher</option>
-</select>
-
+<select id="buscaGenero"><option value="">Busca</option><option>Homem</option><option>Mulher</option></select>
 <input id="buscaReligiao" placeholder="Religião que busca">
 <input id="buscaDenominacao" placeholder="Denominação que busca">
 <input id="buscaEstadoCivil" placeholder="Estado civil que aceita">
@@ -140,32 +113,30 @@ button:hover{opacity:.9}
 
 <h3>Enviar até 7 fotos</h3>
 <input id="fotos" type="file" accept="image/*" multiple onchange="carregarFotos()">
-<p class="small">Escolha uma foto principal.</p>
 <div id="previewFotos" class="preview"></div>
 
-<button onclick="salvarCadastro()">Finalizar cadastro</button>
+<button onclick="salvarCadastro()" id="btnSalvarCadastro">Finalizar cadastro</button>
 </div>
 
 <div id="appBox" class="hidden">
-
 <div class="nav">
 <button onclick="mostrar('painel')">Meu perfil</button>
-<button onclick="mostrar('compat')">Compatíveis 50%+</button>
+<button onclick="abrirEdicaoPerfil()">Editar perfil</button>
+<button onclick="mostrar('semelhantes')">Perfil semelhante <span id="totalSemelhantes"></span></button>
 <button onclick="mostrar('msgs')">Mensagens <span id="noti"></span></button>
 <button class="red" onclick="sair()">Sair</button>
 </div>
 
 <div id="painel"></div>
 
-<div id="compat" class="card hidden">
-<div class="title">Pessoas compatíveis com você</div>
+<div id="semelhantes" class="card hidden">
+<div class="title">Perfil semelhante</div>
 <div id="listaPerfis" class="grid"></div>
 </div>
 
 <div id="msgs" class="card hidden">
 <div class="title">Chat VIP individual</div>
 <div id="listaConversas"></div>
-
 <div id="chatAberto" class="hidden">
 <h3 id="chatTitulo"></h3>
 <div id="chatBox" class="chatBox"></div>
@@ -174,12 +145,24 @@ button:hover{opacity:.9}
 <button class="red" onclick="abrirBloqueio()">Bloquear / Banir usuário</button>
 </div>
 </div>
-
 </div>
 
 <div id="admBox" class="card hidden">
 <h2>Painel ADM</h2>
 <button class="dark" onclick="fecharAdm()">Fechar ADM</button>
+
+<div class="title">Editar textos do site</div>
+<input id="admTituloSite" placeholder="Título do site">
+<input id="admSubtituloSite" placeholder="Subtítulo do site">
+<input id="admTextoEntrar" placeholder="Texto Entrar">
+<input id="admTextoBtnEntrar" placeholder="Botão Entrar">
+<input id="admTextoBtnCadastro" placeholder="Botão Criar cadastro">
+<input id="admTextoMaioridade" placeholder="Texto maioridade">
+<input id="admTituloCadastro" placeholder="Título cadastro">
+<input id="admBotaoFinalizar" placeholder="Botão finalizar cadastro">
+<button class="green" onclick="salvarTextosAdm()">Salvar textos do site</button>
+
+<br><br>
 <div class="title">Pedidos de banimento</div>
 <div id="listaDenuncias"></div>
 </div>
@@ -194,561 +177,380 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, get, update } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-  authDomain: "namoro-f18ac.firebaseapp.com",
-  databaseURL: "https://namoro-f18ac-default-rtdb.firebaseio.com",
-  projectId: "namoro-f18ac",
-  storageBucket: "namoro-f18ac.firebasestorage.app",
-  messagingSenderId: "336479537433",
-  appId: "1:336479537433:web:dd282c67e98ca196e05d88",
-  measurementId: "G-1YLR1JNZYY"
+const firebaseConfig={
+apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain:"namoro-f18ac.firebaseapp.com",
+databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId:"namoro-f18ac",
+storageBucket:"namoro-f18ac.firebasestorage.app",
+messagingSenderId:"336479537433",
+appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId:"G-1YLR1JNZYY"
 };
 
-const app = initializeApp(firebaseConfig);
+const app=initializeApp(firebaseConfig);
 getAnalytics(app);
+const auth=getAuth(app);
+const db=getDatabase(app);
 
-const auth = getAuth(app);
-const db = getDatabase(app);
+let uidAtual=null,perfilAtual=null,todosPerfis={},fotosTemp=[],fotoPrincipal=0,conversaAtual=null,editando=false;
+window.conversas={};
 
-let uidAtual = null;
-let perfilAtual = null;
-let todosPerfis = {};
-let fotosTemp = [];
-let fotoPrincipal = 0;
-let conversaAtual = null;
-window.conversas = {};
+const campos=["nome","sobrenome","nascimento","cpf","genero","email","whatsapp","cidade","estado","religiao","denominacao","localCulto","estadoCivil","tempoEstadoCivil","filhos","idadeFilhos","oraDia","horariosOracao","tempoOracao","bibliaDia","jejumSemana","igrejaSemana","cargoIgreja","batizadoTempo","origemReligiosa","musica","buscaGenero","buscaReligiao","buscaDenominacao","buscaEstadoCivil","buscaIgrejaSemana","buscaJejumSemana","buscaBibliaDia","quemSou","procura"];
 
-window.abrirCadastro = function(){
-  authBox.classList.add("hidden");
-  cadastroBox.classList.remove("hidden");
+window.abrirCadastro=function(){
+editando=false;
+limparCadastro();
+authBox.classList.add("hidden");
+cadastroBox.classList.remove("hidden");
+tituloCadastro.innerText="Cadastro Cristão";
+btnSalvarCadastro.innerText="Finalizar cadastro";
 };
+
+function limparCadastro(){
+campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).value=""});
+senha.value="";
+fotosTemp=[];fotoPrincipal=0;previewFotos.innerHTML="";
+email.disabled=false;senha.disabled=false;
+}
 
 function idade(data){
-  let n = new Date(data);
-  let h = new Date();
-  let i = h.getFullYear() - n.getFullYear();
-  let m = h.getMonth() - n.getMonth();
-  if(m < 0 || (m === 0 && h.getDate() < n.getDate())) i--;
-  return i;
+let n=new Date(data),h=new Date(),i=h.getFullYear()-n.getFullYear(),m=h.getMonth()-n.getMonth();
+if(m<0||(m===0&&h.getDate()<n.getDate()))i--;
+return i;
 }
 
 function reduzirImagem(file){
-  return new Promise(resolve=>{
-    const reader = new FileReader();
-    reader.onload = e=>{
-      const img = new Image();
-      img.onload = ()=>{
-        const canvas = document.createElement("canvas");
-        const max = 700;
-        let w = img.width;
-        let h = img.height;
-
-        if(w > h && w > max){
-          h *= max / w;
-          w = max;
-        }else if(h > w && h > max){
-          w *= max / h;
-          h = max;
-        }
-
-        canvas.width = w;
-        canvas.height = h;
-        canvas.getContext("2d").drawImage(img,0,0,w,h);
-        resolve(canvas.toDataURL("image/jpeg",0.72));
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
+return new Promise(resolve=>{
+const reader=new FileReader();
+reader.onload=e=>{
+const img=new Image();
+img.onload=()=>{
+const canvas=document.createElement("canvas"),max=700;
+let w=img.width,h=img.height;
+if(w>h&&w>max){h*=max/w;w=max}else if(h>w&&h>max){w*=max/h;h=max}
+canvas.width=w;canvas.height=h;
+canvas.getContext("2d").drawImage(img,0,0,w,h);
+resolve(canvas.toDataURL("image/jpeg",.72));
+};
+img.src=e.target.result;
+};
+reader.readAsDataURL(file);
+});
 }
 
-window.carregarFotos = async function(){
-  const arquivos = Array.from(fotos.files).slice(0,7);
-  fotosTemp = [];
-
-  for(const arq of arquivos){
-    fotosTemp.push(await reduzirImagem(arq));
-  }
-
-  renderFotos();
+window.carregarFotos=async function(){
+const arquivos=Array.from(fotos.files).slice(0,7);
+fotosTemp=[];
+for(const arq of arquivos){fotosTemp.push(await reduzirImagem(arq))}
+renderFotos();
 };
 
 function renderFotos(){
-  previewFotos.innerHTML = fotosTemp.map((f,i)=>`
-    <div>
-      <img src="${f}" style="border:${i===fotoPrincipal?'4px solid #3b5998':'2px solid #c8d6e8'}">
-      <label>
-        <input type="radio" name="principal" ${i===fotoPrincipal?'checked':''} onclick="window.escolherFoto(${i})">
-        Principal
-      </label>
-    </div>
-  `).join("");
+previewFotos.innerHTML=fotosTemp.map((f,i)=>`
+<div>
+<img src="${f}" style="border:${i===fotoPrincipal?'4px solid #3b5998':'2px solid #c8d6e8'}">
+<label><input type="radio" name="principal" ${i===fotoPrincipal?'checked':''} onclick="window.escolherFoto(${i})"> Principal</label>
+</div>`).join("");
 }
 
-window.escolherFoto = function(i){
-  fotoPrincipal = i;
-  renderFotos();
+window.escolherFoto=function(i){fotoPrincipal=i;renderFotos()};
+
+window.salvarCadastro=async function(){
+try{
+if(!nome.value||!email.value){alert("Preencha nome e e-mail.");return}
+const idadeFinal=idade(nascimento.value);
+if(!idadeFinal||idadeFinal<18){alert("Somente maiores de 18 anos.");return}
+
+let uid=uidAtual;
+
+if(!editando){
+if(!senha.value){alert("Digite uma senha.");return}
+if(fotosTemp.length<1){alert("Envie pelo menos 1 foto.");return}
+const cred=await createUserWithEmailAndPassword(auth,email.value,senha.value);
+uid=cred.user.uid;
+}
+
+const perfil={
+uid,
+nome:nome.value,sobrenome:sobrenome.value,nascimento:nascimento.value,idade:idadeFinal,cpf:cpf.value,genero:genero.value,
+email:email.value,whatsapp:whatsapp.value,cidade:cidade.value,estado:estado.value,religiao:religiao.value,
+denominacao:denominacao.value,localCulto:localCulto.value,estadoCivil:estadoCivil.value,tempoEstadoCivil:tempoEstadoCivil.value,
+filhos:filhos.value,idadeFilhos:idadeFilhos.value,oraDia:oraDia.value,horariosOracao:horariosOracao.value,
+tempoOracao:tempoOracao.value,bibliaDia:bibliaDia.value,jejumSemana:jejumSemana.value,igrejaSemana:igrejaSemana.value,
+cargoIgreja:cargoIgreja.value,batizadoTempo:batizadoTempo.value,origemReligiosa:origemReligiosa.value,musica:musica.value,
+buscaGenero:buscaGenero.value,buscaReligiao:buscaReligiao.value,buscaDenominacao:buscaDenominacao.value,
+buscaEstadoCivil:buscaEstadoCivil.value,buscaIgrejaSemana:buscaIgrejaSemana.value,buscaJejumSemana:buscaJejumSemana.value,
+buscaBibliaDia:buscaBibliaDia.value,quemSou:quemSou.value,procura:procura.value,
+fotos:fotosTemp.length?fotosTemp:(perfilAtual?.fotos||[]),
+fotoPrincipal,
+bloqueados:perfilAtual?.bloqueados||{},
+criadoEm:perfilAtual?.criadoEm||Date.now(),
+atualizadoEm:Date.now()
 };
 
-window.salvarCadastro = async function(){
-  try{
-    if(!nome.value || !email.value || !senha.value){
-      alert("Preencha nome, e-mail e senha.");
-      return;
-    }
-
-    if(fotosTemp.length < 1){
-      alert("Envie pelo menos 1 foto.");
-      return;
-    }
-
-    const idadeFinal = idade(nascimento.value);
-
-    if(!idadeFinal || idadeFinal < 18){
-      alert("Somente maiores de 18 anos.");
-      return;
-    }
-
-    const cred = await createUserWithEmailAndPassword(auth, email.value, senha.value);
-    const uid = cred.user.uid;
-
-    const perfil = {
-      uid,
-      nome:nome.value,
-      sobrenome:sobrenome.value,
-      nascimento:nascimento.value,
-      idade:idadeFinal,
-      cpf:cpf.value,
-      genero:genero.value,
-      email:email.value,
-      whatsapp:whatsapp.value,
-      cidade:cidade.value,
-      estado:estado.value,
-      religiao:religiao.value,
-      denominacao:denominacao.value,
-      localCulto:localCulto.value,
-      estadoCivil:estadoCivil.value,
-      tempoEstadoCivil:tempoEstadoCivil.value,
-      filhos:filhos.value,
-      idadeFilhos:idadeFilhos.value,
-      oraDia:oraDia.value,
-      horariosOracao:horariosOracao.value,
-      tempoOracao:tempoOracao.value,
-      bibliaDia:bibliaDia.value,
-      jejumSemana:jejumSemana.value,
-      igrejaSemana:igrejaSemana.value,
-      cargoIgreja:cargoIgreja.value,
-      batizadoTempo:batizadoTempo.value,
-      origemReligiosa:origemReligiosa.value,
-      musica:musica.value,
-      buscaGenero:buscaGenero.value,
-      buscaReligiao:buscaReligiao.value,
-      buscaDenominacao:buscaDenominacao.value,
-      buscaEstadoCivil:buscaEstadoCivil.value,
-      buscaIgrejaSemana:buscaIgrejaSemana.value,
-      buscaJejumSemana:buscaJejumSemana.value,
-      buscaBibliaDia:buscaBibliaDia.value,
-      quemSou:quemSou.value,
-      procura:procura.value,
-      fotos:fotosTemp,
-      fotoPrincipal,
-      bloqueados:{},
-      criadoEm:Date.now()
-    };
-
-    await set(ref(db,"perfis/"+uid), perfil);
-
-    uidAtual = uid;
-    perfilAtual = perfil;
-
-    abrirApp();
-    mostrar("painel");
-
-  }catch(e){
-    alert("Erro ao cadastrar: " + e.message);
-  }
+await set(ref(db,"perfis/"+uid),perfil);
+uidAtual=uid;perfilAtual=perfil;
+editando=false;
+abrirApp();mostrar("painel");
+}catch(e){alert("Erro: "+e.message)}
 };
 
-window.login = async function(){
-  try{
-    await signInWithEmailAndPassword(auth, loginEmail.value, loginSenha.value);
-  }catch(e){
-    alert("Erro ao entrar: " + e.message);
-  }
+window.login=async function(){
+try{await signInWithEmailAndPassword(auth,loginEmail.value,loginSenha.value)}
+catch(e){alert("Erro ao entrar: "+e.message)}
 };
 
-onAuthStateChanged(auth, async user=>{
-  if(user){
-    uidAtual = user.uid;
-    const snap = await get(ref(db,"perfis/"+uidAtual));
-
-    if(snap.exists()){
-      perfilAtual = snap.val();
-      abrirApp();
-    }
-  }
+onAuthStateChanged(auth,async user=>{
+if(user){
+uidAtual=user.uid;
+const snap=await get(ref(db,"perfis/"+uidAtual));
+if(snap.exists()){perfilAtual=snap.val();abrirApp()}
+}
 });
 
 function abrirApp(){
-  authBox.classList.add("hidden");
-  cadastroBox.classList.add("hidden");
-  appBox.classList.remove("hidden");
-
-  carregarPerfisTempoReal();
-  carregarMensagensTempoReal();
-  carregarDenunciasTempoReal();
-  carregarPainel();
+authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.remove("hidden");
+carregarTextos();
+carregarPerfisTempoReal();
+carregarMensagensTempoReal();
+carregarPainel();
 }
 
-function montarPerfilOrkut(user, proprio=false){
-  return `
-  <div class="orkut">
+window.abrirEdicaoPerfil=function(){
+editando=true;
+cadastroBox.classList.remove("hidden");
+authBox.classList.add("hidden");
+appBox.classList.add("hidden");
+tituloCadastro.innerText="Editar perfil";
+btnSalvarCadastro.innerText="Salvar alterações";
+email.disabled=true;senha.disabled=true;
+campos.forEach(c=>{if(document.getElementById(c))document.getElementById(c).value=perfilAtual?.[c]||""});
+fotosTemp=perfilAtual?.fotos||[];
+fotoPrincipal=perfilAtual?.fotoPrincipal||0;
+renderFotos();
+};
 
-    <div class="card" style="text-align:center">
-      <img class="mainPhoto" src="${user.fotos?.[user.fotoPrincipal] || ''}">
-      <h2 class="nome">${user.nome || ''} ${user.sobrenome || ''}</h2>
-      <p>${user.cidade || ''} - ${user.estado || ''}</p>
-      <p>${user.idade || ''} anos</p>
-      <p>${user.religiao || ''}</p>
-      ${!proprio ? `<button onclick="abrirConversa('${user.uid}')">Enviar mensagem</button>` : ""}
-    </div>
+function montarPerfil(user,proprio=false){
+return `<div class="layout">
+<div class="card" style="text-align:center">
+<img class="mainPhoto" src="${user.fotos?.[user.fotoPrincipal]||''}">
+<h2 class="nome">${user.nome||''} ${user.sobrenome||''}</h2>
+<p>${user.idade||''} anos</p>
+<p>${user.religiao||''}</p>
+<p>${user.cidade||''} - ${user.estado||''}</p>
+${!proprio?`<button onclick="abrirConversa('${user.uid}')">Enviar mensagem</button>`:""}
+${proprio?`<button onclick="abrirEdicaoPerfil()">Editar perfil</button>`:""}
+</div>
 
-    <div class="card">
-      <div class="title">Perfil estilo Orkut</div>
-      <p><b>Estado civil:</b> ${user.estadoCivil || ""}</p>
-      <p><b>Denominação:</b> ${user.denominacao || ""}</p>
-      <p><b>Igreja/local:</b> ${user.localCulto || ""}</p>
-      <p><b>Filhos:</b> ${user.filhos || "Não informado"}</p>
-      <p><b>Idade dos filhos:</b> ${user.idadeFilhos || "Não informado"}</p>
+<div class="card">
+<div class="title">Perfil</div>
+<p><b>Nome completo:</b> ${user.nome||''} ${user.sobrenome||''}</p>
+<p><b>Idade:</b> ${user.idade||''}</p>
+<p><b>Religião:</b> ${user.religiao||''}</p>
+<p><b>Cidade/Estado:</b> ${user.cidade||''} - ${user.estado||''}</p>
+<p><b>Estado civil:</b> ${user.estadoCivil||''}</p>
+<p><b>Denominação:</b> ${user.denominacao||''}</p>
+<p><b>Igreja/local:</b> ${user.localCulto||''}</p>
+<p><b>Filhos:</b> ${user.filhos||'Não informado'}</p>
+<p><b>Idade dos filhos:</b> ${user.idadeFilhos||'Não informado'}</p>
 
-      <br>
-      <div class="title">Álbum de fotos</div>
-      <div class="album">
-        ${(user.fotos || []).map(f=>`<img src="${f}">`).join("")}
-      </div>
+<br><div class="title">Álbum de fotos</div>
+<div class="album">${(user.fotos||[]).map(f=>`<img src="${f}">`).join("")}</div>
 
-      <br>
-      <div class="title">Quem sou eu</div>
-      <p>${user.quemSou || ""}</p>
+<br><div class="title">Quem sou eu</div>
+<p>${user.quemSou||''}</p>
 
-      <br>
-      <div class="title">O que procuro</div>
-      <p>${user.procura || ""}</p>
-    </div>
+<br><div class="title">O que procuro</div>
+<p>${user.procura||''}</p>
+</div>
 
-    <div class="card">
-      <div class="title">Vida cristã</div>
-
-      <span class="badge">Ora ${user.oraDia || ""}</span>
-      <span class="badge">Bíblia ${user.bibliaDia || ""}</span>
-      <span class="badge">Jejum ${user.jejumSemana || ""}</span>
-      <span class="badge">Igreja ${user.igrejaSemana || ""}</span>
-
-      <p><b>Horários de oração:</b> ${user.horariosOracao || ""}</p>
-      <p><b>Tempo de oração:</b> ${user.tempoOracao || ""}</p>
-      <p><b>Cargo na igreja:</b> ${user.cargoIgreja || ""}</p>
-      <p><b>Batizado(a):</b> ${user.batizadoTempo || ""}</p>
-      <p><b>Origem religiosa:</b> ${user.origemReligiosa || ""}</p>
-      <p><b>Música:</b> ${user.musica || ""}</p>
-    </div>
-
-  </div>`;
+<div class="card">
+<div class="title">Vida cristã</div>
+<span class="badge">Ora ${user.oraDia||''}</span>
+<span class="badge">Bíblia ${user.bibliaDia||''}</span>
+<span class="badge">Jejum ${user.jejumSemana||''}</span>
+<span class="badge">Igreja ${user.igrejaSemana||''}</span>
+<p><b>Horários de oração:</b> ${user.horariosOracao||''}</p>
+<p><b>Tempo de oração:</b> ${user.tempoOracao||''}</p>
+<p><b>Cargo:</b> ${user.cargoIgreja||''}</p>
+<p><b>Batizado(a):</b> ${user.batizadoTempo||''}</p>
+<p><b>Origem religiosa:</b> ${user.origemReligiosa||''}</p>
+<p><b>Música:</b> ${user.musica||''}</p>
+</div>
+</div>`;
 }
 
-function carregarPainel(){
-  if(perfilAtual){
-    painel.innerHTML = montarPerfilOrkut(perfilAtual,true);
-  }
-}
+function carregarPainel(){if(perfilAtual)painel.innerHTML=montarPerfil(perfilAtual,true)}
 
 function compatibilidade(a,b){
-  let pontos = 0;
-  let total = 0;
-
-  function c(x,y,p){
-    total += p;
-    if(String(x || "").toLowerCase().trim() === String(y || "").toLowerCase().trim()){
-      pontos += p;
-    }
-  }
-
-  c(a.buscaGenero,b.genero,20);
-  c(a.buscaReligiao,b.religiao,15);
-  c(a.buscaDenominacao,b.denominacao,15);
-  c(a.buscaEstadoCivil,b.estadoCivil,10);
-  c(a.cidade,b.cidade,10);
-  c(a.buscaIgrejaSemana,b.igrejaSemana,10);
-  c(a.buscaJejumSemana,b.jejumSemana,10);
-  c(a.buscaBibliaDia,b.bibliaDia,10);
-
-  return Math.round((pontos/total)*100);
+let pontos=0,total=0;
+function c(x,y,p){total+=p;if(String(x||"").toLowerCase().trim()===String(y||"").toLowerCase().trim())pontos+=p}
+c(a.buscaGenero,b.genero,20);c(a.buscaReligiao,b.religiao,15);c(a.buscaDenominacao,b.denominacao,15);
+c(a.buscaEstadoCivil,b.estadoCivil,10);c(a.cidade,b.cidade,10);c(a.buscaIgrejaSemana,b.igrejaSemana,10);
+c(a.buscaJejumSemana,b.jejumSemana,10);c(a.buscaBibliaDia,b.bibliaDia,10);
+return Math.round((pontos/total)*100);
 }
 
 function carregarPerfisTempoReal(){
-  onValue(ref(db,"perfis"), snap=>{
-    todosPerfis = snap.val() || {};
-
-    if(todosPerfis[uidAtual]){
-      perfilAtual = todosPerfis[uidAtual];
-    }
-
-    carregarPainel();
-    carregarPerfis();
-  });
+onValue(ref(db,"perfis"),snap=>{
+todosPerfis=snap.val()||{};
+if(todosPerfis[uidAtual])perfilAtual=todosPerfis[uidAtual];
+carregarPainel();carregarPerfis();
+});
 }
 
 function carregarPerfis(){
-  if(!perfilAtual) return;
-
-  const bloqueados = perfilAtual.bloqueados || {};
-
-  const lista = Object.values(todosPerfis)
-    .filter(u=>u.uid !== uidAtual)
-    .filter(u=>!bloqueados[u.uid])
-    .map(u=>({...u,match:compatibilidade(perfilAtual,u)}))
-    .filter(u=>u.match >= 50)
-    .sort((a,b)=>b.match-a.match);
-
-  if(lista.length === 0){
-    listaPerfis.innerHTML = "<p>Nenhum perfil acima de 50% encontrado.</p>";
-    return;
-  }
-
-  listaPerfis.innerHTML = lista.map(u=>`
-    <div class="perfil">
-      <div class="perfilTop">
-        <img src="${u.fotos?.[u.fotoPrincipal] || ''}">
-        <div>
-          <div class="match">${u.match}%</div>
-          <h3>${u.nome}</h3>
-          <p>${u.cidade} - ${u.estado}</p>
-          <p>${u.idade} anos</p>
-          <p>${u.religiao}</p>
-        </div>
-      </div>
-
-      <p>${(u.quemSou || "").slice(0,120)}...</p>
-
-      <button onclick="verPerfil('${u.uid}')">Ver perfil estilo Orkut</button>
-      <button onclick="abrirConversa('${u.uid}')">Enviar mensagem</button>
-    </div>
-  `).join("");
+if(!perfilAtual)return;
+const bloqueados=perfilAtual.bloqueados||{};
+const lista=Object.values(todosPerfis).filter(u=>u.uid!==uidAtual).filter(u=>!bloqueados[u.uid])
+.map(u=>({...u,match:compatibilidade(perfilAtual,u)})).filter(u=>u.match>=50).sort((a,b)=>b.match-a.match);
+totalSemelhantes.innerText=lista.length?`(${lista.length})`:"";
+if(!lista.length){listaPerfis.innerHTML="<p>Nenhum perfil semelhante acima de 50% encontrado.</p>";return}
+listaPerfis.innerHTML=lista.map(u=>`
+<div class="perfil">
+<div class="perfilTop"><img src="${u.fotos?.[u.fotoPrincipal]||''}">
+<div><div class="match">${u.match}%</div><h3>${u.nome} ${u.sobrenome||''}</h3><p>${u.idade} anos</p><p>${u.religiao}</p><p>${u.cidade} - ${u.estado}</p></div></div>
+<p>${(u.quemSou||"").slice(0,120)}...</p>
+<button onclick="verPerfil('${u.uid}')">Ver perfil</button>
+<button onclick="abrirConversa('${u.uid}')">Enviar mensagem</button>
+</div>`).join("");
 }
 
-window.verPerfil = function(uid){
-  painel.innerHTML = montarPerfilOrkut(todosPerfis[uid],false);
-  mostrar("painel");
+window.verPerfil=function(uid){painel.innerHTML=montarPerfil(todosPerfis[uid],false);mostrar("painel")};
+
+function conversaId(a,b){return[a,b].sort().join("_")}
+
+window.abrirConversa=function(uid){
+conversaAtual=uid;mostrar("msgs");
+update(ref(db,"conversas/"+conversaId(uidAtual,uid)+"/lidas/"+uidAtual),{tempo:Date.now()});
+renderConversas();renderChat();
 };
 
-function conversaId(a,b){
-  return [a,b].sort().join("_");
-}
-
-window.abrirConversa = function(uid){
-  conversaAtual = uid;
-  mostrar("msgs");
-
-  update(ref(db,"conversas/"+conversaId(uidAtual,uid)+"/lidas/"+uidAtual),{
-    tempo:Date.now()
-  });
-
-  renderConversas();
-  renderChat();
-};
-
-window.enviarMensagem = async function(){
-  if(!textoMensagem.value.trim() || !conversaAtual) return;
-
-  const outro = todosPerfis[conversaAtual];
-
-  if(perfilAtual.bloqueados?.[conversaAtual] || outro?.bloqueados?.[uidAtual]){
-    alert("Essa conversa está bloqueada.");
-    return;
-  }
-
-  const id = conversaId(uidAtual,conversaAtual);
-
-  await push(ref(db,"conversas/"+id+"/mensagens"),{
-    de:uidAtual,
-    para:conversaAtual,
-    texto:textoMensagem.value,
-    data:Date.now()
-  });
-
-  await set(ref(db,"conversas/"+id+"/participantes"),{
-    [uidAtual]:true,
-    [conversaAtual]:true
-  });
-
-  textoMensagem.value = "";
+window.enviarMensagem=async function(){
+if(!textoMensagem.value.trim()||!conversaAtual)return;
+const outro=todosPerfis[conversaAtual];
+if(perfilAtual.bloqueados?.[conversaAtual]||outro?.bloqueados?.[uidAtual]){alert("Essa conversa está bloqueada.");return}
+const id=conversaId(uidAtual,conversaAtual);
+await push(ref(db,"conversas/"+id+"/mensagens"),{de:uidAtual,para:conversaAtual,texto:textoMensagem.value,data:Date.now()});
+await set(ref(db,"conversas/"+id+"/participantes"),{[uidAtual]:true,[conversaAtual]:true});
+textoMensagem.value="";
 };
 
 function carregarMensagensTempoReal(){
-  onValue(ref(db,"conversas"), snap=>{
-    window.conversas = snap.val() || {};
-    renderConversas();
-    renderChat();
-    notificar();
-  });
+onValue(ref(db,"conversas"),snap=>{window.conversas=snap.val()||{};renderConversas();renderChat();notificar()});
 }
 
 function renderConversas(){
-  const convs = window.conversas || {};
-
-  const lista = Object.entries(convs).filter(([id,c])=>{
-    return c.participantes && c.participantes[uidAtual];
-  });
-
-  if(lista.length === 0){
-    listaConversas.innerHTML = "<p>Nenhuma conversa ainda.</p>";
-    return;
-  }
-
-  listaConversas.innerHTML = lista.map(([id,c])=>{
-    const outroUid = Object.keys(c.participantes).find(x=>x!==uidAtual);
-    const u = todosPerfis[outroUid] || {};
-
-    return `
-      <div class="notice">
-        <b>${u.nome || "Usuário"}</b>
-        <button onclick="abrirConversa('${outroUid}')">Abrir chat</button>
-      </div>
-    `;
-  }).join("");
+const lista=Object.entries(window.conversas||{}).filter(([id,c])=>c.participantes&&c.participantes[uidAtual]);
+if(!lista.length){listaConversas.innerHTML="<p>Nenhuma conversa ainda.</p>";return}
+listaConversas.innerHTML=lista.map(([id,c])=>{
+const outroUid=Object.keys(c.participantes).find(x=>x!==uidAtual),u=todosPerfis[outroUid]||{};
+return `<div class="notice"><b>${u.nome||"Usuário"}</b><button onclick="abrirConversa('${outroUid}')">Abrir chat</button></div>`;
+}).join("");
 }
 
 function renderChat(){
-  if(!conversaAtual || !window.conversas) return;
-
-  const id = conversaId(uidAtual,conversaAtual);
-  const c = window.conversas[id];
-  const u = todosPerfis[conversaAtual];
-
-  if(!u) return;
-
-  chatAberto.classList.remove("hidden");
-  chatTitulo.innerText = "Conversa VIP com " + u.nome;
-
-  if(!c){
-    chatBox.innerHTML = "<p>Nenhuma mensagem ainda.</p>";
-    return;
-  }
-
-  const msgs = Object.values(c.mensagens || {}).sort((a,b)=>a.data-b.data);
-
-  chatBox.innerHTML = msgs.map(m=>`
-    <div class="msg ${m.de===uidAtual?'me':'other'}">
-      ${m.texto}<br>
-      <small>${new Date(m.data).toLocaleString("pt-BR")}</small>
-    </div>
-  `).join("");
-
-  chatBox.scrollTop = chatBox.scrollHeight;
+if(!conversaAtual||!window.conversas)return;
+const id=conversaId(uidAtual,conversaAtual),c=window.conversas[id],u=todosPerfis[conversaAtual];
+if(!u)return;
+chatAberto.classList.remove("hidden");
+chatTitulo.innerText="Conversa VIP com "+u.nome;
+if(!c){chatBox.innerHTML="<p>Nenhuma mensagem ainda.</p>";return}
+const msgs=Object.values(c.mensagens||{}).sort((a,b)=>a.data-b.data);
+chatBox.innerHTML=msgs.map(m=>`<div class="msg ${m.de===uidAtual?'me':'other'}">${m.texto}<br><small>${new Date(m.data).toLocaleString("pt-BR")}</small></div>`).join("");
+chatBox.scrollTop=chatBox.scrollHeight;
 }
 
 function notificar(){
-  const convs = window.conversas || {};
-  let total = 0;
-
-  Object.values(convs).forEach(c=>{
-    if(!c.participantes || !c.participantes[uidAtual]) return;
-
-    const lidaTempo = c.lidas?.[uidAtual]?.tempo || 0;
-
-    Object.values(c.mensagens || {}).forEach(m=>{
-      if(m.para === uidAtual && m.data > lidaTempo){
-        total++;
-      }
-    });
-  });
-
-  noti.innerText = total ? `(${total})` : "";
+let total=0;
+Object.values(window.conversas||{}).forEach(c=>{
+if(!c.participantes||!c.participantes[uidAtual])return;
+const lida=c.lidas?.[uidAtual]?.tempo||0;
+Object.values(c.mensagens||{}).forEach(m=>{if(m.para===uidAtual&&m.data>lida)total++});
+});
+noti.innerText=total?`(${total})`:"";
 }
 
-window.abrirBloqueio = async function(){
-  if(!conversaAtual){
-    alert("Abra uma conversa primeiro.");
-    return;
-  }
-
-  const motivo = prompt("Escreva o motivo para bloquear/banir este usuário:");
-
-  if(!motivo) return;
-
-  await update(ref(db,"perfis/"+uidAtual+"/bloqueados"),{
-    [conversaAtual]:true
-  });
-
-  await push(ref(db,"denuncias"),{
-    denunciante:uidAtual,
-    denunciado:conversaAtual,
-    motivo,
-    data:Date.now()
-  });
-
-  alert("Usuário bloqueado e denúncia enviada ao ADM.");
-  chatAberto.classList.add("hidden");
-  carregarPerfis();
+window.abrirBloqueio=async function(){
+if(!conversaAtual){alert("Abra uma conversa primeiro.");return}
+const motivo=prompt("Escreva o motivo para bloquear/banir este usuário:");
+if(!motivo)return;
+await update(ref(db,"perfis/"+uidAtual+"/bloqueados"),{[conversaAtual]:true});
+await push(ref(db,"denuncias"),{denunciante:uidAtual,denunciado:conversaAtual,motivo,data:Date.now()});
+alert("Usuário bloqueado e denúncia enviada ao ADM.");
+chatAberto.classList.add("hidden");carregarPerfis();
 };
 
-window.mostrar = function(id){
-  painel.classList.add("hidden");
-  compat.classList.add("hidden");
-  msgs.classList.add("hidden");
-
-  document.getElementById(id).classList.remove("hidden");
-
-  if(id==="compat") carregarPerfis();
-  if(id==="msgs") renderConversas();
+window.mostrar=function(id){
+painel.classList.add("hidden");semelhantes.classList.add("hidden");msgs.classList.add("hidden");
+document.getElementById(id).classList.remove("hidden");
+if(id==="semelhantes")carregarPerfis();
+if(id==="msgs")renderConversas();
 };
 
-window.sair = async function(){
-  await signOut(auth);
-  location.reload();
+window.sair=async function(){await signOut(auth);location.reload()};
+
+window.loginAdm=function(){
+const senhaAdm=prompt("Senha ADM:");
+if(senhaAdm!=="848218"){alert("Senha incorreta.");return}
+authBox.classList.add("hidden");cadastroBox.classList.add("hidden");appBox.classList.add("hidden");admBox.classList.remove("hidden");
+carregarTextosAdm();carregarDenuncias();
 };
 
-window.loginAdm = function(){
-  const senha = prompt("Senha ADM:");
-
-  if(senha !== "84821821"){
-    alert("Senha incorreta.");
-    return;
-  }
-
-  authBox.classList.add("hidden");
-  cadastroBox.classList.add("hidden");
-  appBox.classList.add("hidden");
-  admBox.classList.remove("hidden");
-
-  carregarDenunciasTempoReal();
-};
-
-function carregarDenunciasTempoReal(){
-  onValue(ref(db,"denuncias"), snap=>{
-    const d = snap.val() || {};
-    const lista = Object.values(d).sort((a,b)=>b.data-a.data);
-
-    if(lista.length === 0){
-      listaDenuncias.innerHTML = "<p>Nenhum pedido de banimento.</p>";
-      return;
-    }
-
-    listaDenuncias.innerHTML = lista.map(x=>`
-      <div class="notice">
-        <p><b>Denunciante:</b> ${todosPerfis[x.denunciante]?.nome || x.denunciante}</p>
-        <p><b>Denunciado:</b> ${todosPerfis[x.denunciado]?.nome || x.denunciado}</p>
-        <p><b>Motivo:</b> ${x.motivo}</p>
-        <p><b>Data:</b> ${new Date(x.data).toLocaleString("pt-BR")}</p>
-      </div>
-    `).join("");
-  });
+function carregarDenuncias(){
+onValue(ref(db,"denuncias"),snap=>{
+const d=snap.val()||{},lista=Object.values(d).sort((a,b)=>b.data-a.data);
+if(!lista.length){listaDenuncias.innerHTML="<p>Nenhum pedido de banimento.</p>";return}
+listaDenuncias.innerHTML=lista.map(x=>`<div class="notice">
+<p><b>Denunciante:</b> ${todosPerfis[x.denunciante]?.nome||x.denunciante}</p>
+<p><b>Denunciado:</b> ${todosPerfis[x.denunciado]?.nome||x.denunciado}</p>
+<p><b>Motivo:</b> ${x.motivo}</p>
+<p><b>Data:</b> ${new Date(x.data).toLocaleString("pt-BR")}</p>
+</div>`).join("");
+});
 }
 
-window.fecharAdm = function(){
-  admBox.classList.add("hidden");
-  authBox.classList.remove("hidden");
+window.fecharAdm=function(){admBox.classList.add("hidden");authBox.classList.remove("hidden")};
+
+const textoIds=["txtTituloSite","txtSubtituloSite","txtEntrar","txtBtnEntrar","txtBtnCadastro","txtMaioridade","tituloCadastro","btnSalvarCadastro"];
+
+function carregarTextos(){
+onValue(ref(db,"config/textos"),snap=>{
+const t=snap.val()||{};
+textoIds.forEach(id=>{if(t[id]&&document.getElementById(id))document.getElementById(id).innerText=t[id]});
+});
+}
+
+function carregarTextosAdm(){
+get(ref(db,"config/textos")).then(snap=>{
+const t=snap.val()||{};
+admTituloSite.value=t.txtTituloSite||txtTituloSite.innerText;
+admSubtituloSite.value=t.txtSubtituloSite||txtSubtituloSite.innerText;
+admTextoEntrar.value=t.txtEntrar||txtEntrar.innerText;
+admTextoBtnEntrar.value=t.txtBtnEntrar||txtBtnEntrar.innerText;
+admTextoBtnCadastro.value=t.txtBtnCadastro||txtBtnCadastro.innerText;
+admTextoMaioridade.value=t.txtMaioridade||txtMaioridade.innerText;
+admTituloCadastro.value=t.tituloCadastro||tituloCadastro.innerText;
+admBotaoFinalizar.value=t.btnSalvarCadastro||btnSalvarCadastro.innerText;
+});
+}
+
+window.salvarTextosAdm=async function(){
+await set(ref(db,"config/textos"),{
+txtTituloSite:admTituloSite.value,
+txtSubtituloSite:admSubtituloSite.value,
+txtEntrar:admTextoEntrar.value,
+txtBtnEntrar:admTextoBtnEntrar.value,
+txtBtnCadastro:admTextoBtnCadastro.value,
+txtMaioridade:admTextoMaioridade.value,
+tituloCadastro:admTituloCadastro.value,
+btnSalvarCadastro:admBotaoFinalizar.value
+});
+alert("Textos salvos.");
 };
+
+carregarTextos();
 </script>
 
 </body>
