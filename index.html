@@ -4,13 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agenda do Profeta</title>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#050505;color:#fff}
 header{background:#000;border-bottom:4px solid #ffd000;text-align:center;padding:24px 15px}
 header h1{margin:0;color:#ffd000;font-size:30px}
-.container{max-width:1050px;margin:auto;padding:16px}
+.container{max-width:850px;margin:auto;padding:16px}
 .card{background:#111;border:1px solid #333;border-radius:18px;padding:16px;margin-bottom:18px}
 h2{color:#ffd000;margin-top:0}
 .aviso{background:#ffd000;color:#000;padding:13px;border-radius:14px;font-weight:bold;text-align:center;margin-bottom:15px}
@@ -18,13 +17,10 @@ form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1
 input,select,button{padding:12px;border-radius:10px;border:none;font-size:14px}
 button{background:#ffd000;color:#000;font-weight:bold;cursor:pointer}
 .delete{background:#b80000;color:#fff}
-.msg{margin-top:12px;color:#ffd000;font-weight:bold}
-.tabela-wrap{overflow-x:auto;max-height:520px;border-radius:14px}
+.msg{margin-top:12px;color:#ffd000;font-weight:bold;line-height:1.6}
 table{width:100%;border-collapse:collapse;background:#fff;color:#000}
-th{background:#ffd000;padding:8px;font-size:13px;position:sticky;top:0}
+th{background:#ffd000;padding:8px;font-size:13px}
 td{padding:7px;border:1px solid #ddd;text-align:center;font-size:12px}
-.livre{color:green;font-weight:bold}
-.ocupado{color:red;font-weight:bold}
 footer{text-align:center;padding:25px}
 footer button{background:transparent;color:#444;font-size:18px;border:none}
 #admin,#adminTabelaBox{display:none}
@@ -32,7 +28,7 @@ footer button{background:transparent;color:#444;font-size:18px;border:none}
 .admin-item{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:12px;max-height:380px;overflow:auto}
 .admin-item label{display:block;margin:7px 0}
 .whats{color:green;font-weight:bold;text-decoration:none}
-@media(max-width:700px){header h1{font-size:24px}th,td{font-size:11px;padding:6px}}
+.tabela-wrap{overflow-x:auto;max-height:520px}
 </style>
 </head>
 
@@ -60,14 +56,8 @@ Caso precise mudar, cadastre novamente e o horário anterior será cancelado.
 <select id="horario" required></select>
 <button>Agendar</button>
 </form>
-<div class="msg" id="msg"></div>
-</div>
 
-<div class="card">
-<h2>Agenda - Próximos 14 dias</h2>
-<div class="tabela-wrap">
-<table id="agendaTabela"></table>
-</div>
+<div class="msg" id="msg"></div>
 </div>
 
 <div class="card" id="admin">
@@ -105,8 +95,7 @@ databaseURL:"https://loja-a33e1-default-rtdb.firebaseio.com",
 projectId:"loja-a33e1",
 storageBucket:"loja-a33e1.firebasestorage.app",
 messagingSenderId:"304798626706",
-appId:"1:304798626706:web:23a0672e6a98ae432c474b",
-measurementId:"G-QSB41880QG"
+appId:"1:304798626706:web:23a0672e6a98ae432c474b"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -180,37 +169,9 @@ montarTudo();
 }
 
 function montarTudo(){
-montarTabela();
 carregarSelects();
 montarAdmin();
 montarTabelaAdmin();
-}
-
-function montarTabela(){
-let html=`<tr><th>Data</th><th>Dia</th><th>Horário</th><th>Status</th></tr>`;
-let tem=false;
-
-datasDisponiveis.forEach(item=>{
-if(!config[item.dia]?.ativo)return;
-
-Object.keys(config[item.dia].horarios).forEach(h=>{
-if(!config[item.dia].horarios[h])return;
-tem=true;
-
-let ag=agendamentos.find(a=>a.dataISO===item.dataISO && a.horario===h);
-
-html+=`
-<tr>
-<td>${item.dataBR}</td>
-<td>${item.dia}</td>
-<td>${h}</td>
-<td class="${ag?'ocupado':'livre'}">${ag?'Agendado':'Livre'}</td>
-</tr>`;
-});
-});
-
-if(!tem)html+=`<tr><td colspan="4">Nenhum horário disponível.</td></tr>`;
-agendaTabela.innerHTML=html;
 }
 
 function carregarSelects(){
@@ -281,8 +242,17 @@ db.ref("agendaProfeta/agendamentos/"+k).remove();
 });
 
 db.ref("agendaProfeta/agendamentos").push(item);
+
 formAgenda.reset();
-msg.innerText="Agendamento realizado com sucesso! O profeta irá ligar por chamada de vídeo. Se cadastrar novamente, o anterior será cancelado.";
+
+msg.innerHTML=`
+Agendamento realizado com sucesso!<br><br>
+<b>Data:</b> ${item.dataBR}<br>
+<b>Dia:</b> ${item.dia}<br>
+<b>Horário:</b> ${item.horario}<br><br>
+O profeta irá ligar por chamada de vídeo.<br>
+Caso precise mudar, cadastre novamente e o horário anterior será cancelado.
+`;
 });
 });
 
@@ -342,7 +312,9 @@ let html=`
 <th>Data</th><th>Dia</th><th>Horário</th><th>Nome</th><th>Sobrenome</th><th>WhatsApp</th><th>Cadastro</th><th>Ação</th>
 </tr>`;
 
-if(lista.length===0)html+=`<tr><td colspan="8">Nenhum agendamento cadastrado.</td></tr>`;
+if(lista.length===0){
+html+=`<tr><td colspan="8">Nenhum agendamento cadastrado.</td></tr>`;
+}
 
 lista.forEach(a=>{
 let numero=(a.whatsapp||"").replace(/\D/g,"");
@@ -368,7 +340,9 @@ function excluirAgendamento(w){
 db.ref("agendaProfeta/agendamentos").once("value",snap=>{
 let dados=snap.val()||{};
 Object.keys(dados).forEach(k=>{
-if(dados[k].whatsapp===w)db.ref("agendaProfeta/agendamentos/"+k).remove();
+if(dados[k].whatsapp===w){
+db.ref("agendaProfeta/agendamentos/"+k).remove();
+}
 });
 });
 }
