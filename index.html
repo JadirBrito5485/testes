@@ -7,33 +7,31 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#111;color:#fff}
+body{background:#111;color:#fff;padding-bottom:80px}
 header{background:#facc15;color:#111;text-align:center;padding:25px}
 header h1{font-size:34px}
 .container{max-width:1150px;margin:auto;padding:18px}
 .card{background:#fff;color:#111;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 8px 25px #0006}
 .produto-img{width:100%;height:auto;max-height:460px;object-fit:contain;border-radius:16px;background:#f5f5f5}
 .ganhador-img{width:100%;max-height:430px;object-fit:cover;border-radius:16px;background:#ddd}
-h2,h3{margin-bottom:10px}
-p{line-height:1.5}
 .valor{font-size:30px;background:#facc15;color:#111;padding:12px;border-radius:12px;font-weight:bold;text-align:center;margin:14px 0}
 .banner-missao{background:linear-gradient(135deg,#111,#333);color:#fff;border:3px solid #facc15;padding:20px;border-radius:18px;text-align:center;margin-bottom:18px}
 .banner-missao h2{color:#facc15;font-size:28px}
 .aviso{background:#111;color:#fff;border-left:6px solid #facc15;padding:14px;border-radius:12px;margin-top:12px}
 .pix{background:#fff8d5;border:2px dashed #111;padding:15px;border-radius:14px;margin-top:12px}
-input,textarea,button{width:100%;padding:13px;border-radius:10px;border:1px solid #ccc;margin:7px 0;font-size:15px}
+input,textarea,select,button{width:100%;padding:13px;border-radius:10px;border:1px solid #ccc;margin:7px 0;font-size:15px}
 textarea{min-height:90px}
 button{background:#facc15;color:#111;font-weight:bold;cursor:pointer;border:none}
-button:hover{filter:brightness(.95)}
 .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:8px;max-height:520px;overflow:auto;padding:5px}
 .numero{background:#111;color:#fff;border:1px solid #333;border-radius:9px;text-align:center;padding:11px;cursor:pointer}
 .numero:hover{background:#facc15;color:#111}
 .numero.sel{background:#facc15;color:#111;font-weight:bold}
 .numero.vendido{background:#dc2626;color:#fff;cursor:not-allowed;opacity:.85}
+.numero.reservado{background:#b91c1c;color:#fff;cursor:not-allowed;opacity:.85}
 .participante{background:#111;color:#fff;border-left:5px solid #facc15;padding:10px;border-radius:10px;margin-bottom:8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .admin{display:none;border:3px solid #facc15}
-.admin-btn{position:fixed;right:15px;bottom:15px;width:auto;background:#facc15;color:#111;padding:13px 20px;z-index:99;border:2px solid #111}
+.admin-btn{position:fixed;left:0;right:0;bottom:0;width:100%;background:#facc15;color:#111;padding:18px;z-index:99;border-top:3px solid #111;font-size:18px}
 .badge{display:inline-block;background:#111;color:#facc15;padding:8px 12px;border-radius:999px;margin:8px 0;font-weight:bold}
 .escolhidos-box{background:#111;color:#facc15;padding:12px;border-radius:12px;margin:10px 0;font-weight:bold}
 .status{background:#facc15;color:#111;padding:10px;border-radius:10px;margin:10px 0;font-weight:bold;text-align:center}
@@ -42,7 +40,6 @@ button:hover{filter:brightness(.95)}
 header h1{font-size:27px}
 .valor{font-size:24px}
 .numeros{grid-template-columns:repeat(auto-fit,minmax(50px,1fr))}
-.banner-missao h2{font-size:22px}
 }
 </style>
 </head>
@@ -63,13 +60,9 @@ header h1{font-size:27px}
 
 <div class="card">
 <img id="imagemProduto" class="produto-img" loading="lazy" src="https://via.placeholder.com/1000x600?text=Produto+do+Sorteio">
-
 <br><br>
-<h2 id="tituloProduto">Liquidificador Mondial Turbo Power L-99FB Preto</h2>
-
-<p id="descricaoProduto">
-Participe da Rifa Missionária! Cada número custa apenas R$ 1,00. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Entraremos em contato com o ganhador pelo WhatsApp informado no cadastro e enviaremos o produto sorteado para o endereço cadastrado.
-</p>
+<h2 id="tituloProduto">Produto do Sorteio</h2>
+<p id="descricaoProduto">Participe da Rifa Missionária! Cada número custa apenas R$ 1,00.</p>
 
 <div class="valor">R$ 1,00 por número</div>
 
@@ -80,23 +73,20 @@ Participe da Rifa Missionária! Cada número custa apenas R$ 1,00. O sorteio ser
 </div>
 
 <div class="aviso">
-<b>Aviso:</b> o sorteio será realizado somente quando os 1000 números forem vendidos.
+<b>Aviso:</b> o sorteio será realizado somente quando os 1300 números forem preenchidos.
+Alguns números podem estar reservados pela organização para ações missionárias.
 </div>
 </div>
 
 <div class="card">
 <h2>Ganhador do Sorteio</h2>
-<div id="ganhadorConteudo">
-<p>Ainda não há ganhador divulgado.</p>
-</div>
+<div id="ganhadorConteudo"><p>Ainda não há ganhador divulgado.</p></div>
 </div>
 
 <div class="card">
 <h2>Escolha seus números</h2>
-<p class="badge"><span id="vendidosCount">0</span>/1000 vendidos</p>
-<div class="escolhidos-box">
-Números escolhidos: <span id="listaEscolhidos">Nenhum</span>
-</div>
+<p class="badge"><span id="vendidosCount">0</span>/1300 preenchidos</p>
+<div class="escolhidos-box">Números escolhidos: <span id="listaEscolhidos">Nenhum</span></div>
 <div class="numeros" id="gradeNumeros"></div>
 </div>
 
@@ -105,12 +95,20 @@ Números escolhidos: <span id="listaEscolhidos">Nenhum</span>
 <input id="campoNome" placeholder="Nome completo">
 <input id="campoCpf" placeholder="CPF">
 <input id="campoWhatsapp" placeholder="WhatsApp">
+<input id="campoCidade" placeholder="Cidade">
+<select id="campoEstado">
+<option value="">Estado</option>
+<option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+<option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+<option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+<option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+<option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+<option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+<option>SP</option><option>SE</option><option>TO</option>
+</select>
 <input id="campoEndereco" placeholder="Endereço completo">
 
-<div class="escolhidos-box">
-Seus números: <span id="listaForm">Nenhum</span>
-</div>
-
+<div class="escolhidos-box">Seus números: <span id="listaForm">Nenhum</span></div>
 <button onclick="confirmarCompra()">Cadastrar e reservar números</button>
 <div id="statusCadastro" class="status" style="display:none"></div>
 </div>
@@ -142,6 +140,7 @@ Seus números: <span id="listaForm">Nenhum</span>
 
 <br><br>
 <h3>Controle</h3>
+<button onclick="criarReservasIniciais()" style="background:#111;color:#facc15">Criar 300 números reservados</button>
 <button onclick="sortear()" style="background:#111;color:#facc15">Sortear automaticamente</button>
 <button onclick="limparGanhador()" style="background:#9333ea;color:white">Limpar ganhador</button>
 <button onclick="limparTudo()" style="background:#dc2626;color:white">Limpar participantes e números</button>
@@ -154,33 +153,26 @@ Seus números: <span id="listaForm">Nenhum</span>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-import {
-getDatabase,
-ref,
-onValue,
-set,
-remove,
-runTransaction
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+import { getDatabase, ref, onValue, set, remove, runTransaction, get } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyCf6_DCNSh4a3IiOtTv5Uf_N8YaxQtBczw",
-authDomain: "loja-a33e1.firebaseapp.com",
-databaseURL: "https://loja-a33e1-default-rtdb.firebaseio.com",
-projectId: "loja-a33e1",
-storageBucket: "loja-a33e1.firebasestorage.app",
-messagingSenderId: "304798626706",
-appId: "1:304798626706:web:23a0672e6a98ae432c474b",
-measurementId: "G-QSB41880QG"
+apiKey:"AIzaSyCf6_DCNSh4a3IiOtTv5Uf_N8YaxQtBczw",
+authDomain:"loja-a33e1.firebaseapp.com",
+databaseURL:"https://loja-a33e1-default-rtdb.firebaseio.com",
+projectId:"loja-a33e1",
+storageBucket:"loja-a33e1.firebasestorage.app",
+messagingSenderId:"304798626706",
+appId:"1:304798626706:web:23a0672e6a98ae432c474b",
+measurementId:"G-QSB41880QG"
 };
 
 const app = initializeApp(firebaseConfig);
 getAnalytics(app);
 const db = getDatabase(app);
 
-const TOTAL_NUMEROS = 1000;
+const TOTAL_NUMEROS = 1300;
 const SENHA_ADM = "848218";
-const BASE = "rifaMissionaria";
+const BASE = "rifaMissionaria1300";
 
 let selecionados = [];
 let numerosVendidos = {};
@@ -191,41 +183,36 @@ let ganhadorAtual = null;
 const configPadrao = {
 nomeSite:"Rifa Missionária",
 imagem:"https://via.placeholder.com/1000x600?text=Produto+do+Sorteio",
-titulo:"Liquidificador Mondial Turbo Power L-99FB Preto",
-descricao:"Participe da Rifa Missionária! Cada número custa apenas R$ 1,00. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Entraremos em contato com o ganhador pelo WhatsApp informado no cadastro e enviaremos o produto sorteado para o endereço cadastrado.",
+titulo:"Produto do Sorteio",
+descricao:"Participe da Rifa Missionária! Cada número custa apenas R$ 1,00. O sorteio será realizado somente quando todos os 1300 números forem preenchidos. Entraremos em contato com o ganhador pelo WhatsApp informado no cadastro e enviaremos o produto sorteado para o endereço cadastrado.",
 pix:"08167820912"
 };
 
-function numeroFormatado(i){
-return String(i).padStart(4,"0");
-}
+function numeroFormatado(i){return String(i).padStart(4,"0")}
 
 function atualizarSelecionados(){
 const texto = selecionados.length ? selecionados.join(", ") : "Nenhum";
-document.getElementById("listaEscolhidos").innerText = texto;
-document.getElementById("listaForm").innerText = texto;
+listaEscolhidos.innerText = texto;
+listaForm.innerText = texto;
 }
 
 function carregarConfigNaTela(config){
-configAtual = {...configPadrao, ...config};
-
-document.getElementById("nomeSite").innerText = configAtual.nomeSite;
+configAtual = {...configPadrao,...config};
+nomeSite.innerText = configAtual.nomeSite;
 document.title = configAtual.nomeSite;
-document.getElementById("imagemProduto").src = configAtual.imagem;
-document.getElementById("tituloProduto").innerText = configAtual.titulo;
-document.getElementById("descricaoProduto").innerText = configAtual.descricao;
-document.getElementById("chavePix").value = configAtual.pix;
-
-document.getElementById("admNomeSite").value = configAtual.nomeSite;
-document.getElementById("admImagem").value = configAtual.imagem;
-document.getElementById("admTitulo").value = configAtual.titulo;
-document.getElementById("admDescricao").value = configAtual.descricao;
-document.getElementById("admPix").value = configAtual.pix;
+imagemProduto.src = configAtual.imagem;
+tituloProduto.innerText = configAtual.titulo;
+descricaoProduto.innerText = configAtual.descricao;
+chavePix.value = configAtual.pix;
+admNomeSite.value = configAtual.nomeSite;
+admImagem.value = configAtual.imagem;
+admTitulo.value = configAtual.titulo;
+admDescricao.value = configAtual.descricao;
+admPix.value = configAtual.pix;
 }
 
 function criarNumeros(){
-const grade = document.getElementById("gradeNumeros");
-grade.innerHTML = "";
+gradeNumeros.innerHTML = "";
 
 for(let i=1;i<=TOTAL_NUMEROS;i++){
 const numero = numeroFormatado(i);
@@ -234,22 +221,23 @@ div.className = "numero";
 div.innerText = numero;
 
 if(numerosVendidos[numero]){
-div.classList.add("vendido");
+div.classList.add(numerosVendidos[numero].tipo === "reservado" ? "reservado" : "vendido");
+div.title = numerosVendidos[numero].tipo === "reservado" ? "Número reservado pela organização" : "Número comprado";
 }else{
 div.onclick = () => selecionarNumero(numero, div);
 }
 
-grade.appendChild(div);
+gradeNumeros.appendChild(div);
 }
 
-document.getElementById("vendidosCount").innerText = Object.keys(numerosVendidos).length;
+vendidosCount.innerText = Object.keys(numerosVendidos).length;
 }
 
 function selecionarNumero(numero, elemento){
 if(numerosVendidos[numero]) return;
 
 if(selecionados.includes(numero)){
-selecionados = selecionados.filter(n => n !== numero);
+selecionados = selecionados.filter(n=>n!==numero);
 elemento.classList.remove("sel");
 }else{
 selecionados.push(numero);
@@ -260,35 +248,31 @@ atualizarSelecionados();
 }
 
 async function confirmarCompra(){
-const nome = document.getElementById("campoNome").value.trim();
-const cpf = document.getElementById("campoCpf").value.replace(/\D/g,"");
-const whatsapp = document.getElementById("campoWhatsapp").value.trim();
-const endereco = document.getElementById("campoEndereco").value.trim();
+const nome = campoNome.value.trim();
+const cpf = campoCpf.value.replace(/\D/g,"");
+const whatsapp = campoWhatsapp.value.trim();
+const cidade = campoCidade.value.trim();
+const estado = campoEstado.value;
+const endereco = campoEndereco.value.trim();
 
-if(selecionados.length === 0){
-alert("Escolha pelo menos um número.");
-return;
-}
+if(selecionados.length===0){alert("Escolha pelo menos um número.");return}
+if(!nome || cpf.length<3 || !whatsapp || !cidade || !estado || !endereco){alert("Preencha todos os campos.");return}
 
-if(!nome || cpf.length < 3 || !whatsapp || !endereco){
-alert("Preencha todos os campos.");
-return;
-}
-
-const status = document.getElementById("statusCadastro");
-status.style.display = "block";
-status.innerText = "Reservando números...";
+statusCadastro.style.display="block";
+statusCadastro.innerText="Reservando números...";
 
 const compraId = Date.now().toString();
-
 const participante = {
 id:compraId,
-nome:nome,
+nome,
 cpf3:cpf.slice(-3),
-whatsapp:whatsapp,
-endereco:endereco,
+whatsapp,
+cidade,
+estado,
+endereco,
 numeros:[...selecionados],
-data:new Date().toLocaleString("pt-BR")
+data:new Date().toLocaleString("pt-BR"),
+tipo:"real"
 };
 
 let reservados = [];
@@ -296,113 +280,90 @@ let reservados = [];
 try{
 for(const numero of selecionados){
 const numeroRef = ref(db, `${BASE}/numeros/${numero}`);
-
-const resultado = await runTransaction(numeroRef, atual => {
-if(atual === null){
-return {
-numero:numero,
-compraId:compraId,
-nome:nome,
-cpf3:cpf.slice(-3),
-whatsapp:whatsapp,
-endereco:endereco,
-data:new Date().toISOString()
-};
+const resultado = await runTransaction(numeroRef, atual=>{
+if(atual===null){
+return {numero,compraId,nome,cpf3:cpf.slice(-3),whatsapp,cidade,estado,endereco,tipo:"real",data:new Date().toISOString()}
 }
 return;
 });
 
-if(resultado.committed){
-reservados.push(numero);
-}else{
-throw new Error("Número já comprado: " + numero);
-}
+if(resultado.committed){reservados.push(numero)}
+else{throw new Error("Número já comprado: "+numero)}
 }
 
 await set(ref(db, `${BASE}/participantes/${compraId}`), participante);
 
-status.innerText = "Cadastro realizado! Copie a chave Pix e faça o pagamento.";
+statusCadastro.innerText="Cadastro realizado! Copie a chave Pix e faça o pagamento.";
 alert("Cadastro realizado! Copie a chave Pix e faça o pagamento.");
 
-selecionados = [];
+selecionados=[];
 atualizarSelecionados();
-
-document.getElementById("campoNome").value = "";
-document.getElementById("campoCpf").value = "";
-document.getElementById("campoWhatsapp").value = "";
-document.getElementById("campoEndereco").value = "";
+campoNome.value="";
+campoCpf.value="";
+campoWhatsapp.value="";
+campoCidade.value="";
+campoEstado.value="";
+campoEndereco.value="";
 
 }catch(e){
-for(const numero of reservados){
-await remove(ref(db, `${BASE}/numeros/${numero}`));
-}
-alert("Erro: " + e.message);
-status.innerText = "Erro ao reservar. Escolha outros números.";
+for(const numero of reservados){await remove(ref(db, `${BASE}/numeros/${numero}`))}
+alert("Erro: "+e.message);
+statusCadastro.innerText="Erro ao reservar. Escolha outros números.";
 }
 }
 
 function mostrarParticipantes(){
-const area = document.getElementById("participantes");
-area.innerHTML = "";
-
+participantes.innerHTML="";
 const lista = Object.values(participantesDados || {});
 
-if(lista.length === 0){
-area.innerHTML = "<p>Nenhum participante ainda.</p>";
+if(lista.length===0){
+participantes.innerHTML="<p>Nenhum participante ainda.</p>";
 return;
 }
 
 lista.forEach(p=>{
-const div = document.createElement("div");
-div.className = "participante";
-div.innerHTML = `
+const div=document.createElement("div");
+div.className="participante";
+div.innerHTML=`
 <b>${p.nome}</b><br>
 CPF final: ${p.cpf3}<br>
-Números: ${(p.numeros || []).join(", ")}
+${p.cidade}/${p.estado}<br>
+Números: ${(p.numeros||[]).join(", ")}
 `;
-area.appendChild(div);
+participantes.appendChild(div);
 });
 }
 
 function mostrarGanhador(){
-const area = document.getElementById("ganhadorConteudo");
-
 if(!ganhadorAtual){
-area.innerHTML = "<p>Ainda não há ganhador divulgado.</p>";
+ganhadorConteudo.innerHTML="<p>Ainda não há ganhador divulgado.</p>";
 return;
 }
 
-area.innerHTML = `
+ganhadorConteudo.innerHTML=`
 <div class="grid">
-<div>
-<img class="ganhador-img" loading="lazy" src="${ganhadorAtual.foto || 'https://via.placeholder.com/800x600?text=Ganhador'}">
-</div>
+<div><img class="ganhador-img" loading="lazy" src="${ganhadorAtual.foto || 'https://via.placeholder.com/800x600?text=Ganhador'}"></div>
 <div>
 <h2>${ganhadorAtual.nome}</h2>
 <p><b>Cidade:</b> ${ganhadorAtual.cidade}/${ganhadorAtual.estado}</p>
 <p><b>Produto ganho:</b> ${ganhadorAtual.produto}</p>
 <p><b>Divulgado em:</b> ${ganhadorAtual.data}</p>
 </div>
-</div>
-`;
+</div>`;
 }
 
 function copiarPix(){
-const pix = document.getElementById("chavePix");
-pix.select();
-pix.setSelectionRange(0,99999);
-
-navigator.clipboard.writeText(pix.value).then(()=>{
-alert("Chave Pix copiada!");
-}).catch(()=>{
-alert("Copie manualmente: " + pix.value);
-});
+chavePix.select();
+chavePix.setSelectionRange(0,99999);
+navigator.clipboard.writeText(chavePix.value)
+.then(()=>alert("Chave Pix copiada!"))
+.catch(()=>alert("Copie manualmente: "+chavePix.value));
 }
 
 function abrirAdmin(){
-const senha = prompt("Digite a senha do ADM:");
-if(senha === SENHA_ADM){
-document.getElementById("admin").style.display = "block";
+const senha=prompt("Digite a senha do ADM:");
+if(senha===SENHA_ADM){
+admin.style.display="block";
 window.scrollTo(0,document.body.scrollHeight);
 }else{
 alert("Senha incorreta.");
@@ -410,24 +371,22 @@ alert("Senha incorreta.");
 }
 
 async function salvarProduto(){
-const novaConfig = {
-nomeSite:document.getElementById("admNomeSite").value,
-imagem:document.getElementById("admImagem").value,
-titulo:document.getElementById("admTitulo").value,
-descricao:document.getElementById("admDescricao").value,
-pix:document.getElementById("admPix").value
-};
-
-await set(ref(db, `${BASE}/config`), novaConfig);
+await set(ref(db, `${BASE}/config`), {
+nomeSite:admNomeSite.value,
+imagem:admImagem.value,
+titulo:admTitulo.value,
+descricao:admDescricao.value,
+pix:admPix.value
+});
 alert("Alterações salvas!");
 }
 
 async function salvarGanhador(){
-const foto = document.getElementById("admFotoGanhador").value.trim();
-const nome = document.getElementById("admNomeGanhador").value.trim();
-const cidade = document.getElementById("admCidadeGanhador").value.trim();
-const estado = document.getElementById("admEstadoGanhador").value.trim();
-const produto = document.getElementById("admProdutoGanhou").value.trim();
+const foto=admFotoGanhador.value.trim();
+const nome=admNomeGanhador.value.trim();
+const cidade=admCidadeGanhador.value.trim();
+const estado=admEstadoGanhador.value.trim();
+const produto=admProdutoGanhou.value.trim();
 
 if(!nome || !cidade || !estado || !produto){
 alert("Preencha os dados do ganhador.");
@@ -435,88 +394,115 @@ return;
 }
 
 await set(ref(db, `${BASE}/ganhador`), {
-foto:foto,
-nome:nome,
-cidade:cidade,
-estado:estado,
-produto:produto,
-data:new Date().toLocaleDateString("pt-BR")
+foto,nome,cidade,estado,produto,data:new Date().toLocaleDateString("pt-BR")
 });
-
 alert("Ganhador publicado!");
 }
 
-async function sortear(){
-const totalVendidos = Object.keys(numerosVendidos).length;
+async function criarReservasIniciais(){
+if(!confirm("Criar 300 números reservados pela organização?")) return;
 
-if(totalVendidos < TOTAL_NUMEROS){
-alert("O sorteio só pode ser realizado quando os 1000 números forem vendidos.");
+const snap = await get(ref(db, `${BASE}/numeros`));
+const atuais = snap.val() || {};
+let disponiveis = [];
+
+for(let i=1;i<=TOTAL_NUMEROS;i++){
+const n = numeroFormatado(i);
+if(!atuais[n]) disponiveis.push(n);
+}
+
+disponiveis.sort(()=>Math.random()-0.5);
+const escolhidos = disponiveis.slice(0,300);
+
+for(const numero of escolhidos){
+await set(ref(db, `${BASE}/numeros/${numero}`), {
+numero,
+tipo:"reservado",
+nome:"Organização Missionária",
+cpf3:"***",
+cidade:"Ação",
+estado:"Missionária",
+data:new Date().toISOString()
+});
+}
+
+alert("300 números reservados foram criados.");
+}
+
+async function sortear(){
+const totalVendidos=Object.keys(numerosVendidos).length;
+
+if(totalVendidos<TOTAL_NUMEROS){
+alert("O sorteio só pode ser realizado quando os 1300 números forem preenchidos.");
 return;
 }
 
-const todos = Object.values(numerosVendidos);
-const sorteado = todos[Math.floor(Math.random() * todos.length)];
+const todos = Object.values(numerosVendidos).filter(n => n.tipo === "real");
+
+if(todos.length === 0){
+alert("Não há participantes reais para sortear.");
+return;
+}
+
+const sorteado=todos[Math.floor(Math.random()*todos.length)];
 
 await set(ref(db, `${BASE}/ganhador`), {
 foto:"",
 nome:sorteado.nome,
-cidade:"Não informado",
-estado:"Não informado",
+cidade:sorteado.cidade || "Não informado",
+estado:sorteado.estado || "Não informado",
 produto:configAtual.titulo,
 data:new Date().toLocaleDateString("pt-BR")
 });
 
 alert(
-"GANHADOR SORTEADO:\n" +
-"Número: " + sorteado.numero + "\n" +
-"Nome: " + sorteado.nome + "\n" +
-"WhatsApp: " + sorteado.whatsapp + "\n" +
-"Endereço: " + sorteado.endereco
+"GANHADOR SORTEADO:\n"+
+"Número: "+sorteado.numero+"\n"+
+"Nome: "+sorteado.nome+"\n"+
+"WhatsApp: "+sorteado.whatsapp+"\n"+
+"Endereço: "+sorteado.endereco
 );
 }
 
 async function limparGanhador(){
-if(confirm("Deseja apagar o ganhador?")){
-await remove(ref(db, `${BASE}/ganhador`));
-}
+if(confirm("Deseja apagar o ganhador?")) await remove(ref(db, `${BASE}/ganhador`));
 }
 
 async function limparTudo(){
-if(confirm("Tem certeza que deseja apagar todos os participantes e números?")){
+if(confirm("Tem certeza que deseja apagar todos os participantes, números e reservas?")){
 await remove(ref(db, `${BASE}/numeros`));
 await remove(ref(db, `${BASE}/participantes`));
 }
 }
 
-onValue(ref(db, `${BASE}/config`), snap => {
-carregarConfigNaTela(snap.val() || configPadrao);
-});
+onValue(ref(db, `${BASE}/config`), snap=>carregarConfigNaTela(snap.val() || configPadrao));
 
-onValue(ref(db, `${BASE}/numeros`), snap => {
-numerosVendidos = snap.val() || {};
+onValue(ref(db, `${BASE}/numeros`), snap=>{
+numerosVendidos=snap.val() || {};
 criarNumeros();
-selecionados = selecionados.filter(n => !numerosVendidos[n]);
+selecionados=selecionados.filter(n=>!numerosVendidos[n]);
 atualizarSelecionados();
 });
 
-onValue(ref(db, `${BASE}/participantes`), snap => {
-participantesDados = snap.val() || {};
+onValue(ref(db, `${BASE}/participantes`), snap=>{
+participantesDados=snap.val() || {};
 mostrarParticipantes();
 });
 
-onValue(ref(db, `${BASE}/ganhador`), snap => {
-ganhadorAtual = snap.val();
+onValue(ref(db, `${BASE}/ganhador`), snap=>{
+ganhadorAtual=snap.val();
 mostrarGanhador();
 });
 
-window.copiarPix = copiarPix;
-window.confirmarCompra = confirmarCompra;
-window.abrirAdmin = abrirAdmin;
-window.salvarProduto = salvarProduto;
-window.salvarGanhador = salvarGanhador;
-window.sortear = sortear;
-window.limparGanhador = limparGanhador;
-window.limparTudo = limparTudo;
+window.copiarPix=copiarPix;
+window.confirmarCompra=confirmarCompra;
+window.abrirAdmin=abrirAdmin;
+window.salvarProduto=salvarProduto;
+window.salvarGanhador=salvarGanhador;
+window.criarReservasIniciais=criarReservasIniciais;
+window.sortear=sortear;
+window.limparGanhador=limparGanhador;
+window.limparTudo=limparTudo;
 </script>
 
 </body>
