@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rifa Virtual</title>
+<title>Rifa Missionária</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#0f172a;color:#fff}
-header{padding:25px;text-align:center;background:linear-gradient(135deg,#020617,#2563eb)}
+header{padding:28px;text-align:center;background:linear-gradient(135deg,#020617,#2563eb)}
+header h1{font-size:34px}
 .container{max-width:1100px;margin:auto;padding:18px}
 .card{background:#111827;border:1px solid #334155;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 10px 25px #0006}
-img{max-width:100%}
 .produto-img,.ganhador-img{width:100%;max-height:430px;object-fit:cover;border-radius:18px;background:#222}
-h1,h2,h3{margin-bottom:10px}
+h2,h3{margin-bottom:10px}
 p{line-height:1.5}
 .valor{font-size:30px;color:#22c55e;font-weight:bold;margin:14px 0}
 .pix{background:#020617;border:1px dashed #22c55e;padding:15px;border-radius:14px;margin-top:12px}
@@ -28,12 +29,13 @@ button:hover{filter:brightness(1.1)}
 .participante{background:#020617;border:1px solid #334155;padding:10px;border-radius:10px;margin-bottom:8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .admin{display:none}
-.admin-btn{position:fixed;right:15px;bottom:15px;width:auto;background:#facc15;color:#111;padding:12px 18px}
+.admin-btn{position:fixed;right:15px;bottom:15px;width:auto;background:#facc15;color:#111;padding:12px 18px;z-index:99}
 .aviso{background:#1e293b;border-left:5px solid #22c55e;padding:14px;border-radius:12px;margin-top:12px;color:#e2e8f0}
 .badge{display:inline-block;background:#2563eb;padding:6px 10px;border-radius:999px;margin:5px 0}
 @media(max-width:760px){
 .grid{grid-template-columns:1fr}
 .valor{font-size:24px}
+header h1{font-size:28px}
 .numeros{grid-template-columns:repeat(auto-fit,minmax(52px,1fr))}
 }
 </style>
@@ -42,21 +44,20 @@ button:hover{filter:brightness(1.1)}
 <body>
 
 <header>
-<h1>Rifa Virtual</h1>
+<h1>Rifa Missionária</h1>
 <p>Participe por apenas R$ 1,00 no Pix</p>
 </header>
 
 <div class="container">
 
 <div class="card">
-<img id="imagemProduto" class="produto-img" src="https://via.placeholder.com/1000x600?text=Produto+da+Rifa">
+<img id="imagemProduto" class="produto-img" src="https://via.placeholder.com/1000x600?text=Rifa+Missionaria">
 
 <br><br>
 <h2 id="tituloProduto">Liquidificador Mondial Turbo Power L-99FB Preto</h2>
 
 <p id="descricaoProduto">
-Liquidificador moderno, potente e prático para o dia a dia. Ideal para preparar sucos, vitaminas,
-molhos, massas leves e diversas receitas com facilidade.
+Rifa Missionária em prol da obra de Deus. Participe com apenas R$ 1,00 por número e concorra a um Liquidificador Mondial Turbo Power L-99FB Preto. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Envio para todo o Brasil.
 </p>
 
 <div class="valor">R$ 1,00 por número no Pix</div>
@@ -74,7 +75,7 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 </div>
 </div>
 
-<div class="card" id="areaGanhador">
+<div class="card">
 <h2>Ganhador da Rifa</h2>
 <div id="ganhadorConteudo">
 <p>Ainda não há ganhador divulgado.</p>
@@ -92,6 +93,7 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 <input id="nome" placeholder="Nome completo">
 <input id="cpf" placeholder="CPF">
 <input id="cidade" placeholder="Cidade">
+
 <select id="estado">
 <option value="">Estado</option>
 <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
@@ -102,6 +104,7 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
 <option>SP</option><option>SE</option><option>TO</option>
 </select>
+
 <input id="whatsapp" placeholder="WhatsApp com DDD">
 <input id="endereco" placeholder="Endereço completo">
 <button onclick="confirmarCompra()">Confirmar participação</button>
@@ -126,6 +129,7 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 <input id="admFotoGanhador" placeholder="Link da foto do ganhador">
 <input id="admNomeGanhador" placeholder="Nome do ganhador">
 <input id="admCidadeGanhador" placeholder="Cidade">
+
 <select id="admEstadoGanhador">
 <option value="">Estado</option>
 <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
@@ -136,6 +140,7 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
 <option>SP</option><option>SE</option><option>TO</option>
 </select>
+
 <input id="admProdutoGanhou" placeholder="Produto que ganhou">
 <button onclick="salvarGanhador()">Publicar ganhador</button>
 
@@ -156,9 +161,9 @@ const SENHA_ADM = "848218";
 let numeroSelecionado = null;
 
 let produto = JSON.parse(localStorage.getItem("produtoRifa")) || {
-imagem:"https://via.placeholder.com/1000x600?text=Produto+da+Rifa",
+imagem:"https://via.placeholder.com/1000x600?text=Rifa+Missionaria",
 titulo:"Liquidificador Mondial Turbo Power L-99FB Preto",
-descricao:"Liquidificador moderno, potente e prático para o dia a dia. Ideal para preparar sucos, vitaminas, molhos, massas leves e diversas receitas com facilidade."
+descricao:"Rifa Missionária em prol da obra de Deus. Participe com apenas R$ 1,00 por número e concorra a um Liquidificador Mondial Turbo Power L-99FB Preto. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Envio para todo o Brasil."
 };
 
 let vendidos = JSON.parse(localStorage.getItem("vendidosRifa")) || [];
@@ -240,7 +245,7 @@ data: new Date().toLocaleString("pt-BR")
 vendidos.push(participante);
 localStorage.setItem("vendidosRifa", JSON.stringify(vendidos));
 
-alert("Participação confirmada com sucesso! Após o pagamento no Pix, sua participação será validada.");
+alert("Participação confirmada! Copie a chave Pix e faça o pagamento.");
 location.reload();
 }
 
@@ -268,8 +273,12 @@ function copiarPix(){
 let pix = document.getElementById("chavePix");
 pix.select();
 pix.setSelectionRange(0,99999);
-navigator.clipboard.writeText(pix.value);
+
+navigator.clipboard.writeText(pix.value).then(()=>{
 alert("Chave Pix copiada!");
+}).catch(()=>{
+alert("Copie manualmente: " + pix.value);
+});
 }
 
 function abrirAdmin(){
@@ -336,7 +345,7 @@ ganhadorConteudo.innerHTML = `
 <p><b>Cidade:</b> ${ganhador.cidade}/${ganhador.estado}</p>
 <p><b>Produto ganho:</b> ${ganhador.produto}</p>
 <p><b>Divulgado em:</b> ${ganhador.data}</p>
-<p class="aviso">O ganhador será contatado pelo WhatsApp informado no cadastro.</p>
+<p class="aviso">Entraremos em contato com o ganhador pelo WhatsApp informado no cadastro.</p>
 </div>
 </div>
 `;
@@ -362,11 +371,11 @@ data:new Date().toLocaleDateString("pt-BR")
 localStorage.setItem("ganhadorRifa", JSON.stringify(ganhador));
 
 alert(
-"GANHADOR SORTEADO:\\n" +
-"Número: " + sorteado.numero + "\\n" +
-"Nome: " + sorteado.nome + "\\n" +
-"Cidade: " + sorteado.cidade + "/" + sorteado.estado + "\\n" +
-"WhatsApp: " + sorteado.whatsapp + "\\n" +
+"GANHADOR SORTEADO:\n" +
+"Número: " + sorteado.numero + "\n" +
+"Nome: " + sorteado.nome + "\n" +
+"Cidade: " + sorteado.cidade + "/" + sorteado.estado + "\n" +
+"WhatsApp: " + sorteado.whatsapp + "\n" +
 "Endereço: " + sorteado.endereco
 );
 
