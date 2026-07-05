@@ -7,36 +7,37 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0f172a;color:#fff}
-header{padding:28px;text-align:center;background:linear-gradient(135deg,#020617,#2563eb)}
+body{background:#111;color:#fff}
+header{background:#facc15;color:#111;text-align:center;padding:25px}
 header h1{font-size:34px}
-.container{max-width:1100px;margin:auto;padding:18px}
-.card{background:#111827;border:1px solid #334155;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 10px 25px #0006}
-.produto-img,.ganhador-img{width:100%;max-height:430px;object-fit:cover;border-radius:18px;background:#222}
+.container{max-width:1150px;margin:auto;padding:18px}
+.card{background:#fff;color:#111;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 8px 25px #0006}
+.produto-img,.ganhador-img{width:100%;max-height:430px;object-fit:cover;border-radius:16px;background:#ddd}
 h2,h3{margin-bottom:10px}
 p{line-height:1.5}
-.valor{font-size:30px;color:#22c55e;font-weight:bold;margin:14px 0}
-.pix{background:#020617;border:1px dashed #22c55e;padding:15px;border-radius:14px;margin-top:12px}
-input,select,textarea,button{width:100%;padding:13px;border-radius:10px;border:none;margin:7px 0;font-size:15px}
+.valor{font-size:30px;color:#111;background:#facc15;padding:12px;border-radius:12px;font-weight:bold;margin:14px 0;text-align:center}
+.aviso{background:#111;color:#fff;border-left:6px solid #facc15;padding:14px;border-radius:12px;margin-top:12px}
+.pix{background:#fff8d5;border:2px dashed #111;padding:15px;border-radius:14px;margin-top:12px}
+input,select,textarea,button{width:100%;padding:13px;border-radius:10px;border:1px solid #ccc;margin:7px 0;font-size:15px}
 textarea{min-height:90px}
-button{background:#22c55e;color:#052e16;font-weight:bold;cursor:pointer}
-button:hover{filter:brightness(1.1)}
-.numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:8px;max-height:500px;overflow:auto}
-.numero{background:#1e293b;border:1px solid #475569;border-radius:9px;text-align:center;padding:11px;cursor:pointer}
-.numero:hover{background:#2563eb}
-.numero.sel{background:#22c55e;color:#052e16;font-weight:bold}
-.numero.vendido{background:#dc2626;color:white;cursor:not-allowed;opacity:.75}
-.participante{background:#020617;border:1px solid #334155;padding:10px;border-radius:10px;margin-bottom:8px}
+button{background:#facc15;color:#111;font-weight:bold;cursor:pointer;border:none}
+button:hover{filter:brightness(.95)}
+.numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:8px;max-height:520px;overflow:auto;padding:5px}
+.numero{background:#111;color:#fff;border:1px solid #333;border-radius:9px;text-align:center;padding:11px;cursor:pointer}
+.numero:hover{background:#facc15;color:#111}
+.numero.sel{background:#facc15;color:#111;font-weight:bold}
+.numero.vendido{background:#dc2626;color:#fff;cursor:not-allowed;opacity:.85}
+.participante{background:#111;color:#fff;border-left:5px solid #facc15;padding:10px;border-radius:10px;margin-bottom:8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.admin{display:none}
-.admin-btn{position:fixed;right:15px;bottom:15px;width:auto;background:#facc15;color:#111;padding:12px 18px;z-index:99}
-.aviso{background:#1e293b;border-left:5px solid #22c55e;padding:14px;border-radius:12px;margin-top:12px;color:#e2e8f0}
-.badge{display:inline-block;background:#2563eb;padding:6px 10px;border-radius:999px;margin:5px 0}
+.admin{display:none;border:3px solid #facc15}
+.admin-btn{position:fixed;right:15px;bottom:15px;width:auto;background:#facc15;color:#111;padding:13px 20px;z-index:99;border:2px solid #111}
+.badge{display:inline-block;background:#111;color:#facc15;padding:8px 12px;border-radius:999px;margin:8px 0;font-weight:bold}
+.escolhidos-box{background:#111;color:#facc15;padding:12px;border-radius:12px;margin:10px 0;font-weight:bold}
 @media(max-width:760px){
 .grid{grid-template-columns:1fr}
+header h1{font-size:27px}
 .valor{font-size:24px}
-header h1{font-size:28px}
-.numeros{grid-template-columns:repeat(auto-fit,minmax(52px,1fr))}
+.numeros{grid-template-columns:repeat(auto-fit,minmax(50px,1fr))}
 }
 </style>
 </head>
@@ -44,23 +45,24 @@ header h1{font-size:28px}
 <body>
 
 <header>
-<h1>Rifa Missionária</h1>
-<p>Participe por apenas R$ 1,00 no Pix</p>
+<h1 id="nomeSite">Rifa Missionária</h1>
+<p>Participe do sorteio por apenas R$ 1,00</p>
 </header>
 
 <div class="container">
 
 <div class="card">
-<img id="imagemProduto" class="produto-img" src="https://via.placeholder.com/1000x600?text=Rifa+Missionaria">
+<img id="imagemProduto" class="produto-img" src="https://via.placeholder.com/1000x600?text=Produto+do+Sorteio">
 
 <br><br>
 <h2 id="tituloProduto">Liquidificador Mondial Turbo Power L-99FB Preto</h2>
 
 <p id="descricaoProduto">
-Rifa Missionária em prol da obra de Deus. Participe com apenas R$ 1,00 por número e concorra a um Liquidificador Mondial Turbo Power L-99FB Preto. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Envio para todo o Brasil.
+Participe da Rifa Missionária. Cada número custa apenas R$ 1,00.
+O sorteio será realizado somente quando todos os 1000 números forem vendidos.
 </p>
 
-<div class="valor">R$ 1,00 por número no Pix</div>
+<div class="valor">R$ 1,00 por número</div>
 
 <div class="pix">
 <p><b>Chave Pix:</b></p>
@@ -69,45 +71,40 @@ Rifa Missionária em prol da obra de Deus. Participe com apenas R$ 1,00 por núm
 </div>
 
 <div class="aviso">
-<b>Atenção:</b> o sorteio será realizado somente quando todos os 1000 números forem vendidos.
-O produto será enviado ao endereço do ganhador, com envio para todo o Brasil.
+<b>Aviso:</b> o sorteio será realizado somente quando os 1000 números forem vendidos.
 Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será divulgado neste site.
 </div>
 </div>
 
 <div class="card">
-<h2>Ganhador da Rifa</h2>
+<h2>Ganhador do Sorteio</h2>
 <div id="ganhadorConteudo">
 <p>Ainda não há ganhador divulgado.</p>
 </div>
 </div>
 
 <div class="card">
-<h2>Escolha seu número</h2>
+<h2>Escolha seus números</h2>
 <p class="badge"><span id="vendidosCount">0</span>/1000 vendidos</p>
+<div class="escolhidos-box">
+Números escolhidos: <span id="listaEscolhidos">Nenhum</span>
+</div>
 <div class="numeros" id="gradeNumeros"></div>
 </div>
 
 <div class="card">
-<h2>Formulário para participar</h2>
+<h2>Formulário de Cadastro</h2>
+
 <input id="nome" placeholder="Nome completo">
 <input id="cpf" placeholder="CPF">
-<input id="cidade" placeholder="Cidade">
-
-<select id="estado">
-<option value="">Estado</option>
-<option>AC</option><option>AL</option><option>AP</option><option>AM</option>
-<option>BA</option><option>CE</option><option>DF</option><option>ES</option>
-<option>GO</option><option>MA</option><option>MT</option><option>MS</option>
-<option>MG</option><option>PA</option><option>PB</option><option>PR</option>
-<option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
-<option>RS</option><option>RO</option><option>RR</option><option>SC</option>
-<option>SP</option><option>SE</option><option>TO</option>
-</select>
-
-<input id="whatsapp" placeholder="WhatsApp com DDD">
+<input id="whatsapp" placeholder="WhatsApp">
 <input id="endereco" placeholder="Endereço completo">
-<button onclick="confirmarCompra()">Confirmar participação</button>
+
+<div class="escolhidos-box">
+Seus números: <span id="listaForm">Nenhum</span>
+</div>
+
+<button onclick="confirmarCompra()">Cadastrar e reservar números</button>
 </div>
 
 <div class="card">
@@ -118,36 +115,28 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 <div class="card admin" id="admin">
 <h2>Painel ADM</h2>
 
-<h3>Editar produto</h3>
+<h3>Editar site e produto</h3>
+<input id="admNomeSite" placeholder="Nome do site">
 <input id="admImagem" placeholder="Link da imagem do produto">
 <input id="admTitulo" placeholder="Título do produto">
 <textarea id="admDescricao" placeholder="Descrição do produto"></textarea>
-<button onclick="salvarProduto()">Salvar produto</button>
+<input id="admPix" placeholder="Chave Pix">
+<button onclick="salvarProduto()">Salvar alterações</button>
 
 <br><br>
-<h3>Divulgar ganhador</h3>
+<h3>Publicar ganhador</h3>
 <input id="admFotoGanhador" placeholder="Link da foto do ganhador">
 <input id="admNomeGanhador" placeholder="Nome do ganhador">
 <input id="admCidadeGanhador" placeholder="Cidade">
-
-<select id="admEstadoGanhador">
-<option value="">Estado</option>
-<option>AC</option><option>AL</option><option>AP</option><option>AM</option>
-<option>BA</option><option>CE</option><option>DF</option><option>ES</option>
-<option>GO</option><option>MA</option><option>MT</option><option>MS</option>
-<option>MG</option><option>PA</option><option>PB</option><option>PR</option>
-<option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
-<option>RS</option><option>RO</option><option>RR</option><option>SC</option>
-<option>SP</option><option>SE</option><option>TO</option>
-</select>
-
+<input id="admEstadoGanhador" placeholder="Estado">
 <input id="admProdutoGanhou" placeholder="Produto que ganhou">
 <button onclick="salvarGanhador()">Publicar ganhador</button>
 
 <br><br>
-<button onclick="sortear()" style="background:#2563eb;color:white">Sortear automaticamente</button>
+<h3>Controle</h3>
+<button onclick="sortear()" style="background:#111;color:#facc15">Sortear automaticamente</button>
 <button onclick="limparGanhador()" style="background:#9333ea;color:white">Limpar ganhador</button>
-<button onclick="limparTudo()" style="background:#dc2626;color:white">Limpar participantes</button>
+<button onclick="limparTudo()" style="background:#dc2626;color:white">Limpar participantes e números</button>
 </div>
 
 </div>
@@ -158,37 +147,44 @@ Entraremos em contato com o ganhador pelo WhatsApp informado e o resultado será
 const TOTAL_NUMEROS = 1000;
 const SENHA_ADM = "848218";
 
-let numeroSelecionado = null;
+let selecionados = [];
 
-let produto = JSON.parse(localStorage.getItem("produtoRifa")) || {
-imagem:"https://via.placeholder.com/1000x600?text=Rifa+Missionaria",
+let config = JSON.parse(localStorage.getItem("configRifa")) || {
+nomeSite:"Rifa Missionária",
+imagem:"https://via.placeholder.com/1000x600?text=Produto+do+Sorteio",
 titulo:"Liquidificador Mondial Turbo Power L-99FB Preto",
-descricao:"Rifa Missionária em prol da obra de Deus. Participe com apenas R$ 1,00 por número e concorra a um Liquidificador Mondial Turbo Power L-99FB Preto. O sorteio será realizado somente quando todos os 1000 números forem vendidos. Envio para todo o Brasil."
+descricao:"Participe da Rifa Missionária. Cada número custa apenas R$ 1,00. O sorteio será realizado somente quando todos os 1000 números forem vendidos.",
+pix:"08167820912"
 };
 
 let vendidos = JSON.parse(localStorage.getItem("vendidosRifa")) || [];
 let ganhador = JSON.parse(localStorage.getItem("ganhadorRifa")) || null;
 
-function carregarProduto(){
-imagemProduto.src = produto.imagem;
-tituloProduto.innerText = produto.titulo;
-descricaoProduto.innerText = produto.descricao;
+function carregarConfig(){
+document.getElementById("nomeSite").innerText = config.nomeSite;
+document.title = config.nomeSite;
+imagemProduto.src = config.imagem;
+tituloProduto.innerText = config.titulo;
+descricaoProduto.innerText = config.descricao;
+chavePix.value = config.pix;
 
-admImagem.value = produto.imagem;
-admTitulo.value = produto.titulo;
-admDescricao.value = produto.descricao;
+admNomeSite.value = config.nomeSite;
+admImagem.value = config.imagem;
+admTitulo.value = config.titulo;
+admDescricao.value = config.descricao;
+admPix.value = config.pix;
 }
 
 function criarNumeros(){
 gradeNumeros.innerHTML = "";
 
-for(let i = 1; i <= TOTAL_NUMEROS; i++){
+for(let i=1;i<=TOTAL_NUMEROS;i++){
 let numero = String(i).padStart(4,"0");
 let div = document.createElement("div");
 div.className = "numero";
 div.innerText = numero;
 
-let jaVendido = vendidos.find(v => v.numero === numero);
+let jaVendido = vendidos.find(v => v.numeros.includes(numero));
 
 if(jaVendido){
 div.classList.add("vendido");
@@ -199,53 +195,63 @@ div.onclick = () => selecionarNumero(numero, div);
 gradeNumeros.appendChild(div);
 }
 
-vendidosCount.innerText = vendidos.length;
+vendidosCount.innerText = contarNumerosVendidos();
 }
 
 function selecionarNumero(numero, elemento){
-document.querySelectorAll(".numero").forEach(n => n.classList.remove("sel"));
+if(selecionados.includes(numero)){
+selecionados = selecionados.filter(n => n !== numero);
+elemento.classList.remove("sel");
+}else{
+selecionados.push(numero);
 elemento.classList.add("sel");
-numeroSelecionado = numero;
+}
+
+atualizarSelecionados();
+}
+
+function atualizarSelecionados(){
+let texto = selecionados.length ? selecionados.join(", ") : "Nenhum";
+listaEscolhidos.innerText = texto;
+listaForm.innerText = texto;
 }
 
 function confirmarCompra(){
-let nome = document.getElementById("nome").value.trim();
+let nome = nome.valueOf ? document.getElementById("nome").value.trim() : "";
 let cpf = document.getElementById("cpf").value.replace(/\D/g,"");
-let cidade = document.getElementById("cidade").value.trim();
-let estado = document.getElementById("estado").value;
 let whatsapp = document.getElementById("whatsapp").value.trim();
 let endereco = document.getElementById("endereco").value.trim();
 
-if(!numeroSelecionado){
-alert("Escolha um número.");
+if(selecionados.length === 0){
+alert("Escolha pelo menos um número.");
 return;
 }
 
-if(!nome || cpf.length < 3 || !cidade || !estado || !whatsapp || !endereco){
+if(!nome || cpf.length < 3 || !whatsapp || !endereco){
 alert("Preencha todos os campos.");
 return;
 }
 
-if(vendidos.find(v => v.numero === numeroSelecionado)){
-alert("Esse número já foi vendido.");
+for(let n of selecionados){
+if(vendidos.some(v => v.numeros.includes(n))){
+alert("Um dos números escolhidos já foi comprado. Atualize a página.");
 return;
+}
 }
 
 let participante = {
-numero: numeroSelecionado,
-nome: nome,
-cpf3: cpf.slice(-3),
-cidade: cidade,
-estado: estado,
-whatsapp: whatsapp,
-endereco: endereco,
-data: new Date().toLocaleString("pt-BR")
+nome:nome,
+cpf3:cpf.slice(-3),
+whatsapp:whatsapp,
+endereco:endereco,
+numeros:[...selecionados],
+data:new Date().toLocaleString("pt-BR")
 };
 
 vendidos.push(participante);
 localStorage.setItem("vendidosRifa", JSON.stringify(vendidos));
 
-alert("Participação confirmada! Copie a chave Pix e faça o pagamento.");
+alert("Cadastro realizado! Agora copie a chave Pix e faça o pagamento.");
 location.reload();
 }
 
@@ -257,16 +263,22 @@ participantes.innerHTML = "<p>Nenhum participante ainda.</p>";
 return;
 }
 
-vendidos.sort((a,b)=>a.numero.localeCompare(b.numero)).forEach(p=>{
+vendidos.forEach(p=>{
 let div = document.createElement("div");
 div.className = "participante";
 div.innerHTML = `
-<b>Número ${p.numero}</b><br>
-${p.nome} - CPF final ${p.cpf3}<br>
-${p.cidade}/${p.estado}
+<b>${p.nome}</b><br>
+CPF final: ${p.cpf3}<br>
+Números: ${p.numeros.join(", ")}
 `;
 participantes.appendChild(div);
 });
+}
+
+function contarNumerosVendidos(){
+let total = 0;
+vendidos.forEach(p => total += p.numeros.length);
+return total;
 }
 
 function copiarPix(){
@@ -292,14 +304,16 @@ alert("Senha incorreta.");
 }
 
 function salvarProduto(){
-produto = {
-imagem: admImagem.value,
-titulo: admTitulo.value,
-descricao: admDescricao.value
+config = {
+nomeSite:admNomeSite.value,
+imagem:admImagem.value,
+titulo:admTitulo.value,
+descricao:admDescricao.value,
+pix:admPix.value
 };
 
-localStorage.setItem("produtoRifa", JSON.stringify(produto));
-alert("Produto salvo com sucesso!");
+localStorage.setItem("configRifa", JSON.stringify(config));
+alert("Alterações salvas!");
 location.reload();
 }
 
@@ -307,25 +321,25 @@ function salvarGanhador(){
 let foto = admFotoGanhador.value.trim();
 let nome = admNomeGanhador.value.trim();
 let cidade = admCidadeGanhador.value.trim();
-let estado = admEstadoGanhador.value;
-let produtoGanhou = admProdutoGanhou.value.trim();
+let estado = admEstadoGanhador.value.trim();
+let produto = admProdutoGanhou.value.trim();
 
-if(!nome || !cidade || !estado || !produtoGanhou){
-alert("Preencha nome, cidade, estado e produto.");
+if(!nome || !cidade || !estado || !produto){
+alert("Preencha os dados do ganhador.");
 return;
 }
 
 ganhador = {
-foto: foto,
-nome: nome,
-cidade: cidade,
-estado: estado,
-produto: produtoGanhou,
-data: new Date().toLocaleDateString("pt-BR")
+foto:foto,
+nome:nome,
+cidade:cidade,
+estado:estado,
+produto:produto,
+data:new Date().toLocaleDateString("pt-BR")
 };
 
 localStorage.setItem("ganhadorRifa", JSON.stringify(ganhador));
-alert("Ganhador publicado com sucesso!");
+alert("Ganhador publicado!");
 location.reload();
 }
 
@@ -345,26 +359,39 @@ ganhadorConteudo.innerHTML = `
 <p><b>Cidade:</b> ${ganhador.cidade}/${ganhador.estado}</p>
 <p><b>Produto ganho:</b> ${ganhador.produto}</p>
 <p><b>Divulgado em:</b> ${ganhador.data}</p>
-<p class="aviso">Entraremos em contato com o ganhador pelo WhatsApp informado no cadastro.</p>
 </div>
 </div>
 `;
 }
 
 function sortear(){
-if(vendidos.length < TOTAL_NUMEROS){
-alert("O sorteio só pode acontecer quando todos os 1000 números forem vendidos.");
+if(contarNumerosVendidos() < TOTAL_NUMEROS){
+alert("O sorteio só pode ser realizado quando os 1000 números forem vendidos.");
 return;
 }
 
-let sorteado = vendidos[Math.floor(Math.random() * vendidos.length)];
+let todosNumeros = [];
+
+vendidos.forEach(p=>{
+p.numeros.forEach(n=>{
+todosNumeros.push({
+numero:n,
+nome:p.nome,
+cpf3:p.cpf3,
+whatsapp:p.whatsapp,
+endereco:p.endereco
+});
+});
+});
+
+let sorteado = todosNumeros[Math.floor(Math.random() * todosNumeros.length)];
 
 ganhador = {
 foto:"",
 nome:sorteado.nome,
-cidade:sorteado.cidade,
-estado:sorteado.estado,
-produto:produto.titulo,
+cidade:"Cidade não informada no formulário",
+estado:"Estado não informado",
+produto:config.titulo,
 data:new Date().toLocaleDateString("pt-BR")
 };
 
@@ -374,7 +401,6 @@ alert(
 "GANHADOR SORTEADO:\n" +
 "Número: " + sorteado.numero + "\n" +
 "Nome: " + sorteado.nome + "\n" +
-"Cidade: " + sorteado.cidade + "/" + sorteado.estado + "\n" +
 "WhatsApp: " + sorteado.whatsapp + "\n" +
 "Endereço: " + sorteado.endereco
 );
@@ -383,20 +409,20 @@ location.reload();
 }
 
 function limparGanhador(){
-if(confirm("Deseja apagar o ganhador divulgado?")){
+if(confirm("Deseja apagar o ganhador?")){
 localStorage.removeItem("ganhadorRifa");
 location.reload();
 }
 }
 
 function limparTudo(){
-if(confirm("Tem certeza que deseja apagar todos os participantes?")){
+if(confirm("Tem certeza que deseja apagar todos os números e participantes?")){
 localStorage.removeItem("vendidosRifa");
 location.reload();
 }
 }
 
-carregarProduto();
+carregarConfig();
 criarNumeros();
 mostrarParticipantes();
 mostrarGanhador();
