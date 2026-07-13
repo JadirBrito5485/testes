@@ -42,7 +42,7 @@ form{display:grid;gap:14px}label{display:grid;gap:7px;font-weight:800;font-size:
 
 .about-section{display:grid;grid-template-columns:280px 1fr;align-items:center;gap:34px;margin:0 0 34px;padding:30px;border-radius:var(--radius);background:var(--black);color:white;box-shadow:var(--shadow)}
 .about-photo-wrap{position:relative;aspect-ratio:1;overflow:hidden;border:7px solid var(--yellow);border-radius:24px;background:#202020}
-.about-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
+.about-photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .about-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#777;font-size:1.2rem;font-weight:900}
 .about-content h2{margin:7px 0 12px;font-size:clamp(1.8rem,4vw,3.5rem);line-height:1.05}
 .about-content p{margin:0;color:#e5e7eb;font-size:1.05rem;max-width:760px}
@@ -55,7 +55,7 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
 @media(max-width:900px){.about-section{grid-template-columns:210px 1fr}.numbers-grid{grid-template-columns:repeat(10,1fr)}.checkout-grid{grid-template-columns:1fr}
 .about-section{display:grid;grid-template-columns:280px 1fr;align-items:center;gap:34px;margin:0 0 34px;padding:30px;border-radius:var(--radius);background:var(--black);color:white;box-shadow:var(--shadow)}
 .about-photo-wrap{position:relative;aspect-ratio:1;overflow:hidden;border:7px solid var(--yellow);border-radius:24px;background:#202020}
-.about-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
+.about-photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .about-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#777;font-size:1.2rem;font-weight:900}
 .about-content h2{margin:7px 0 12px;font-size:clamp(1.8rem,4vw,3.5rem);line-height:1.05}
 .about-content p{margin:0;color:#e5e7eb;font-size:1.05rem;max-width:760px}
@@ -64,19 +64,49 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
 @media(max-width:650px){.about-section{grid-template-columns:1fr;text-align:center}.about-photo-wrap{width:190px;margin:auto}.container{width:min(100% - 20px,1180px)}.hero-content{margin-top:-110px;padding-bottom:36px}.notice{border-radius:14px}.social-banner{align-items:flex-start;padding:18px}.section-heading{align-items:flex-start;flex-direction:column}.numbers-grid{grid-template-columns:repeat(6,1fr);gap:6px}.number-btn{font-size:.72rem;border-radius:7px}.selection-summary{grid-template-columns:1fr}.form-card,.participants-card{padding:18px}
 .about-section{display:grid;grid-template-columns:280px 1fr;align-items:center;gap:34px;margin:0 0 34px;padding:30px;border-radius:var(--radius);background:var(--black);color:white;box-shadow:var(--shadow)}
 .about-photo-wrap{position:relative;aspect-ratio:1;overflow:hidden;border:7px solid var(--yellow);border-radius:24px;background:#202020}
-.about-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
+.about-photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .about-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#777;font-size:1.2rem;font-weight:900}
 .about-content h2{margin:7px 0 12px;font-size:clamp(1.8rem,4vw,3.5rem);line-height:1.05}
 .about-content p{margin:0;color:#e5e7eb;font-size:1.05rem;max-width:760px}
 
 .winner-section{grid-template-columns:1fr;text-align:center}.winner-photo-wrap{width:190px;margin:auto}.admin-actions{grid-template-columns:1fr}.pix-box{grid-template-columns:1fr}.pix-box button{width:100%}}
 
+
+.upload-card{display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;padding:14px;border:1px dashed #c7a900;border-radius:14px;background:#fffbe6}
+.upload-card input[type=file]{padding:10px;background:white}
+.upload-status{grid-column:1/-1;margin:0;color:var(--muted);font-size:.82rem;font-weight:600}
+img{max-width:100%}
+.hero-media img,.about-photo-wrap img,.winner-photo-wrap img{background:#eee}
+@media(max-width:480px){
+  body{font-size:15px}
+  .container{width:min(100% - 16px,1180px)}
+  .hero-media img{height:260px}
+  .hero-content{margin-top:-92px;padding-bottom:28px}
+  .hero h1{font-size:2rem}
+  .hero p{font-size:.96rem}
+  .notice{font-size:.8rem;padding:9px 11px}
+  .social-banner{gap:11px;padding:15px;border-radius:16px}
+  .banner-icon{flex-basis:38px;height:38px}
+  .about-section,.winner-section{padding:18px;border-radius:17px}
+  .about-content p{font-size:.96rem}
+  .numbers-grid{grid-template-columns:repeat(5,1fr);gap:5px}
+  .number-btn{min-height:43px;aspect-ratio:auto;font-size:.72rem}
+  .progress-card{padding:16px}
+  .form-card,.participants-card{padding:15px}
+  .selection-summary{padding:14px}
+  .selection-summary strong{font-size:1.35rem}
+  input,textarea{font-size:16px}
+  .modal{padding:24px 17px}
+  .upload-card{grid-template-columns:1fr}
+  .upload-card .secondary-btn{width:100%}
+}
+
 </style>
 </head>
 <body>
   <header class="hero">
     <div class="hero-media">
-      <img id="productImage" alt="Produto do sorteio" loading="eager" decoding="async">
+      <img id="productImage" alt="Produto do sorteio" loading="eager" decoding="async" fetchpriority="high" sizes="100vw">
       <div class="hero-placeholder" id="heroPlaceholder">Imagem do produto</div>
     </div>
     <div class="hero-content container">
@@ -96,13 +126,13 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
 
     <section class="about-section">
       <div class="about-photo-wrap">
-        <img id="aboutImage" alt="Responsável pelo projeto Rifa entre Amigos" loading="lazy" decoding="async">
+        <img id="aboutImage" alt="Responsável pela Rifa entre Amigos" loading="lazy" decoding="async">
         <div id="aboutPlaceholder" class="about-placeholder">Sua foto</div>
       </div>
       <div class="about-content">
         <span class="eyebrow dark">RIFA ENTRE AMIGOS</span>
         <h2 id="aboutTitle">Um projeto para premiar e ajudar</h2>
-        <p id="aboutText">O intuito deste projeto é sortear prêmios e enviá-los ao endereço do ganhador. Ao comprar números, você também ajuda meus projetos de evangelismo e os trabalhos sociais que realizo. Sua participação faz a diferença. Deus abençoe a todos!</p>
+        <p id="aboutText">O intuito deste projeto é sortear prêmios e enviá-los diretamente ao endereço do ganhador. Ao comprar um ou mais números, você também contribui com meus projetos de evangelismo e com os trabalhos sociais que realizo. Sua participação ajuda essa missão a continuar. Agradeço de coração pelo apoio. Deus abençoe a todos!</p>
       </div>
     </section>
 
@@ -215,7 +245,17 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
         <div class="tab-content active" id="tab-content">
           <label>Nome do site<input id="adminSiteName" maxlength="80"></label>
           
-          <label>Link da sua foto para a seção “Rifa entre Amigos”<input id="adminAboutImage" type="url"></label>
+          
+          <div class="upload-card">
+            <label>Enviar sua foto pelo aparelho
+              <input id="adminAboutImageFile" type="file" accept="image/jpeg,image/png,image/webp">
+            </label>
+            <button class="secondary-btn" id="uploadAboutImageButton" type="button">ENVIAR FOTO</button>
+            <p class="upload-status" id="aboutUploadStatus">A imagem será reduzida e otimizada antes do envio.</p>
+          </div>
+          <label>Ou use o link da sua foto
+            <input id="adminAboutImage" type="url" placeholder="https://...">
+          </label>
           <label>Título da seção “Rifa entre Amigos”<input id="adminAboutTitle" maxlength="150"></label>
           <label>Texto da seção “Rifa entre Amigos”<textarea id="adminAboutText" rows="5" maxlength="1000"></textarea></label>
 
@@ -231,7 +271,15 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
         </div>
 
         <div class="tab-content" id="tab-winner">
-          <label>Link da foto do ganhador<input id="adminWinnerImage" type="url"></label>
+          
+          <div class="upload-card">
+            <label>Enviar foto do ganhador
+              <input id="adminWinnerImageFile" type="file" accept="image/jpeg,image/png,image/webp">
+            </label>
+            <button class="secondary-btn" id="uploadWinnerImageButton" type="button">ENVIAR FOTO</button>
+            <p class="upload-status" id="winnerUploadStatus">A imagem será otimizada antes do envio.</p>
+          </div>
+          <label>Ou use o link da foto do ganhador<input id="adminWinnerImage" type="url" placeholder="https://..."></label>
           <label>Nome do ganhador<input id="adminWinnerName" maxlength="120"></label>
           <label>Dados/descrição<textarea id="adminWinnerDetails" rows="3" maxlength="400"></textarea></label>
           <button class="primary-btn" id="saveWinnerButton">SALVAR GANHADOR</button>
@@ -261,8 +309,13 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 import {
-  getDatabase, ref, onValue, set, update, push, runTransaction, get, remove
+  getDatabase, ref as dbRef, onValue, set, update, push, runTransaction, get, remove
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+import {
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCf6_DCNSh4a3IiOtTv5Uf_N8YaxQtBczw",
@@ -277,6 +330,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const storage = getStorage(app);
 
 const DEFAULT_TOTAL_NUMBERS = 600;
 const ADMIN_PASSWORD = "848218";
@@ -352,6 +406,9 @@ function renderSettings(){
   $("heroPlaceholder").style.display=settings.productImage?"none":"grid";
   if(settings.productImage) productImg.src=settings.productImage;
 
+  productImg.onerror=()=>{productImg.style.display="none";$("heroPlaceholder").style.display="grid"};
+
+
   const winnerImg=$("winnerImage");
   winnerImg.style.display=settings.winnerImage?"block":"none";
   $("winnerPlaceholder").style.display=settings.winnerImage?"none":"grid";
@@ -400,7 +457,7 @@ function updateSelection(){
 }
 
 async function seedFakeSoldNumbers(){
-  const seededSnap=await get(ref(db,"meta/seeded"));
+  const seededSnap=await get(dbRef(db,"meta/seeded"));
   if(seededSnap.exists()) return;
   const chosen=new Set();
   const total=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
@@ -432,10 +489,10 @@ async function submitParticipant(event){
   $("submitButton").textContent="REGISTRANDO...";
 
   try{
-    const purchaseId=push(ref(db,"participants")).key;
+    const purchaseId=push(dbRef(db,"participants")).key;
     const conflicts=[];
     for(const n of numbers){
-      const result=await runTransaction(ref(db,`soldNumbers/${n}`),current=>{
+      const result=await runTransaction(dbRef(db,`soldNumbers/${n}`),current=>{
         if(current!==null) return;
         return {type:"purchase",purchaseId,createdAt:Date.now()};
       },{applyLocally:false});
@@ -443,8 +500,8 @@ async function submitParticipant(event){
     }
     if(conflicts.length){
       for(const n of numbers.filter(x=>!conflicts.includes(x))){
-        const snap=await get(ref(db,`soldNumbers/${n}`));
-        if(snap.val()?.purchaseId===purchaseId) await remove(ref(db,`soldNumbers/${n}`));
+        const snap=await get(dbRef(db,`soldNumbers/${n}`));
+        if(snap.val()?.purchaseId===purchaseId) await remove(dbRef(db,`soldNumbers/${n}`));
       }
       throw new Error(`Os números ${conflicts.join(", ")} acabaram de ser escolhidos por outra pessoa. Escolha outros.`);
     }
@@ -454,7 +511,7 @@ async function submitParticipant(event){
       numbers, total:numbers.length*Number(settings.price||1),
       createdAt:Date.now()
     };
-    await set(ref(db,`participants/${purchaseId}`),participant);
+    await set(dbRef(db,`participants/${purchaseId}`),participant);
     lastPurchaseAmount=participant.total;
     $("pixAmount").textContent=money(lastPurchaseAmount);
     $("pixKey").textContent=settings.pixKey;
@@ -491,8 +548,62 @@ function renderParticipants(data={}){
   list.replaceChildren(frag);
 }
 
+
+async function optimizeImage(file,maxWidth=1200,quality=.82){
+  if(!file || !file.type.startsWith("image/")) throw new Error("Selecione uma imagem válida.");
+  if(file.size>12*1024*1024) throw new Error("A imagem deve ter no máximo 12 MB.");
+  const bitmap=await createImageBitmap(file);
+  const scale=Math.min(1,maxWidth/bitmap.width);
+  const width=Math.max(1,Math.round(bitmap.width*scale));
+  const height=Math.max(1,Math.round(bitmap.height*scale));
+  const canvas=document.createElement("canvas");
+  canvas.width=width;canvas.height=height;
+  const ctx=canvas.getContext("2d",{alpha:false});
+  ctx.drawImage(bitmap,0,0,width,height);
+  bitmap.close?.();
+  const blob=await new Promise((resolve,reject)=>
+    canvas.toBlob(b=>b?resolve(b):reject(new Error("Não foi possível otimizar a imagem.")),"image/webp",quality)
+  );
+  return blob;
+}
+
+async function uploadAdminImage(fileInputId,urlInputId,statusId,folder){
+  const file=$(fileInputId).files?.[0];
+  const status=$(statusId);
+  const urlInput=$(urlInputId);
+  if(!file) return showMessage(status,"Selecione uma foto primeiro.","error");
+  status.className="upload-status";
+  status.textContent="Otimizando a imagem...";
+  try{
+    const blob=await optimizeImage(file,1200,.82);
+    status.textContent="Enviando para o Firebase...";
+    const path=`site-images/${folder}-${Date.now()}.webp`;
+    try{
+      const target=storageRef(storage,path);
+      await uploadBytes(target,blob,{contentType:"image/webp",cacheControl:"public,max-age=31536000"});
+      urlInput.value=await getDownloadURL(target);
+      showMessage(status,"Foto enviada. Clique em SALVAR para publicar.","success");
+    }catch(storageError){
+      // Alternativa útil quando as regras do Firebase Storage ainda não foram liberadas.
+      const dataUrl=await new Promise((resolve,reject)=>{
+        const reader=new FileReader();
+        reader.onload=()=>resolve(reader.result);
+        reader.onerror=()=>reject(new Error("Falha ao ler a imagem."));
+        reader.readAsDataURL(blob);
+      });
+      urlInput.value=dataUrl;
+      showMessage(status,"Foto otimizada e incorporada. Clique em SALVAR para publicar.","success");
+    }
+  }catch(error){
+    showMessage(status,error.message||"Não foi possível enviar a imagem.","error");
+  }
+}
+
 function fillAdmin(){
   $("adminSiteName").value=settings.siteName||"";
+  $("adminAboutImage").value=settings.aboutImage||"";
+  $("adminAboutTitle").value=settings.aboutTitle||"";
+  $("adminAboutText").value=settings.aboutText||"";
   $("adminProductImage").value=settings.productImage||"";
   $("adminTitleInput").value=settings.title||"";
   $("adminDescription").value=settings.description||"";
@@ -521,11 +632,11 @@ async function saveContent(){
     drawNotice:$("adminDrawNotice").value.trim(),
     missionBanner:$("adminMissionBanner").value.trim()
   };
-  if(!payload.siteName||!payload.aboutTitle||!payload.aboutText||!payload.title||!payload.description||!payload.pixKey||payload.price<=0) return adminMessage("Preencha corretamente todos os campos.","error");
+  if(!payload.siteName||!payload.aboutTitle||!payload.aboutText||!payload.title||!payload.description||!payload.pixKey||payload.price<=0||!Number.isInteger(payload.totalNumbers)||payload.totalNumbers<1||payload.totalNumbers>10000) return adminMessage("Preencha corretamente os campos. A quantidade deve ser de 1 a 10.000.","error");
   const oldTotal=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
-  await update(ref(db,"settings"),payload);
+  await update(dbRef(db,"settings"),payload);
   if(payload.totalNumbers<oldTotal){
-    const soldSnap=await get(ref(db,"soldNumbers"));
+    const soldSnap=await get(dbRef(db,"soldNumbers"));
     const sold=soldSnap.val()||{};
     const cleanup={};
     Object.keys(sold).forEach(n=>{ if(Number(n)>payload.totalNumbers) cleanup[`soldNumbers/${n}`]=null; });
@@ -534,7 +645,7 @@ async function saveContent(){
   adminMessage("Conteúdo salvo.","success");
 }
 async function saveWinner(){
-  await update(ref(db,"settings"),{
+  await update(dbRef(db,"settings"),{
     winnerImage:$("adminWinnerImage").value.trim(),
     winnerName:$("adminWinnerName").value.trim(),
     winnerDetails:$("adminWinnerDetails").value.trim()
@@ -546,19 +657,23 @@ async function markNumber(sold){
   const n=Number($("adminNumber").value);
   const total=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
   if(!Number.isInteger(n)||n<1||n>total) return adminMessage(`Informe um número entre 1 e ${total}.`,"error");
-  if(sold) await set(ref(db,`soldNumbers/${n}`),{type:"admin",createdAt:Date.now()});
-  else await remove(ref(db,`soldNumbers/${n}`));
+  if(sold) await set(dbRef(db,`soldNumbers/${n}`),{type:"admin",createdAt:Date.now()});
+  else await remove(dbRef(db,`soldNumbers/${n}`));
   adminMessage(sold?`Número ${n} marcado como vendido.`:`Número ${n} liberado.`,"success");
 }
 
 async function resetAll(){
   if(!confirm("Tem certeza? Isso apagará participantes e números vendidos.")) return;
-  await remove(ref(db,"participants"));
-  await remove(ref(db,"soldNumbers"));
-  await set(ref(db,"meta/seeded"),false);
+  await remove(dbRef(db,"participants"));
+  await remove(dbRef(db,"soldNumbers"));
+  await set(dbRef(db,"meta/seeded"),false);
   await seedFakeSoldNumbers();
   adminMessage("Sorteio reiniciado com números aleatórios marcados.","success");
 }
+
+
+$("uploadAboutImageButton").onclick=()=>uploadAdminImage("adminAboutImageFile","adminAboutImage","aboutUploadStatus","responsavel");
+$("uploadWinnerImageButton").onclick=()=>uploadAdminImage("adminWinnerImageFile","adminWinnerImage","winnerUploadStatus","ganhador");
 
 $("participantForm").addEventListener("submit",submitParticipant);
 $("cpf").addEventListener("input",e=>e.target.value=formatCpf(e.target.value));
@@ -587,15 +702,15 @@ document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{
 });
 [$("pixModal"),$("adminModal")].forEach(modal=>modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true}));
 
-onValue(ref(db,"settings"),snap=>{
+onValue(dbRef(db,"settings"),snap=>{
   settings={...defaults,...(snap.val()||{})};renderSettings();
 });
-onValue(ref(db,"soldNumbers"),snap=>{
+onValue(dbRef(db,"soldNumbers"),snap=>{
   soldNumbers=snap.val()||{};
   selected.forEach(n=>{if(soldNumbers[n])selected.delete(n)});
   renderNumbers();updateSelection();
 });
-onValue(ref(db,"participants"),snap=>renderParticipants(snap.val()||{}));
+onValue(dbRef(db,"participants"),snap=>renderParticipants(snap.val()||{}));
 
 renderSettings();renderNumbers();
 seedFakeSoldNumbers().catch(console.error);
