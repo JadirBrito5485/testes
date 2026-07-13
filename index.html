@@ -140,13 +140,90 @@ img{max-width:100%}
   .admin-field-highlight{padding:13px}
 }
 
+
+.hero-media{
+  position:relative;
+  min-height:auto;
+  max-height:none;
+  overflow:visible;
+  padding:28px 16px 150px;
+  background:
+    radial-gradient(circle at top,#2c2c2c 0,#171717 48%,#0d0d0d 100%);
+}
+.hero-media:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:58%;
+  background:linear-gradient(transparent,rgba(0,0,0,.92));
+  pointer-events:none;
+}
+.product-portrait-frame{
+  position:relative;
+  z-index:1;
+  width:min(440px,92vw);
+  aspect-ratio:4/5;
+  margin:0 auto;
+  overflow:hidden;
+  border:5px solid var(--yellow);
+  border-radius:26px;
+  background:#fff;
+  box-shadow:0 22px 70px rgba(0,0,0,.45);
+}
+.product-portrait-frame img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  padding:10px;
+  background:#fff;
+}
+.product-portrait-frame .hero-placeholder{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:28px;
+  color:#777;
+  text-align:center;
+  font-weight:900;
+  font-size:clamp(1rem,3vw,1.45rem);
+  letter-spacing:.08em;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  margin-top:-118px;
+  padding-bottom:54px;
+}
+
+
+@media(max-width:650px){
+  .hero-media{padding:16px 10px 118px}
+  .product-portrait-frame{
+    width:min(330px,92vw);
+    border-width:4px;
+    border-radius:20px;
+  }
+  .product-portrait-frame img{padding:7px}
+  .hero-content{margin-top:-88px;padding-bottom:34px}
+}
+@media(max-width:380px){
+  .product-portrait-frame{width:min(292px,94vw)}
+  .hero h1{font-size:1.8rem}
+}
+
+
+.hero-media>img{display:none!important}
+
 </style>
 </head>
 <body>
   <header class="hero">
-    <div class="hero-media">
-      <img id="productImage" alt="Produto do sorteio" loading="eager" decoding="async" fetchpriority="high" sizes="100vw">
-      <div class="hero-placeholder" id="heroPlaceholder">FOTO DO PRODUTO SORTEADO</div>
+    <div class="hero-media"><div class="product-portrait-frame">
+      <img id="productImage" alt="Produto do sorteio" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width:650px) 92vw, 440px">
+      <div class="hero-placeholder" id="heroPlaceholder">FOTO DO PRODUTO SORTEADO</div></div>
     </div>
     <div class="hero-content container">
       <span class="eyebrow" id="siteName">RIFA ENTRE AMIGOS</span>
@@ -296,11 +373,11 @@ img{max-width:100%}
           <label>Texto da seção “Rifa entre Amigos”<textarea id="adminAboutText" rows="5" maxlength="1000"></textarea></label>
 
           <div class="admin-field-highlight product-photo-field">
-            <span class="admin-field-title">FOTO DO PRODUTO SORTEADO</span>
+            <span class="admin-field-title">FOTO DO PRODUTO SORTEADO — RETRATO</span>
             <label>URL da foto do produto
               <input id="adminProductImage" type="url" inputmode="url" placeholder="https://exemplo.com/produto.jpg">
             </label>
-            <p>Use uma imagem nítida. Ela será ajustada automaticamente em celulares, tablets e computadores.</p>
+            <p>Use uma imagem vertical ou em formato retrato, nítida e com o produto centralizado. O site mostrará a imagem inteira, sem cortar o produto.</p>
           </div>
           <label>Título<input id="adminTitleInput" maxlength="120"></label>
           <label>Descrição<textarea id="adminDescription" rows="3" maxlength="500"></textarea></label>
@@ -371,7 +448,7 @@ const ADMIN_PASSWORD = "848218";
 const defaults = {
   siteName: "RIFA ENTRE AMIGOS",
   productImage: "",
-  title: "Participe do nosso sorteio",
+  title: "Escolha seus números e concorra ao prêmio",
   description: "Escolha seus números e concorra ao prêmio.",
   price: 1,
   totalNumbers: DEFAULT_TOTAL_NUMBERS,
