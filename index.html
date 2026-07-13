@@ -72,9 +72,7 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
 .winner-section{grid-template-columns:1fr;text-align:center}.winner-photo-wrap{width:190px;margin:auto}.admin-actions{grid-template-columns:1fr}.pix-box{grid-template-columns:1fr}.pix-box button{width:100%}}
 
 
-.upload-card{display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;padding:14px;border:1px dashed #c7a900;border-radius:14px;background:#fffbe6}
-.upload-card input[type=file]{padding:10px;background:white}
-.upload-status{grid-column:1/-1;margin:0;color:var(--muted);font-size:.82rem;font-weight:600}
+
 img{max-width:100%}
 .hero-media img,.about-photo-wrap img,.winner-photo-wrap img{background:#eee}
 @media(max-width:480px){
@@ -97,8 +95,49 @@ img{max-width:100%}
   .selection-summary strong{font-size:1.35rem}
   input,textarea{font-size:16px}
   .modal{padding:24px 17px}
-  .upload-card{grid-template-columns:1fr}
-  .upload-card .secondary-btn{width:100%}
+}
+
+
+.admin-field-highlight{
+  display:grid;
+  gap:10px;
+  padding:16px;
+  border:2px solid var(--yellow-dark);
+  border-radius:16px;
+  background:#fffbea;
+}
+.admin-field-title{
+  display:block;
+  font-size:.78rem;
+  font-weight:950;
+  letter-spacing:.12em;
+  color:#6b5200;
+}
+.admin-field-highlight p{
+  margin:0;
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:600;
+}
+.product-photo-field{
+  background:linear-gradient(135deg,#fffbea,#fff);
+}
+.hero-placeholder{
+  padding:20px;
+  text-align:center;
+  letter-spacing:.08em;
+}
+.about-photo-wrap img,.winner-photo-wrap img,.hero-media img{
+  image-rendering:auto;
+}
+@media(max-width:420px){
+  .hero-media img{height:235px}
+  .hero-placeholder{font-size:1.1rem}
+  .about-content h2,.winner-section h2{font-size:1.65rem}
+  .about-content p,.winner-section p{font-size:.93rem}
+  .numbers-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .number-btn{min-width:0;padding:4px 2px}
+  .admin-field-highlight{padding:13px}
 }
 
 </style>
@@ -107,7 +146,7 @@ img{max-width:100%}
   <header class="hero">
     <div class="hero-media">
       <img id="productImage" alt="Produto do sorteio" loading="eager" decoding="async" fetchpriority="high" sizes="100vw">
-      <div class="hero-placeholder" id="heroPlaceholder">Imagem do produto</div>
+      <div class="hero-placeholder" id="heroPlaceholder">FOTO DO PRODUTO SORTEADO</div>
     </div>
     <div class="hero-content container">
       <span class="eyebrow" id="siteName">RIFA ENTRE AMIGOS</span>
@@ -132,7 +171,7 @@ img{max-width:100%}
       <div class="about-content">
         <span class="eyebrow dark">RIFA ENTRE AMIGOS</span>
         <h2 id="aboutTitle">Um projeto para premiar e ajudar</h2>
-        <p id="aboutText">O intuito deste projeto é sortear prêmios e enviá-los diretamente ao endereço do ganhador. Ao comprar um ou mais números, você também contribui com meus projetos de evangelismo e com os trabalhos sociais que realizo. Sua participação ajuda essa missão a continuar. Agradeço de coração pelo apoio. Deus abençoe a todos!</p>
+        <p id="aboutText">O intuito deste projeto é sortear prêmios e enviá-los diretamente ao endereço do ganhador. Ao comprar um ou mais números, você também ajuda meus projetos de evangelismo e os trabalhos sociais que realizo. Cada participação contribui para que essa missão continue alcançando vidas. Agradeço de coração pelo apoio e pela confiança. Deus abençoe a todos!</p>
       </div>
     </section>
 
@@ -246,20 +285,23 @@ img{max-width:100%}
           <label>Nome do site<input id="adminSiteName" maxlength="80"></label>
           
           
-          <div class="upload-card">
-            <label>Enviar sua foto pelo aparelho
-              <input id="adminAboutImageFile" type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="admin-field-highlight">
+            <span class="admin-field-title">SUA FOTO NO SITE</span>
+            <label>URL da sua foto
+              <input id="adminAboutImage" type="url" inputmode="url" placeholder="https://exemplo.com/sua-foto.jpg">
             </label>
-            <button class="secondary-btn" id="uploadAboutImageButton" type="button">ENVIAR FOTO</button>
-            <p class="upload-status" id="aboutUploadStatus">A imagem será reduzida e otimizada antes do envio.</p>
+            <p>Cole o link direto de uma imagem JPG, PNG ou WebP.</p>
           </div>
-          <label>Ou use o link da sua foto
-            <input id="adminAboutImage" type="url" placeholder="https://...">
-          </label>
           <label>Título da seção “Rifa entre Amigos”<input id="adminAboutTitle" maxlength="150"></label>
           <label>Texto da seção “Rifa entre Amigos”<textarea id="adminAboutText" rows="5" maxlength="1000"></textarea></label>
 
-          <label>Link da imagem do produto<input id="adminProductImage" type="url"></label>
+          <div class="admin-field-highlight product-photo-field">
+            <span class="admin-field-title">FOTO DO PRODUTO SORTEADO</span>
+            <label>URL da foto do produto
+              <input id="adminProductImage" type="url" inputmode="url" placeholder="https://exemplo.com/produto.jpg">
+            </label>
+            <p>Use uma imagem nítida. Ela será ajustada automaticamente em celulares, tablets e computadores.</p>
+          </div>
           <label>Título<input id="adminTitleInput" maxlength="120"></label>
           <label>Descrição<textarea id="adminDescription" rows="3" maxlength="500"></textarea></label>
           <label>Preço por número (R$)<input id="adminPrice" type="number" min="0.01" step="0.01"></label>
@@ -272,14 +314,12 @@ img{max-width:100%}
 
         <div class="tab-content" id="tab-winner">
           
-          <div class="upload-card">
-            <label>Enviar foto do ganhador
-              <input id="adminWinnerImageFile" type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="admin-field-highlight">
+            <span class="admin-field-title">FOTO DO GANHADOR</span>
+            <label>URL da foto do ganhador
+              <input id="adminWinnerImage" type="url" inputmode="url" placeholder="https://exemplo.com/ganhador.jpg">
             </label>
-            <button class="secondary-btn" id="uploadWinnerImageButton" type="button">ENVIAR FOTO</button>
-            <p class="upload-status" id="winnerUploadStatus">A imagem será otimizada antes do envio.</p>
           </div>
-          <label>Ou use o link da foto do ganhador<input id="adminWinnerImage" type="url" placeholder="https://..."></label>
           <label>Nome do ganhador<input id="adminWinnerName" maxlength="120"></label>
           <label>Dados/descrição<textarea id="adminWinnerDetails" rows="3" maxlength="400"></textarea></label>
           <button class="primary-btn" id="saveWinnerButton">SALVAR GANHADOR</button>
@@ -312,11 +352,6 @@ import {
   getDatabase, ref as dbRef, onValue, set, update, push, runTransaction, get, remove
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-import {
-  getStorage, ref as storageRef, uploadBytes, getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyCf6_DCNSh4a3IiOtTv5Uf_N8YaxQtBczw",
   authDomain: "loja-a33e1.firebaseapp.com",
@@ -330,7 +365,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const storage = getStorage(app);
 
 const DEFAULT_TOTAL_NUMBERS = 600;
 const ADMIN_PASSWORD = "848218";
@@ -392,6 +426,7 @@ function renderSettings(){
   aboutImg.style.display=settings.aboutImage?"block":"none";
   $("aboutPlaceholder").style.display=settings.aboutImage?"none":"grid";
   if(settings.aboutImage) aboutImg.src=settings.aboutImage;
+  aboutImg.onerror=()=>{aboutImg.style.display="none";$("aboutPlaceholder").style.display="grid"};
 
   $("siteDescription").textContent=settings.description;
   $("drawNotice").textContent=settings.drawNotice;
@@ -413,6 +448,7 @@ function renderSettings(){
   winnerImg.style.display=settings.winnerImage?"block":"none";
   $("winnerPlaceholder").style.display=settings.winnerImage?"none":"grid";
   if(settings.winnerImage) winnerImg.src=settings.winnerImage;
+  winnerImg.onerror=()=>{winnerImg.style.display="none";$("winnerPlaceholder").style.display="grid"};
   updateSelection();
 }
 
@@ -549,55 +585,6 @@ function renderParticipants(data={}){
 }
 
 
-async function optimizeImage(file,maxWidth=1200,quality=.82){
-  if(!file || !file.type.startsWith("image/")) throw new Error("Selecione uma imagem válida.");
-  if(file.size>12*1024*1024) throw new Error("A imagem deve ter no máximo 12 MB.");
-  const bitmap=await createImageBitmap(file);
-  const scale=Math.min(1,maxWidth/bitmap.width);
-  const width=Math.max(1,Math.round(bitmap.width*scale));
-  const height=Math.max(1,Math.round(bitmap.height*scale));
-  const canvas=document.createElement("canvas");
-  canvas.width=width;canvas.height=height;
-  const ctx=canvas.getContext("2d",{alpha:false});
-  ctx.drawImage(bitmap,0,0,width,height);
-  bitmap.close?.();
-  const blob=await new Promise((resolve,reject)=>
-    canvas.toBlob(b=>b?resolve(b):reject(new Error("Não foi possível otimizar a imagem.")),"image/webp",quality)
-  );
-  return blob;
-}
-
-async function uploadAdminImage(fileInputId,urlInputId,statusId,folder){
-  const file=$(fileInputId).files?.[0];
-  const status=$(statusId);
-  const urlInput=$(urlInputId);
-  if(!file) return showMessage(status,"Selecione uma foto primeiro.","error");
-  status.className="upload-status";
-  status.textContent="Otimizando a imagem...";
-  try{
-    const blob=await optimizeImage(file,1200,.82);
-    status.textContent="Enviando para o Firebase...";
-    const path=`site-images/${folder}-${Date.now()}.webp`;
-    try{
-      const target=storageRef(storage,path);
-      await uploadBytes(target,blob,{contentType:"image/webp",cacheControl:"public,max-age=31536000"});
-      urlInput.value=await getDownloadURL(target);
-      showMessage(status,"Foto enviada. Clique em SALVAR para publicar.","success");
-    }catch(storageError){
-      // Alternativa útil quando as regras do Firebase Storage ainda não foram liberadas.
-      const dataUrl=await new Promise((resolve,reject)=>{
-        const reader=new FileReader();
-        reader.onload=()=>resolve(reader.result);
-        reader.onerror=()=>reject(new Error("Falha ao ler a imagem."));
-        reader.readAsDataURL(blob);
-      });
-      urlInput.value=dataUrl;
-      showMessage(status,"Foto otimizada e incorporada. Clique em SALVAR para publicar.","success");
-    }
-  }catch(error){
-    showMessage(status,error.message||"Não foi possível enviar a imagem.","error");
-  }
-}
 
 function fillAdmin(){
   $("adminSiteName").value=settings.siteName||"";
@@ -671,9 +658,6 @@ async function resetAll(){
   adminMessage("Sorteio reiniciado com números aleatórios marcados.","success");
 }
 
-
-$("uploadAboutImageButton").onclick=()=>uploadAdminImage("adminAboutImageFile","adminAboutImage","aboutUploadStatus","responsavel");
-$("uploadWinnerImageButton").onclick=()=>uploadAdminImage("adminWinnerImageFile","adminWinnerImage","winnerUploadStatus","ganhador");
 
 $("participantForm").addEventListener("submit",submitParticipant);
 $("cpf").addEventListener("input",e=>e.target.value=formatCpf(e.target.value));
