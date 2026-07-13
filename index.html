@@ -181,6 +181,7 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
           <label>Título<input id="adminTitleInput" maxlength="120"></label>
           <label>Descrição<textarea id="adminDescription" rows="3" maxlength="500"></textarea></label>
           <label>Preço por número (R$)<input id="adminPrice" type="number" min="0.01" step="0.01"></label>
+          <label>Quantidade total de números<input id="adminTotalNumbers" type="number" min="1" max="10000" step="1" placeholder="Ex.: 300, 500, 600 ou 1000"></label>
           <label>Chave Pix<input id="adminPixKey" maxlength="120"></label>
           <label>Aviso do sorteio<textarea id="adminDrawNotice" rows="2" maxlength="300"></textarea></label>
           <label>Banner da missão<textarea id="adminMissionBanner" rows="3" maxlength="400"></textarea></label>
@@ -195,8 +196,8 @@ footer{background:var(--black);color:#aaa}.footer-content{display:flex;justify-c
         </div>
 
         <div class="tab-content" id="tab-numbers">
-          <p class="admin-help">Use estas ações com cuidado. Os números vendidos por participantes não devem ser liberados sem conferência.</p>
-          <label>Número (1 a 600)<input id="adminNumber" type="number" min="1" max="600"></label>
+          <p class="admin-help">Use estas ações com cuidado. A quantidade total é definida na aba Conteúdo. Os números vendidos por participantes não devem ser liberados sem conferência.</p>
+          <label>Número para marcar ou liberar<input id="adminNumber" type="number" min="1" max="600"></label>
           <div class="admin-actions">
             <button class="secondary-btn" id="markSoldButton">MARCAR VENDIDO</button>
             <button class="secondary-btn danger" id="releaseNumberButton">LIBERAR NÚMERO</button>
@@ -235,7 +236,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const TOTAL_NUMBERS = 600;
+const DEFAULT_TOTAL_NUMBERS = 600;
 const ADMIN_PASSWORD = "848218";
 const defaults = {
   siteName: "RIFA MISSIONÁRIA",
@@ -243,6 +244,7 @@ const defaults = {
   title: "Participe do nosso sorteio",
   description: "Escolha seus números e concorra ao prêmio.",
   price: 1,
+  totalNumbers: DEFAULT_TOTAL_NUMBERS,
   pixKey: "08167820912",
   drawNotice: "O sorteio será realizado quando todos os números forem vendidos.",
   missionBanner: "Você comprando um número ajuda os projetos sociais e mantém a missão de evangelização que realizamos.",
@@ -293,6 +295,7 @@ function renderSettings(){
   $("pixKey").textContent=settings.pixKey;
   $("winnerName").textContent=settings.winnerName;
   $("winnerDetails").textContent=settings.winnerDetails;
+  if($("adminNumber")) $("adminNumber").max=String(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
 
   const productImg=$("productImage");
   productImg.style.display=settings.productImage?"block":"none";
@@ -309,7 +312,7 @@ function renderSettings(){
 function renderNumbers(){
   const grid=$("numbersGrid");
   const fragment=document.createDocumentFragment();
-  for(let i=1;i<=TOTAL_NUMBERS;i++){
+  for(let i=1;i<=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);i++){
     const btn=document.createElement("button");
     btn.type="button";
     btn.className="number-btn";
@@ -327,9 +330,10 @@ function renderNumbers(){
     fragment.appendChild(btn);
   }
   grid.replaceChildren(fragment);
-  const soldCount=Object.keys(soldNumbers).length;
-  $("progressText").textContent=`${soldCount} de ${TOTAL_NUMBERS} vendidos`;
-  $("progressBar").style.width=`${(soldCount/TOTAL_NUMBERS)*100}%`;
+  const total=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
+  const soldCount=Object.keys(soldNumbers).filter(n=>Number(n)<=total).length;
+  $("progressText").textContent=`${soldCount} de ${total} vendidos`;
+  $("progressBar").style.width=`${total ? (soldCount/total)*100 : 0}%`;
 }
 
 function toggleNumber(n){
@@ -349,7 +353,9 @@ async function seedFakeSoldNumbers(){
   const seededSnap=await get(ref(db,"meta/seeded"));
   if(seededSnap.exists()) return;
   const chosen=new Set();
-  while(chosen.size<100) chosen.add(Math.floor(Math.random()*TOTAL_NUMBERS)+1);
+  const total=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
+  const seedCount=Math.min(total, Math.max(1, Math.round(total/6)));
+  while(chosen.size<seedCount) chosen.add(Math.floor(Math.random()*total)+1);
   const updates={};
   chosen.forEach(n=>updates[`soldNumbers/${n}`]={type:"seed",createdAt:Date.now()});
   updates["meta/seeded"]=true;
@@ -441,6 +447,7 @@ function fillAdmin(){
   $("adminTitleInput").value=settings.title||"";
   $("adminDescription").value=settings.description||"";
   $("adminPrice").value=settings.price||1;
+  $("adminTotalNumbers").value=settings.totalNumbers||DEFAULT_TOTAL_NUMBERS;
   $("adminPixKey").value=settings.pixKey||"";
   $("adminDrawNotice").value=settings.drawNotice||"";
   $("adminMissionBanner").value=settings.missionBanner||"";
@@ -456,12 +463,22 @@ async function saveContent(){
     title:$("adminTitleInput").value.trim(),
     description:$("adminDescription").value.trim(),
     price:Number($("adminPrice").value),
+    totalNumbers:Number($("adminTotalNumbers").value),
     pixKey:$("adminPixKey").value.trim(),
     drawNotice:$("adminDrawNotice").value.trim(),
     missionBanner:$("adminMissionBanner").value.trim()
   };
   if(!payload.siteName||!payload.title||!payload.description||!payload.pixKey||payload.price<=0) return adminMessage("Preencha corretamente todos os campos.","error");
-  await update(ref(db,"settings"),payload);adminMessage("Conteúdo salvo.","success");
+  const oldTotal=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
+  await update(ref(db,"settings"),payload);
+  if(payload.totalNumbers<oldTotal){
+    const soldSnap=await get(ref(db,"soldNumbers"));
+    const sold=soldSnap.val()||{};
+    const cleanup={};
+    Object.keys(sold).forEach(n=>{ if(Number(n)>payload.totalNumbers) cleanup[`soldNumbers/${n}`]=null; });
+    if(Object.keys(cleanup).length) await update(ref(db),cleanup);
+  }
+  adminMessage("Conteúdo salvo.","success");
 }
 async function saveWinner(){
   await update(ref(db,"settings"),{
@@ -474,7 +491,8 @@ function adminMessage(text,type){showMessage($("adminMessage"),text,type)}
 
 async function markNumber(sold){
   const n=Number($("adminNumber").value);
-  if(!Number.isInteger(n)||n<1||n>TOTAL_NUMBERS) return adminMessage("Informe um número entre 1 e 600.","error");
+  const total=Number(settings.totalNumbers||DEFAULT_TOTAL_NUMBERS);
+  if(!Number.isInteger(n)||n<1||n>total) return adminMessage(`Informe um número entre 1 e ${total}.`,"error");
   if(sold) await set(ref(db,`soldNumbers/${n}`),{type:"admin",createdAt:Date.now()});
   else await remove(ref(db,`soldNumbers/${n}`));
   adminMessage(sold?`Número ${n} marcado como vendido.`:`Número ${n} liberado.`,"success");
@@ -486,7 +504,7 @@ async function resetAll(){
   await remove(ref(db,"soldNumbers"));
   await set(ref(db,"meta/seeded"),false);
   await seedFakeSoldNumbers();
-  adminMessage("Sorteio reiniciado com 100 números aleatórios.","success");
+  adminMessage("Sorteio reiniciado com números aleatórios marcados.","success");
 }
 
 $("participantForm").addEventListener("submit",submitParticipant);
