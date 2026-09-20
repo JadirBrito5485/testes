@@ -30,7 +30,7 @@ footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);pad
 <p class="note">Cadastro gratuito. O login é feito pelo Firebase Authentication.</p></div></div>
 
 <div class="overlay" id="adminModal"><div class="modal"><div class="modalTop"><h2>Painel ADM</h2><button class="x" onclick="closeM('adminModal')">×</button></div>
-<div id="adminGate"><p>Entre com uma conta do Firebase autorizada como administrador.</p><div class="field"><label>E-mail</label><input id="admEmail" type="email"></div><div class="field"><label>Senha</label><input id="admPass" type="password"></div><button class="btn" onclick="adminLogin()">Entrar como ADM</button><p class="note">Não existe mais senha administrativa fixa dentro do HTML. O administrador é definido no banco em <b>/admins/UID = true</b>.</p></div>
+<div id="adminGate"><div class="field"><label>Senha ADM</label><input id="admPass" type="password" inputmode="numeric" autocomplete="off"></div><button class="btn" onclick="adminLogin()">Entrar</button></div>
 <div id="adminPanel" class="hidden"><div class="tabs"><button class="tab active" onclick="admTab('site',this)">Site</button><button class="tab" onclick="admTab('courses',this)">Cursos</button><button class="tab" onclick="admTab('lessons',this)">Aulas</button><button class="tab" onclick="admTab('students',this)">Alunos</button></div><div id="a-site"></div><div id="a-courses" class="hidden"></div><div id="a-lessons" class="hidden"></div><div id="a-students" class="hidden"></div></div>
 </div></div>
 
@@ -82,7 +82,7 @@ window.registerStudent=async()=>{try{let name=$("regName").value.trim(),email=$(
 window.studentLogin=async()=>{try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPass").value);closeM("studentModal")}catch(e){errorMsg(e)}};
 window.logoutUser=()=>signOut(auth);
 window.openAdmin=()=>{$("adminModal").classList.add("show");$("adminGate").classList.toggle("hidden",isAdmin);$("adminPanel").classList.toggle("hidden",!isAdmin);if(isAdmin)renderAdmin()};
-window.adminLogin=async()=>{try{let cred=await signInWithEmailAndPassword(auth,$("admEmail").value.trim(),$("admPass").value);let s=await get(ref(db,"admins/"+cred.user.uid));if(!s.exists()||s.val()!==true){alert("Esta conta não está autorizada como administrador.");return}$("adminGate").classList.add("hidden");$("adminPanel").classList.remove("hidden");isAdmin=true;await ensureSeed();renderAdmin()}catch(e){errorMsg(e)}};
+window.adminLogin=async()=>{if($("admPass").value!=="22061992"){alert("Senha incorreta.");return} $("admPass").value=""; isAdmin=true; $("adminGate").classList.add("hidden"); $("adminPanel").classList.remove("hidden"); renderAdmin();};
 window.admTab=(n,b)=>{["site","courses","lessons","students"].forEach(x=>$("a-"+x).classList.add("hidden"));$("a-"+n).classList.remove("hidden");b.parentNode.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active")};
 
 function renderAdmin(){
