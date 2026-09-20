@@ -158,6 +158,22 @@ footer{position:relative!important;padding-right:48px!important}
   }
 }
 </style>
+
+<style id="quiz-colors-v10">
+#quizPublic .q label{
+  color:#111!important;
+  background:transparent!important;
+  border:0!important;
+}
+#quizPublic .q.quiz-corrected label.correct-option{
+  color:#148344!important;
+  font-weight:700!important;
+}
+#quizPublic .q.quiz-corrected label.incorrect-option{
+  color:#b42318!important;
+  font-weight:600!important;
+}
+</style>
 </head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><div id="hello" class="muted"></div></div></header>
 <main id="homeView"><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
@@ -276,6 +292,48 @@ window.grade=function(){
       fb.innerHTML=`<div><strong>Resposta Correta:</strong> ${String.fromCharCode(65+correct)}) ${esc(correctText)}</div><div><strong>Explicação:</strong> ${esc(z.explanation||z.explicacao||"Explicação não cadastrada.")}</div>`;
       box.appendChild(fb);
     });
+    const grade=q.length ? ((hits/q.length)*10) : 0;
+    $("quizResult").innerHTML=`<div class="quizGrade">Você acertou ${hits} de ${q.length}. Nota: ${grade.toFixed(1).replace(".",",")} / 10</div>`;
+  }catch(e){console.error(e)}
+};
+</script>
+
+<script id="quiz-grade-v10">
+window.grade=function(){
+  try{
+    const a=state.courses[current.cid].lessons[current.id];
+    const q=Object.values(a.quiz||{});
+    let hits=0;
+    const boxes=[...document.querySelectorAll("#quizPublic .q")];
+
+    boxes.forEach(box=>{
+      box.classList.remove("quiz-corrected");
+      box.querySelectorAll("label").forEach(l=>{
+        l.classList.remove("correct-option","incorrect-option","chosen-wrong");
+      });
+      box.querySelectorAll(".quizFeedback").forEach(x=>x.remove());
+    });
+
+    q.forEach((z,i)=>{
+      const box=boxes[i]; if(!box)return;
+      const labels=[...box.querySelectorAll("label")];
+      const correct=Number(z.correct);
+      const selected=box.querySelector(`input[name="q${i}"]:checked`);
+
+      box.classList.add("quiz-corrected");
+      labels.forEach((label,j)=>{
+        label.classList.add(j===correct ? "correct-option" : "incorrect-option");
+      });
+
+      if(selected && Number(selected.value)===correct) hits++;
+
+      const correctText=(z.options||[])[correct]||"";
+      const fb=document.createElement("div");
+      fb.className="quizFeedback";
+      fb.innerHTML=`<div><strong>Resposta Correta:</strong> ${String.fromCharCode(65+correct)}) ${esc(correctText)}</div><div><strong>Explicação:</strong> ${esc(z.explanation||z.explicacao||"Explicação não cadastrada.")}</div>`;
+      box.appendChild(fb);
+    });
+
     const grade=q.length ? ((hits/q.length)*10) : 0;
     $("quizResult").innerHTML=`<div class="quizGrade">Você acertou ${hits} de ${q.length}. Nota: ${grade.toFixed(1).replace(".",",")} / 10</div>`;
   }catch(e){console.error(e)}
