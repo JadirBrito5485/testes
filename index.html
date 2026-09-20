@@ -126,11 +126,43 @@ footer{position:relative!important;padding-right:48px!important}
 }
 .adminA:hover,.adminA:focus{opacity:.55!important}
 </style>
+
+<style id="course-carousel-v9">
+/* Área de estudo: cursos passam horizontalmente quando houver mais itens */
+.courseGrid{
+  display:flex!important;
+  grid-template-columns:none!important;
+  gap:14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  flex-wrap:nowrap!important;
+  scroll-snap-type:x proximity;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  padding:4px 2px 14px!important;
+  scrollbar-width:thin;
+}
+.courseGrid .courseCard{
+  flex:0 0 220px!important;
+  width:220px!important;
+  scroll-snap-align:start;
+}
+.courseGrid::-webkit-scrollbar{height:6px}
+.courseGrid::-webkit-scrollbar-thumb{background:#d0d5dd;border-radius:999px}
+.courseGrid::-webkit-scrollbar-track{background:transparent}
+@media(max-width:600px){
+  .courseGrid{gap:10px!important;padding-bottom:12px!important}
+  .courseGrid .courseCard{
+    flex-basis:165px!important;
+    width:165px!important;
+  }
+}
+</style>
 </head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><div id="hello" class="muted"></div></div></header>
 <main id="homeView"><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"></div></div></section>
-<section class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias</h2><span class="muted">Informação e conhecimento</span></div><div id="newsGrid" class="newsGrid"></div></div></section></main>
+<section class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias</h2><span class="muted"></span></div><div id="newsGrid" class="newsGrid"></div></div></section></main>
 <main id="courseView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><img id="courseCover" class="cover hide"><h1 id="courseName" class="title"></h1><p id="courseDesc" class="summary"></p><div id="lessonList" class="lessons"></div></div></main>
 <main id="articleView" class="hide"><div class="wrap page"><article class="article"><span id="articleBack" class="back">← Voltar</span><div id="articleKicker" class="kicker" style="margin-top:28px"></div><h1 id="articleTitle" class="title"></h1><p id="articleSummary" class="summary"></p><div id="articleDate" class="date"></div><img id="articleCover" class="cover hide"><div id="articleBody" class="articleBody"></div><div id="youtube"></div><button id="pdfButton" class="btn" onclick="makePDF()">Baixar aula em PDF</button><section id="quiz" class="quiz"><h2>Perguntas para fixação</h2><div id="quizPublic"></div><button class="btn" onclick="grade()">Corrigir</button><div id="quizResult" class="status"></div></section></article></div></main>
 <footer><div id="footerText">Jadir Brito — Conhecimento gratuito.</div><button class="adminA" onclick="openAdmin()">A</button></footer>
