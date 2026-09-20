@@ -86,6 +86,46 @@ footer{border-top:1px solid var(--line);padding:30px;text-align:center;color:var
   .courseCard .summary{font-size:13px!important}
 }
 </style>
+
+<style id="visual-v8">
+/* Quiz: somente o texto da alternativa recebe cor */
+#quizPublic .q label.correct-option{
+  background:transparent!important;border:0!important;padding:0!important;
+  color:#148344!important;font-weight:700!important;
+}
+#quizPublic .q label.chosen-wrong{
+  background:transparent!important;border:0!important;padding:0!important;
+  color:#b42318!important;font-weight:700!important;
+}
+#quizPublic .q label:not(.correct-option):not(.chosen-wrong){color:#121826!important}
+
+/* PDF discreto e menor no final da aula */
+#pdfButton{
+  display:block;
+  width:max-content;
+  margin:34px 0 0 auto;
+  padding:6px 10px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  border-radius:6px!important;
+  background:#eef1f4!important;
+  color:#667085!important;
+}
+
+/* Rodapé com o A do ADM quase apagado no canto direito */
+footer{position:relative!important;padding-right:48px!important}
+.adminA{
+  position:absolute!important;
+  right:12px!important;
+  bottom:10px!important;
+  color:#98a2b3!important;
+  opacity:.16!important;
+  font-size:11px!important;
+  padding:4px!important;
+  transition:opacity .2s ease!important;
+}
+.adminA:hover,.adminA:focus{opacity:.55!important}
+</style>
 </head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><div id="hello" class="muted"></div></div></header>
 <main id="homeView"><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
