@@ -17,7 +17,15 @@ header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid 
 footer{border-top:1px solid var(--line);padding:30px;text-align:center;color:var(--muted)}.adminA{border:0;background:none;color:#a8afb9;font-weight:bold;cursor:pointer}
 .overlay{position:fixed;inset:0;background:#101828a8;z-index:60;display:none;align-items:center;justify-content:center;padding:15px}.overlay.show{display:flex}.modal{width:min(1050px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:15px;padding:22px}.modal.sm{max-width:480px}.field{margin:12px 0}.field label{display:block;font-weight:700;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid #cdd3dc;border-radius:7px}.field textarea{min-height:115px}.field textarea.editor{min-height:330px}.panel{border:1px solid var(--line);padding:15px;border-radius:10px;margin:12px 0}.note{padding:11px;background:var(--soft);border-radius:7px;color:var(--muted);font-size:13px}.tabs{margin:15px 0}.tab{border:0;padding:9px 11px;border-radius:7px;font-weight:700;cursor:pointer}.tab.on{background:var(--ink);color:#fff}.imgrow{display:grid;grid-template-columns:1fr 1fr auto;gap:7px;margin:8px 0}.quizEditor{background:var(--soft);padding:14px;border-radius:10px;margin:10px 0}.status{font-size:13px;font-weight:bold;color:var(--green)}
 @media(max-width:800px){.courseGrid,.newsGrid{grid-template-columns:1fr}.newsCard.featured h3{font-size:27px}.hero h1{letter-spacing:-1px}.imgrow{grid-template-columns:1fr}}
-</style></head><body>
+</style>
+<style id="quiz-correction-v4">
+.q.correct-answer {border:2px solid #18864b;background:#eefaf3;border-radius:10px;padding:15px;margin-top:10px}
+.q.correct-answer label.correct-option {background:#dff6e9;color:#11683a;border:1px solid #54ad79;border-radius:7px;padding:7px 9px;font-weight:700}
+.q.wrong-answer label.chosen-wrong {background:#fff0f0;color:#9b1c1c;border:1px solid #d88;border-radius:7px;padding:7px 9px}
+.quizFeedback{margin-top:10px;padding:10px 12px;border-radius:8px;background:#f7f8fa}
+.quizFeedback strong{color:#176b45}
+</style>
+</head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><div id="hello" class="muted"></div></div></header>
 <main id="homeView"><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"></div></div></section>
@@ -65,4 +73,40 @@ window.saveLesson=async(oldCid,id,exit)=>{let cid=$("lCourse").value,d={title:$(
 window.editNews=id=>{let n=id?state.news[id]:{title:"",category:"Notícias",summary:"",cover:"",content:"",status:"draft",date:Date.now(),seoTitle:"",seoDescription:""};$("tab-news").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} notícia</h3><div class="field"><label>Título</label><input id="nTitle" value="${esc(n.title)}"></div><div class="field"><label>Categoria</label><input id="nCat" value="${esc(n.category||"Notícias")}"></div><div class="field"><label>Resumo</label><textarea id="nSummary">${esc(n.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="nCover" value="${esc(n.cover||"")}"></div><div class="field"><label>Notícia completa</label><textarea id="nContent" class="editor">${esc(n.content||"")}</textarea></div><div class="field"><label>Publicação</label><select id="nStatus"><option value="draft" ${n.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${n.status!=="draft"?"selected":""}>Publicada</option></select></div><div class="field"><label>Título SEO</label><input id="nSeoT" value="${esc(n.seoTitle||"")}"></div><div class="field"><label>Descrição SEO</label><textarea id="nSeoD">${esc(n.seoDescription||"")}</textarea></div><div class="actions"><button class="btn" onclick="saveNews('${id||""}',false)">Salvar</button><button class="btn green" onclick="saveNews('${id||""}',true)">Salvar e sair</button></div>`;dirty=true};window.saveNews=async(id,exit)=>{let d={title:$("nTitle").value,category:$("nCat").value,summary:$("nSummary").value,cover:$("nCover").value,content:$("nContent").value,status:$("nStatus").value,seoTitle:$("nSeoT").value,seoDescription:$("nSeoD").value,date:id?(state.news[id].date||Date.now()):Date.now()};if(id)await set(ref(db,"news/"+id),d);else await set(push(ref(db,"news")),d);dirty=false;if(exit)adminHome();else alert("Notícia salva.")};window.deleteNews=id=>confirm("Excluir notícia?")&&remove(ref(db,"news/"+id));
 window.changePassword=async exit=>{let old=$("oldP").value,n=$("newP").value,n2=$("newP2").value;if(h(old)!==await passHash())return alert("Senha atual incorreta.");if(n.length<8||n!==n2)return alert("Confira a nova senha. Mínimo 8 caracteres.");await set(ref(db,"adminConfig/passwordHash"),h(n));alert("Senha alterada.");if(exit)adminHome()};
 onValue(ref(db,"settings"),s=>{if(s.exists())state.settings=s.val();render()});onValue(ref(db,"courses"),s=>{state.courses=s.val()||{};render()});onValue(ref(db,"news"),s=>{state.news=s.val()||{};render()});render();home();if(!localStorage.getItem("jb_access"))$("firstAccess").classList.add("show");
-</script></body></html>
+</script>
+<script>
+window.grade=function(){
+  try{
+    const a=state.courses[current.cid].lessons[current.id];
+    const q=Object.values(a.quiz||{});
+    let n=0;
+    document.querySelectorAll("#quizPublic .q").forEach(el=>{
+      el.classList.remove("correct-answer","wrong-answer");
+      el.querySelectorAll("label").forEach(l=>l.classList.remove("correct-option","chosen-wrong"));
+      el.querySelectorAll(".quizFeedback").forEach(x=>x.remove());
+    });
+    q.forEach((z,i)=>{
+      const box=document.querySelectorAll("#quizPublic .q")[i];
+      if(!box)return;
+      const selected=box.querySelector(`input[name="q${i}"]:checked`);
+      const labels=[...box.querySelectorAll("label")];
+      const correct=Number(z.correct);
+      if(labels[correct]) labels[correct].classList.add("correct-option");
+      if(selected && Number(selected.value)===correct){
+        n++;
+        box.classList.add("correct-answer");
+      }else{
+        box.classList.add("wrong-answer");
+        if(selected && labels[Number(selected.value)]) labels[Number(selected.value)].classList.add("chosen-wrong");
+      }
+      const correctText=(z.options||[])[correct]||"";
+      const fb=document.createElement("div");
+      fb.className="quizFeedback";
+      fb.innerHTML=`<div><strong>Resposta Correta:</strong> ${String.fromCharCode(65+correct)}) ${esc(correctText)}</div><div><strong>Explicação:</strong> ${esc(z.explanation||z.explicacao||"Explicação não cadastrada.")}</div>`;
+      box.appendChild(fb);
+    });
+    $("quizResult").textContent=`Você acertou ${n} de ${q.length}.`;
+  }catch(e){console.error(e)}
+};
+</script>
+</body></html>
