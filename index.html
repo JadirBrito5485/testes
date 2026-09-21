@@ -220,7 +220,7 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 </style>
 <style id="v15">
 .updateList{display:grid;gap:18px;max-width:900px;margin:24px auto}.updateCard{border-bottom:1px solid var(--line);padding-bottom:24px;cursor:pointer}.updateCard img{width:100%;max-height:360px;object-fit:contain;background:#f7f8fa;border-radius:8px}.updateCard h2{font:700 28px/1.2 Georgia,serif;margin:10px 0}.courseDownloadGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.downloadCard{border:1px solid var(--line);border-radius:12px;padding:18px}.pdfDownload{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:6px;background:#eef1f4;color:#667085;text-decoration:none;font-size:12px;font-weight:700}.uploadProgress{font-size:13px;color:var(--muted);margin-top:6px}@media(max-width:760px){.updateCard h2{font-size:23px}.courseDownloadGrid{grid-template-columns:1fr}}
-</style><style id="v17">
+</style><style id="v18">
 .updateCard{transition:transform .15s ease,box-shadow .15s ease;border:1px solid var(--line)!important;border-radius:12px!important;padding:14px!important}
 .updateCard:hover{transform:translateY(-2px);box-shadow:0 8px 24px #11182712}
 .updateRead{display:inline-block;margin-top:10px;color:var(--navy);font-size:13px;font-weight:800}
@@ -463,7 +463,7 @@ window.deleteMedia=async id=>{if(confirm("Excluir este item?")){await remove(ref
 const oldShow14=window.showTab;window.showTab=(n,b)=>{oldShow14(n,b);setTimeout(()=>{if(n==="media")window.editMedia()},0)};
 onValue(ref(D14,"media"),s=>M14=s.val()||{});
 </script>
-<script type="module" id="v17-module">
+<script type="module" id="v18-module">
 import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import{getDatabase,ref,set,remove,onValue,push}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import{getStorage,ref as sref,uploadBytes,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-storage.js";
@@ -472,7 +472,7 @@ let U15={},P15={};
 function show15(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView","downloadsView"].forEach(x=>E15(x)?.classList.add("hide"));E15(v)?.classList.remove("hide");scrollTo(0,0)}
 function vid15(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
 function us(){return Object.entries(U15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
-window.openUpdating=()=>{let a=us();E15("updateList").innerHTML=a.length?a.map(([id,x])=>`<article class="updateCard" onclick="openUpdate('${id}')">${x.image?`<img src="${X15(x.image)}" alt="${X15(x.title)}">`:""}<h2>${X15(x.title)}</h2><p class="summary">${X15(x.summary||"")}</p><span class="updateRead">Ler artigo →</span></article>`).join(""):'<p class="muted">Nenhuma atualização publicada.</p>';show15("updatingView")};
+window.openUpdating=()=>{let a=us();E15("updateList").innerHTML=a.length?a.map(([id,x])=>`<article class="updateCard" onclick="openUpdate('${id}')">${x.image?`<img src="${X15(x.image)}" alt="${X15(x.title)}">`:""}<h2>${X15(x.title)}</h2><p class="summary">${X15(x.summary||"")}</p><span class="updateRead">Ler conteúdo →</span></article>`).join(""):'<p class="muted">Nenhuma atualização publicada.</p>';show15("updatingView")};
 window.openUpdate=id=>{
  let a=U15[id];if(!a)return;
  E15("articleKicker").textContent="Atualizando";
@@ -496,8 +496,29 @@ window.openUpdate=id=>{
 function ps(){return Object.entries(P15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
 window.openDownloads=()=>{let a=ps();E15("downloadGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="downloadCard"><h3>${X15(x.title)}</h3><p class="summary">${X15(x.description||"")}</p>${x.pdfUrl?`<a class="pdfDownload" href="${X15(x.pdfUrl)}" target="_blank" rel="noopener" download>Baixar PDF</a>`:""}</article>`).join(""):'<p class="muted">Nenhum curso em PDF disponível.</p>';show15("downloadsView")};
 
-window.editUpdating=()=>{E15("tab-updating").innerHTML=`<h3>Atualizando</h3><div class="field"><label>Título</label><input id="uTitle"></div><div class="field"><label>Resumo</label><textarea id="uSummary"></textarea></div><div class="field"><label>Conteúdo estilo artigo</label><textarea id="uContent" class="editor"></textarea></div><div class="field"><label>URL da imagem</label><input id="uImage" placeholder="https://..."></div><div class="field"><label>URL do vídeo YouTube</label><input id="uVideo" placeholder="https://..."></div><div class="field"><label>Título SEO</label><input id="uSeoT"></div><div class="field"><label>Descrição SEO</label><textarea id="uSeoD"></textarea></div><div class="field"><label>Imagem SEO / prévia</label><input id="uSeoI" placeholder="https://..."></div><button class="btn" onclick="saveUpdate()">Publicar</button>`+us().map(([id,x])=>`<div class="panel"><b>${X15(x.title)}</b><div class="actions"><button class="btn danger small" onclick="deleteUpdate('${id}')">Excluir</button></div></div>`).join("")};
-window.saveUpdate=async()=>{let title=E15("uTitle").value.trim();if(!title)return alert("Informe o título.");await set(push(ref(D15,"updating")),{title,summary:E15("uSummary").value.trim(),content:E15("uContent").value,image:E15("uImage").value.trim(),video:E15("uVideo").value.trim(),seoTitle:E15("uSeoT").value.trim(),seoDescription:E15("uSeoD").value.trim(),seoImage:E15("uSeoI").value.trim(),createdAt:Date.now()});window.editUpdating();alert("Conteúdo publicado.")};
+let editingUpdate15=null;
+window.editUpdating=(id=null)=>{
+ editingUpdate15=id;
+ let a=id&&U15[id]?U15[id]:{};
+ E15("tab-updating").innerHTML=`<h3>Atualizando</h3>
+ <div class="field"><label>Título</label><input id="uTitle" value="${X15(a.title||"")}"></div>
+ <div class="field"><label>Resumo</label><textarea id="uSummary">${X15(a.summary||"")}</textarea></div>
+ <div class="field"><label>Conteúdo</label><textarea id="uContent" class="editor">${X15(a.content||"")}</textarea></div>
+ <div class="field"><label>URL da imagem</label><input id="uImage" value="${X15(a.image||"")}" placeholder="https://..."></div>
+ <div class="field"><label>URL do vídeo YouTube</label><input id="uVideo" value="${X15(a.video||"")}" placeholder="https://..."></div>
+ <div class="field"><label>Título SEO</label><input id="uSeoT" value="${X15(a.seoTitle||"")}"></div>
+ <div class="field"><label>Descrição SEO</label><textarea id="uSeoD">${X15(a.seoDescription||"")}</textarea></div>
+ <div class="field"><label>Imagem SEO / prévia</label><input id="uSeoI" value="${X15(a.seoImage||"")}" placeholder="https://..."></div>
+ <div class="actions"><button class="btn" onclick="saveUpdate()">${id?"Salvar alterações":"Publicar"}</button>${id?`<button class="btn secondary" onclick="editUpdating()">Cancelar edição</button>`:""}</div>`+
+ us().map(([uid,x])=>`<div class="panel"><b>${X15(x.title)}</b><div class="actions"><button class="btn small" onclick="editUpdating('${uid}')">Editar</button><button class="btn danger small" onclick="deleteUpdate('${uid}')">Excluir</button></div></div>`).join("");
+};
+window.saveUpdate=async()=>{
+ let title=E15("uTitle").value.trim();if(!title)return alert("Informe o título.");
+ let old=editingUpdate15&&U15[editingUpdate15]?U15[editingUpdate15]:{};
+ let data={title,summary:E15("uSummary").value.trim(),content:E15("uContent").value,image:E15("uImage").value.trim(),video:E15("uVideo").value.trim(),seoTitle:E15("uSeoT").value.trim(),seoDescription:E15("uSeoD").value.trim(),seoImage:E15("uSeoI").value.trim(),createdAt:old.createdAt||Date.now(),updatedAt:Date.now()};
+ if(editingUpdate15)await set(ref(D15,"updating/"+editingUpdate15),data);else await set(push(ref(D15,"updating")),data);
+ editingUpdate15=null;window.editUpdating();alert("Conteúdo salvo.");
+};
 window.deleteUpdate=async id=>{if(confirm("Excluir este conteúdo?")){await remove(ref(D15,"updating/"+id));window.editUpdating()}};
 
 window.editDownloads=()=>{E15("tab-downloads").innerHTML=`<h3>Cursos em PDF</h3><div class="field"><label>Título</label><input id="pTitle"></div><div class="field"><label>Descrição</label><textarea id="pDesc"></textarea></div><div class="field"><label>Enviar PDF</label><input id="pFile" type="file" accept="application/pdf,.pdf"><div id="pProgress" class="uploadProgress"></div></div><button class="btn" onclick="uploadCoursePDF()">Enviar curso</button>`+ps().map(([id,x])=>`<div class="panel"><b>${X15(x.title)}</b><div>${X15(x.description||"")}</div><div class="actions"><button class="btn danger small" onclick="deleteCoursePDF('${id}')">Excluir</button></div></div>`).join("")};
