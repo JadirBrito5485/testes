@@ -223,6 +223,16 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
  .top{flex-wrap:wrap!important;height:auto!important;padding-top:8px!important;padding-bottom:8px!important}
 }
 </style>
+<style id="lesson-mobile-v32">
+#articleView .articleShell{width:min(100% - 28px,780px);margin:auto}
+#articleTitle{font-size:clamp(1.8rem,7vw,2.8rem);line-height:1.12}
+#articleSummary{font-size:clamp(1rem,3.8vw,1.16rem);line-height:1.6}
+#articleBody{font-size:clamp(1.05rem,4.1vw,1.18rem);line-height:1.78;overflow-wrap:anywhere}
+#articleBody p{margin:0 0 1.35em} #articleBody h2,#articleBody h3{line-height:1.25;margin:1.7em 0 .65em}
+#articleBody img{display:block;max-width:100%;height:auto;margin:22px auto;border-radius:14px}
+#articleView iframe,#articleView video{max-width:100%}
+@media(max-width:600px){#articleView .articleShell{width:calc(100% - 24px)}#articleBody{font-size:1.06rem;line-height:1.72}#articleBody img{width:100%;margin:18px 0;border-radius:10px}}
+</style>
 </head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">Início</button><button onclick="openGallery()">Galeria</button><button onclick="openBiography()">Biografia</button><button onclick="openMedia()">Filmes e Livros</button><button onclick="openUpdating()">Atualizando</button></nav><div id="hello" class="muted"></div></div></header>
 <main id="homeView" class=""><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
@@ -645,4 +655,19 @@ window.addEventListener("load",()=>{document.querySelectorAll(".mainNav button")
 
 
 
+<script id="multi-images-v32">
+(function(){
+function enhance(){
+ const b=document.getElementById("articleBody");if(!b)return;
+ b.querySelectorAll("p").forEach(p=>{
+  const t=p.textContent.trim();
+  if(/^https?:\/\/\S+\.(jpg|jpeg|png|webp|gif)(\?\S*)?$/i.test(t)){
+   const i=document.createElement("img");i.src=t;i.loading="lazy";i.alt="Imagem da aula";p.replaceWith(i);
+  }
+ });
+}
+new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
+window.addEventListener("load",enhance);
+})();
+</script>
 </body></html>
