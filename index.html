@@ -643,17 +643,6 @@ window.addEventListener("load",()=>{document.querySelectorAll(".mainNav button")
 </script>
 
 
-<script id="remove-cursos-menu-v29">
-window.addEventListener("load",()=>{
-  document.querySelectorAll(".mainNav button").forEach(b=>{
-    if(b.textContent.trim().toLowerCase()==="cursos") b.remove();
-  });
-  document.querySelectorAll("#adminPanel .tab").forEach(b=>{
-    if(b.textContent.trim().toLowerCase()==="cursos pdf") b.remove();
-  });
-  document.getElementById("downloadsView")?.remove();
-  document.getElementById("tab-downloads")?.remove();
-});
-</script>
+
 
 </body></html>
