@@ -220,7 +220,7 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 </style>
 <style id="v15">
 .updateList{display:grid;gap:18px;max-width:900px;margin:24px auto}.updateCard{border-bottom:1px solid var(--line);padding-bottom:24px;cursor:pointer}.updateCard img{width:100%;max-height:360px;object-fit:contain;background:#f7f8fa;border-radius:8px}.updateCard h2{font:700 28px/1.2 Georgia,serif;margin:10px 0}.courseDownloadGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.downloadCard{border:1px solid var(--line);border-radius:12px;padding:18px}.pdfDownload{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:6px;background:#eef1f4;color:#667085;text-decoration:none;font-size:12px;font-weight:700}.uploadProgress{font-size:13px;color:var(--muted);margin-top:6px}@media(max-width:760px){.updateCard h2{font-size:23px}.courseDownloadGrid{grid-template-columns:1fr}}
-</style><style id="v18">
+</style><style id="v19">
 .updateCard{transition:transform .15s ease,box-shadow .15s ease;border:1px solid var(--line)!important;border-radius:12px!important;padding:14px!important}
 .updateCard:hover{transform:translateY(-2px);box-shadow:0 8px 24px #11182712}
 .updateRead{display:inline-block;margin-top:10px;color:var(--navy);font-size:13px;font-weight:800}
@@ -463,12 +463,15 @@ window.deleteMedia=async id=>{if(confirm("Excluir este item?")){await remove(ref
 const oldShow14=window.showTab;window.showTab=(n,b)=>{oldShow14(n,b);setTimeout(()=>{if(n==="media")window.editMedia()},0)};
 onValue(ref(D14,"media"),s=>M14=s.val()||{});
 </script>
-<script type="module" id="v18-module">
+<script type="module" id="v19-module">
 import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import{getDatabase,ref,set,remove,onValue,push}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import{getStorage,ref as sref,uploadBytes,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-storage.js";
 const C15={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},A15=getApps()[0]||initializeApp(C15),D15=getDatabase(A15),ST15=getStorage(A15),E15=id=>document.getElementById(id),X15=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let U15={},P15={};
+function slug15(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,100)||"conteudo"}
+function path15(a,id){return "/"+slug15(a.title)+(id?"-"+String(id).slice(-6):"")}
+
 function show15(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView","downloadsView"].forEach(x=>E15(x)?.classList.add("hide"));E15(v)?.classList.remove("hide");scrollTo(0,0)}
 function vid15(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
 function us(){return Object.entries(U15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
@@ -486,7 +489,8 @@ window.openUpdate=id=>{
  let y=vid15(a.video);E15("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";
  E15("pdfButton").classList.add("hide");E15("quiz").classList.add("hide");E15("shareBar")?.classList.remove("hide");
  E15("articleBack").textContent="← Atualizando";E15("articleBack").onclick=window.openUpdating;
- history.replaceState(null,"",location.pathname+"?atualizando="+encodeURIComponent(id));
+ let pretty=path15(a,id);
+ try{history.replaceState({atualizando:id},"",pretty)}catch(e){history.replaceState(null,"",location.pathname+"?atualizando="+encodeURIComponent(id))}
  let title=a.seoTitle||a.title||"JADIR BRITO",desc=a.seoDescription||a.summary||"",img=a.seoImage||a.image||"",url=location.href;
  document.title=title+" | JADIR BRITO";
  [["ogTitle",title],["ogDescription",desc],["ogImage",img],["ogUrl",url],["twTitle",title],["twDescription",desc],["twImage",img]].forEach(([i,v])=>{let e=E15(i);if(e)e.setAttribute("content",v)});
@@ -501,7 +505,7 @@ window.editUpdating=(id=null)=>{
  editingUpdate15=id;
  let a=id&&U15[id]?U15[id]:{};
  E15("tab-updating").innerHTML=`<h3>Atualizando</h3>
- <div class="field"><label>Título</label><input id="uTitle" value="${X15(a.title||"")}"></div>
+ <div class="field"><label>Título</label><input id="uTitle" value="${X15(a.title||"")}"><div class="uploadProgress">O título gera automaticamente o endereço, por exemplo: jadirbrito.com/meu-titulo</div></div>
  <div class="field"><label>Resumo</label><textarea id="uSummary">${X15(a.summary||"")}</textarea></div>
  <div class="field"><label>Conteúdo</label><textarea id="uContent" class="editor">${X15(a.content||"")}</textarea></div>
  <div class="field"><label>URL da imagem</label><input id="uImage" value="${X15(a.image||"")}" placeholder="https://..."></div>
@@ -515,7 +519,7 @@ window.editUpdating=(id=null)=>{
 window.saveUpdate=async()=>{
  let title=E15("uTitle").value.trim();if(!title)return alert("Informe o título.");
  let old=editingUpdate15&&U15[editingUpdate15]?U15[editingUpdate15]:{};
- let data={title,summary:E15("uSummary").value.trim(),content:E15("uContent").value,image:E15("uImage").value.trim(),video:E15("uVideo").value.trim(),seoTitle:E15("uSeoT").value.trim(),seoDescription:E15("uSeoD").value.trim(),seoImage:E15("uSeoI").value.trim(),createdAt:old.createdAt||Date.now(),updatedAt:Date.now()};
+ let data={title,slug:slug15(title),summary:E15("uSummary").value.trim(),content:E15("uContent").value,image:E15("uImage").value.trim(),video:E15("uVideo").value.trim(),seoTitle:E15("uSeoT").value.trim(),seoDescription:E15("uSeoD").value.trim(),seoImage:E15("uSeoI").value.trim(),createdAt:old.createdAt||Date.now(),updatedAt:Date.now()};
  if(editingUpdate15)await set(ref(D15,"updating/"+editingUpdate15),data);else await set(push(ref(D15,"updating")),data);
  editingUpdate15=null;window.editUpdating();alert("Conteúdo salvo.");
 };
@@ -528,4 +532,24 @@ window.deleteCoursePDF=async id=>{if(!confirm("Excluir este curso em PDF?"))retu
 const S15=window.showTab;window.showTab=(n,b)=>{S15(n,b);setTimeout(()=>{if(n==="updating")window.editUpdating();if(n==="downloads")window.editDownloads()},0)};
 onValue(ref(D15,"updating"),s=>U15=s.val()||{});onValue(ref(D15,"coursePdfs"),s=>P15=s.val()||{});
 </script>
-<script id="shared-update-v15">(function(){let n=0;function f(){n++;let id=new URLSearchParams(location.search).get("atualizando");if(id&&window.openUpdate){try{window.openUpdate(id);return}catch(e){}}if(id&&n<30)setTimeout(f,250)}setTimeout(f,500)})();</script></body></html>
+<script id="shared-update-v15">(function(){let n=0;function f(){n++;let id=new URLSearchParams(location.search).get("atualizando");if(id&&window.openUpdate){try{window.openUpdate(id);return}catch(e){}}if(id&&n<30)setTimeout(f,250)}setTimeout(f,500)})();</script>
+<script type="module" id="pretty-route-v19">
+import{getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const app=getApps()[0],db=app?getDatabase(app):null;
+if(db){
+ let tries=0;
+ onValue(ref(db,"updating"),snap=>{
+   const all=snap.val()||{}, q=new URLSearchParams(location.search).get("atualizando");
+   if(q&&all[q]&&window.openUpdate){setTimeout(()=>window.openUpdate(q),100);return}
+   const path=decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g,""));
+   if(!path)return;
+   const found=Object.entries(all).find(([id,a])=>{
+      const slug=(a.slug||String(a.title||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,100));
+      return path===slug || path===slug+"-"+String(id).slice(-6);
+   });
+   if(found&&window.openUpdate)setTimeout(()=>window.openUpdate(found[0]),100);
+ },{onlyOnce:true});
+}
+</script>
+</body></html>
