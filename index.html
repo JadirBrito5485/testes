@@ -624,4 +624,22 @@ document.addEventListener("click",e=>{
 });
 </script>
 
+
+<script type="module" id="atualizando-public-fix-v28">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const PC={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
+const PD=getDatabase(getApps()[0]||initializeApp(PC)),E=id=>document.getElementById(id),X=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+let U={};
+function show(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView","downloadsView"].forEach(id=>E(id)?.classList.add("hide"));E(v)?.classList.remove("hide");scrollTo(0,0)}
+function body(s){return String(s||"").split(/\n{2,}/).filter(Boolean).map(p=>p.startsWith("## ")?`<h2>${X(p.slice(3))}</h2>`:`<p>${X(p)}</p>`).join("")}
+function yt(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
+function list(){let b=E("updateList");if(!b)return;let a=Object.entries(U).sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));b.innerHTML=a.length?a.map(([id,o])=>`<article class="updateCard" data-update-v28="${id}">${o.image?`<img src="${X(o.image)}" alt="${X(o.title||"Conteúdo")}">`:""}<h2>${X(o.title||"Sem título")}</h2><p class="summary">${X(o.summary||"")}</p><span class="updateRead">Ler conteúdo →</span></article>`).join(""):'<p class="muted center">Nenhum conteúdo cadastrado.</p>';b.querySelectorAll("[data-update-v28]").forEach(c=>c.onclick=()=>window.openUpdateV28(c.dataset.updateV28))}
+window.openUpdating=()=>{show("updatingView");list()};
+window.openUpdateV28=id=>{let a=U[id];if(!a)return;show("articleView");E("articleKicker").textContent="Atualizando";E("articleTitle").textContent=a.title||"";E("articleSummary").textContent=a.summary||"";E("articleDate").textContent="";if(a.image){E("articleCover").src=a.image;E("articleCover").classList.remove("hide")}else E("articleCover").classList.add("hide");E("articleBody").innerHTML=body(a.content);let y=yt(a.youtube||"");E("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";E("pdfButton")?.classList.add("hide");E("quiz")?.classList.add("hide");E("articleBack").onclick=window.openUpdating};
+window.openUpdate=window.openUpdateV28;
+onValue(ref(PD,"updating"),s=>{U=s.val()||{};if(E("updatingView")&&!E("updatingView").classList.contains("hide"))list()});
+window.addEventListener("load",()=>{document.querySelectorAll(".mainNav button").forEach(b=>{if(b.textContent.trim().toLowerCase()==="atualizando")b.onclick=window.openUpdating})});
+</script>
+
 </body></html>
