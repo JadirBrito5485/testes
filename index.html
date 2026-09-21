@@ -537,4 +537,91 @@ if(db){
  },{onlyOnce:true});
 }
 </script>
+
+<script type="module" id="atualizando-admin-fix-v27">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,get,set,remove,push,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const FC={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
+const FD=getDatabase(getApps()[0]||initializeApp(FC));
+const $u=id=>document.getElementById(id);
+const xu=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+let U={};
+
+function listUpdatingAdmin(){
+ const box=$u("tab-updating"); if(!box)return;
+ box.innerHTML=`<div class="actions"><button class="btn" onclick="newUpdatingV27()">+ Novo conteúdo</button></div>
+ <h3 style="margin-top:22px">Conteúdos cadastrados</h3>
+ <div id="updatingAdminList"></div>`;
+ const list=$u("updatingAdminList");
+ const rows=Object.entries(U).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+ list.innerHTML=rows.length?rows.map(([id,a])=>`<div class="panel">
+   <b>${xu(a.title||"Sem título")}</b>
+   <div class="summary">${xu(a.summary||"")}</div>
+   <div class="actions">
+    <button class="btn small" onclick="editUpdatingV27('${id}')">Editar</button>
+    <button class="btn danger small" onclick="deleteUpdatingV27('${id}')">Excluir</button>
+   </div>
+ </div>`).join(""):`<p class="muted">Nenhum conteúdo cadastrado.</p>`;
+}
+window.renderUpdatingAdminV27=listUpdatingAdmin;
+
+function form(id=""){
+ const a=id?(U[id]||{}):{};
+ const box=$u("tab-updating"); if(!box)return;
+ box.classList.remove("hide");
+ box.innerHTML=`<button class="btn light" onclick="renderUpdatingAdminV27()">← Voltar</button>
+ <h3>${id?"Editar conteúdo":"Novo conteúdo"}</h3>
+ <div class="field"><label>Título</label><input id="u27Title" value="${xu(a.title||"")}"></div>
+ <div class="field"><label>Resumo</label><textarea id="u27Summary">${xu(a.summary||"")}</textarea></div>
+ <div class="field"><label>Conteúdo</label><textarea id="u27Content" class="editor">${xu(a.content||"")}</textarea></div>
+ <div class="field"><label>Imagem por URL</label><input id="u27Image" value="${xu(a.image||"")}"></div>
+ <div class="field"><label>Vídeo do YouTube (URL)</label><input id="u27Youtube" value="${xu(a.youtube||"")}"></div>
+ <div class="actions">
+  <button class="btn" onclick="saveUpdatingV27('${id}',false)">Salvar</button>
+  <button class="btn green" onclick="saveUpdatingV27('${id}',true)">Salvar e sair</button>
+ </div>`;
+}
+window.newUpdatingV27=()=>form("");
+window.editUpdatingV27=id=>form(id);
+
+window.saveUpdatingV27=async(id,exit)=>{
+ const title=$u("u27Title").value.trim();
+ const content=$u("u27Content").value.trim();
+ if(!title)return alert("Digite o título.");
+ const old=id?(U[id]||{}):{};
+ const d={
+   title,
+   summary:$u("u27Summary").value.trim(),
+   content,
+   image:$u("u27Image").value.trim(),
+   youtube:$u("u27Youtube").value.trim(),
+   createdAt:old.createdAt||Date.now(),
+   updatedAt:Date.now()
+ };
+ try{
+   if(id) await set(ref(FD,"updating/"+id),d);
+   else await set(push(ref(FD,"updating")),d);
+   alert("Conteúdo salvo com sucesso.");
+   if(exit && typeof window.adminHome==="function") window.adminHome();
+   else listUpdatingAdmin();
+ }catch(e){ console.error(e); alert("Não foi possível salvar o conteúdo."); }
+};
+window.deleteUpdatingV27=async id=>{
+ if(!confirm("Excluir este conteúdo?"))return;
+ try{await remove(ref(FD,"updating/"+id));}catch(e){console.error(e);alert("Não foi possível excluir.");}
+};
+
+onValue(ref(FD,"updating"),s=>{U=s.val()||{}; 
+ const tab=$u("tab-updating");
+ if(tab && !tab.classList.contains("hide") && !$u("u27Title")) listUpdatingAdmin();
+});
+
+// Intercepta somente o clique da aba Atualizando no ADM para garantir que o cadastro apareça.
+document.addEventListener("click",e=>{
+ const b=e.target.closest('button[onclick*="showTab(\'updating\'"]');
+ if(!b)return;
+ setTimeout(()=>{const tab=$u("tab-updating"); if(tab){tab.classList.remove("hide");listUpdatingAdmin();}},0);
+});
+</script>
+
 </body></html>
