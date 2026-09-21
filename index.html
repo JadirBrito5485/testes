@@ -220,7 +220,7 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 </style>
 <style id="v15">
 .updateList{display:grid;gap:18px;max-width:900px;margin:24px auto}.updateCard{border-bottom:1px solid var(--line);padding-bottom:24px;cursor:pointer}.updateCard img{width:100%;max-height:360px;object-fit:contain;background:#f7f8fa;border-radius:8px}.updateCard h2{font:700 28px/1.2 Georgia,serif;margin:10px 0}.courseDownloadGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.downloadCard{border:1px solid var(--line);border-radius:12px;padding:18px}.pdfDownload{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:6px;background:#eef1f4;color:#667085;text-decoration:none;font-size:12px;font-weight:700}.uploadProgress{font-size:13px;color:var(--muted);margin-top:6px}@media(max-width:760px){.updateCard h2{font-size:23px}.courseDownloadGrid{grid-template-columns:1fr}}
-</style><style id="v16">
+</style><style id="v17">
 .updateCard{transition:transform .15s ease,box-shadow .15s ease;border:1px solid var(--line)!important;border-radius:12px!important;padding:14px!important}
 .updateCard:hover{transform:translateY(-2px);box-shadow:0 8px 24px #11182712}
 .updateRead{display:inline-block;margin-top:10px;color:var(--navy);font-size:13px;font-weight:800}
@@ -463,7 +463,7 @@ window.deleteMedia=async id=>{if(confirm("Excluir este item?")){await remove(ref
 const oldShow14=window.showTab;window.showTab=(n,b)=>{oldShow14(n,b);setTimeout(()=>{if(n==="media")window.editMedia()},0)};
 onValue(ref(D14,"media"),s=>M14=s.val()||{});
 </script>
-<script type="module" id="v15-module">
+<script type="module" id="v17-module">
 import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import{getDatabase,ref,set,remove,onValue,push}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import{getStorage,ref as sref,uploadBytes,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-storage.js";
@@ -473,7 +473,26 @@ function show15(v){["homeView","courseView","articleView","galleryView","bioView
 function vid15(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
 function us(){return Object.entries(U15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
 window.openUpdating=()=>{let a=us();E15("updateList").innerHTML=a.length?a.map(([id,x])=>`<article class="updateCard" onclick="openUpdate('${id}')">${x.image?`<img src="${X15(x.image)}" alt="${X15(x.title)}">`:""}<h2>${X15(x.title)}</h2><p class="summary">${X15(x.summary||"")}</p><span class="updateRead">Ler artigo →</span></article>`).join(""):'<p class="muted">Nenhuma atualização publicada.</p>';show15("updatingView")};
-window.openUpdate=id=>{let a=U15[id];if(!a)return;current={type:"update",id};E15("articleKicker").textContent="Atualizando";E15("articleTitle").textContent=a.title||"";E15("articleSummary").textContent=a.summary||"";E15("articleDate").textContent="";if(a.image){E15("articleCover").src=a.image;E15("articleCover").classList.remove("hide")}else E15("articleCover").classList.add("hide");E15("articleBody").innerHTML=bodyHTML({title:a.title,content:a.content});let y=vid15(a.video);E15("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";E15("pdfButton").classList.add("hide");E15("quiz").classList.add("hide");E15("shareBar")?.classList.remove("hide");E15("articleBack").textContent="← Atualizando";E15("articleBack").onclick=window.openUpdating;history.replaceState(null,"",location.pathname+"?atualizando="+encodeURIComponent(id));if(typeof updateShareMeta==="function")updateShareMeta({title:a.title,summary:a.summary,seoTitle:a.seoTitle,seoDescription:a.seoDescription,seoImage:a.seoImage||a.image,cover:a.image},false);show15("articleView")};
+window.openUpdate=id=>{
+ let a=U15[id];if(!a)return;
+ E15("articleKicker").textContent="Atualizando";
+ E15("articleTitle").textContent=a.title||"";
+ E15("articleSummary").textContent=a.summary||"";
+ E15("articleDate").textContent="";
+ if(a.image){E15("articleCover").src=a.image;E15("articleCover").alt=a.title||"Atualizando";E15("articleCover").classList.remove("hide")}else E15("articleCover").classList.add("hide");
+ let content="";
+ String(a.content||"").split(/\n{2,}/).filter(Boolean).forEach(p=>content+=p.startsWith("## ")?`<h2>${X15(p.slice(3))}</h2>`:`<p>${X15(p)}</p>`);
+ E15("articleBody").innerHTML=content;
+ let y=vid15(a.video);E15("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";
+ E15("pdfButton").classList.add("hide");E15("quiz").classList.add("hide");E15("shareBar")?.classList.remove("hide");
+ E15("articleBack").textContent="← Atualizando";E15("articleBack").onclick=window.openUpdating;
+ history.replaceState(null,"",location.pathname+"?atualizando="+encodeURIComponent(id));
+ let title=a.seoTitle||a.title||"JADIR BRITO",desc=a.seoDescription||a.summary||"",img=a.seoImage||a.image||"",url=location.href;
+ document.title=title+" | JADIR BRITO";
+ [["ogTitle",title],["ogDescription",desc],["ogImage",img],["ogUrl",url],["twTitle",title],["twDescription",desc],["twImage",img]].forEach(([i,v])=>{let e=E15(i);if(e)e.setAttribute("content",v)});
+ let c=E15("canonical");if(c)c.href=url;
+ show15("articleView");
+};
 function ps(){return Object.entries(P15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
 window.openDownloads=()=>{let a=ps();E15("downloadGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="downloadCard"><h3>${X15(x.title)}</h3><p class="summary">${X15(x.description||"")}</p>${x.pdfUrl?`<a class="pdfDownload" href="${X15(x.pdfUrl)}" target="_blank" rel="noopener" download>Baixar PDF</a>`:""}</article>`).join(""):'<p class="muted">Nenhum curso em PDF disponível.</p>';show15("downloadsView")};
 
