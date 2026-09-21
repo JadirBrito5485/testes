@@ -231,6 +231,52 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
  .top{flex-wrap:wrap!important;height:auto!important;padding-top:8px!important;padding-bottom:8px!important}
 }
 </style>
+<!-- Metadados técnicos automáticos para busca e prévias -->
+<meta name="description" id="autoDescription" content="JADIR BRITO — A curiosidade é a base do conhecimento.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="JADIR BRITO">
+<meta property="og:title" id="autoOgTitle" content="JADIR BRITO">
+<meta property="og:description" id="autoOgDescription" content="A curiosidade é a base do conhecimento.">
+<meta property="og:image" id="autoOgImage" content="">
+<meta property="og:url" id="autoOgUrl" content="https://jadirbrito.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="autoTwTitle" content="JADIR BRITO">
+<meta name="twitter:description" id="autoTwDescription" content="A curiosidade é a base do conhecimento.">
+<meta name="twitter:image" id="autoTwImage" content="">
+<link rel="canonical" id="autoCanonical" href="https://jadirbrito.com/">
+<script type="application/ld+json" id="autoArticleSchema">{"@context":"https://schema.org","@type":"WebSite","name":"JADIR BRITO","url":"https://jadirbrito.com/"}</script>
+
+<script id="auto-meta-v22">
+(function(){
+ const BASE="https://jadirbrito.com";
+ function setMeta(id,v,attr="content"){const e=document.getElementById(id);if(e&&v)e.setAttribute(attr,v)}
+ window.applyAutoMeta=function(a,url,type){
+   if(!a)return;
+   const title=(a.title||"JADIR BRITO").trim();
+   const desc=(a.summary||a.description||String(a.content||"").replace(/\s+/g," ").slice(0,180)||"A curiosidade é a base do conhecimento.").trim();
+   const image=(a.image||a.cover||"").trim();
+   const full=url&&url.startsWith("http")?url:BASE+(url||location.pathname);
+   document.title=title+" | JADIR BRITO";
+   setMeta("autoDescription",desc);
+   setMeta("autoOgTitle",title);setMeta("autoOgDescription",desc);setMeta("autoOgImage",image);setMeta("autoOgUrl",full);
+   setMeta("autoTwTitle",title);setMeta("autoTwDescription",desc);setMeta("autoTwImage",image);
+   setMeta("autoCanonical",full,"href");
+   const schema=document.getElementById("autoArticleSchema");
+   if(schema){
+     schema.textContent=JSON.stringify({
+       "@context":"https://schema.org",
+       "@type":type==="news"?"NewsArticle":"Article",
+       "headline":title,
+       "description":desc,
+       ...(image?{"image":[image]}:{}),
+       "mainEntityOfPage":full,
+       "author":{"@type":"Person","name":"Jadir Brito"},
+       "publisher":{"@type":"Organization","name":"JADIR BRITO"}
+     });
+   }
+ };
+})();
+</script>
 </head><body>
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">Início</button><button onclick="openGallery()">Galeria</button><button onclick="openBiography()">Biografia</button><button onclick="openMedia()">Filmes e Livros</button><button onclick="openUpdating()">Atualizando</button><button onclick="openDownloads()">Cursos</button></nav><div id="hello" class="muted"></div></div></header>
 <main id="homeView"><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
@@ -488,7 +534,7 @@ window.openUpdate=id=>{
  E15("articleBack").textContent="← Atualizando";E15("articleBack").onclick=window.openUpdating;
  let pretty=path15(a,id);
  try{history.replaceState({atualizando:id},"",pretty)}catch(e){history.replaceState(null,"",location.pathname+"?atualizando="+encodeURIComponent(id))}
- document.title=(a.title||"JADIR BRITO")+" | JADIR BRITO";
+ document.title=(a.title||"JADIR BRITO")+" | JADIR BRITO";if(window.applyAutoMeta)window.applyAutoMeta(a,pretty,"article");
  show15("articleView");
 };
 function ps(){return Object.entries(P15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
