@@ -237,46 +237,30 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 .inlineImageV33{width:100%;margin:22px 0;text-align:center}.inlineImageV33 img{display:block;max-width:100%;height:auto;margin:auto;border-radius:14px}
 @media(max-width:600px){.inlineImageV33{margin:18px 0}.inlineImageV33 img{width:100%;border-radius:10px}}
 </style></head><body>
-<header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">Início</button><button onclick="openGallery()">Galeria</button><button onclick="openBiography()">Biografia</button><button onclick="openMedia()">Filmes e Livros</button></nav><div id="hello" class="muted"></div></div></header>
+<header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">INÍCIO</button><button onclick="openBiography()">BIOGRAFIA</button><button onclick="openArticles()">ARTIGO</button><button onclick="openMedia()">FILMES E LIVROS</button><button onclick="openGallery()">GALERIA</button><button onclick="openUpdating()">ATUALIZANDO</button></nav><div id="hello" class="muted"></div></div></header>
 <main id="homeView" class=""><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"><p class="muted">Carregando áreas de estudo...</p></div></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias Históricas</h2><span class="muted"></span></div><div id="newsGrid" class="newsGrid"><p class="muted">Carregando Notícias Históricas...</p></div></div></section></main>
 <main id="courseView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><img id="courseCover" class="cover hide"><h1 id="courseName" class="title"></h1><p id="courseDesc" class="summary"></p><div id="lessonList" class="lessons"></div></div></main>
 <main id="articleView" class="hide"><div class="wrap page"><article class="article"><span id="articleBack" class="back">← Voltar</span><div id="articleKicker" class="kicker" style="margin-top:28px"></div><h1 id="articleTitle" class="title"></h1><p id="articleSummary" class="summary"></p><div id="articleDate" class="date"></div><img id="articleCover" class="cover hide"><div id="articleBody" class="articleBody"></div><div id="youtube"></div><button id="pdfButton" class="btn" onclick="makePDF()">Baixar aula em PDF</button><section id="quiz" class="quiz"><h2>Perguntas para fixação</h2><div id="quizPublic"></div><button class="btn" onclick="grade()">Corrigir</button><div id="quizResult" class="status"></div></section></article></div></main>
 <main id="galleryView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">GALERIA DE FOTOS</h1><div id="galleryStage" class="galleryStage"><p class="muted center">Nenhuma foto cadastrada.</p></div></div></main>
-<main id="mediaView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">FILMES E LIVROS</h1><div id="mediaGrid" class="mediaGrid"></div></div></main>
+<main id="mediaView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">FILMES E LIVROS</h1><div id="mediaGrid" class="mediaGrid"></div></div></main><main id="updatingView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">ATUALIZANDO</h1><div id="updateList" class="updateList"></div></div></main>
 
 <main id="bioView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 id="bioTitle" class="title center">BIOGRAFIA</h1><img id="bioPhoto" class="bioPhoto hide"><div id="bioBody" class="bioBody"></div></div></main>
 <section class="messageBox"><div class="wrap messageInner"><h2>Envie o seu recado para o Jadir</h2><textarea id="publicMessage" maxlength="1500" placeholder="Escreva seu recado..."></textarea><button class="sendBtn" onclick="sendMessage()">Enviar</button><div id="messageStatus" class="muted"></div></div></section>
 <footer><div id="footerText">Jadir Brito — Conhecimento gratuito.</div><div class="footerSocial"><a id="footerWhats" class="hide" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M16.75 13.96c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.08s.89 2.41 1.02 2.58c.12.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29zM12.04 2a9.84 9.84 0 0 0-8.4 14.96L2 22l5.17-1.61A9.96 9.96 0 1 0 12.04 2zm0 17.99a8.02 8.02 0 0 1-4.09-1.12l-.29-.17-3.07.96 1-2.99-.19-.31A7.85 7.85 0 1 1 12.04 20z"/></svg></a><a id="footerYoutube" class="hide" href="#" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg></a></div><button class="adminA" onclick="openAdmin()">A</button></footer>
 
-<div id="firstAccess" class="overlay"><div class="modal sm"><h2>Primeiro acesso</h2><p>Preencha uma única vez para acessar gratuitamente.</p><div class="field"><label>Nome completo</label><input id="fn"></div><div class="field"><label>WhatsApp</label><input id="fw"></div><div class="field"><label>E-mail</label><input id="fe" type="email"></div><div class="field"><label>Cidade</label><input id="fc"></div><div class="field"><label>Estado</label><input id="fs" maxlength="2" placeholder="SC"></div><button class="btn" onclick="registerVisitor()">Acessar gratuitamente</button></div></div>
+<div id="firstAccess" class="overlay"><div class="modal sm"><h2>Primeiro acesso</h2><p>Cadastre-se uma única vez para acessar o site.</p><div class="field"><label>Nome completo</label><input id="fn" autocomplete="name"></div><div class="field"><label>WhatsApp</label><input id="fw" inputmode="tel" autocomplete="tel"></div><div class="field"><label>Cidade</label><input id="fc" autocomplete="address-level2"></div><div class="field"><label>Estado</label><input id="fs" maxlength="2" placeholder="SC" autocomplete="address-level1"></div><button class="btn" onclick="registerVisitor()">Acessar o site</button></div></div>
 
-<div id="adminModal" class="overlay"><div class="modal"><div class="row" style="justify-content:space-between"><h2>ADM</h2><button class="btn light" onclick="closeAdmin()">Fechar</button></div><div id="adminGate"><div class="field"><label>Senha</label><input id="adminPass" type="password"></div><button class="btn" onclick="adminLogin()">Entrar</button></div><div id="adminPanel" class="hide"><div class="tabs"><button class="tab on" onclick="showTab('site',this)">Site</button><button class="tab" onclick="showTab('courses',this)">Cursos</button><button class="tab" onclick="showTab('lessons',this)">Aulas</button><button class="tab" onclick="showTab('news',this)">Notícias Históricas</button><button class="tab" onclick="showTab('gallery',this)">Galeria</button><button class="tab" onclick="showTab('bio',this)">Biografia</button><button class="tab" onclick="showTab('media',this)">Filmes e Livros</button><button class="tab" onclick="showTab('messages',this)">Recados</button><button class="tab" onclick="showTab('leads',this)">Cadastros</button><button class="tab" onclick="showTab('security',this)">Senha ADM</button></div><div id="tab-site"></div><div id="tab-courses" class="hide"></div><div id="tab-lessons" class="hide"></div><div id="tab-news" class="hide"></div><div id="tab-gallery" class="hide"></div><div id="tab-bio" class="hide"></div><div id="tab-media" class="hide"></div><div id="tab-messages" class="hide"></div><div id="tab-leads" class="hide"></div><div id="tab-security" class="hide"></div></div></div></div>
+<div id="adminModal" class="overlay"><div class="modal"><div class="row" style="justify-content:space-between"><h2>ADM</h2><button class="btn light" onclick="closeAdmin()">Fechar</button></div><div id="adminGate"><div class="field"><label>Senha</label><input id="adminPass" type="password"></div><button class="btn" onclick="adminLogin()">Entrar</button></div><div id="adminPanel" class="hide"><div class="tabs"><button class="tab on" onclick="showTab('site',this)">Site</button><button class="tab" onclick="showTab('courses',this)">Cursos</button><button class="tab" onclick="showTab('lessons',this)">Aulas</button><button class="tab" onclick="showTab('news',this)">Notícias Históricas</button><button class="tab" onclick="showTab('gallery',this)">Galeria</button><button class="tab" onclick="showTab('bio',this)">Biografia</button><button class="tab" onclick="showTab('media',this)">Filmes e Livros</button><button class="tab" onclick="showTab('updating',this)">Atualizando</button><button class="tab" onclick="showTab('messages',this)">Recados</button><button class="tab" onclick="showTab('leads',this)">Cadastros</button><button class="tab" onclick="showTab('security',this)">Senha ADM</button></div><div id="tab-site"></div><div id="tab-courses" class="hide"></div><div id="tab-lessons" class="hide"></div><div id="tab-news" class="hide"></div><div id="tab-gallery" class="hide"></div><div id="tab-bio" class="hide"></div><div id="tab-media" class="hide"></div><div id="tab-updating" class="hide"></div><div id="tab-messages" class="hide"></div><div id="tab-leads" class="hide"></div><div id="tab-security" class="hide"></div></div></div></div>
 
-<style id="rich-editor-v34">
-.richWrap{border:1px solid #cdd3dc;border-radius:9px;overflow:hidden;background:#fff}.richToolbar{display:flex;gap:5px;flex-wrap:wrap;padding:8px;background:#f7f8fa;border-bottom:1px solid #dfe3e8;position:sticky;top:0;z-index:2}.richToolbar button,.richToolbar select,.richToolbar input[type=color]{height:34px;border:1px solid #cdd3dc;background:#fff;border-radius:6px;padding:4px 8px;cursor:pointer}.richToolbar button{min-width:34px;font-weight:700}.richEditor{min-height:300px;padding:16px;outline:none;font:17px/1.7 Arial,sans-serif}.richEditor img{display:block;max-width:100%;height:auto;margin:18px auto;border-radius:10px}.richEditor h2{font-size:28px}.richHint{font-size:12px;color:#667085;padding:7px 10px;background:#fff;border-top:1px solid #eef0f2}.articleBody .rich-image,.bioBody .rich-image{display:block;max-width:100%;height:auto;margin:22px auto;border-radius:10px}.mediaCard .richMediaText{font-size:14px;color:#667085}.mediaCard .richMediaText img{max-width:100%;height:auto;margin:10px 0;border-radius:7px}@media(max-width:600px){.richToolbar{gap:4px}.richToolbar button,.richToolbar select{font-size:12px;padding:3px 6px}.richEditor{min-height:260px;padding:12px}.articleBody img,.bioBody img{width:100%;height:auto}}
-</style>
-<script id="rich-editor-v34">
-(function(){
- const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
- function plainToHtml(t){return String(t||'').split(/\n{2,}/).filter(Boolean).map(p=>{let q=p.trim();if(/^https?:\/\/\S+$/i.test(q))return `<img class="rich-image" src="${esc(q)}" loading="lazy" alt="Imagem">`;if(q.startsWith('## '))return `<h2>${esc(q.slice(3))}</h2>`;return `<p>${esc(p).replace(/\n/g,'<br>')}</p>`}).join('')}
- function sanitize(html){const d=document.createElement('div');d.innerHTML=html;d.querySelectorAll('script,style,iframe,object,embed,form,input,button').forEach(x=>x.remove());d.querySelectorAll('*').forEach(el=>{[...el.attributes].forEach(a=>{let n=a.name.toLowerCase(),v=a.value;if(n.startsWith('on')||n==='srcdoc')el.removeAttribute(a.name);if((n==='href'||n==='src')&&!/^(https?:|data:image\/)/i.test(v))el.removeAttribute(a.name)});if(el.tagName==='IMG'){el.classList.add('rich-image');el.loading='lazy';}});return d.innerHTML}
- window.jbRenderRich=function(content){let t=String(content||'');let html=/<\/?[a-z][\s\S]*>/i.test(t)?sanitize(t):plainToHtml(t);let box=document.createElement('div');box.innerHTML=html;box.querySelectorAll('p').forEach(p=>{let q=p.textContent.trim();if(/^https?:\/\/\S+$/i.test(q)){let img=document.createElement('img');img.src=q;img.className='rich-image';img.loading='lazy';img.alt='Imagem';img.onerror=()=>{let a=document.createElement('a');a.href=q;a.target='_blank';a.rel='noopener noreferrer';a.textContent=q;img.replaceWith(a)};p.replaceWith(img)}});return box.innerHTML};
- window.jbRichField=function(id,value){return `<div class="richWrap"><div class="richToolbar"><select onchange="jbCmd('formatBlock',this.value);this.selectedIndex=0"><option value="">Estilo</option><option value="p">Parágrafo</option><option value="h2">Título</option><option value="h3">Subtítulo</option></select><select onchange="jbCmd('fontName',this.value)"><option>Arial</option><option>Georgia</option><option>Verdana</option><option>Times New Roman</option><option>Courier New</option></select><select onchange="jbCmd('fontSize',this.value)"><option value="3">Normal</option><option value="2">Pequena</option><option value="4">Grande</option><option value="5">Maior</option></select><button type="button" onclick="jbCmd('bold')">B</button><button type="button" onclick="jbCmd('italic')"><i>I</i></button><button type="button" onclick="jbCmd('underline')"><u>U</u></button><input type="color" title="Cor do texto" onchange="jbCmd('foreColor',this.value)"><button type="button" onclick="jbCmd('justifyLeft')">≡</button><button type="button" onclick="jbCmd('justifyCenter')">≣</button><button type="button" onclick="jbCmd('justifyRight')">☰</button><button type="button" onclick="jbCmd('insertUnorderedList')">• Lista</button><button type="button" onclick="jbLink()">🔗</button><button type="button" onclick="jbImageUrl()">🖼 URL</button></div><div id="${id}" class="richEditor" contenteditable="true">${window.jbRenderRich(value||'')}</div><div class="richHint">Para imagem: clique em 🖼 URL ou cole a URL sozinha em uma linha.</div></div>`};
- window.jbCmd=(c,v)=>{document.execCommand(c,false,v||null);};
- window.jbLink=()=>{let u=prompt('Cole a URL do link:');if(u&&/^https?:\/\//i.test(u))document.execCommand('createLink',false,u)};
- window.jbImageUrl=()=>{let u=prompt('Cole a URL pública da imagem:');if(!u)return;if(!/^https?:\/\//i.test(u))return alert('Use uma URL iniciando com http:// ou https://');document.execCommand('insertHTML',false,`<img class="rich-image" src="${esc(u)}" loading="lazy" alt="Imagem">`)};
- window.jbRichValue=id=>document.getElementById(id)?.innerHTML||'';
-})();
-</script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";import{getDatabase,ref,get,set,update,remove,onValue,push}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 const cfg={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},db=getDatabase(initializeApp(cfg)),$=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let state={settings:{title:"JADIR BRITO",subtitle:"A curiosidade é a base do conhecimento.",footer:"Jadir Brito — Conhecimento gratuito."},courses:{},news:{}},admin=false,current={type:null,cid:null,id:null},dirty=false;
 function h(s){let x=2166136261;for(let i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(16)}const initialHash=h("22061992");
-function views(v){["homeView","courseView","articleView","galleryView","bioView","mediaView"].forEach(x=>$(x)?.classList.add("hide"));$(v).classList.remove("hide");scrollTo(0,0)}window.home=()=>{views("homeView")};
-function bodyHTML(a){let out=window.jbRenderRich?window.jbRenderRich(a.content||"",a.title||""):"";Object.values(a.images||{}).forEach(im=>{if(/^https?:\/\//.test(im.url||""))out+=`<figure><img src="${esc(im.url)}" alt="${esc(im.alt||a.title)}" loading="lazy">${im.caption?`<figcaption>${esc(im.caption)}</figcaption>`:""}</figure>`});return out}
+function views(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>$(x)?.classList.add("hide"));$(v).classList.remove("hide");scrollTo(0,0)}window.home=()=>{views("homeView")};
+function bodyHTML(a){let out="";(a.content||"").split(/\n{2,}/).filter(Boolean).forEach(p=>out+=p.startsWith("## ")?`<h2>${esc(p.slice(3))}</h2>`:`<p>${esc(p)}</p>`);Object.values(a.images||{}).forEach(im=>{if(/^https:\/\//.test(im.url||""))out+=`<figure><img src="${esc(im.url)}" alt="${esc(im.alt||a.title)}">${im.caption?`<figcaption>${esc(im.caption)}</figcaption>`:""}</figure>`});return out}
 function youtube(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
 function render(){let s=state.settings;$("siteTitle").textContent=s.title;$("siteSub").textContent=s.subtitle;$("footerText").textContent=s.footer;
 let fw=$("footerWhats"),fy=$("footerYoutube"),wn=String(s.footerWhats||"").replace(/\D/g,"");
@@ -294,25 +278,26 @@ window.grade=()=>{let a=state.courses[current.cid].lessons[current.id],q=Object.
 
 
 window.makePDF=()=>{let a=state.courses[current.cid].lessons[current.id],w=open("","_blank");w.document.write(`<style>body{font:17px/1.7 Arial;max-width:800px;margin:40px auto}img{max-width:100%}@media print{button{display:none}}</style><h1>${esc(a.title)}</h1>${bodyHTML(a)}<button onclick="print()">Salvar como PDF</button>`);w.document.close()};
-window.registerVisitor=async()=>{let d={name:$("fn").value.trim(),whatsapp:$("fw").value.trim(),email:$("fe").value.trim(),city:$("fc").value.trim(),state:$("fs").value.trim().toUpperCase(),createdAt:Date.now()};if(d.name.split(/\s+/).length<2||!d.whatsapp||!d.email.includes("@")||!d.city||d.state.length!==2)return alert("Preencha todos os campos.");try{await set(push(ref(db,"visitors")),d);localStorage.setItem("jb_access",JSON.stringify(d));$("firstAccess").classList.remove("show");render()}catch{alert("Não foi possível concluir o cadastro.")}};
+window.registerVisitor=async()=>{let d={name:$("fn").value.trim(),whatsapp:$("fw").value.trim(),city:$("fc").value.trim(),state:$("fs").value.trim().toUpperCase(),createdAt:Date.now()};if(d.name.split(/\s+/).length<2||!d.whatsapp||!d.city||d.state.length!==2)return alert("Preencha nome, WhatsApp, cidade e estado.");try{await set(push(ref(db,"visitors")),d);localStorage.setItem("jb_access",JSON.stringify(d));$("firstAccess").classList.remove("show");render()}catch{alert("Não foi possível concluir o cadastro.")}};
 window.openAdmin=()=>{$("adminModal").classList.add("show");$("adminGate").classList.toggle("hide",admin);$("adminPanel").classList.toggle("hide",!admin);if(admin)adminHome()};window.closeAdmin=()=>{if(dirty&&!confirm("Há alterações não salvas. Deseja sair mesmo assim?"))return;$("adminModal").classList.remove("show");dirty=false};
 async function passHash(){let s=await get(ref(db,"adminConfig/passwordHash"));return s.exists()?s.val():initialHash}window.adminLogin=async()=>{if(h($("adminPass").value)!==await passHash())return alert("Senha incorreta.");admin=true;$("adminGate").classList.add("hide");$("adminPanel").classList.remove("hide");adminHome()};
-window.showTab=(n,b)=>{if(dirty&&!confirm("Existem alterações não salvas. Continuar sem salvar?"))return;dirty=false;["site","courses","lessons","news","gallery","bio","media","messages","leads","security"].forEach(x=>$("tab-"+x)?.classList.add("hide"));$("tab-"+n).classList.remove("hide");b.parentNode.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));b.classList.add("on")};
+window.showTab=(n,b)=>{if(dirty&&!confirm("Existem alterações não salvas. Continuar sem salvar?"))return;dirty=false;["site","courses","lessons","news","gallery","bio","media","updating","messages","leads","security"].forEach(x=>$("tab-"+x)?.classList.add("hide"));$("tab-"+n).classList.remove("hide");b.parentNode.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));b.classList.add("on")};
 function adminHome(){$("tab-site").innerHTML=`<div class="field"><label>Nome do site</label><input id="st" value="${esc(state.settings.title)}"></div><div class="field"><label>Frase</label><input id="ss" value="${esc(state.settings.subtitle)}"></div><div class="field"><label>Rodapé</label><input id="sf" value="${esc(state.settings.footer)}"></div><div class="field"><label>WhatsApp do rodapé (link ou número)</label><input id="sWhats" value="${esc(state.settings.footerWhats||"")}" placeholder="47999999999"></div><div class="field"><label>YouTube do rodapé (URL do canal)</label><input id="sYoutube" value="${esc(state.settings.footerYoutube||"")}" placeholder="https://youtube.com/@seucanal"></div><div class="actions"><button class="btn" onclick="saveSite(false)">Salvar</button><button class="btn green" onclick="saveSite(true)">Salvar e sair</button></div>`;
 $("tab-courses").innerHTML=`<button class="btn" onclick="editCourse()">+ Novo curso</button>`+Object.entries(state.courses||{}).map(([id,c])=>`<div class="panel"><b>${esc(c.name)}</b><div class="actions"><button class="btn small" onclick="editCourse('${id}')">Editar</button><button class="btn danger small" onclick="deleteCourse('${id}')">Excluir</button></div></div>`).join("");
 $("tab-lessons").innerHTML=`<button class="btn" onclick="editLesson()">+ Nova aula</button>`+Object.entries(state.courses||{}).flatMap(([cid,c])=>Object.entries(c.lessons||{}).map(([id,a])=>`<div class="panel"><span class="kicker">${esc(c.name)}</span><br><b>${esc(a.title)}</b><div class="actions"><button class="btn small" onclick="editLesson('${cid}','${id}')">Editar</button><button class="btn danger small" onclick="deleteLesson('${cid}','${id}')">Excluir</button></div></div>`)).join("");
 $("tab-news").innerHTML=`<button class="btn" onclick="editNews()">+ Nova notícia</button>`+Object.entries(state.news||{}).sort((a,b)=>(b[1].date||0)-(a[1].date||0)).map(([id,n])=>`<div class="panel"><span class="kicker">${esc(n.status==="draft"?"Rascunho":n.category||"Notícia")}</span><br><b>${esc(n.title)}</b><div class="actions"><button class="btn small" onclick="editNews('${id}')">Editar</button><button class="btn danger small" onclick="deleteNews('${id}')">Excluir</button></div></div>`).join("");
-$("tab-security").innerHTML=`<div class="panel"><h3>Alterar senha do ADM</h3><div class="field"><label>Senha atual</label><input id="oldP" type="password"></div><div class="field"><label>Nova senha</label><input id="newP" type="password"></div><div class="field"><label>Confirmar</label><input id="newP2" type="password"></div><div class="actions"><button class="btn" onclick="changePassword(false)">Salvar</button><button class="btn green" onclick="changePassword(true)">Salvar e sair</button></div></div>`;get(ref(db,"visitors")).then(s=>$("tab-leads").innerHTML=Object.values(s.val()||{}).map(x=>`<div class="panel"><b>${esc(x.name)}</b><div>${esc(x.whatsapp)} · ${esc(x.email)}</div><div>${esc(x.city)} / ${esc(x.state)}</div></div>`).join("")||'<p>Nenhum cadastro.</p>')}
+$("tab-security").innerHTML=`<div class="panel"><h3>Alterar senha do ADM</h3><div class="field"><label>Senha atual</label><input id="oldP" type="password"></div><div class="field"><label>Nova senha</label><input id="newP" type="password"></div><div class="field"><label>Confirmar</label><input id="newP2" type="password"></div><div class="actions"><button class="btn" onclick="changePassword(false)">Salvar</button><button class="btn green" onclick="changePassword(true)">Salvar e sair</button></div></div>`;get(ref(db,"visitors")).then(s=>$("tab-leads").innerHTML=Object.values(s.val()||{}).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(x=>`<div class="panel"><b>${esc(x.name)}</b><div>WhatsApp: ${esc(x.whatsapp||"")}</div><div>${esc(x.city||"")} / ${esc(x.state||"")}</div></div>`).join("")||'<p>Nenhum cadastro.</p>')}
 function done(exit){dirty=false;alert("Salvo com sucesso.");if(exit)adminHome()}
 window.saveSite=async exit=>{await set(ref(db,"settings"),{title:$("st").value,subtitle:$("ss").value,footer:$("sf").value,footerWhats:$("sWhats").value.trim(),footerYoutube:$("sYoutube").value.trim()});done(exit)};
 window.editCourse=id=>{let c=id?state.courses[id]:{name:"",desc:"",image:""};$("tab-courses").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Novo"} curso</h3><div class="field"><label>Nome</label><input id="cName" value="${esc(c.name)}"></div><div class="field"><label>Descrição</label><textarea id="cDesc">${esc(c.desc)}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="cImage" value="${esc(c.image||"")}"></div><div class="actions"><button class="btn" onclick="saveCourse('${id||""}',false)">Salvar</button><button class="btn green" onclick="saveCourse('${id||""}',true)">Salvar e sair</button></div>`;dirty=true};window.saveCourse=async(id,exit)=>{let d={name:$("cName").value,desc:$("cDesc").value,image:$("cImage").value};if(id)await update(ref(db,"courses/"+id),d);else await set(push(ref(db,"courses")),d);dirty=false;if(exit)adminHome();else alert("Curso salvo.")};window.deleteCourse=id=>confirm("Excluir curso?")&&remove(ref(db,"courses/"+id));
-window.editLesson=(cid,id)=>{let a=id?state.courses[cid].lessons[id]:{title:"",content:"",youtube:"",images:{},quiz:{}},opts=Object.entries(state.courses||{}).map(([x,c])=>`<option value="${x}" ${x===cid?"selected":""}>${esc(c.name)}</option>`).join("");sessionStorage.setItem("jb_lesson_draft",JSON.stringify(a));$("tab-lessons").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} aula</h3><div class="field"><label>Curso</label><select id="lCourse">${opts}</select></div><div class="field"><label>Título</label><input id="lTitle" value="${esc(a.title)}"></div><div class="field"><label>Conteúdo da aula</label>${window.jbRichField("lContent",a.content||"")}</div><div class="field"><label>URL YouTube</label><input id="lYoutube" value="${esc(a.youtube||"")}"></div><h3>Perguntas da aula</h3><div id="quizEdit">${quizEditor(a.quiz||{})}</div><button class="btn light" onclick="addQuestion()">+ Nova pergunta</button><div class="actions"><button class="btn" onclick="saveLesson('${cid||""}','${id||""}',false)">Salvar</button><button class="btn green" onclick="saveLesson('${cid||""}','${id||""}',true)">Salvar e sair</button></div>`;dirty=true};
+window.editLesson=(cid,id)=>{let a=id?state.courses[cid].lessons[id]:{title:"",content:"",youtube:"",images:{},quiz:{}},opts=Object.entries(state.courses||{}).map(([x,c])=>`<option value="${x}" ${x===cid?"selected":""}>${esc(c.name)}</option>`).join("");sessionStorage.setItem("jb_lesson_draft",JSON.stringify(a));$("tab-lessons").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} aula</h3><div class="field"><label>Curso</label><select id="lCourse">${opts}</select></div><div class="field"><label>Título</label><input id="lTitle" value="${esc(a.title)}"></div><div class="field"><label>Conteúdo da aula</label><textarea id="lContent" class="editor">${esc(a.content||"")}</textarea></div><div class="field"><label>URL YouTube</label><input id="lYoutube" value="${esc(a.youtube||"")}"></div><h3>Perguntas da aula</h3><div id="quizEdit">${quizEditor(a.quiz||{})}</div><button class="btn light" onclick="addQuestion()">+ Nova pergunta</button><div class="actions"><button class="btn" onclick="saveLesson('${cid||""}','${id||""}',false)">Salvar</button><button class="btn green" onclick="saveLesson('${cid||""}','${id||""}',true)">Salvar e sair</button></div>`;dirty=true};
 function quizEditor(q){return Object.entries(q).map(([id,z],i)=>`<div class="quizEditor" data-qid="${id}"><b>Pergunta ${i+1}</b><div class="field"><input class="qq" value="${esc(z.q)}" placeholder="Pergunta"></div>${[0,1,2,3].map(j=>`<div class="field"><input class="qo" value="${esc((z.options||[])[j]||"")}" placeholder="Alternativa ${String.fromCharCode(65+j)}"></div>`).join("")}<div class="field"><label>Resposta correta</label><select class="qc">${[0,1,2,3].map(j=>`<option value="${j}" ${+z.correct===j?"selected":""}>${String.fromCharCode(65+j)}</option>`).join("")}</select></div><div class="field"><label>Explicação da resposta correta</label><textarea class="qe" placeholder="Explique por que esta é a resposta correta">${esc(z.explanation||"")}</textarea></div><button class="btn danger small" onclick="this.closest('.quizEditor').remove()">Excluir pergunta</button></div>`).join("")}
 window.addQuestion=()=>{$("quizEdit").insertAdjacentHTML("beforeend",quizEditor({["new"+Date.now()]:{q:"",options:["","","",""],correct:0,explanation:""}}));dirty=true};
 function collectQuiz(){let q={};document.querySelectorAll(".quizEditor").forEach((e,i)=>q["q"+Date.now()+i]={q:e.querySelector(".qq").value,options:[...e.querySelectorAll(".qo")].map(x=>x.value),correct:+e.querySelector(".qc").value,explanation:e.querySelector(".qe").value});return q}
-window.saveLesson=async(oldCid,id,exit)=>{let cid=$("lCourse").value,d={title:$("lTitle").value,content:window.jbRichValue("lContent"),youtube:$("lYoutube").value,quiz:collectQuiz()};if(id&&oldCid===cid)await update(ref(db,`courses/${cid}/lessons/${id}`),d);else{await set(push(ref(db,`courses/${cid}/lessons`)),d);if(id)await remove(ref(db,`courses/${oldCid}/lessons/${id}`))}sessionStorage.removeItem("jb_lesson_draft");dirty=false;if(exit)adminHome();else alert("Aula salva.")};window.deleteLesson=(c,id)=>confirm("Excluir aula?")&&remove(ref(db,`courses/${c}/lessons/${id}`));
-window.editNews=id=>{let n=id?state.news[id]:{title:"",category:"Notícias",summary:"",cover:"",content:"",status:"draft",date:Date.now()};$("tab-news").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} notícia</h3><div class="field"><label>Título</label><input id="nTitle" value="${esc(n.title)}"></div><div class="field"><label>Categoria</label><input id="nCat" value="${esc(n.category||"Notícias Históricas")}"></div><div class="field"><label>Resumo</label><textarea id="nSummary">${esc(n.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="nCover" value="${esc(n.cover||"")}"></div><div class="field"><label>Notícia completa</label>${window.jbRichField("nContent",n.content||"")}</div><div class="field"><label>Publicação</label><select id="nStatus"><option value="draft" ${n.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${n.status!=="draft"?"selected":""}>Publicada</option></select></div><div class="actions"><button class="btn" onclick="saveNews('${id||""}',false)">Salvar</button><button class="btn green" onclick="saveNews('${id||""}',true)">Salvar e sair</button></div>`;dirty=true};window.saveNews=async(id,exit)=>{let d={title:$("nTitle").value,category:$("nCat").value,summary:$("nSummary").value,cover:$("nCover").value,content:window.jbRichValue("nContent"),status:$("nStatus").value,date:id?(state.news[id].date||Date.now()):Date.now()};if(id)await set(ref(db,"news/"+id),d);else await set(push(ref(db,"news")),d);dirty=false;if(exit)adminHome();else alert("Notícia salva.")};window.deleteNews=id=>confirm("Excluir notícia?")&&remove(ref(db,"news/"+id));
+window.saveLesson=async(oldCid,id,exit)=>{let cid=$("lCourse").value,d={title:$("lTitle").value,content:$("lContent").value,youtube:$("lYoutube").value,quiz:collectQuiz()};if(id&&oldCid===cid)await update(ref(db,`courses/${cid}/lessons/${id}`),d);else{await set(push(ref(db,`courses/${cid}/lessons`)),d);if(id)await remove(ref(db,`courses/${oldCid}/lessons/${id}`))}sessionStorage.removeItem("jb_lesson_draft");dirty=false;if(exit)adminHome();else alert("Aula salva.")};window.deleteLesson=(c,id)=>confirm("Excluir aula?")&&remove(ref(db,`courses/${c}/lessons/${id}`));
+window.editNews=id=>{let n=id?state.news[id]:{title:"",category:"Notícias",summary:"",cover:"",content:"",status:"draft",date:Date.now()};$("tab-news").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} notícia</h3><div class="field"><label>Título</label><input id="nTitle" value="${esc(n.title)}"></div><div class="field"><label>Categoria</label><input id="nCat" value="${esc(n.category||"Notícias Históricas")}"></div><div class="field"><label>Resumo</label><textarea id="nSummary">${esc(n.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="nCover" value="${esc(n.cover||"")}"></div><div class="field"><label>Notícia completa</label><textarea id="nContent" class="editor">${esc(n.content||"")}</textarea></div><div class="field"><label>Publicação</label><select id="nStatus"><option value="draft" ${n.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${n.status!=="draft"?"selected":""}>Publicada</option></select></div><div class="actions"><button class="btn" onclick="saveNews('${id||""}',false)">Salvar</button><button class="btn green" onclick="saveNews('${id||""}',true)">Salvar e sair</button></div>`;dirty=true};window.saveNews=async(id,exit)=>{let d={title:$("nTitle").value,category:$("nCat").value,summary:$("nSummary").value,cover:$("nCover").value,content:$("nContent").value,status:$("nStatus").value,date:id?(state.news[id].date||Date.now()):Date.now()};if(id)await set(ref(db,"news/"+id),d);else await set(push(ref(db,"news")),d);dirty=false;if(exit)adminHome();else alert("Notícia salva.")};window.deleteNews=id=>confirm("Excluir notícia?")&&remove(ref(db,"news/"+id));
 window.changePassword=async exit=>{let old=$("oldP").value,n=$("newP").value,n2=$("newP2").value;if(h(old)!==await passHash())return alert("Senha atual incorreta.");if(n.length<8||n!==n2)return alert("Confira a nova senha. Mínimo 8 caracteres.");await set(ref(db,"adminConfig/passwordHash"),h(n));alert("Senha alterada.");if(exit)adminHome()};
+window.openArticles=()=>{home();setTimeout(()=>{document.getElementById("newsGrid")?.closest("section")?.scrollIntoView({behavior:"smooth",block:"start"})},60)};
 onValue(ref(db,"settings"),s=>{if(s.exists())state.settings=s.val();render()});onValue(ref(db,"courses"),s=>{state.courses=s.val()||{};render()});onValue(ref(db,"news"),s=>{state.news=s.val()||{};render()});render();home();if(!localStorage.getItem("jb_access"))$("firstAccess").classList.add("show");
 </script>
 <script>
@@ -437,16 +422,16 @@ import{getDatabase,ref,get,set,remove,onValue,push}from"https://www.gstatic.com/
 const C={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},D=getDatabase(getApps()[0]||initializeApp(C)),E=id=>document.getElementById(id),X=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let G={},B={},I=0,T;
 const items=()=>Object.entries(G).sort((a,b)=>(a[1].createdAt||0)-(b[1].createdAt||0));
-function show(v){["homeView","courseView","articleView","galleryView","bioView","mediaView"].forEach(x=>E(x)?.classList.add("hide"));E(v).classList.remove("hide");scrollTo(0,0)}
+function show(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>E(x)?.classList.add("hide"));E(v).classList.remove("hide");scrollTo(0,0)}
 function draw(){let a=items(),s=E("galleryStage");if(!a.length){s.innerHTML='<p class="muted center">Nenhuma foto cadastrada.</p>';return}I=(I+a.length)%a.length;let x=a[I][1];s.innerHTML=`<img src="${X(x.url)}" alt="${X(x.description||"Foto da galeria")}"><button type="button" class="galleryArrow prev">‹</button><button type="button" class="galleryArrow next">›</button><div class="galleryCaption">${X(x.description||"")}</div><div class="galleryCount">${I+1} de ${a.length}</div>`;s.querySelector(".prev").onclick=()=>move(-1);s.querySelector(".next").onclick=()=>move(1)}
 function timer(){clearInterval(T);if(items().length>1)T=setInterval(()=>{I++;draw()},5000)}function move(n){I+=n;draw();timer()}
 window.openGallery=()=>{I=0;draw();timer();show("galleryView")};
-window.openBiography=()=>{E("bioTitle").textContent=B.title||"BIOGRAFIA";E("bioBody").innerHTML=window.jbRenderRich(B.content||"Biografia ainda não cadastrada.");if(/^https:\/\/.+/i.test(B.photo||"")){E("bioPhoto").src=B.photo;E("bioPhoto").classList.remove("hide")}else E("bioPhoto").classList.add("hide");show("bioView")};
+window.openBiography=()=>{E("bioTitle").textContent=B.title||"BIOGRAFIA";E("bioBody").textContent=B.content||"Biografia ainda não cadastrada.";if(/^https:\/\/.+/i.test(B.photo||"")){E("bioPhoto").src=B.photo;E("bioPhoto").classList.remove("hide")}else E("bioPhoto").classList.add("hide");show("bioView")};
 window.sendMessage=async()=>{let m=E("publicMessage").value.trim(),v=JSON.parse(localStorage.getItem("jb_access")||"null");if(m.length<2)return E("messageStatus").textContent="Escreva um recado.";try{await set(push(ref(D,"messages")),{message:m,name:v?.name||"Visitante",createdAt:Date.now()});E("publicMessage").value="";E("messageStatus").textContent="Recado enviado."}catch{E("messageStatus").textContent="Não foi possível enviar."}};
 window.editGallery=()=>{E("tab-gallery").innerHTML=`<h3>Galeria de Fotos</h3><div class="field"><label>URL HTTPS da foto</label><input id="gUrl"></div><div class="field"><label>Descrição</label><textarea id="gDesc"></textarea></div><button class="btn" onclick="saveGalleryPhoto()">Adicionar foto</button>`+items().map(([id,x])=>`<div class="panel"><b>${X(x.description||"Foto")}</b><div class="muted">${X(x.url)}</div><button class="btn danger small" onclick="deleteGalleryPhoto('${id}')">Excluir</button></div>`).join("")};
 window.saveGalleryPhoto=async()=>{let u=E("gUrl").value.trim(),d=E("gDesc").value.trim();if(!/^https:\/\/.+/i.test(u))return alert("Use uma URL HTTPS válida.");await set(push(ref(D,"gallery")),{url:u,description:d,createdAt:Date.now()});window.editGallery();alert("Foto adicionada.")};window.deleteGalleryPhoto=async id=>{if(confirm("Excluir foto?")){await remove(ref(D,"gallery/"+id));window.editGallery()}};
-window.editBiography=()=>E("tab-bio").innerHTML=`<h3>Biografia</h3><div class="field"><label>Título</label><input id="bTitle" value="${X(B.title||"BIOGRAFIA")}"></div><div class="field"><label>Foto por URL</label><input id="bPhoto" value="${X(B.photo||"")}"></div><div class="field"><label>Texto</label>${window.jbRichField("bContent",B.content||"")}</div><div class="actions"><button class="btn" onclick="saveBiography()">Salvar</button></div>`;
-window.saveBiography=async()=>{await set(ref(D,"biography"),{title:E("bTitle").value||"BIOGRAFIA",photo:E("bPhoto").value.trim(),content:window.jbRichValue("bContent")});alert("Biografia salva.")};
+window.editBiography=()=>E("tab-bio").innerHTML=`<h3>Biografia</h3><div class="field"><label>Título</label><input id="bTitle" value="${X(B.title||"BIOGRAFIA")}"></div><div class="field"><label>Foto por URL</label><input id="bPhoto" value="${X(B.photo||"")}"></div><div class="field"><label>Texto</label><textarea id="bContent" class="editor">${X(B.content||"")}</textarea></div><div class="actions"><button class="btn" onclick="saveBiography()">Salvar</button></div>`;
+window.saveBiography=async()=>{await set(ref(D,"biography"),{title:E("bTitle").value||"BIOGRAFIA",photo:E("bPhoto").value.trim(),content:E("bContent").value});alert("Biografia salva.")};
 window.loadMessages=async()=>{let s=await get(ref(D,"messages")),a=Object.entries(s.val()||{}).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));E("tab-messages").innerHTML="<h3>Recados recebidos</h3>"+(a.length?a.map(([id,x])=>`<div class="panel"><b>${X(x.name)}</b><div>${X(x.message)}</div><div class="muted">${new Date(x.createdAt).toLocaleString("pt-BR")}</div><button class="btn danger small" onclick="deleteMessage('${id}')">Excluir</button></div>`).join(""):"<p>Nenhum recado.</p>")};window.deleteMessage=async id=>{if(confirm("Excluir recado?")){await remove(ref(D,"messages/"+id));window.loadMessages()}};
 const S=window.showTab;window.showTab=(n,b)=>{S(n,b);setTimeout(()=>{if(n==="gallery")window.editGallery();if(n==="bio")window.editBiography();if(n==="messages")window.loadMessages()},0)};
 onValue(ref(D,"gallery"),s=>{G=s.val()||{};if(!E("galleryView").classList.contains("hide"))draw()});onValue(ref(D,"biography"),s=>B=s.val()||{});
@@ -474,11 +459,222 @@ import{getDatabase,ref,get,set,remove,onValue,push}from"https://www.gstatic.com/
 const C14={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},D14=getDatabase(getApps()[0]||initializeApp(C14)),E14=id=>document.getElementById(id),X14=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let M14={};
 function mediaItems(){return Object.entries(M14).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
-window.openMedia=()=>{["homeView","courseView","articleView","galleryView","bioView","mediaView"].forEach(x=>E14(x)?.classList.add("hide"));E14("mediaView").classList.remove("hide");let a=mediaItems();E14("mediaGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="mediaCard"><img src="${X14(x.image)}" alt="${X14(x.seoAlt||x.title)}"><div class="pad"><div class="mediaType">${X14(x.type||"Livro")}</div><h3>${X14(x.title)}</h3><div class="richMediaText">${window.jbRenderRich(x.text||"")}</div></div></article>`).join(""):'<p class="muted">Nenhum filme ou livro cadastrado.</p>';scrollTo(0,0)};
-window.editMedia=()=>{E14("tab-media").innerHTML=`<h3>Filmes e Livros</h3><div class="field"><label>Tipo</label><select id="mType"><option>Livro</option><option>Filme</option></select></div><div class="field"><label>Título</label><input id="mTitle"></div><div class="field"><label>URL da imagem</label><input id="mImage" placeholder="https://..."></div><div class="field"><label>Texto / descrição</label>${window.jbRichField("mText","")}</div><div class="field"><label>Descrição da imagem</label><input id="mAlt" placeholder="Descrição objetiva da imagem"></div><button class="btn" onclick="saveMedia()">Adicionar</button>`+mediaItems().map(([id,x])=>`<div class="panel"><span class="kicker">${X14(x.type||"")}</span><br><b>${X14(x.title)}</b><div>${X14(x.text||"")}</div><div class="actions"><button class="btn danger small" onclick="deleteMedia('${id}')">Excluir</button></div></div>`).join("")};
-window.saveMedia=async()=>{let image=E14("mImage").value.trim(),title=E14("mTitle").value.trim();if(!title)return alert("Informe o título.");if(!/^https:\/\/.+/i.test(image))return alert("Informe uma URL HTTPS válida para a imagem.");await set(push(ref(D14,"media")),{type:E14("mType").value,title,image,text:window.jbRichValue("mText"),seoAlt:E14("mAlt").value.trim(),createdAt:Date.now()});window.editMedia();alert("Item adicionado.")};
+window.openMedia=()=>{["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>E14(x)?.classList.add("hide"));E14("mediaView").classList.remove("hide");let a=mediaItems();E14("mediaGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="mediaCard"><img src="${X14(x.image)}" alt="${X14(x.seoAlt||x.title)}"><div class="pad"><div class="mediaType">${X14(x.type||"Livro")}</div><h3>${X14(x.title)}</h3><p>${X14(x.text||"")}</p></div></article>`).join(""):'<p class="muted">Nenhum filme ou livro cadastrado.</p>';scrollTo(0,0)};
+window.editMedia=()=>{E14("tab-media").innerHTML=`<h3>Filmes e Livros</h3><div class="field"><label>Tipo</label><select id="mType"><option>Livro</option><option>Filme</option></select></div><div class="field"><label>Título</label><input id="mTitle"></div><div class="field"><label>URL da imagem</label><input id="mImage" placeholder="https://..."></div><div class="field"><label>Texto / descrição</label><textarea id="mText"></textarea></div><div class="field"><label>Texto ALT / SEO da imagem</label><input id="mAlt" placeholder="Descrição objetiva da imagem"></div><button class="btn" onclick="saveMedia()">Adicionar</button>`+mediaItems().map(([id,x])=>`<div class="panel"><span class="kicker">${X14(x.type||"")}</span><br><b>${X14(x.title)}</b><div>${X14(x.text||"")}</div><div class="actions"><button class="btn danger small" onclick="deleteMedia('${id}')">Excluir</button></div></div>`).join("")};
+window.saveMedia=async()=>{let image=E14("mImage").value.trim(),title=E14("mTitle").value.trim();if(!title)return alert("Informe o título.");if(!/^https:\/\/.+/i.test(image))return alert("Informe uma URL HTTPS válida para a imagem.");await set(push(ref(D14,"media")),{type:E14("mType").value,title,image,text:E14("mText").value.trim(),seoAlt:E14("mAlt").value.trim(),createdAt:Date.now()});window.editMedia();alert("Item adicionado.")};
 window.deleteMedia=async id=>{if(confirm("Excluir este item?")){await remove(ref(D14,"media/"+id));window.editMedia()}};
 const oldShow14=window.showTab;window.showTab=(n,b)=>{oldShow14(n,b);setTimeout(()=>{if(n==="media")window.editMedia()},0)};
 onValue(ref(D14,"media"),s=>M14=s.val()||{});
+</script>
+<script type="module" id="v21-module">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,set,remove,onValue,push}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import{getStorage,ref as sref,uploadBytes,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-storage.js";
+const C15={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},A15=getApps()[0]||initializeApp(C15),D15=getDatabase(A15),ST15=getStorage(A15),E15=id=>document.getElementById(id),X15=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+let U15={},P15={};
+function slug15(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,100)||"conteudo"}
+function path15(a,id){return "/"+slug15(a.title)+(id?"-"+String(id).slice(-6):"")}
+
+function show15(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>E15(x)?.classList.add("hide"));E15(v)?.classList.remove("hide");scrollTo(0,0)}
+function vid15(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
+function us(){return Object.entries(U15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
+window.openUpdating=()=>{let a=us();E15("updateList").innerHTML=a.length?a.map(([id,x])=>`<article class="updateCard" onclick="openUpdate('${id}')">${x.image?`<img src="${X15(x.image)}" alt="${X15(x.title)}">`:""}<h2>${X15(x.title)}</h2><p class="summary">${X15(x.summary||"")}</p><span class="updateRead">Ler conteúdo →</span></article>`).join(""):'<p class="muted">Nenhuma atualização publicada.</p>';show15("updatingView")};
+window.openUpdate=id=>{
+ let a=U15[id];if(!a)return;
+ E15("articleKicker").textContent="Atualizando";
+ E15("articleTitle").textContent=a.title||"";
+ E15("articleSummary").textContent=a.summary||"";
+ E15("articleDate").textContent="";
+ if(a.image){E15("articleCover").src=a.image;E15("articleCover").alt=a.title||"Atualizando";E15("articleCover").classList.remove("hide")}else E15("articleCover").classList.add("hide");
+ let content="";
+ String(a.content||"").split(/\n{2,}/).filter(Boolean).forEach(p=>content+=p.startsWith("## ")?`<h2>${X15(p.slice(3))}</h2>`:`<p>${X15(p)}</p>`);
+ E15("articleBody").innerHTML=content;
+ let y=vid15(a.video);E15("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";
+ E15("pdfButton").classList.add("hide");E15("quiz").classList.add("hide");
+ E15("articleBack").textContent="← Atualizando";E15("articleBack").onclick=window.openUpdating;
+ let pretty=path15(a,id);
+ try{+" | JADIR BRITO";if(window.applyAutoMeta)
+ show15("articleView");
+};
+function ps(){return Object.entries(P15).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
+
+
+let editingUpdate15=null;
+window.editUpdating=(id=null)=>{
+ editingUpdate15=id;
+ let a=id&&U15[id]?U15[id]:{};
+ E15("tab-updating").innerHTML=`<h3>Atualizando</h3>
+ <div class="field"><label>Título</label><input id="uTitle" value="${X15(a.title||"")}"><div class="uploadProgress">O título gera automaticamente o endereço, por exemplo: jadirbrito.com/meu-titulo</div></div>
+ <div class="field"><label>Resumo</label><textarea id="uSummary">${X15(a.summary||"")}</textarea></div>
+ <div class="field"><label>Conteúdo</label><textarea id="uContent" class="editor">${X15(a.content||"")}</textarea></div>
+ <div class="field"><label>URL da imagem</label><input id="uImage" value="${X15(a.image||"")}" placeholder="https://..."></div>
+ <div class="field"><label>URL do vídeo YouTube</label><input id="uVideo" value="${X15(a.video||"")}" placeholder="https://..."></div>
+ 
+ 
+ 
+ <div class="actions"><button class="btn" onclick="saveUpdate()">${id?"Salvar alterações":"Publicar"}</button>${id?`<button class="btn secondary" onclick="editUpdating()">Cancelar edição</button>`:""}</div>`+
+ us().map(([uid,x])=>`<div class="panel"><b>${X15(x.title)}</b><div class="actions"><button class="btn small" onclick="editUpdating('${uid}')">Editar</button><button class="btn danger small" onclick="deleteUpdate('${uid}')">Excluir</button></div></div>`).join("");
+};
+window.saveUpdate=async()=>{
+ let title=E15("uTitle").value.trim();if(!title)return alert("Informe o título.");
+ let old=editingUpdate15&&U15[editingUpdate15]?U15[editingUpdate15]:{};
+ let data={title,slug:slug15(title),summary:E15("uSummary").value.trim(),content:E15("uContent").value,image:E15("uImage").value.trim(),video:E15("uVideo").value.trim(),createdAt:old.createdAt||Date.now(),updatedAt:Date.now()};
+ if(editingUpdate15)await set(ref(D15,"updating/"+editingUpdate15),data);else await set(push(ref(D15,"updating")),data);
+ editingUpdate15=null;window.editUpdating();alert("Conteúdo salvo.");
+};
+window.deleteUpdate=async id=>{if(confirm("Excluir este conteúdo?")){await remove(ref(D15,"updating/"+id));window.editUpdating()}};
+
+
+window.uploadCoursePDF=async()=>{let title=E15("pTitle").value.trim(),description=E15("pDesc").value.trim(),file=E15("pFile").files[0];if(!title)return alert("Informe o título.");if(!file||file.type!=="application/pdf")return alert("Selecione um arquivo PDF.");if(file.size>30*1024*1024)return alert("O PDF deve ter no máximo 30 MB.");E15("pProgress").textContent="Enviando PDF...";try{let key=Date.now()+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_"),path="course-pdfs/"+key,r=sref(ST15,path);await uploadBytes(r,file,{contentType:"application/pdf"});let url=await getDownloadURL(r);await set(push(ref(D15,"coursePdfs")),{title,description,pdfUrl:url,storagePath:path,createdAt:Date.now()});window.editDownloads();alert("Curso em PDF cadastrado.")}catch(e){console.error(e);E15("pProgress").textContent="Falha no envio. Verifique o Firebase Storage.";alert("Não foi possível enviar o PDF.")}};
+window.deleteCoursePDF=async id=>{if(!confirm("Excluir este curso em PDF?"))return;let x=P15[id];try{if(x?.storagePath)await deleteObject(sref(ST15,x.storagePath))}catch(e){}await remove(ref(D15,"coursePdfs/"+id));window.editDownloads()};
+
+const S15=window.showTab;window.showTab=(n,b)=>{S15(n,b);setTimeout(()=>{if(n==="updating")window.editUpdating();if(n==="downloads")window.editDownloads()},0)};
+onValue(ref(D15,"updating"),s=>U15=s.val()||{});onValue(ref(D15,"coursePdfs"),s=>P15=s.val()||{});
+</script>
+<script id="shared-update-v15">(function(){let n=0;function f(){n++;let id=new URLSearchParams(location.search).get("atualizando");if(id&&window.openUpdate){try{window.openUpdate(id);return}catch(e){}}if(id&&n<30)setTimeout(f,250)}setTimeout(f,500)})();</script>
+<script type="module" id="pretty-route-v19">
+import{getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const app=getApps()[0],db=app?getDatabase(app):null;
+if(db){
+ let tries=0;
+ onValue(ref(db,"updating"),snap=>{
+   const all=snap.val()||{}, q=new URLSearchParams(location.search).get("atualizando");
+   if(q&&all[q]&&window.openUpdate){setTimeout(()=>window.openUpdate(q),100);return}
+   const path=decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g,""));
+   if(!path)return;
+   const found=Object.entries(all).find(([id,a])=>{
+      const slug=(a.slug||String(a.title||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,100));
+      return path===slug || path===slug+"-"+String(id).slice(-6);
+   });
+   if(found&&window.openUpdate)setTimeout(()=>window.openUpdate(found[0]),100);
+ },{onlyOnce:true});
+}
+</script>
+
+<script type="module" id="atualizando-admin-fix-v27">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,get,set,remove,push,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const FC={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
+const FD=getDatabase(getApps()[0]||initializeApp(FC));
+const $u=id=>document.getElementById(id);
+const xu=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+let U={};
+
+function listUpdatingAdmin(){
+ const box=$u("tab-updating"); if(!box)return;
+ box.innerHTML=`<div class="actions"><button class="btn" onclick="newUpdatingV27()">+ Novo conteúdo</button></div>
+ <h3 style="margin-top:22px">Conteúdos cadastrados</h3>
+ <div id="updatingAdminList"></div>`;
+ const list=$u("updatingAdminList");
+ const rows=Object.entries(U).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+ list.innerHTML=rows.length?rows.map(([id,a])=>`<div class="panel">
+   <b>${xu(a.title||"Sem título")}</b>
+   <div class="summary">${xu(a.summary||"")}</div>
+   <div class="actions">
+    <button class="btn small" onclick="editUpdatingV27('${id}')">Editar</button>
+    <button class="btn danger small" onclick="deleteUpdatingV27('${id}')">Excluir</button>
+   </div>
+ </div>`).join(""):`<p class="muted">Nenhum conteúdo cadastrado.</p>`;
+}
+window.renderUpdatingAdminV27=listUpdatingAdmin;
+
+function form(id=""){
+ const a=id?(U[id]||{}):{};
+ const box=$u("tab-updating"); if(!box)return;
+ box.classList.remove("hide");
+ box.innerHTML=`<button class="btn light" onclick="renderUpdatingAdminV27()">← Voltar</button>
+ <h3>${id?"Editar conteúdo":"Novo conteúdo"}</h3>
+ <div class="field"><label>Título</label><input id="u27Title" value="${xu(a.title||"")}"></div>
+ <div class="field"><label>Resumo</label><textarea id="u27Summary">${xu(a.summary||"")}</textarea></div>
+ <div class="field"><label>Conteúdo</label><textarea id="u27Content" class="editor">${xu(a.content||"")}</textarea></div>
+ <div class="field"><label>Imagem por URL</label><input id="u27Image" value="${xu(a.image||"")}"></div>
+ <div class="field"><label>Vídeo do YouTube (URL)</label><input id="u27Youtube" value="${xu(a.youtube||"")}"></div>
+ <div class="actions">
+  <button class="btn" onclick="saveUpdatingV27('${id}',false)">Salvar</button>
+  <button class="btn green" onclick="saveUpdatingV27('${id}',true)">Salvar e sair</button>
+ </div>`;
+}
+window.newUpdatingV27=()=>form("");
+window.editUpdatingV27=id=>form(id);
+
+window.saveUpdatingV27=async(id,exit)=>{
+ const title=$u("u27Title").value.trim();
+ const content=$u("u27Content").value.trim();
+ if(!title)return alert("Digite o título.");
+ const old=id?(U[id]||{}):{};
+ const d={
+   title,
+   summary:$u("u27Summary").value.trim(),
+   content,
+   image:$u("u27Image").value.trim(),
+   youtube:$u("u27Youtube").value.trim(),
+   createdAt:old.createdAt||Date.now(),
+   updatedAt:Date.now()
+ };
+ try{
+   if(id) await set(ref(FD,"updating/"+id),d);
+   else await set(push(ref(FD,"updating")),d);
+   alert("Conteúdo salvo com sucesso.");
+   if(exit && typeof window.adminHome==="function") window.adminHome();
+   else listUpdatingAdmin();
+ }catch(e){ console.error(e); alert("Não foi possível salvar o conteúdo."); }
+};
+window.deleteUpdatingV27=async id=>{
+ if(!confirm("Excluir este conteúdo?"))return;
+ try{await remove(ref(FD,"updating/"+id));}catch(e){console.error(e);alert("Não foi possível excluir.");}
+};
+
+onValue(ref(FD,"updating"),s=>{U=s.val()||{}; 
+ const tab=$u("tab-updating");
+ if(tab && !tab.classList.contains("hide") && !$u("u27Title")) listUpdatingAdmin();
+});
+
+// Intercepta somente o clique da aba Atualizando no ADM para garantir que o cadastro apareça.
+document.addEventListener("click",e=>{
+ const b=e.target.closest('button[onclick*="showTab(\'updating\'"]');
+ if(!b)return;
+ setTimeout(()=>{const tab=$u("tab-updating"); if(tab){tab.classList.remove("hide");listUpdatingAdmin();}},0);
+});
+</script>
+
+
+<script type="module" id="atualizando-public-fix-v28">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const PC={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
+const PD=getDatabase(getApps()[0]||initializeApp(PC)),E=id=>document.getElementById(id),X=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+let U={};
+function show(v){["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(id=>E(id)?.classList.add("hide"));E(v)?.classList.remove("hide");scrollTo(0,0)}
+function body(s){return String(s||"").split(/\n{2,}/).filter(Boolean).map(p=>p.startsWith("## ")?`<h2>${X(p.slice(3))}</h2>`:`<p>${X(p)}</p>`).join("")}
+function yt(u){try{let x=new URL(u),id=x.hostname==="youtu.be"?x.pathname.slice(1):x.searchParams.get("v")||x.pathname.split("/embed/")[1];return id?"https://www.youtube-nocookie.com/embed/"+id:""}catch{return""}}
+function list(){let b=E("updateList");if(!b)return;let a=Object.entries(U).sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));b.innerHTML=a.length?a.map(([id,o])=>`<article class="updateCard" data-update-v28="${id}">${o.image?`<img src="${X(o.image)}" alt="${X(o.title||"Conteúdo")}">`:""}<h2>${X(o.title||"Sem título")}</h2><p class="summary">${X(o.summary||"")}</p><span class="updateRead">Ler conteúdo →</span></article>`).join(""):'<p class="muted center">Nenhum conteúdo cadastrado.</p>';b.querySelectorAll("[data-update-v28]").forEach(c=>c.onclick=()=>window.openUpdateV28(c.dataset.updateV28))}
+window.openUpdating=()=>{show("updatingView");list()};
+window.openUpdateV28=id=>{let a=U[id];if(!a)return;show("articleView");E("articleKicker").textContent="Atualizando";E("articleTitle").textContent=a.title||"";E("articleSummary").textContent=a.summary||"";E("articleDate").textContent="";if(a.image){E("articleCover").src=a.image;E("articleCover").classList.remove("hide")}else E("articleCover").classList.add("hide");E("articleBody").innerHTML=body(a.content);let y=yt(a.youtube||"");E("youtube").innerHTML=y?`<div class="video"><iframe src="${y}" allowfullscreen></iframe></div>`:"";E("pdfButton")?.classList.add("hide");E("quiz")?.classList.add("hide");E("articleBack").onclick=window.openUpdating};
+window.openUpdate=window.openUpdateV28;
+onValue(ref(PD,"updating"),s=>{U=s.val()||{};if(E("updatingView")&&!E("updatingView").classList.contains("hide"))list()});
+window.addEventListener("load",()=>{document.querySelectorAll(".mainNav button").forEach(b=>{if(b.textContent.trim().toLowerCase()==="atualizando")b.onclick=window.openUpdating})});
+</script>
+
+
+
+
+<script id="multi-images-v33">
+(function(){
+function enhance(){
+ const b=document.getElementById("articleBody");if(!b)return;
+ b.querySelectorAll("p").forEach(p=>{
+  const t=p.textContent.trim();
+  if(/^https?:\/\/\S+$/i.test(t)){
+   const d=document.createElement("div");d.className="inlineImageV33";
+   const i=document.createElement("img");i.src=t;i.loading="lazy";i.alt="Imagem da aula";
+   i.onerror=()=>{const a=document.createElement("a");a.href=t;a.target="_blank";a.rel="noopener noreferrer";a.textContent=t;d.replaceWith(a)};
+   d.appendChild(i);p.replaceWith(d);
+  }
+ });
+}
+new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
+window.addEventListener("load",enhance);
+})();
 </script>
 </body></html>
