@@ -298,7 +298,7 @@ function collectQuiz(){let q={};document.querySelectorAll(".quizEditor").forEach
 window.saveLesson=async(oldCid,id,exit)=>{let cid=$("lCourse").value,d={title:$("lTitle").value,content:$("lContent").value,youtube:$("lYoutube").value,quiz:collectQuiz()};if(id&&oldCid===cid)await update(ref(db,`courses/${cid}/lessons/${id}`),d);else{await set(push(ref(db,`courses/${cid}/lessons`)),d);if(id)await remove(ref(db,`courses/${oldCid}/lessons/${id}`))}sessionStorage.removeItem("jb_lesson_draft");dirty=false;if(exit)adminHome();else alert("Aula salva.")};window.deleteLesson=(c,id)=>confirm("Excluir aula?")&&remove(ref(db,`courses/${c}/lessons/${id}`));
 window.editNews=id=>{let n=id?state.news[id]:{title:"",category:"Notícias",summary:"",cover:"",content:"",status:"draft",date:Date.now()};$("tab-news").innerHTML=`<button class="btn light" onclick="adminHome()">← Voltar</button><h3>${id?"Editar":"Nova"} notícia</h3><div class="field"><label>Título</label><input id="nTitle" value="${esc(n.title)}"></div><div class="field"><label>Categoria</label><input id="nCat" value="${esc(n.category||"Notícias Históricas")}"></div><div class="field"><label>Resumo</label><textarea id="nSummary">${esc(n.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="nCover" value="${esc(n.cover||"")}"></div><div class="field"><label>Notícia completa</label><textarea id="nContent" class="editor">${esc(n.content||"")}</textarea></div><div class="field"><label>Publicação</label><select id="nStatus"><option value="draft" ${n.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${n.status!=="draft"?"selected":""}>Publicada</option></select></div><div class="actions"><button class="btn" onclick="saveNews('${id||""}',false)">Salvar</button><button class="btn green" onclick="saveNews('${id||""}',true)">Salvar e sair</button></div>`;dirty=true};window.saveNews=async(id,exit)=>{let d={title:$("nTitle").value,category:$("nCat").value,summary:$("nSummary").value,cover:$("nCover").value,content:$("nContent").value,status:$("nStatus").value,date:id?(state.news[id].date||Date.now()):Date.now()};if(id)await set(ref(db,"news/"+id),d);else await set(push(ref(db,"news")),d);dirty=false;if(exit)adminHome();else alert("Notícia salva.")};window.deleteNews=id=>confirm("Excluir notícia?")&&remove(ref(db,"news/"+id));
 window.changePassword=async exit=>{let old=$("oldP").value,n=$("newP").value,n2=$("newP2").value;if(h(old)!==await passHash())return alert("Senha atual incorreta.");if(n.length<8||n!==n2)return alert("Confira a nova senha. Mínimo 8 caracteres.");await set(ref(db,"adminConfig/passwordHash"),h(n));alert("Senha alterada.");if(exit)adminHome()};
-window.openArticles=()=>{home();setTimeout(()=>{document.getElementById("newsGrid")?.closest("section")?.scrollIntoView({behavior:"smooth",block:"start"})},60)};
+// openArticles é definido no módulo dedicado de Artigos abaixo.
 onValue(ref(db,"settings"),s=>{if(s.exists())state.settings=s.val();render()});onValue(ref(db,"courses"),s=>{state.courses=s.val()||{};render()});onValue(ref(db,"news"),s=>{state.news=s.val()||{};render()});render();home();if(!localStorage.getItem("jb_access"))$("firstAccess").classList.add("show");
 </script>
 <script>
@@ -693,6 +693,72 @@ window.addEventListener("DOMContentLoaded",()=>{
 #articlesGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.articlePublicCard{cursor:pointer;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 20px #1118270a}.articlePublicCard img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#f7f8fa}.articlePublicCard .pad{padding:16px}.articlePublicCard h2{font:700 24px/1.2 Georgia,serif;margin:6px 0 10px}.articlePublicCard p{margin:0;color:var(--muted)}
 @media(max-width:760px){#articlesGrid{grid-template-columns:1fr}.articlePublicCard h2{font-size:22px}}
 </style>
+
+<style id="article-editor-v39">
+.richWrap{border:1px solid #cdd3dc;border-radius:9px;overflow:hidden;background:#fff}
+.richToolbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px;background:#f7f8fa;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:2}
+.richToolbar button,.richToolbar select,.richToolbar input[type="color"]{border:1px solid #d0d5dd;background:#fff;border-radius:6px;padding:6px 8px;cursor:pointer}
+.richEditor{min-height:360px;padding:16px;outline:none;font:17px/1.7 Arial,sans-serif;overflow-wrap:anywhere}
+.richEditor img{display:block;max-width:100%;height:auto;margin:18px auto;border-radius:10px}
+.richEditor h2,.richEditor h3{line-height:1.3}
+.articlePublicCard{cursor:pointer;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.articlePublicCard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.articlePublicCard .pad{padding:15px}
+.articlePublicCard h2{font:700 24px/1.2 Georgia,serif;margin:7px 0}
+@media(max-width:650px){.richEditor{min-height:300px;padding:12px}.richToolbar{gap:4px}.richToolbar button,.richToolbar select{font-size:12px;padding:6px}}
+</style>
+<script id="article-editor-v39-script">
+(function(){
+  function cleanHtml(html){
+    const t=document.createElement("template");
+    t.innerHTML=String(html||"");
+    t.content.querySelectorAll("script,style,iframe,object,embed,form,input,button").forEach(n=>n.remove());
+    t.content.querySelectorAll("*").forEach(el=>{
+      [...el.attributes].forEach(a=>{
+        const n=a.name.toLowerCase(),v=String(a.value||"");
+        if(n.startsWith("on") || (["href","src"].includes(n) && /^\s*javascript:/i.test(v))) el.removeAttribute(a.name);
+      });
+    });
+    return t.innerHTML;
+  }
+  function field(id,html){
+    const safe=cleanHtml(html||"");
+    return `<div class="richWrap">
+      <div class="richToolbar">
+        <select onchange="jbBlock(this.value);this.selectedIndex=0">
+          <option value="">Formato</option><option value="p">Parágrafo</option><option value="h2">Título</option><option value="h3">Subtítulo</option>
+        </select>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('bold')"><b>B</b></button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('italic')"><i>I</i></button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('underline')"><u>U</u></button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('justifyLeft')">←</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('justifyCenter')">↔</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('justifyRight')">→</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbCmd('insertUnorderedList')">• Lista</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbLink()">🔗 Link</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="jbImageUrl()">🖼 URL</button>
+      </div>
+      <div id="${id}" class="richEditor" contenteditable="true" onfocus="jbActiveRich='${id}'" oninput="window.dirty=true">${safe}</div>
+    </div>`;
+  }
+  function editor(){ return document.getElementById(window.jbActiveRich||"arContent"); }
+  window.jbActiveRich="arContent";
+  window.jbRichField=field;
+  window.jbRichValue=id=>cleanHtml(document.getElementById(id)?.innerHTML||"");
+  window.jbRenderRich=html=>cleanHtml(html||"");
+  window.jbCmd=cmd=>{ const e=editor(); if(!e)return; e.focus(); document.execCommand(cmd,false,null); };
+  window.jbBlock=tag=>{ if(!tag)return; const e=editor(); if(!e)return; e.focus(); document.execCommand("formatBlock",false,tag); };
+  window.jbLink=()=>{ const url=prompt("Cole a URL do link:","https://"); if(!url)return; const e=editor(); if(!e)return; e.focus(); document.execCommand("createLink",false,url); };
+  window.jbImageUrl=()=>{
+    const url=prompt("Cole a URL pública da imagem:","https://");
+    if(!url || !/^https?:\/\//i.test(url)) return url ? alert("Use uma URL iniciando com http:// ou https://") : undefined;
+    const e=editor(); if(!e)return; e.focus();
+    document.execCommand("insertImage",false,url);
+    e.querySelectorAll("img").forEach(img=>{img.loading="lazy";img.style.maxWidth="100%";img.style.height="auto";});
+  };
+})();
+</script>
+
 <script type="module" id="articles-module-v37">
 import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import{getDatabase,ref,onValue,set,push,remove}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
@@ -706,7 +772,7 @@ window.openPublicArticleV37=id=>{let a=A[id];if(!a)return;hideViews();E("article
 function renderAdmin(){let b=E("tab-articles");if(!b)return;b.innerHTML=`<button class="btn" onclick="editArticleV37()">+ Novo artigo</button>`+Object.entries(A).sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0)).map(([id,a])=>`<div class="panel"><span class="kicker">${a.status==="draft"?"Rascunho":"Publicado"}</span><br><b>${X(a.title||"Sem título")}</b><div class="actions"><button class="btn small" onclick="editArticleV37('${id}')">Editar</button><button class="btn danger small" onclick="deleteArticleV37('${id}')">Excluir</button></div></div>`).join("")}
 window.openArticlesAdmin=b=>{["site","courses","lessons","news","articles","gallery","bio","media","messages","leads","security"].forEach(x=>E("tab-"+x)?.classList.add("hide"));E("tab-articles")?.classList.remove("hide");b?.parentNode?.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));b?.classList.add("on");renderAdmin()};
 window.editArticleV37=id=>{let a=id?A[id]:{title:"",summary:"",cover:"",content:"",status:"draft"};let b=E("tab-articles");b.innerHTML=`<button class="btn light" onclick="openArticlesAdmin(document.querySelector('[onclick*=openArticlesAdmin]'))">← Voltar</button><h3>${id?"Editar":"Novo"} artigo</h3><div class="field"><label>Título</label><input id="arTitle" value="${X(a.title)}"></div><div class="field"><label>Resumo</label><textarea id="arSummary">${X(a.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="arCover" value="${X(a.cover||"")}" placeholder="https://..."></div><div class="field"><label>Conteúdo do artigo</label>${window.jbRichField("arContent",a.content||"")}</div><div class="note">Dentro do editor, use o botão <b>🖼 URL</b> para inserir uma ou várias imagens exatamente no ponto desejado do artigo. As imagens serão exibidas no conteúdo no computador e no celular.</div><div class="field"><label>Publicação</label><select id="arStatus"><option value="draft" ${a.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${a.status!=="draft"?"selected":""}>Publicado</option></select></div><div class="actions"><button class="btn" onclick="saveArticleV37('${id||""}')">Salvar artigo</button></div>`};
-window.saveArticleV37=async id=>{let d={title:E("arTitle").value.trim(),summary:E("arSummary").value.trim(),cover:E("arCover").value.trim(),content:window.jbRichValue("arContent"),status:E("arStatus").value,createdAt:id?(A[id]?.createdAt||Date.now()):Date.now(),updatedAt:Date.now()};if(!d.title)return alert("Informe o título do artigo.");if(id)await set(ref(db,"articles/"+id),d);else await set(push(ref(db,"articles")),d);alert("Artigo salvo com sucesso.");renderAdmin()};
+window.saveArticleV37=async id=>{try{let d={title:E("arTitle").value.trim(),summary:E("arSummary").value.trim(),cover:E("arCover").value.trim(),content:window.jbRichValue("arContent"),status:E("arStatus").value,createdAt:id?(A[id]?.createdAt||Date.now()):Date.now(),updatedAt:Date.now()};if(!d.title)return alert("Informe o título do artigo.");if(!d.content.replace(/<[^>]*>/g,"").trim()&&!d.content.includes("<img"))return alert("Escreva o conteúdo do artigo.");if(id)await set(ref(db,"articles/"+id),d);else await set(push(ref(db,"articles")),d);window.dirty=false;alert("Artigo salvo com sucesso.");renderAdmin()}catch(err){console.error(err);alert("Não foi possível salvar o artigo. Verifique sua conexão e as regras do Firebase.")}};
 window.deleteArticleV37=async id=>{if(confirm("Excluir este artigo?"))await remove(ref(db,"articles/"+id))};
 onValue(ref(db,"articles"),s=>{A=s.val()||{};listArticles();renderAdmin()});
 </script>
