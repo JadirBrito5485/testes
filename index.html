@@ -699,7 +699,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 .richToolbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px;background:#f7f8fa;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:2}
 .richToolbar button,.richToolbar select,.richToolbar input[type="color"]{border:1px solid #d0d5dd;background:#fff;border-radius:6px;padding:6px 8px;cursor:pointer}
 .richEditor{min-height:360px;padding:16px;outline:none;font:17px/1.7 Arial,sans-serif;overflow-wrap:anywhere}
-.richEditor img{display:block;max-width:100%;height:auto;margin:18px auto;border-radius:10px}
+.richEditor img,.articleBody img,.articleInlineImage img{display:block;max-width:100%;height:auto;margin:18px auto;border-radius:10px}.articleInlineImage{margin:20px 0;text-align:center}.articleInlineImage figcaption:empty{display:none}
 .richEditor h2,.richEditor h3{line-height:1.3}
 .articlePublicCard{cursor:pointer;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .articlePublicCard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
@@ -709,15 +709,36 @@ window.addEventListener("DOMContentLoaded",()=>{
 </style>
 <script id="article-editor-v39-script">
 (function(){
+  function isImageUrl(url){
+    url=String(url||"").trim();
+    if(!/^https?:\/\//i.test(url))return false;
+    return /\.(?:png|jpe?g|gif|webp|avif|svg)(?:[?#].*)?$/i.test(url)
+      || /(?:blogger\.googleusercontent\.com|googleusercontent\.com|ggpht\.com|bp\.blogspot\.com|images\.unsplash\.com|i\.imgur\.com)/i.test(url);
+  }
+  function imageHtml(url){
+    const u=String(url||"").trim().replace(/"/g,"&quot;");
+    return `<figure class="articleInlineImage"><img src="${u}" alt="Imagem do artigo" loading="lazy" referrerpolicy="no-referrer"><figcaption></figcaption></figure>`;
+  }
+  function upgradeImageLinks(html){
+    let s=String(html||"");
+    // Old articles may contain the image URL as plain text or as a clickable link.
+    s=s.replace(/<p>\s*(https?:\/\/[^<\s]+)\s*<\/p>/gi,(m,u)=>isImageUrl(u)?imageHtml(u):m);
+    s=s.replace(/<div>\s*(https?:\/\/[^<\s]+)\s*<\/div>/gi,(m,u)=>isImageUrl(u)?imageHtml(u):m);
+    s=s.replace(/<a[^>]+href=["'](https?:\/\/[^"']+)["'][^>]*>\s*\1\s*<\/a>/gi,(m,u)=>isImageUrl(u)?imageHtml(u):m);
+    return s;
+  }
   function cleanHtml(html){
     const t=document.createElement("template");
-    t.innerHTML=String(html||"");
+    t.innerHTML=upgradeImageLinks(String(html||""));
     t.content.querySelectorAll("script,style,iframe,object,embed,form,input,button").forEach(n=>n.remove());
     t.content.querySelectorAll("*").forEach(el=>{
       [...el.attributes].forEach(a=>{
         const n=a.name.toLowerCase(),v=String(a.value||"");
         if(n.startsWith("on") || (["href","src"].includes(n) && /^\s*javascript:/i.test(v))) el.removeAttribute(a.name);
       });
+    });
+    t.content.querySelectorAll("img").forEach(img=>{
+      img.style.maxWidth="100%"; img.style.height="auto"; img.loading="lazy";
     });
     return t.innerHTML;
   }
@@ -738,7 +759,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         <button type="button" onmousedown="event.preventDefault()" onclick="jbLink()">🔗 Link</button>
         <button type="button" onmousedown="event.preventDefault()" onclick="jbImageUrl()">🖼 URL</button>
       </div>
-      <div id="${id}" class="richEditor" contenteditable="true" onfocus="jbActiveRich='${id}'" oninput="window.dirty=true">${safe}</div>
+      <div id="${id}" class="richEditor" contenteditable="true" onfocus="jbActiveRich='${id}';jbRememberRange()" onkeyup="jbRememberRange()" onmouseup="jbRememberRange()" oninput="window.dirty=true;jbRememberRange()">${safe}</div>
     </div>`;
   }
   function editor(){ return document.getElementById(window.jbActiveRich||"arContent"); }
@@ -749,12 +770,36 @@ window.addEventListener("DOMContentLoaded",()=>{
   window.jbCmd=cmd=>{ const e=editor(); if(!e)return; e.focus(); document.execCommand(cmd,false,null); };
   window.jbBlock=tag=>{ if(!tag)return; const e=editor(); if(!e)return; e.focus(); document.execCommand("formatBlock",false,tag); };
   window.jbLink=()=>{ const url=prompt("Cole a URL do link:","https://"); if(!url)return; const e=editor(); if(!e)return; e.focus(); document.execCommand("createLink",false,url); };
+  let savedRange=null;
+  window.jbRememberRange=()=>{
+    const e=editor(),s=window.getSelection();
+    if(e&&s&&s.rangeCount&&e.contains(s.anchorNode))savedRange=s.getRangeAt(0).cloneRange();
+  };
   window.jbImageUrl=()=>{
+    window.jbRememberRange();
     const url=prompt("Cole a URL pública da imagem:","https://");
-    if(!url || !/^https?:\/\//i.test(url)) return url ? alert("Use uma URL iniciando com http:// ou https://") : undefined;
-    const e=editor(); if(!e)return; e.focus();
-    document.execCommand("insertImage",false,url);
-    e.querySelectorAll("img").forEach(img=>{img.loading="lazy";img.style.maxWidth="100%";img.style.height="auto";});
+    if(!url)return;
+    if(!/^https?:\/\//i.test(url))return alert("Use uma URL iniciando com http:// ou https://");
+    const e=editor();if(!e)return;
+    e.focus();
+    const fig=document.createElement("figure");fig.className="articleInlineImage";
+    const img=document.createElement("img");
+    img.src=url.trim();img.alt="Imagem do artigo";img.loading="lazy";img.referrerPolicy="no-referrer";
+    img.style.maxWidth="100%";img.style.height="auto";
+    img.onerror=()=>{img.alt="A imagem não pôde ser carregada por este servidor.";};
+    fig.appendChild(img);
+    const br=document.createElement("p");br.innerHTML="<br>";
+    const s=window.getSelection();
+    if(savedRange){
+      s.removeAllRanges();s.addRange(savedRange);
+      savedRange.deleteContents();savedRange.insertNode(fig);
+      fig.after(br);
+      const r=document.createRange();r.selectNodeContents(br);r.collapse(true);
+      s.removeAllRanges();s.addRange(r);savedRange=r.cloneRange();
+    }else{
+      e.appendChild(fig);e.appendChild(br);
+    }
+    window.dirty=true;
   };
 })();
 </script>
