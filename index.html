@@ -236,7 +236,98 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 <style id="image-url-any-v33">
 .inlineImageV33{width:100%;margin:22px 0;text-align:center}.inlineImageV33 img{display:block;max-width:100%;height:auto;margin:auto;border-radius:14px}
 @media(max-width:600px){.inlineImageV33{margin:18px 0}.inlineImageV33 img{width:100%;border-radius:10px}}
-</style></head><body>
+</style>
+<style id="theme-v42">
+:root{color-scheme:light}
+.themeToggle{position:fixed;top:14px;right:16px;z-index:9999;width:44px;height:44px;border-radius:50%;border:1px solid #d9dee7;background:#fff;color:#111827;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 4px 16px #00000018;transition:.2s}
+.themeToggle:hover{transform:translateY(-1px)}
+.themeToggle .sun{display:none}.themeToggle .moon{display:block}
+html.dark{color-scheme:dark}
+html.dark body{background:#111418;color:#e8edf3}
+html.dark header,html.dark nav,html.dark footer,html.dark .messageBox,html.dark .modal,html.dark .panel,html.dark .courseCard,html.dark .newsCard,html.dark .articlePublicCard,html.dark .lesson,html.dark .richWrap{background:#181d23!important;color:#e8edf3!important;border-color:#303842!important}
+html.dark .wrap,html.dark main,html.dark section{color:#e8edf3}
+html.dark h1,html.dark h2,html.dark h3,html.dark h4,html.dark b,html.dark strong,html.dark label,html.dark .title{color:#f5f7fa!important}
+html.dark p,html.dark .summary,html.dark .muted,html.dark .kicker,html.dark .bioBody,html.dark .articleBody{color:#c7d0da!important}
+html.dark a,html.dark .back{color:#9ec5ff}
+html.dark input,html.dark textarea,html.dark select,html.dark .richEditor{background:#101419!important;color:#eef2f7!important;border-color:#39424d!important}
+html.dark .richToolbar{background:#20262d!important;border-color:#39424d!important}
+html.dark .richToolbar button,html.dark .richToolbar select{background:#151a20!important;color:#eef2f7!important;border-color:#3a4450!important}
+html.dark .btn.light{background:#252c34!important;color:#f3f5f7!important;border-color:#3b4652!important}
+html.dark .themeToggle{background:#20262d;color:#ffd76a;border-color:#3a4450}
+html.dark .themeToggle .sun{display:block}html.dark .themeToggle .moon{display:none}
+@media(max-width:650px){.themeToggle{top:10px;right:10px;width:40px;height:40px;font-size:20px}}
+</style>
+<script id="theme-v42-script">
+(function(){
+  const key="jb_theme";
+  function applyTheme(mode){
+    const dark=mode==="dark";
+    document.documentElement.classList.toggle("dark",dark);
+    localStorage.setItem(key,dark?"dark":"light");
+    const b=document.getElementById("themeToggle");
+    if(b)b.setAttribute("aria-label",dark?"Ativar modo claro":"Ativar modo escuro");
+  }
+  window.toggleJBTheme=function(){
+    applyTheme(document.documentElement.classList.contains("dark")?"light":"dark");
+  };
+  const saved=localStorage.getItem(key);
+  if(saved==="dark")document.documentElement.classList.add("dark");
+  document.addEventListener("DOMContentLoaded",()=>{
+    const b=document.getElementById("themeToggle");
+    if(b)b.setAttribute("aria-label",document.documentElement.classList.contains("dark")?"Ativar modo claro":"Ativar modo escuro");
+  });
+})();
+</script>
+
+
+<style id="article-image-delete-v43">
+.richEditor img.jbSelectedImage{outline:3px solid #dc3545;outline-offset:3px}
+.jbImageDeleteBar{display:none;margin:8px 0 12px;padding:8px;border:1px solid #f0b8bd;border-radius:8px;background:#fff5f5}
+.jbImageDeleteBar.on{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.jbImageDeleteBar button{border:0;border-radius:7px;background:#b42318;color:#fff;padding:8px 12px;font-weight:700;cursor:pointer}
+html.dark .jbImageDeleteBar{background:#29191b;border-color:#74333a;color:#ffd9dd}
+</style>
+<script id="article-image-delete-v43-script">
+(function(){
+  let selected=null;
+  function bar(){return document.getElementById("jbImageDeleteBar")}
+  function clear(){
+    document.querySelectorAll(".richEditor img.jbSelectedImage").forEach(x=>x.classList.remove("jbSelectedImage"));
+    selected=null;
+    bar()?.classList.remove("on");
+  }
+  window.jbSelectArticleImage=function(img){
+    clear();
+    selected=img;
+    img.classList.add("jbSelectedImage");
+    bar()?.classList.add("on");
+  };
+  window.jbDeleteSelectedImage=function(){
+    if(!selected)return alert("Clique primeiro na imagem que deseja apagar.");
+    if(!confirm("Apagar esta imagem do conteúdo do artigo?"))return;
+    const fig=selected.closest("figure.articleInlineImage");
+    if(fig)fig.remove(); else selected.remove();
+    selected=null;
+    bar()?.classList.remove("on");
+    window.dirty=true;
+  };
+  document.addEventListener("click",function(e){
+    const ed=e.target.closest?.(".richEditor");
+    if(e.target.matches?.(".richEditor img")){
+      e.preventDefault();
+      jbSelectArticleImage(e.target);
+    }else if(ed && !e.target.matches("img")){
+      clear();
+    }
+  });
+})();
+</script>
+
+</head><body>
+<button id="themeToggle" class="themeToggle" type="button" onclick="toggleJBTheme()" title="Alternar claro/escuro" aria-label="Ativar modo escuro">
+  <span class="moon" aria-hidden="true">☾</span><span class="sun" aria-hidden="true">☀</span>
+</button>
+
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">INÍCIO</button><button onclick="openBiography()">BIOGRAFIA</button><button onclick="openArticles()">ARTIGO</button><button onclick="openMedia()">FILMES E LIVROS</button><button onclick="openGallery()">GALERIA</button></nav><div id="hello" class="muted"></div></div></header>
 <main id="homeView" class=""><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"><p class="muted">Carregando áreas de estudo...</p></div></div></section>
@@ -760,6 +851,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         <button type="button" onmousedown="event.preventDefault()" onclick="jbImageUrl()">🖼 URL</button>
       </div>
       <div id="${id}" class="richEditor" contenteditable="true" onfocus="jbActiveRich='${id}';jbRememberRange()" onkeyup="jbRememberRange()" onmouseup="jbRememberRange()" oninput="window.dirty=true;jbRememberRange()">${safe}</div>
+      <div id="jbImageDeleteBar" class="jbImageDeleteBar"><span>Imagem selecionada.</span><button type="button" onclick="jbDeleteSelectedImage()">🗑 Apagar imagem</button></div>
     </div>`;
   }
   function editor(){ return document.getElementById(window.jbActiveRich||"arContent"); }
