@@ -1,17 +1,431 @@
-<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Psicanálise | Jadir Brito</title>
-<style>
-:root{--bg:#fff;--card:#f7f8fa;--text:#18202a;--muted:#667085;--line:#e4e7ec}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.7}.wrap{width:min(1040px,calc(100% - 32px));margin:auto}.top{border-bottom:1px solid var(--line);padding:18px 0;background:var(--bg)}.brand{font:700 22px Georgia,serif}.hero{padding:70px 0 42px;text-align:center}.kicker{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--muted)}h1{font:700 clamp(38px,7vw,68px)/1.05 Georgia,serif;margin:12px 0 18px}.lead{font-size:20px;color:var(--muted);max-width:760px;margin:auto;white-space:pre-line}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:28px 0 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}.card h2{font:700 24px Georgia,serif;margin-top:0}.card p,.content{color:var(--muted);white-space:pre-line}.content{max-width:820px;margin:auto;padding:10px 0 70px;font-size:17px}footer{border-top:1px solid var(--line);padding:28px;text-align:center;color:var(--muted)}.theme{position:fixed;right:16px;top:16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font-size:20px;cursor:pointer}html.dark{--bg:#111418;--card:#181d23;--text:#edf2f7;--muted:#c1cad4;--line:#303842;color-scheme:dark}@media(max-width:760px){.grid{grid-template-columns:1fr}.lead{font-size:18px}}
-</style>
-<script>(function(){const k="jb_theme";if(localStorage.getItem(k)==="dark")document.documentElement.classList.add("dark");window.theme=()=>{document.documentElement.classList.toggle("dark");localStorage.setItem(k,document.documentElement.classList.contains("dark")?"dark":"light")}})();</script></head>
-<body><button class="theme" onclick="theme()" title="Alternar claro/escuro">☾ / ☀</button><header class="top"><div class="wrap"><div class="brand">JADIR BRITO</div></div></header><main>
-<section class="hero"><div class="wrap"><div class="kicker">PSICANÁLISE</div><h1 id="title">Psicanálise</h1><p id="intro" class="lead">Um espaço dedicado a conteúdos sobre psicanálise, comportamento, relações humanas, emoções e autoconhecimento.</p></div></section>
-<section class="wrap grid"><article class="card"><h2 id="c1t">Adolescentes</h2><p id="c1x"></p></article><article class="card"><h2 id="c2t">Autoconhecimento</h2><p id="c2x"></p></article><article class="card"><h2 id="c3t">Estudos de Psicanálise</h2><p id="c3x"></p></article></section>
-<section id="body" class="content wrap"></section></main><footer>Jadir Brito — Psicanálise</footer>
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";import{getDatabase,ref,onValue}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-const cfg={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
-const db=getDatabase(initializeApp(cfg)),D=id=>document.getElementById(id);
-const defaults={c1x:"Conteúdos sobre adolescência, identidade, relações familiares, inseguranças, conflitos e desenvolvimento emocional.",c2x:"Reflexões sobre sentimentos, padrões de comportamento, escolhas, vínculos e experiências pessoais.",c3x:"Textos introdutórios sobre conceitos, história e diferentes temas relacionados à tradição psicanalítica.",body:"Esta área reúne conteúdos relacionados à psicanálise em uma página própria."};
-onValue(ref(db,"therapy"),s=>{const x={...defaults,...(s.val()||{})};["title","intro","c1t","c1x","c2t","c2x","c3t","c3x","body"].forEach(k=>{if(x[k]!=null&&D(k))D(k).textContent=x[k]})});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Jadir Brito | Psicanalista</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f1eb;
+      color: #24201d;
+      line-height: 1.6;
+    }
+
+    /* TOPO */
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5ded5;
+      padding: 18px 20px;
+    }
+
+    .topo {
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .nome {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      letter-spacing: 4px;
+    }
+
+    .profissao {
+      margin-top: 4px;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: #75513b;
+    }
+
+    /* APRESENTAÇÃO */
+
+    .apresentacao {
+      max-width: 850px;
+      margin: auto;
+      padding: 55px 20px 30px;
+      text-align: center;
+    }
+
+    .apresentacao h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.1;
+      color: #54250e;
+      margin-bottom: 22px;
+    }
+
+    .apresentacao p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 19px;
+      color: #5e5853;
+    }
+
+    /* PROPAGANDA */
+
+    .propaganda {
+      max-width: 720px;
+      margin: 25px auto 45px;
+      padding: 0 15px;
+    }
+
+    .propaganda a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .propaganda img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .propaganda img:hover {
+      transform: scale(1.01);
+    }
+
+    .clique {
+      text-align: center;
+      margin-top: 13px;
+      font-size: 14px;
+      color: #6d655f;
+    }
+
+    /* CONTEÚDO */
+
+    .conteudo {
+      background: #ffffff;
+      padding: 55px 20px;
+    }
+
+    .conteudo-interno {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .conteudo h2 {
+      font-family: Georgia, serif;
+      text-align: center;
+      font-size: 36px;
+      color: #54250e;
+      margin-bottom: 35px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #f8f4ef;
+      padding: 27px;
+      border-radius: 14px;
+      border: 1px solid #ebe3da;
+    }
+
+    .card h3 {
+      color: #633014;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: #625b56;
+    }
+
+    /* ATENDIMENTO */
+
+    .atendimento {
+      max-width: 850px;
+      margin: auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .atendimento h2 {
+      font-family: Georgia, serif;
+      font-size: 38px;
+      color: #54250e;
+      margin-bottom: 18px;
+    }
+
+    .atendimento p {
+      font-size: 18px;
+      color: #625b56;
+      max-width: 680px;
+      margin: auto;
+    }
+
+    /* WHATSAPP */
+
+    .whatsapp {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 16px 28px;
+      background: #079647;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 17px;
+      border-radius: 40px;
+    }
+
+    .whatsapp:hover {
+      background: #087d3f;
+    }
+
+    /* RODAPÉ */
+
+    footer {
+      background: #221d19;
+      color: #ffffff;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    footer strong {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    footer span {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #d5c5b8;
+    }
+
+    /* CELULAR */
+
+    @media (max-width: 650px) {
+
+      .apresentacao {
+        padding-top: 40px;
+      }
+
+      .apresentacao p {
+        font-size: 17px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .propaganda {
+        padding: 0 10px;
+      }
+
+      .conteudo h2 {
+        font-size: 30px;
+      }
+
+      .atendimento h2 {
+        font-size: 31px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<header>
+
+  <div class="topo">
+
+    <div class="nome">
+      JADIR BRITO
+    </div>
+
+    <div class="profissao">
+      PSICANALISTA
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<section class="apresentacao">
+
+  <h1>
+    Recomeçar também faz parte da sua história.
+  </h1>
+
+  <p>
+    Atendimento voltado para homens e mulheres que passaram por uma
+    separação ou estão enfrentando uma crise no casamento e procuram
+    um espaço de escuta, reflexão e reconstrução emocional.
+  </p>
+
+</section>
+
+
+
+<!-- PROPAGANDA CLICÁVEL -->
+
+<section class="propaganda">
+
+  <a
+    href="https://wa.me/5547988233530?text=Ol%C3%A1%2C%20Jadir.%20Encontrei%20seu%20atendimento%20pelo%20site%20jadirbrito.com%2Fterapia%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20sess%C3%B5es."
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+
+    <img
+      src="propaganda-terapia.png"
+      alt="Jadir Brito Psicanalista - atendimento para separação e crise no casamento"
+    >
+
+  </a>
+
+  <div class="clique">
+    Clique na imagem para falar comigo pelo WhatsApp
+  </div>
+
+</section>
+
+
+
+<section class="conteudo">
+
+  <div class="conteudo-interno">
+
+    <h2>
+      Para quem é o atendimento?
+    </h2>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <h3>Após uma separação</h3>
+
+        <p>
+          Para quem está enfrentando a dor do término e deseja compreender
+          suas emoções e encontrar caminhos para reconstruir a própria vida.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Crise no casamento</h3>
+
+        <p>
+          Para quem está vivendo conflitos, distanciamento emocional,
+          inseguranças ou dificuldades dentro do relacionamento.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Reconstrução emocional</h3>
+
+        <p>
+          Um espaço de escuta para elaborar sentimentos, compreender
+          experiências e buscar novas formas de lidar com esse momento.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Autoconhecimento</h3>
+
+        <p>
+          Compreender melhor seus sentimentos, relacionamentos,
+          escolhas e padrões que podem se repetir ao longo da vida.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section class="atendimento">
+
+  <h2>
+    Atendimento por videochamada
+  </h2>
+
+  <p>
+    Sessões individuais para homens e mulheres, realizadas on-line,
+    proporcionando um espaço reservado para falar sobre aquilo que
+    você está vivendo.
+  </p>
+
+
+  <a
+    class="whatsapp"
+    href="https://wa.me/5547988233530?text=Ol%C3%A1%2C%20Jadir.%20Encontrei%20seu%20atendimento%20pelo%20site%20jadirbrito.com%2Fterapia%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20sess%C3%B5es."
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+
+    💬 Agendar pelo WhatsApp
+
+  </a>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+  <strong>
+    JADIR BRITO
+  </strong>
+
+  <span>
+    PSICANALISTA
+  </span>
+
+</footer>
+
+
+</body>
+
+</html>
