@@ -2,428 +2,100 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta charset="UTF-8">
 
-  <title>Jadir Brito | Psicanalista</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <style>
+<title>Jadir Brito | Psicanalista</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f1eb;
-      color: #24201d;
-      line-height: 1.6;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    /* TOPO */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
 
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5ded5;
-      padding: 18px 20px;
-    }
+body {
+  background: #f3eee7;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-    .topo {
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
-    }
+/* IMAGEM */
 
-    .nome {
-      font-family: Georgia, serif;
-      font-size: 25px;
-      letter-spacing: 4px;
-    }
+.propaganda {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-    .profissao {
-      margin-top: 4px;
-      font-size: 12px;
-      letter-spacing: 5px;
-      color: #75513b;
-    }
+.propaganda a {
+  display: block;
+  width: 100%;
+  max-width: 1024px;
+  line-height: 0;
+}
 
-    /* APRESENTAÇÃO */
+.propaganda img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 0;
+}
 
-    .apresentacao {
-      max-width: 850px;
-      margin: auto;
-      padding: 55px 20px 30px;
-      text-align: center;
-    }
+/* COMPUTADOR */
 
-    .apresentacao h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(36px, 6vw, 58px);
-      line-height: 1.1;
-      color: #54250e;
-      margin-bottom: 22px;
-    }
+@media (min-width: 1000px) {
 
-    .apresentacao p {
-      max-width: 700px;
-      margin: auto;
-      font-size: 19px;
-      color: #5e5853;
-    }
+  .propaganda a {
+    width: auto;
+  }
 
-    /* PROPAGANDA */
+  .propaganda img {
+    width: auto;
+    max-width: 100%;
+    max-height: 100vh;
+  }
 
-    .propaganda {
-      max-width: 720px;
-      margin: 25px auto 45px;
-      padding: 0 15px;
-    }
+}
 
-    .propaganda a {
-      display: block;
-      text-decoration: none;
-    }
+</style>
 
-    .propaganda img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 18px;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .propaganda img:hover {
-      transform: scale(1.01);
-    }
-
-    .clique {
-      text-align: center;
-      margin-top: 13px;
-      font-size: 14px;
-      color: #6d655f;
-    }
-
-    /* CONTEÚDO */
-
-    .conteudo {
-      background: #ffffff;
-      padding: 55px 20px;
-    }
-
-    .conteudo-interno {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .conteudo h2 {
-      font-family: Georgia, serif;
-      text-align: center;
-      font-size: 36px;
-      color: #54250e;
-      margin-bottom: 35px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: #f8f4ef;
-      padding: 27px;
-      border-radius: 14px;
-      border: 1px solid #ebe3da;
-    }
-
-    .card h3 {
-      color: #633014;
-      margin-bottom: 8px;
-      font-size: 20px;
-    }
-
-    .card p {
-      color: #625b56;
-    }
-
-    /* ATENDIMENTO */
-
-    .atendimento {
-      max-width: 850px;
-      margin: auto;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .atendimento h2 {
-      font-family: Georgia, serif;
-      font-size: 38px;
-      color: #54250e;
-      margin-bottom: 18px;
-    }
-
-    .atendimento p {
-      font-size: 18px;
-      color: #625b56;
-      max-width: 680px;
-      margin: auto;
-    }
-
-    /* WHATSAPP */
-
-    .whatsapp {
-      display: inline-block;
-      margin-top: 28px;
-      padding: 16px 28px;
-      background: #079647;
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 17px;
-      border-radius: 40px;
-    }
-
-    .whatsapp:hover {
-      background: #087d3f;
-    }
-
-    /* RODAPÉ */
-
-    footer {
-      background: #221d19;
-      color: #ffffff;
-      text-align: center;
-      padding: 35px 20px;
-    }
-
-    footer strong {
-      display: block;
-      font-family: Georgia, serif;
-      font-size: 22px;
-      letter-spacing: 3px;
-    }
-
-    footer span {
-      display: block;
-      margin-top: 6px;
-      font-size: 12px;
-      letter-spacing: 4px;
-      color: #d5c5b8;
-    }
-
-    /* CELULAR */
-
-    @media (max-width: 650px) {
-
-      .apresentacao {
-        padding-top: 40px;
-      }
-
-      .apresentacao p {
-        font-size: 17px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .propaganda {
-        padding: 0 10px;
-      }
-
-      .conteudo h2 {
-        font-size: 30px;
-      }
-
-      .atendimento h2 {
-        font-size: 31px;
-      }
-
-    }
-
-  </style>
 </head>
 
 
 <body>
 
 
-<header>
-
-  <div class="topo">
-
-    <div class="nome">
-      JADIR BRITO
-    </div>
-
-    <div class="profissao">
-      PSICANALISTA
-    </div>
-
-  </div>
-
-</header>
-
-
-<main>
-
-
-<section class="apresentacao">
-
-  <h1>
-    Recomeçar também faz parte da sua história.
-  </h1>
-
-  <p>
-    Atendimento voltado para homens e mulheres que passaram por uma
-    separação ou estão enfrentando uma crise no casamento e procuram
-    um espaço de escuta, reflexão e reconstrução emocional.
-  </p>
-
-</section>
-
-
-
-<!-- PROPAGANDA CLICÁVEL -->
-
-<section class="propaganda">
-
-  <a
-    href="https://wa.me/5547988233530?text=Ol%C3%A1%2C%20Jadir.%20Encontrei%20seu%20atendimento%20pelo%20site%20jadirbrito.com%2Fterapia%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20sess%C3%B5es."
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-
-    <img
-      src="propaganda-terapia.png"
-      alt="Jadir Brito Psicanalista - atendimento para separação e crise no casamento"
-    >
-
-  </a>
-
-  <div class="clique">
-    Clique na imagem para falar comigo pelo WhatsApp
-  </div>
-
-</section>
-
-
-
-<section class="conteudo">
-
-  <div class="conteudo-interno">
-
-    <h2>
-      Para quem é o atendimento?
-    </h2>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <h3>Após uma separação</h3>
-
-        <p>
-          Para quem está enfrentando a dor do término e deseja compreender
-          suas emoções e encontrar caminhos para reconstruir a própria vida.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Crise no casamento</h3>
-
-        <p>
-          Para quem está vivendo conflitos, distanciamento emocional,
-          inseguranças ou dificuldades dentro do relacionamento.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Reconstrução emocional</h3>
-
-        <p>
-          Um espaço de escuta para elaborar sentimentos, compreender
-          experiências e buscar novas formas de lidar com esse momento.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Autoconhecimento</h3>
-
-        <p>
-          Compreender melhor seus sentimentos, relacionamentos,
-          escolhas e padrões que podem se repetir ao longo da vida.
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<section class="atendimento">
-
-  <h2>
-    Atendimento por videochamada
-  </h2>
-
-  <p>
-    Sessões individuais para homens e mulheres, realizadas on-line,
-    proporcionando um espaço reservado para falar sobre aquilo que
-    você está vivendo.
-  </p>
-
-
-  <a
-    class="whatsapp"
-    href="https://wa.me/5547988233530?text=Ol%C3%A1%2C%20Jadir.%20Encontrei%20seu%20atendimento%20pelo%20site%20jadirbrito.com%2Fterapia%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20sess%C3%B5es."
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-
-    💬 Agendar pelo WhatsApp
-
-  </a>
-
-</section>
-
-
-</main>
-
-
-
-<footer>
-
-  <strong>
-    JADIR BRITO
-  </strong>
-
-  <span>
-    PSICANALISTA
-  </span>
-
-</footer>
+<div class="propaganda">
+
+<a
+  href="https://wa.me/5547988233530?text=Ol%C3%A1%2C%20Jadir.%20Vim%20pela%20p%C3%A1gina%20de%20Psican%C3%A1lise%20do%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20atendimento."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Falar com Jadir Brito pelo WhatsApp"
+>
+
+<img
+  src="https://blogger.googleusercontent.com/img/a/AVvXsEjhS6R7a4pD0wXxPPp7njKA0VJbFqpH6Z56nZ9Y22FSahrsxh649vbcUTjJ9o2QIupwQm8c9OsuGU23ijdG4InY6dltLBYpSGgEFGPrexpsMudONl8vYMBJiFHtxrZMTJTxnj_8fBUERxi38O3ziDv42LY6gkJYt7rc5YznP3MR154eK24CLHMJmNtffCQS"
+  alt="Jadir Brito Psicanalista"
+>
+
+</a>
+
+</div>
 
 
 </body>
