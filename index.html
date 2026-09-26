@@ -335,6 +335,13 @@ html.dark .adminTopA{background:transparent;color:#aab2bc;border:0}.adminTopA:ho
 .visitTable{width:100%;border-collapse:collapse;font-size:13px}.visitTable th,.visitTable td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.visitTableWrap{overflow:auto}
 @media(max-width:760px){.visitStats{grid-template-columns:repeat(2,minmax(0,1fr))}.visitTable{min-width:720px}}
 </style>
+
+<style id="visit-detail-v51">
+.visitPath{min-width:260px;max-width:430px;max-height:180px;overflow:auto}
+.visitPathItem{padding:5px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.35}
+.visitPathItem:last-child{border-bottom:0}
+html.dark .visitPathItem{border-color:#303842}
+</style>
 </head><body><button class="adminTopA" onclick="openAdmin()" title="ADM" aria-label="Abrir ADM">A</button>
 <button id="themeToggle" class="themeToggle" type="button" onclick="toggleJBTheme()" title="Alternar claro/escuro" aria-label="Ativar modo escuro">
   <span class="moon" aria-hidden="true">☾</span><span class="sun" aria-hidden="true">☀</span>
@@ -342,9 +349,9 @@ html.dark .adminTopA{background:transparent;color:#aab2bc;border:0}.adminTopA:ho
 
 <header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">INÍCIO</button><button onclick="goStudies()">ESTUDOS</button><button onclick="openBiography()">BIOGRAFIA</button><button onclick="openArticles()">ARTIGO</button><button onclick="openMedia()">FILMES E LIVROS</button><button onclick="openGallery()">GALERIA</button></nav><div id="hello" class="muted"></div></div></header>
 <main id="homeView" class=""><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
+<section id="homeArticlesSection" class="section"><div class="wrap"><div class="row" style="justify-content:space-between;align-items:end;gap:12px"><div><span class="kicker">CONTEÚDO</span><h2 class="title" style="margin:4px 0 0">Artigos</h2></div><button class="btn light small" onclick="openArticles()">Ver todos os artigos</button></div><div id="homeArticlesGrid" class="newsGrid" style="margin-top:22px"></div></div></section>
 <section class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias Históricas</h2><span class="muted"></span></div><div id="newsGrid" class="newsGrid"><p class="muted">Carregando Notícias Históricas...</p></div></div></section>
-<section id="studiesSection" class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"><p class="muted">Carregando áreas de estudo...</p></div></div></section>
-<section id="homeArticlesSection" style="margin-top:42px"><div class="row" style="justify-content:space-between;align-items:end;gap:12px"><div><span class="kicker">CONTEÚDO</span><h2 class="title" style="margin:4px 0 0">Artigos</h2></div><button class="btn light small" onclick="openArticles()">Ver todos os artigos</button></div><div id="homeArticlesGrid" class="newsGrid" style="margin-top:22px"></div></section></main>
+<section id="studiesSection" class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"><p class="muted">Carregando áreas de estudo...</p></div></div></section></main>
 <main id="courseView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><img id="courseCover" class="cover hide"><h1 id="courseName" class="title"></h1><p id="courseDesc" class="summary"></p><div id="lessonList" class="lessons"></div></div></main>
 <main id="articleView" class="hide"><div class="wrap page"><article class="article"><span id="articleBack" class="back">← Voltar</span><div id="articleKicker" class="kicker" style="margin-top:28px"></div><h1 id="articleTitle" class="title"></h1><p id="articleSummary" class="summary"></p><div id="articleDate" class="date"></div><img id="articleCover" class="cover hide"><div id="articleBody" class="articleBody"></div><div id="youtube"></div><button id="pdfButton" class="btn" onclick="makePDF()">Baixar aula em PDF</button><section id="quiz" class="quiz"><h2>Perguntas para fixação</h2><div id="quizPublic"></div><button class="btn" onclick="grade()">Corrigir</button><div id="quizResult" class="status"></div></section></article></div></main>
 <main id="galleryView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">GALERIA DE FOTOS</h1><div id="galleryStage" class="galleryStage"><p class="muted center">Nenhuma foto cadastrada.</p></div></div></main>
@@ -458,8 +465,143 @@ window.changePassword=async exit=>{let old=$("oldP").value,n=$("newP").value,n2=
 // openArticles é definido no módulo dedicado de Artigos abaixo.
 function deviceType(){let ua=navigator.userAgent||"";if(/ipad|tablet|playbook|silk/i.test(ua)||(/android/i.test(ua)&&!/mobile/i.test(ua)))return "Tablet";if(/mobi|iphone|ipod|android/i.test(ua))return "Celular";return "Computador"}
 function browserName(){let ua=navigator.userAgent||"";if(/edg/i.test(ua))return "Edge";if(/opr|opera/i.test(ua))return "Opera";if(/chrome|crios/i.test(ua))return "Chrome";if(/firefox|fxios/i.test(ua))return "Firefox";if(/safari/i.test(ua))return "Safari";return "Outro"}
-async function recordSiteVisit(person){try{if(sessionStorage.getItem("jb_visit_recorded")==="1")return;person=person||JSON.parse(localStorage.getItem("jb_access")||"null");if(!person)return;let data={name:person.name||"Visitante",city:person.city||"",state:person.state||"",device:deviceType(),browser:browserName(),page:location.pathname||"/",createdAt:Date.now()};await set(push(ref(db,"siteVisits")),data);sessionStorage.setItem("jb_visit_recorded","1")}catch(e){console.warn("Visita não registrada",e)}}
-async function renderVisitsAdmin(){let box=$("tab-visits");if(!box)return;box.innerHTML='<p class="muted">Carregando visitas...</p>';try{let s=await get(ref(db,"siteVisits")),rows=Object.values(s.val()||{}).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));let devices={Celular:0,Computador:0,Tablet:0};rows.forEach(x=>devices[x.device]=(devices[x.device]||0)+1);let loc={};rows.forEach(x=>{let k=[x.city,x.state].filter(Boolean).join(" / ")||"Não informado";loc[k]=(loc[k]||0)+1});let topLoc=Object.entries(loc).sort((a,b)=>b[1]-a[1])[0]?.[0]||"—";box.innerHTML=`<h3>Visitas do site</h3><p class="muted">Cada sessão é contabilizada uma vez.</p><div class="visitStats"><div class="visitStat">Total de visitas<b>${rows.length}</b></div><div class="visitStat">Celular<b>${devices.Celular||0}</b></div><div class="visitStat">Computador<b>${devices.Computador||0}</b></div><div class="visitStat">Tablet<b>${devices.Tablet||0}</b></div></div><div class="panel"><b>Cidade/Estado com mais acessos:</b> ${esc(topLoc)}</div><div class="visitTableWrap"><table class="visitTable"><thead><tr><th>Data e hora</th><th>Visitante</th><th>Dispositivo</th><th>Navegador</th><th>Cidade</th><th>Estado</th><th>Página</th></tr></thead><tbody>${rows.length?rows.slice(0,500).map(x=>`<tr><td>${x.createdAt?new Date(x.createdAt).toLocaleString("pt-BR"):""}</td><td>${esc(x.name||"Visitante")}</td><td>${esc(x.device||"")}</td><td>${esc(x.browser||"")}</td><td>${esc(x.city||"")}</td><td>${esc(x.state||"")}</td><td>${esc(x.page||"/")}</td></tr>`).join(""):'<tr><td colspan="7">Nenhuma visita registrada ainda.</td></tr>'}</tbody></table></div>`}catch(e){console.error(e);box.innerHTML='<p>Não foi possível carregar as visitas. Verifique as regras do Firebase.</p>'}}
+let jbVisitId=sessionStorage.getItem("jb_visit_id")||"";
+let jbVisitStarted=Number(sessionStorage.getItem("jb_visit_started")||0);
+let jbActiveStarted=Date.now();
+let jbActiveTotal=Number(sessionStorage.getItem("jb_visit_active_ms")||0);
+
+function formatVisitTime(sec){
+  sec=Math.max(0,Number(sec)||0);
+  let h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=Math.floor(sec%60);
+  if(h)return `${h}h ${m}min ${s}s`;
+  if(m)return `${m}min ${s}s`;
+  return `${s}s`;
+}
+async function syncVisitDuration(){
+  try{
+    if(!jbVisitId)return;
+    let now=Date.now();
+    if(!document.hidden){
+      jbActiveTotal+=Math.max(0,now-jbActiveStarted);
+      jbActiveStarted=now;
+    }
+    sessionStorage.setItem("jb_visit_active_ms",String(jbActiveTotal));
+    await update(ref(db,"siteVisits/"+jbVisitId),{
+      lastSeenAt:now,
+      durationSeconds:Math.floor(jbActiveTotal/1000)
+    });
+  }catch(e){console.warn("Tempo da visita não atualizado",e)}
+}
+async function recordSiteVisit(person){
+  try{
+    person=person||JSON.parse(localStorage.getItem("jb_access")||"null");
+    if(!person)return;
+    if(jbVisitId){
+      if(!jbVisitStarted)jbVisitStarted=Date.now();
+      return;
+    }
+    let r=push(ref(db,"siteVisits"));
+    jbVisitId=r.key;
+    jbVisitStarted=Date.now();
+    jbActiveStarted=Date.now();
+    jbActiveTotal=0;
+    sessionStorage.setItem("jb_visit_id",jbVisitId);
+    sessionStorage.setItem("jb_visit_started",String(jbVisitStarted));
+    sessionStorage.setItem("jb_visit_active_ms","0");
+    let data={
+      name:person.name||"Visitante",
+      city:person.city||"",
+      state:person.state||"",
+      device:deviceType(),
+      browser:browserName(),
+      page:location.pathname||"/",
+      createdAt:jbVisitStarted,
+      lastSeenAt:jbVisitStarted,
+      durationSeconds:0
+    };
+    await set(r,data);
+    await trackSiteView("Página inicial","Página",location.pathname||"/");
+  }catch(e){console.warn("Visita não registrada",e)}
+}
+async function trackSiteView(label,type="Página",detail=""){
+  try{
+    if(!jbVisitId){
+      await recordSiteVisit();
+      if(!jbVisitId)return;
+    }
+    await syncVisitDuration();
+    await set(push(ref(db,`siteVisits/${jbVisitId}/visited`)),{
+      label:String(label||"Página"),
+      type:String(type||"Página"),
+      detail:String(detail||""),
+      at:Date.now()
+    });
+  }catch(e){console.warn("Navegação não registrada",e)}
+}
+window.trackSiteView=trackSiteView;
+
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    syncVisitDuration();
+  }else{
+    jbActiveStarted=Date.now();
+  }
+});
+setInterval(()=>{if(!document.hidden)syncVisitDuration()},10000);
+window.addEventListener("pagehide",()=>{syncVisitDuration()});
+
+async function renderVisitsAdmin(){
+  let box=$("tab-visits");if(!box)return;
+  box.innerHTML='<p class="muted">Carregando visitas...</p>';
+  try{
+    let s=await get(ref(db,"siteVisits"));
+    let raw=s.val()||{};
+    let rows=Object.entries(raw).map(([id,x])=>({id,...x})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    let devices={Celular:0,Computador:0,Tablet:0};
+    rows.forEach(x=>devices[x.device]=(devices[x.device]||0)+1);
+    let loc={};
+    rows.forEach(x=>{let k=[x.city,x.state].filter(Boolean).join(" / ")||"Não informado";loc[k]=(loc[k]||0)+1});
+    let topLoc=Object.entries(loc).sort((a,b)=>b[1]-a[1])[0]?.[0]||"—";
+    let avg=rows.length?Math.round(rows.reduce((a,x)=>a+(Number(x.durationSeconds)||0),0)/rows.length):0;
+    let max=rows.length?Math.max(...rows.map(x=>Number(x.durationSeconds)||0)):0;
+
+    function visitedHtml(x){
+      let items=Object.values(x.visited||{}).sort((a,b)=>(a.at||0)-(b.at||0));
+      if(!items.length)return '<span class="muted">Sem histórico detalhado</span>';
+      return items.map(v=>{
+        let t=v.at?new Date(v.at).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"";
+        return `<div class="visitPathItem"><b>${esc(v.label||"Página")}</b>${v.type?` <span class="muted">(${esc(v.type)})</span>`:""}${t?` <span class="muted">— ${t}</span>`:""}</div>`;
+      }).join("");
+    }
+
+    box.innerHTML=`<h3>Visitas do site</h3>
+    <p class="muted">Cada sessão é contabilizada uma vez. O tempo é atualizado enquanto a página estiver aberta e ativa.</p>
+    <div class="visitStats">
+      <div class="visitStat">Total de visitas<b>${rows.length}</b></div>
+      <div class="visitStat">Celular<b>${devices.Celular||0}</b></div>
+      <div class="visitStat">Computador<b>${devices.Computador||0}</b></div>
+      <div class="visitStat">Tablet<b>${devices.Tablet||0}</b></div>
+      <div class="visitStat">Tempo médio<b>${formatVisitTime(avg)}</b></div>
+      <div class="visitStat">Maior permanência<b>${formatVisitTime(max)}</b></div>
+    </div>
+    <div class="panel"><b>Cidade/Estado com mais acessos:</b> ${esc(topLoc)}</div>
+    <div class="visitTableWrap"><table class="visitTable">
+      <thead><tr><th>Entrada</th><th>Visitante</th><th>Dispositivo</th><th>Navegador</th><th>Cidade/Estado</th><th>Tempo no site</th><th>O que visitou</th></tr></thead>
+      <tbody>${rows.length?rows.slice(0,500).map(x=>`<tr>
+        <td>${x.createdAt?new Date(x.createdAt).toLocaleString("pt-BR"):""}</td>
+        <td>${esc(x.name||"Visitante")}</td>
+        <td>${esc(x.device||"")}</td>
+        <td>${esc(x.browser||"")}</td>
+        <td>${esc([x.city,x.state].filter(Boolean).join(" / "))}</td>
+        <td><b>${formatVisitTime(x.durationSeconds||0)}</b></td>
+        <td><div class="visitPath">${visitedHtml(x)}</div></td>
+      </tr>`).join(""):'<tr><td colspan="7">Nenhuma visita registrada ainda.</td></tr>'}</tbody>
+    </table></div>`;
+  }catch(e){
+    console.error(e);
+    box.innerHTML='<p>Não foi possível carregar as visitas. Verifique as regras do Firebase.</p>';
+  }
+}
 onValue(ref(db,"settings"),s=>{if(s.exists())state.settings=s.val();render()});onValue(ref(db,"courses"),s=>{state.courses=s.val()||{};render()});onValue(ref(db,"news"),s=>{state.news=s.val()||{};render()});onValue(ref(db,"therapy"),s=>{state.therapy=s.val()||{};});render();home();if(!localStorage.getItem("jb_access"))$("firstAccess").classList.add("show");else recordSiteVisit();
 </script>
 <script>
@@ -982,6 +1124,46 @@ window.editArticleV37=id=>{let a=id?A[id]:{title:"",summary:"",cover:"",content:
 window.saveArticleV37=async id=>{try{let d={title:E("arTitle").value.trim(),summary:E("arSummary").value.trim(),cover:E("arCover").value.trim(),content:window.jbRichValue("arContent"),status:E("arStatus").value,createdAt:id?(A[id]?.createdAt||Date.now()):Date.now(),updatedAt:Date.now()};if(!d.title)return alert("Informe o título do artigo.");if(!d.content.replace(/<[^>]*>/g,"").trim()&&!d.content.includes("<img"))return alert("Escreva o conteúdo do artigo.");if(id)await set(ref(db,"articles/"+id),d);else await set(push(ref(db,"articles")),d);window.dirty=false;alert("Artigo salvo com sucesso.");renderAdmin()}catch(err){console.error(err);alert("Não foi possível salvar o artigo. Verifique sua conexão e as regras do Firebase.")}};
 window.deleteArticleV37=async id=>{if(confirm("Excluir este artigo?"))await remove(ref(db,"articles/"+id))};
 onValue(ref(db,"articles"),s=>{A=s.val()||{};listArticles();renderAdmin()});
+</script>
+
+
+<script id="visit-navigation-v51">
+(function(){
+  function later(label,type,detail){
+    setTimeout(()=>{
+      if(window.trackSiteView)window.trackSiteView(label,type,detail);
+    },0);
+  }
+  function wrap(name,getInfo){
+    const original=window[name];
+    if(typeof original!=="function"||original.__jbTracked)return;
+    const wrapped=function(...args){
+      const result=original.apply(this,args);
+      try{
+        const info=getInfo?getInfo(args):null;
+        if(info)later(info.label,info.type||"Página",info.detail||"");
+      }catch(e){}
+      return result;
+    };
+    wrapped.__jbTracked=true;
+    window[name]=wrapped;
+  }
+  function install(){
+    wrap("home",()=>({label:"Página inicial",type:"Página"}));
+    wrap("goStudies",()=>({label:"Área de estudo",type:"Seção"}));
+    wrap("openArticles",()=>({label:"Artigos",type:"Seção"}));
+    wrap("openPublicArticleV37",()=>({label:document.getElementById("articleTitle")?.textContent||"Artigo",type:"Artigo"}));
+    wrap("openNews",()=>({label:document.getElementById("articleTitle")?.textContent||"Notícia Histórica",type:"Notícia Histórica"}));
+    wrap("course",()=>({label:document.getElementById("courseName")?.textContent||"Área de estudo",type:"Área de estudo"}));
+    wrap("openLesson",()=>({label:document.getElementById("articleTitle")?.textContent||"Aula",type:"Aula"}));
+    wrap("openGallery",()=>({label:"Galeria",type:"Página"}));
+    wrap("openBiography",()=>({label:"Biografia",type:"Página"}));
+    wrap("openMedia",()=>({label:"Filmes e Livros",type:"Página"}));
+  }
+  install();
+  setTimeout(install,400);
+  setTimeout(install,1200);
+})();
 </script>
 
 </body></html>
