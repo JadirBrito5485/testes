@@ -192,10 +192,17 @@ html{-webkit-text-size-adjust:100%}img{max-width:100%}
 .hero h1{font-size:clamp(40px,12vw,82px)!important}
 .courseViewCover,.cover#courseCover{width:100%!important;height:auto!important;max-height:390px!important;object-fit:contain!important;object-position:center!important;background:#fff!important;border:1px solid var(--line);padding:8px}
 .mediaGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.mediaCard{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;box-shadow:0 6px 20px #1118270a}
+.mediaCard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 6px 20px #1118270a;transition:transform .18s ease,box-shadow .18s ease}
+.mediaCard:hover{transform:translateY(-2px);box-shadow:0 10px 28px #11182716}
 .mediaCard img{display:block;width:100%;aspect-ratio:2/3;object-fit:contain;background:#f7f8fa}
-.mediaCard .pad{padding:14px}.mediaCard h3{margin:4px 0 8px;font-size:19px;line-height:1.25}.mediaCard p{margin:0;color:var(--muted);font-size:14px}
-.mediaType{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--red)}
+.mediaCard .pad{padding:16px}.mediaCard h3{margin:0 0 9px;font-size:19px;line-height:1.25}.mediaCard p{margin:0;color:var(--muted);font-size:14px;line-height:1.6;white-space:pre-wrap}
+html.dark .mediaCard{background:#181d23!important;color:#e8edf3!important;border-color:#303842!important;box-shadow:0 6px 20px #00000024}
+html.dark .mediaCard img{background:#101419!important}
+html.dark .mediaCard p{color:#c7d0da!important}
+.mediaAdminPreview{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start}
+.mediaAdminPreview img{width:90px;height:125px;object-fit:contain;border-radius:8px;background:#f7f8fa;border:1px solid var(--line)}
+html.dark .mediaAdminPreview img{background:#101419;border-color:#303842}
+@media(max-width:520px){.mediaAdminPreview{grid-template-columns:70px 1fr}.mediaAdminPreview img{width:70px;height:100px}}
 @media(max-width:760px){
  body{font-size:15px}.wrap{width:min(94%,1160px)}
  .top{align-items:center!important}.brand{font-size:19px}.mainNav{width:100%;overflow-x:auto;flex-wrap:nowrap!important;padding-bottom:3px}.mainNav button{white-space:nowrap}
@@ -763,12 +770,56 @@ import{getDatabase,ref,get,set,remove,onValue,push}from"https://www.gstatic.com/
 const C14={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"},D14=getDatabase(getApps()[0]||initializeApp(C14)),E14=id=>document.getElementById(id),X14=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let M14={};
 function mediaItems(){return Object.entries(M14).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0))}
-window.openMedia=()=>{["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>E14(x)?.classList.add("hide"));E14("mediaView").classList.remove("hide");let a=mediaItems();E14("mediaGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="mediaCard"><img src="${X14(x.image)}" alt="${X14(x.seoAlt||x.title)}"><div class="pad"><div class="mediaType">${X14(x.type||"Livro")}</div><h3>${X14(x.title)}</h3><p>${X14(x.text||"")}</p></div></article>`).join(""):'<p class="muted">Nenhum filme ou livro cadastrado.</p>';scrollTo(0,0)};
-window.editMedia=()=>{E14("tab-media").innerHTML=`<h3>Filmes e Livros</h3><div class="field"><label>Tipo</label><select id="mType"><option>Livro</option><option>Filme</option></select></div><div class="field"><label>Título</label><input id="mTitle"></div><div class="field"><label>URL da imagem</label><input id="mImage" placeholder="https://..."></div><div class="field"><label>Texto / descrição</label><textarea id="mText"></textarea></div><div class="field"><label>Texto ALT / SEO da imagem</label><input id="mAlt" placeholder="Descrição objetiva da imagem"></div><button class="btn" onclick="saveMedia()">Adicionar</button>`+mediaItems().map(([id,x])=>`<div class="panel"><span class="kicker">${X14(x.type||"")}</span><br><b>${X14(x.title)}</b><div>${X14(x.text||"")}</div><div class="actions"><button class="btn danger small" onclick="deleteMedia('${id}')">Excluir</button></div></div>`).join("")};
-window.saveMedia=async()=>{let image=E14("mImage").value.trim(),title=E14("mTitle").value.trim();if(!title)return alert("Informe o título.");if(!/^https:\/\/.+/i.test(image))return alert("Informe uma URL HTTPS válida para a imagem.");await set(push(ref(D14,"media")),{type:E14("mType").value,title,image,text:E14("mText").value.trim(),seoAlt:E14("mAlt").value.trim(),createdAt:Date.now()});window.editMedia();alert("Item adicionado.")};
+window.openMedia=()=>{["homeView","courseView","articleView","galleryView","bioView","mediaView","updatingView"].forEach(x=>E14(x)?.classList.add("hide"));E14("mediaView").classList.remove("hide");let a=mediaItems();E14("mediaGrid").innerHTML=a.length?a.map(([id,x])=>`<article class="mediaCard"><img src="${X14(x.image||"")}" alt="${X14(x.title||"Filmes e Livros")}" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>${X14(x.title)}</h3><p>${X14(x.description??x.text??"")}</p></div></article>`).join(""):'<p class="muted">Nenhum filme ou livro cadastrado.</p>';scrollTo(0,0)};
+
+window.editMedia=(id="")=>{
+  const x=id?(M14[id]||{}):{};
+  E14("tab-media").innerHTML=`
+    <h3>Filmes e Livros</h3>
+    <p class="muted">Cadastre apenas o título, a descrição e a URL da imagem.</p>
+    <div class="field"><label>Título</label><input id="mTitle" value="${X14(x.title||"")}" placeholder="Título do filme ou livro"></div>
+    <div class="field"><label>Descrição</label><textarea id="mText" placeholder="Escreva a descrição...">${X14(x.description??x.text??"")}</textarea></div>
+    <div class="field"><label>URL da imagem</label><input id="mImage" value="${X14(x.image||"")}" placeholder="https://..."></div>
+    <div class="actions">
+      <button class="btn" onclick="saveMedia('${id}')">${id?"Salvar alterações":"Adicionar"}</button>
+      ${id?`<button class="btn light" onclick="editMedia()">Cancelar edição</button>`:""}
+    </div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+    <h3>Itens cadastrados</h3>
+    ${mediaItems().length?mediaItems().map(([mid,m])=>`
+      <div class="panel">
+        <div class="mediaAdminPreview">
+          ${m.image?`<img src="${X14(m.image)}" alt="${X14(m.title||"")}" onerror="this.style.display='none'">`:""}
+          <div>
+            <b>${X14(m.title||"Sem título")}</b>
+            <div class="muted" style="margin-top:5px">${X14(m.description??m.text??"")}</div>
+            <div class="actions">
+              <button class="btn small" onclick="editMedia('${mid}')">Editar</button>
+              <button class="btn danger small" onclick="deleteMedia('${mid}')">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>`).join(""):'<p class="muted">Nenhum item cadastrado.</p>'}`;
+};
+
+window.saveMedia=async(id="")=>{
+  const image=E14("mImage").value.trim();
+  const title=E14("mTitle").value.trim();
+  const description=E14("mText").value.trim();
+  if(!title)return alert("Informe o título.");
+  if(!description)return alert("Informe a descrição.");
+  if(!/^https:\/\/.+/i.test(image))return alert("Informe uma URL HTTPS válida para a imagem.");
+  const old=id?(M14[id]||{}):{};
+  const data={title,description,image,createdAt:old.createdAt||Date.now(),updatedAt:Date.now()};
+  if(id) await set(ref(D14,"media/"+id),data);
+  else await set(push(ref(D14,"media")),data);
+  window.editMedia();
+  alert(id?"Item atualizado.":"Item adicionado.");
+};
+
 window.deleteMedia=async id=>{if(confirm("Excluir este item?")){await remove(ref(D14,"media/"+id));window.editMedia()}};
 const oldShow14=window.showTab;window.showTab=(n,b)=>{oldShow14(n,b);setTimeout(()=>{if(n==="media")window.editMedia()},0)};
-onValue(ref(D14,"media"),s=>M14=s.val()||{});
+onValue(ref(D14,"media"),s=>{M14=s.val()||{};window.__jbSearchMedia=M14;if(!E14("mediaView")?.classList.contains("hide"))window.openMedia()});
 </script>
 <script type="module" id="v21-module">
 import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
