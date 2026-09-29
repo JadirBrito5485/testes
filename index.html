@@ -1176,9 +1176,26 @@ import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/fire
 import{getDatabase,ref,onValue,set,push,remove}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 const cfg={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
 const app=getApps()[0]||initializeApp(cfg),db=getDatabase(app),E=id=>document.getElementById(id),X=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-let A={};
-function hideViews(){["homeView","courseView","articleView","galleryView","bioView","mediaView","articlesView","updatingView"].forEach(id=>E(id)?.classList.add("hide"))}
-function listArticles(){let a=Object.entries(A).filter(([_,x])=>x.status!=="draft").sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));let card=([id,x])=>`<article class="articlePublicCard" onclick="openPublicArticleV37('${id}')">${x.cover?`<img src="${X(x.cover)}" alt="${X(x.title)}" loading="lazy">`:""}<div class="pad"><h2>${X(x.title)}</h2><p>${X(x.summary||"")}</p></div></article>`;let b=E("articlesGrid");if(b)b.innerHTML=a.length?a.map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>';let h=E("homeArticlesGrid");if(h)h.innerHTML=a.length?a.slice(0,Math.max(0,parseInt(state.settings.homeArticlesLimit??1,10)||0)).map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>'}
+let A={},homeArticlesLimit=1;
+function hideViews(){["homeView","courseView","articleView","galleryView","bioView","mediaView","articlesView","newsListView","updatingView"].forEach(id=>E(id)?.classList.add("hide"))}
+function listArticles(){
+  let a=Object.entries(A)
+    .filter(([_,x])=>x && x.status!=="draft")
+    .sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));
+
+  let card=([id,x])=>`<article class="articlePublicCard" onclick="openPublicArticleV37('${id}')">${x.cover?`<img src="${X(x.cover)}" alt="${X(x.title)}" loading="lazy">`:""}<div class="pad"><h2>${X(x.title||"Sem título")}</h2><p>${X(x.summary||"")}</p></div></article>`;
+
+  let b=E("articlesGrid");
+  if(b)b.innerHTML=a.length?a.map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>';
+
+  let h=E("homeArticlesGrid");
+  if(h){
+    const limit=Math.max(0,Number(homeArticlesLimit)||0);
+    h.innerHTML=a.length
+      ? (limit>0 ? a.slice(0,limit).map(card).join("") : "")
+      : '<p class="muted">Nenhum artigo publicado.</p>';
+  }
+}
 window.openArticles=()=>{hideViews();E("articlesView")?.classList.remove("hide");listArticles();scrollTo(0,0)};
 window.openPublicArticleV37=id=>{let a=A[id];if(!a)return;hideViews();E("articleView")?.classList.remove("hide");E("articleKicker").textContent="";E("articleKicker").classList.add("hide");E("articleTitle").textContent=a.title||"";E("articleSummary").textContent=a.summary||"";E("articleDate").textContent="";E("articleDate").classList.add("hide");if(a.cover){E("articleCover").src=a.cover;E("articleCover").classList.remove("hide")}else E("articleCover").classList.add("hide");E("articleBody").innerHTML=window.jbRenderRich?window.jbRenderRich(a.content||""):a.content||"";E("youtube").innerHTML="";E("pdfButton")?.classList.add("hide");E("quiz")?.classList.add("hide");E("articleBack").textContent="← Artigos";E("articleBack").onclick=window.openArticles;scrollTo(0,0)};
 function renderAdmin(){let b=E("tab-articles");if(!b)return;b.innerHTML=`<button class="btn" onclick="editArticleV37()">+ Novo artigo</button>`+Object.entries(A).sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0)).map(([id,a])=>`<div class="panel"><span class="kicker">${a.status==="draft"?"Rascunho":"Publicado"}</span><br><b>${X(a.title||"Sem título")}</b><div class="actions"><button class="btn small" onclick="editArticleV37('${id}')">Editar</button><button class="btn danger small" onclick="deleteArticleV37('${id}')">Excluir</button></div></div>`).join("")}
@@ -1186,7 +1203,16 @@ window.openArticlesAdmin=b=>{["site","courses","lessons","news","articles","gall
 window.editArticleV37=id=>{let a=id?A[id]:{title:"",summary:"",cover:"",content:"",status:"draft"};let b=E("tab-articles");b.innerHTML=`<button class="btn light" onclick="openArticlesAdmin(document.querySelector('[onclick*=openArticlesAdmin]'))">← Voltar</button><h3>${id?"Editar":"Novo"} artigo</h3><div class="field"><label>Título</label><input id="arTitle" value="${X(a.title)}"></div><div class="field"><label>Resumo</label><textarea id="arSummary">${X(a.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="arCover" value="${X(a.cover||"")}" placeholder="https://..."></div><div class="field"><label>Conteúdo do artigo</label>${window.jbRichField("arContent",a.content||"")}</div><div class="note">Dentro do editor, use o botão <b>🖼 URL</b> para inserir uma ou várias imagens exatamente no ponto desejado do artigo. As imagens serão exibidas no conteúdo no computador e no celular.</div><div class="field"><label>Publicação</label><select id="arStatus"><option value="draft" ${a.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${a.status!=="draft"?"selected":""}>Publicado</option></select></div><div class="actions"><button class="btn" onclick="saveArticleV37('${id||""}')">Salvar artigo</button></div>`};
 window.saveArticleV37=async id=>{try{let d={title:E("arTitle").value.trim(),summary:E("arSummary").value.trim(),cover:E("arCover").value.trim(),content:window.jbRichValue("arContent"),status:E("arStatus").value,createdAt:id?(A[id]?.createdAt||Date.now()):Date.now(),updatedAt:Date.now()};if(!d.title)return alert("Informe o título do artigo.");if(!d.content.replace(/<[^>]*>/g,"").trim()&&!d.content.includes("<img"))return alert("Escreva o conteúdo do artigo.");if(id)await set(ref(db,"articles/"+id),d);else await set(push(ref(db,"articles")),d);window.dirty=false;alert("Artigo salvo com sucesso.");renderAdmin()}catch(err){console.error(err);alert("Não foi possível salvar o artigo. Verifique sua conexão e as regras do Firebase.")}};
 window.deleteArticleV37=async id=>{if(confirm("Excluir este artigo?"))await remove(ref(db,"articles/"+id))};
-onValue(ref(db,"articles"),s=>{A=s.val()||{};listArticles();renderAdmin()});
+onValue(ref(db,"articles"),s=>{
+  A=s.val()||{};
+  listArticles();
+  renderAdmin();
+});
+onValue(ref(db,"settings/homeArticlesLimit"),s=>{
+  const v=s.val();
+  homeArticlesLimit=(v===null||v===undefined)?1:Math.max(0,Number(v)||0);
+  listArticles();
+});
 </script>
 
 
