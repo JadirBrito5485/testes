@@ -347,13 +347,13 @@ html.dark .visitPathItem{border-color:#303842}
   <span class="moon" aria-hidden="true">☾</span><span class="sun" aria-hidden="true">☀</span>
 </button>
 
-<header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">INÍCIO</button><button onclick="goStudies()">ESTUDOS</button><button onclick="openBiography()">BIOGRAFIA</button><button onclick="openArticles()">ARTIGO</button><button onclick="openMedia()">FILMES E LIVROS</button><button onclick="openGallery()">GALERIA</button></nav><div id="hello" class="muted"></div></div></header>
+<header><div class="wrap top"><div class="brand" onclick="home()">JADIR BRITO</div><nav class="mainNav"><button onclick="home()">INÍCIO</button><button onclick="openBiography()">BIOGRAFIA</button><button onclick="goStudies()">CURSOS</button><button onclick="goNews()">NOTÍCIA</button><button onclick="openArticles()">ARTIGOS</button><button onclick="openMedia()">FILMES E LIVROS</button><button onclick="openGallery()">GALERIA</button></nav><div id="hello" class="muted"></div></div><div class="wrap siteSearchWrap"><div class="siteSearchBox"><input id="siteSearchInput" type="search" placeholder="Buscar conteúdos pelo título..." autocomplete="off" oninput="siteSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();siteSearch(this.value,true)}"><button type="button" onclick="siteSearch(document.getElementById('siteSearchInput').value,true)" aria-label="Buscar">Buscar</button></div><div id="siteSearchResults" class="siteSearchResults hide"></div></div></header>
 <main id="homeView" class=""><section class="hero"><div class="wrap"><h1 id="siteTitle">JADIR BRITO</h1><p id="siteSub">A curiosidade é a base do conhecimento.</p></div></section>
 <section id="homeArticlesSection" class="section"><div class="wrap"><div class="row" style="justify-content:space-between;align-items:end;gap:12px"><div><span class="kicker">CONTEÚDO</span><h2 class="title" style="margin:4px 0 0">Artigos</h2></div><button class="btn light small" onclick="openArticles()">Ver todos os artigos</button></div><div id="homeArticlesGrid" class="newsGrid" style="margin-top:22px"></div></div></section>
-<section class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias Históricas</h2><span class="muted"></span></div><div id="newsGrid" class="newsGrid"><p class="muted">Carregando Notícias Históricas...</p></div></div></section>
+<section id="newsSection" class="section"><div class="wrap"><div class="sectionHead"><h2>Notícias Históricas</h2><span class="muted"></span></div><div id="newsGrid" class="newsGrid"><p class="muted">Carregando Notícias Históricas...</p></div></div></section>
 <section id="studiesSection" class="section"><div class="wrap"><div class="sectionHead"><h2>Áreas de estudo</h2></div><div id="courseGrid" class="courseGrid"><p class="muted">Carregando áreas de estudo...</p></div></div></section></main>
 <main id="courseView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><img id="courseCover" class="cover hide"><h1 id="courseName" class="title"></h1><p id="courseDesc" class="summary"></p><div id="lessonList" class="lessons"></div></div></main>
-<main id="articleView" class="hide"><div class="wrap page"><article class="article"><span id="articleBack" class="back">← Voltar</span><div id="articleKicker" class="kicker" style="margin-top:28px"></div><h1 id="articleTitle" class="title"></h1><p id="articleSummary" class="summary"></p><div id="articleDate" class="date"></div><img id="articleCover" class="cover hide"><div id="articleBody" class="articleBody"></div><div id="youtube"></div><button id="pdfButton" class="btn" onclick="makePDF()">Baixar aula em PDF</button><section id="quiz" class="quiz"><h2>Perguntas para fixação</h2><div id="quizPublic"></div><button class="btn" onclick="grade()">Corrigir</button><div id="quizResult" class="status"></div></section></article></div></main>
+<main id="articleView" class="hide"><div class="wrap page"><article class="article"><span id="articleBack" class="back">← Voltar</span><div id="articleKicker" class="kicker" style="margin-top:28px"></div><h1 id="articleTitle" class="title"></h1><p id="articleSummary" class="summary"></p><div id="articleDate" class="date hide"></div><img id="articleCover" class="cover hide"><div id="articleBody" class="articleBody"></div><div id="youtube"></div><button id="pdfButton" class="btn" onclick="makePDF()">Baixar aula em PDF</button><section id="quiz" class="quiz"><h2>Perguntas para fixação</h2><div id="quizPublic"></div><button class="btn" onclick="grade()">Corrigir</button><div id="quizResult" class="status"></div></section></article></div></main>
 <main id="galleryView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">GALERIA DE FOTOS</h1><div id="galleryStage" class="galleryStage"><p class="muted center">Nenhuma foto cadastrada.</p></div></div></main>
 <main id="mediaView" class="hide"><div class="wrap page"><span class="back" onclick="home()">← Início</span><h1 class="title center">FILMES E LIVROS</h1><div id="mediaGrid" class="mediaGrid"></div></div></main>
 
@@ -1115,9 +1115,9 @@ const cfg={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f
 const app=getApps()[0]||initializeApp(cfg),db=getDatabase(app),E=id=>document.getElementById(id),X=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 let A={};
 function hideViews(){["homeView","courseView","articleView","galleryView","bioView","mediaView","articlesView","updatingView"].forEach(id=>E(id)?.classList.add("hide"))}
-function listArticles(){let a=Object.entries(A).filter(([_,x])=>x.status!=="draft").sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));let card=([id,x])=>`<article class="articlePublicCard" onclick="openPublicArticleV37('${id}')">${x.cover?`<img src="${X(x.cover)}" alt="${X(x.title)}" loading="lazy">`:""}<div class="pad"><div class="kicker">ARTIGO</div><h2>${X(x.title)}</h2><p>${X(x.summary||"")}</p></div></article>`;let b=E("articlesGrid");if(b)b.innerHTML=a.length?a.map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>';let h=E("homeArticlesGrid");if(h)h.innerHTML=a.length?a.slice(0,6).map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>'}
+function listArticles(){let a=Object.entries(A).filter(([_,x])=>x.status!=="draft").sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0));let card=([id,x])=>`<article class="articlePublicCard" onclick="openPublicArticleV37('${id}')">${x.cover?`<img src="${X(x.cover)}" alt="${X(x.title)}" loading="lazy">`:""}<div class="pad"><h2>${X(x.title)}</h2><p>${X(x.summary||"")}</p></div></article>`;let b=E("articlesGrid");if(b)b.innerHTML=a.length?a.map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>';let h=E("homeArticlesGrid");if(h)h.innerHTML=a.length?a.slice(0,3).map(card).join(""):'<p class="muted">Nenhum artigo publicado.</p>'}
 window.openArticles=()=>{hideViews();E("articlesView")?.classList.remove("hide");listArticles();scrollTo(0,0)};
-window.openPublicArticleV37=id=>{let a=A[id];if(!a)return;hideViews();E("articleView")?.classList.remove("hide");E("articleKicker").textContent="ARTIGO";E("articleTitle").textContent=a.title||"";E("articleSummary").textContent=a.summary||"";E("articleDate").textContent=a.createdAt?new Date(a.createdAt).toLocaleDateString("pt-BR"):"";if(a.cover){E("articleCover").src=a.cover;E("articleCover").classList.remove("hide")}else E("articleCover").classList.add("hide");E("articleBody").innerHTML=window.jbRenderRich?window.jbRenderRich(a.content||""):a.content||"";E("youtube").innerHTML="";E("pdfButton")?.classList.add("hide");E("quiz")?.classList.add("hide");E("articleBack").textContent="← Artigos";E("articleBack").onclick=window.openArticles;scrollTo(0,0)};
+window.openPublicArticleV37=id=>{let a=A[id];if(!a)return;hideViews();E("articleView")?.classList.remove("hide");E("articleKicker").textContent="";E("articleKicker").classList.add("hide");E("articleTitle").textContent=a.title||"";E("articleSummary").textContent=a.summary||"";E("articleDate").textContent="";E("articleDate").classList.add("hide");if(a.cover){E("articleCover").src=a.cover;E("articleCover").classList.remove("hide")}else E("articleCover").classList.add("hide");E("articleBody").innerHTML=window.jbRenderRich?window.jbRenderRich(a.content||""):a.content||"";E("youtube").innerHTML="";E("pdfButton")?.classList.add("hide");E("quiz")?.classList.add("hide");E("articleBack").textContent="← Artigos";E("articleBack").onclick=window.openArticles;scrollTo(0,0)};
 function renderAdmin(){let b=E("tab-articles");if(!b)return;b.innerHTML=`<button class="btn" onclick="editArticleV37()">+ Novo artigo</button>`+Object.entries(A).sort((x,y)=>(y[1].createdAt||0)-(x[1].createdAt||0)).map(([id,a])=>`<div class="panel"><span class="kicker">${a.status==="draft"?"Rascunho":"Publicado"}</span><br><b>${X(a.title||"Sem título")}</b><div class="actions"><button class="btn small" onclick="editArticleV37('${id}')">Editar</button><button class="btn danger small" onclick="deleteArticleV37('${id}')">Excluir</button></div></div>`).join("")}
 window.openArticlesAdmin=b=>{["site","courses","lessons","news","articles","gallery","bio","media","messages","leads","visits","therapy","security"].forEach(x=>E("tab-"+x)?.classList.add("hide"));E("tab-articles")?.classList.remove("hide");b?.parentNode?.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));b?.classList.add("on");renderAdmin()};
 window.editArticleV37=id=>{let a=id?A[id]:{title:"",summary:"",cover:"",content:"",status:"draft"};let b=E("tab-articles");b.innerHTML=`<button class="btn light" onclick="openArticlesAdmin(document.querySelector('[onclick*=openArticlesAdmin]'))">← Voltar</button><h3>${id?"Editar":"Novo"} artigo</h3><div class="field"><label>Título</label><input id="arTitle" value="${X(a.title)}"></div><div class="field"><label>Resumo</label><textarea id="arSummary">${X(a.summary||"")}</textarea></div><div class="field"><label>Imagem de capa por URL</label><input id="arCover" value="${X(a.cover||"")}" placeholder="https://..."></div><div class="field"><label>Conteúdo do artigo</label>${window.jbRichField("arContent",a.content||"")}</div><div class="note">Dentro do editor, use o botão <b>🖼 URL</b> para inserir uma ou várias imagens exatamente no ponto desejado do artigo. As imagens serão exibidas no conteúdo no computador e no celular.</div><div class="field"><label>Publicação</label><select id="arStatus"><option value="draft" ${a.status==="draft"?"selected":""}>Rascunho</option><option value="published" ${a.status!=="draft"?"selected":""}>Publicado</option></select></div><div class="actions"><button class="btn" onclick="saveArticleV37('${id||""}')">Salvar artigo</button></div>`};
@@ -1164,6 +1164,73 @@ onValue(ref(db,"articles"),s=>{A=s.val()||{};listArticles();renderAdmin()});
   setTimeout(install,400);
   setTimeout(install,1200);
 })();
+</script>
+
+
+<style id="requested-updates-v52">
+.siteSearchWrap{padding:0 0 12px}.siteSearchBox{width:min(680px,100%);margin:0 auto;display:flex;gap:8px}.siteSearchBox input{flex:1;min-width:0;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}.siteSearchBox button{border:0;border-radius:10px;padding:10px 16px;background:var(--navy);color:#fff;font-weight:700;cursor:pointer}.siteSearchResults{width:min(680px,100%);margin:6px auto 0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #11182718;max-height:360px;overflow:auto}.searchResultItem{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;padding:11px 13px;cursor:pointer;color:var(--ink)}.searchResultItem:last-child{border-bottom:0}.searchResultItem b{display:block}.searchResultItem span{font-size:12px;color:var(--muted)}.searchEmpty{padding:14px;color:var(--muted)}
+html.dark .siteSearchBox input,html.dark .siteSearchResults{background:#181d23!important;color:#e8edf3!important;border-color:#303842!important}html.dark .searchResultItem{color:#e8edf3!important;border-color:#303842!important}.articlePublicCard .kicker{display:none!important}#articleDate{display:none!important}
+@media(max-width:760px){.siteSearchWrap{padding-bottom:10px}.siteSearchBox{width:100%}.siteSearchBox button{padding-inline:12px}.siteSearchResults{width:100%}}
+</style>
+<script id="requested-updates-v52-script">
+(function(){
+  window.goNews=function(){
+    if(typeof window.home==="function")window.home();
+    requestAnimationFrame(()=>document.getElementById("newsSection")?.scrollIntoView({behavior:"smooth",block:"start"}));
+  };
+  function norm(v){return String(v||"").toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+  function safe(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+  function collect(){
+    const out=[];
+    try{
+      Object.entries(window.__jbSearchArticles||{}).forEach(([id,a])=>{if(a&&a.status!=="draft"&&a.title)out.push({title:a.title,type:"Artigo",action:()=>window.openPublicArticleV37?.(id)})});
+      const st=window.__jbSearchState||{};
+      Object.entries(st.news||{}).forEach(([id,n])=>{if(n&&n.status!=="draft"&&n.title)out.push({title:n.title,type:"Notícia",action:()=>window.openNews?.(id)})});
+      Object.entries(st.courses||{}).forEach(([cid,c])=>{
+        if(c?.name)out.push({title:c.name,type:"Curso",action:()=>window.course?.(cid)});
+        Object.entries(c?.lessons||{}).forEach(([id,a])=>{if(a?.title)out.push({title:a.title,type:"Aula",action:()=>window.openLesson?.(cid,id)})});
+      });
+      Object.entries(window.__jbSearchMedia||{}).forEach(([id,m])=>{if(m?.title)out.push({title:m.title,type:m.type||"Filmes e Livros",action:()=>window.openMedia?.()})});
+    }catch(e){}
+    return out;
+  }
+  window.siteSearch=function(value,force){
+    const box=document.getElementById("siteSearchResults"),q=norm(value).trim();if(!box)return;
+    if(!q){box.classList.add("hide");box.innerHTML="";return}
+    const found=collect().filter(x=>norm(x.title).includes(q)).slice(0,30);
+    box.innerHTML=found.length?found.map((x,i)=>`<button class="searchResultItem" type="button" data-si="${i}"><b>${safe(x.title)}</b><span>${safe(x.type)}</span></button>`).join(""):'<div class="searchEmpty">Nenhum conteúdo encontrado com esse título.</div>';
+    box.classList.remove("hide");
+    [...box.querySelectorAll("[data-si]")].forEach((el,i)=>el.onclick=()=>{found[i].action();box.classList.add("hide");});
+    if(force&&found.length===1){found[0].action();box.classList.add("hide")}
+  };
+  document.addEventListener("click",e=>{if(!e.target.closest?.(".siteSearchWrap"))document.getElementById("siteSearchResults")?.classList.add("hide")});
+  window.downloadVisitorsTXT=async function(){
+    try{
+      if(!window.__jbGetVisitorsTXT) return alert("Os cadastros ainda estão carregando. Tente novamente.");
+      const rows=await window.__jbGetVisitorsTXT();
+      if(!rows.length)return alert("Nenhum cadastro encontrado.");
+      const lines=["CADASTROS DO SITE JADIR BRITO","",...rows.map((x,i)=>`${i+1}. Nome: ${x.name||""}\nWhatsApp: ${x.whatsapp||""}\nCidade: ${x.city||""}\nEstado: ${x.state||""}\nData do cadastro: ${x.createdAt?new Date(x.createdAt).toLocaleString("pt-BR"):""}\n`)];
+      const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cadastros-jadir-brito.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch(e){console.error(e);alert("Não foi possível gerar o TXT dos cadastros.")}
+  };
+  function addDownloadButton(){
+    const p=document.getElementById("tab-leads");if(!p||p.querySelector(".downloadVisitorsBtn"))return;
+    const b=document.createElement("button");b.className="btn downloadVisitorsBtn";b.textContent="Baixar cadastros em TXT";b.onclick=window.downloadVisitorsTXT;p.prepend(b);
+  }
+  new MutationObserver(addDownloadButton).observe(document.documentElement,{subtree:true,childList:true});
+  window.addEventListener("load",addDownloadButton);
+})();
+</script>
+<script type="module" id="requested-updates-v52-data">
+import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import{getDatabase,ref,onValue,get}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+const cfg={apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",authDomain:"namoro-f18ac.firebaseapp.com",databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",projectId:"namoro-f18ac",storageBucket:"namoro-f18ac.firebasestorage.app",messagingSenderId:"336479537433",appId:"1:336479537433:web:dd282c67e98ca196e05d88"};
+const app=getApps()[0]||initializeApp(cfg),db=getDatabase(app);
+onValue(ref(db,"articles"),s=>window.__jbSearchArticles=s.val()||{});
+onValue(ref(db,"courses"),s=>{window.__jbSearchState=window.__jbSearchState||{};window.__jbSearchState.courses=s.val()||{}});
+onValue(ref(db,"news"),s=>{window.__jbSearchState=window.__jbSearchState||{};window.__jbSearchState.news=s.val()||{}});
+onValue(ref(db,"media"),s=>window.__jbSearchMedia=s.val()||{});
+window.__jbGetVisitorsTXT=async()=>{const s=await get(ref(db,"visitors"));return Object.values(s.val()||{}).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))};
 </script>
 
 </body></html>
