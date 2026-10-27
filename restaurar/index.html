@@ -1,306 +1,820 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vídeos | Restaurar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeos | Restaurar - Jadir Brito</title>
 
 <style>
-*{box-sizing:border-box}
+:root{
+  --bg:#000000;
+  --text:#ffffff;
+  --muted:#aaaaaa;
+  --gold:#b89455;
+  --border:#292929;
+  --panel:#111111;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  background:#000;
-  color:#fff;
-  font-family:Arial,sans-serif;
+  background:#000000;
+  color:#ffffff;
+  font-family:Arial,Helvetica,sans-serif;
 }
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+[hidden]{
+  display:none!important;
+}
+
+/* CABEÇALHO */
+
 header{
   text-align:center;
-  padding:38px 15px 24px;
+  background:#000000;
+  padding:40px 15px 25px;
 }
-h1{
+
+header h1{
+  font-size:clamp(32px,5vw,50px);
   letter-spacing:3px;
-  font-size:clamp(30px,5vw,48px);
   margin:0 0 12px;
 }
-header p,.sub{color:#aaa}
+
+header p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+  margin:0;
+}
+
+/* MENU */
+
 nav{
   display:flex;
   justify-content:center;
+  align-items:center;
   flex-wrap:wrap;
   gap:8px;
-  border-bottom:1px solid #292929;
-  padding:14px;
+  background:#000000;
+  padding:15px 10px;
+  border-bottom:1px solid var(--border);
 }
+
 nav a{
-  color:#fff;
+  color:#ffffff;
   text-decoration:none;
   font-size:13px;
   font-weight:bold;
-  padding:13px 18px;
+  letter-spacing:1px;
+  padding:13px 20px;
   border-radius:6px;
+  transition:.2s;
 }
-nav a:hover,nav .active{
-  background:#b89455;
-  color:#000;
+
+nav a:hover,
+nav a.active{
+  background:var(--gold);
+  color:#000000;
 }
+
+/* CONTEÚDO */
+
 main{
   max-width:1450px;
   min-height:65vh;
   margin:auto;
-  padding:42px 20px 80px;
+  padding:45px 20px 90px;
 }
-main h2,.sub{text-align:center}
-.sub{margin-bottom:38px}
-.grid{
+
+.page-title{
+  text-align:center;
+  font-size:clamp(27px,4vw,38px);
+  margin:0 0 15px;
+}
+
+.page-description{
+  color:var(--muted);
+  text-align:center;
+  line-height:1.7;
+  margin:0 auto 45px;
+  max-width:900px;
+  white-space:pre-line;
+}
+
+/* VÍDEOS */
+
+.video-grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:22px;
+  gap:24px;
 }
-.card{
-  border:1px solid #292929;
+
+.video-card{
+  background:#000000;
+  border:1px solid var(--border);
   border-radius:12px;
   overflow:hidden;
 }
-.player{aspect-ratio:16/9}
-.player iframe{
+
+.video-player{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000000;
+}
+
+.video-player iframe{
+  display:block;
   width:100%;
   height:100%;
   border:0;
-  display:block;
 }
-.card h3{
-  padding:15px;
-  margin:0;
+
+.video-info{
+  background:#000000;
+  padding:17px 14px;
+}
+
+.video-info h3{
   font-size:16px;
   line-height:1.5;
+  margin:0;
   overflow-wrap:anywhere;
 }
+
 .empty{
   grid-column:1/-1;
   text-align:center;
-  color:#aaa;
-  padding:60px;
-  border:1px dashed #444;
+  border:1px dashed #444444;
   border-radius:12px;
+  color:var(--muted);
+  padding:65px 15px;
 }
+
+/* RODAPÉ */
+
 footer{
   position:relative;
+  background:#000000;
+  border-top:1px solid var(--border);
   text-align:center;
-  border-top:1px solid #292929;
-  padding:30px;
-  color:#aaa;
+  color:var(--muted);
+  padding:35px 20px;
 }
-.a{
+
+footer p{
+  margin:8px 0;
+  line-height:1.6;
+  white-space:pre-line;
+}
+
+.admin-trigger{
   position:absolute;
   bottom:8px;
   right:12px;
-  color:#444;
-  background:none;
+  background:transparent;
   border:0;
-  cursor:pointer;
+  color:#ffffff30;
+  font-size:11px;
+  padding:6px;
 }
-.a:hover{color:white}
+
+.admin-trigger:hover,
+.admin-trigger:focus{
+  color:#ffffff;
+}
+
+/* WHATSAPP FLUTUANTE */
+
+.whatsapp-chat{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:50;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#25D366;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 5px 20px #0008;
+  transition:transform .2s;
+}
+
+.whatsapp-chat:hover{
+  transform:scale(1.08);
+}
+
+.whatsapp-chat svg{
+  width:35px;
+  height:35px;
+  fill:#ffffff;
+}
+
+/* ADMINISTRADOR */
+
 .overlay{
   position:fixed;
   inset:0;
+  z-index:100;
   background:#000d;
-  display:grid;
-  place-items:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   padding:15px;
-  z-index:5;
 }
-.overlay[hidden]{display:none}
+
 .modal{
-  width:min(760px,100%);
+  width:min(100%,850px);
   max-height:94vh;
-  overflow:auto;
-  background:#111;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:24px;
+  overflow-y:auto;
+  background:var(--panel);
+  color:#ffffff;
+  border:1px solid #333333;
+  border-radius:14px;
+  padding:25px;
 }
-.modal input{
+
+.modal h2{
+  margin:0 0 20px;
+}
+
+.modal h3{
+  margin:20px 0 12px;
+}
+
+.field{
+  margin:16px 0;
+}
+
+.field label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.field input,
+.field textarea{
   width:100%;
   padding:12px;
   background:#1b1b1b;
-  border:1px solid #444;
-  color:white;
-  border-radius:7px;
-  margin:8px 0 14px;
+  color:#ffffff;
+  border:1px solid #444444;
+  border-radius:8px;
+  outline:none;
 }
-.btn{
-  border:1px solid #444;
-  border-radius:7px;
-  background:#292929;
-  color:white;
-  padding:10px 14px;
-  cursor:pointer;
+
+.field textarea{
+  min-height:95px;
+  resize:vertical;
 }
-.gold{
-  background:#b89455;
-  color:#000;
-  border-color:#b89455;
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--gold);
 }
-.danger{background:#962424}
+
+.field small{
+  display:block;
+  color:#aaaaaa;
+  margin-top:7px;
+  line-height:1.5;
+}
+
 .actions{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin:12px 0;
+  margin:15px 0;
 }
-.item{
+
+.btn{
+  border:1px solid #444444;
+  background:#292929;
+  color:#ffffff;
+  border-radius:7px;
+  padding:11px 16px;
+}
+
+.btn:hover{
+  background:#393939;
+}
+
+.btn.gold{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:#000000;
+}
+
+.btn.danger{
+  background:#992222;
+  border-color:#992222;
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:wait;
+}
+
+.admin-item{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  border:1px solid #333;
+  border:1px solid #333333;
   border-radius:9px;
-  padding:12px;
+  padding:14px;
   margin:10px 0;
 }
-.item strong{overflow-wrap:anywhere}
-.msg{color:#a7e9b3}
-.error{color:#fda4af}
-[hidden]{display:none!important}
+
+.admin-item strong{
+  flex:1;
+  overflow-wrap:anywhere;
+}
+
+.admin-item .actions{
+  margin:0;
+}
+
+.admin-item .btn{
+  padding:8px 10px;
+}
+
+.message{
+  color:#86efac;
+  font-size:14px;
+  line-height:1.5;
+  min-height:20px;
+}
+
+.message.error{
+  color:#fca5a5;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #333333;
+  margin:26px 0;
+}
+
+.check-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+}
+
+.check-row input{
+  width:20px;
+  height:20px;
+  accent-color:var(--gold);
+}
+
+.admin-section{
+  border:1px solid #303030;
+  border-radius:10px;
+  padding:18px;
+  margin:20px 0;
+}
+
+.admin-section h3{
+  margin-top:0;
+}
+
+/* RESPONSIVIDADE */
 
 @media(max-width:1100px){
-  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .video-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
 }
+
 @media(max-width:800px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .video-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
+
 @media(max-width:500px){
-  .grid{grid-template-columns:1fr}
-  .item{display:block}
-  nav a{padding:10px;font-size:12px}
+  .video-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  main{
+    padding:30px 14px 60px;
+  }
+
+  nav a{
+    padding:12px 9px;
+    font-size:12px;
+  }
+
+  .modal{
+    padding:17px;
+  }
+
+  .admin-item{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .whatsapp-chat{
+    width:56px;
+    height:56px;
+    right:17px;
+    bottom:17px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- CABEÇALHO -->
+
 <header>
-  <h1>RESTAURAR</h1>
-  <p>Mensagens de fé, esperança e restauração</p>
+  <h1 id="siteName">RESTAURAR</h1>
+
+  <p id="siteSubtitle">
+    Mensagens de fé, esperança e restauração
+  </p>
 </header>
 
-<nav>
-  <a class="active" href="videos.html">VÍDEOS</a>
-  <a href="testemunhos.html">TESTEMUNHOS</a>
-  <a href="estudos.html">ESTUDOS</a>
+<!-- MENU -->
+
+<nav aria-label="Menu principal">
+  <a href="videos.html" class="active" id="menuVideos">
+    VÍDEOS
+  </a>
+
+  <a href="testemunhos.html" id="menuTestimonials">
+    TESTEMUNHOS
+  </a>
+
+  <a href="estudos.html" id="menuStudies">
+    ESTUDOS
+  </a>
 </nav>
 
+<!-- CONTEÚDO -->
+
 <main>
-  <h2>VÍDEOS</h2>
-  <p class="sub">
+  <h2 class="page-title" id="pageTitle">
+    VÍDEOS
+  </h2>
+
+  <p class="page-description" id="pageDescription">
     Mensagens de fé, esperança e restauração para sua vida.
   </p>
-  <div class="grid" id="grid">
-    <div class="empty">Carregando vídeos...</div>
+
+  <div class="video-grid" id="videoGrid">
+    <div class="empty">
+      Carregando vídeos cadastrados...
+    </div>
   </div>
 </main>
 
+<!-- RODAPÉ -->
+
 <footer>
-  <p><b>JADIR BRITO</b></p>
-  <p>Fé • Esperança • Restauração</p>
-  <button class="a" id="open" aria-label="Administração">A</button>
+  <p>
+    <strong id="footerName">JADIR BRITO</strong>
+  </p>
+
+  <p id="footerText">
+    Fé • Esperança • Restauração
+  </p>
+
+  <button
+    class="admin-trigger"
+    id="openAdmin"
+    aria-label="Abrir administração">
+    A
+  </button>
 </footer>
 
-<!-- LOGIN: SOMENTE SENHA -->
+<!-- WHATSAPP -->
 
-<div class="overlay" id="login" hidden>
-  <div class="modal" style="max-width:400px">
-    <h2>Administração</h2>
+<a
+  id="whatsappChat"
+  class="whatsapp-chat"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Conversar pelo WhatsApp"
+  title="Conversar pelo WhatsApp"
+  hidden>
+
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 .8A15.2 15.2 0 0 0 2.9 23.7L.8 31.2l7.7-2A15.2 15.2 0 1 0 16 .8zm0 27.7a12.4 12.4 0 0 1-6.3-1.7l-.5-.3-4.6 1.2 1.2-4.5-.3-.5A12.5 12.5 0 1 1 16 28.5zm6.9-9.3c-.4-.2-2.2-1.1-2.5-1.2-.3-.1-.6-.2-.8.2-.2.4-.9 1.2-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.6.1-.3 0-.5-.1-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.3 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5z"/>
+  </svg>
+</a>
+
+<!-- LOGIN -->
+
+<div class="overlay" id="loginOverlay" hidden>
+  <div class="modal" style="max-width:420px">
+
+    <h2>Acesso Administrativo</h2>
+
     <form id="loginForm">
-      <label for="password">Senha do ADM</label>
-      <input
-        type="password"
-        id="password"
-        inputmode="numeric"
-        required
-        autocomplete="off"
-      >
+
+      <div class="field">
+        <label for="adminPassword">
+          Senha do ADM
+        </label>
+
+        <input
+          id="adminPassword"
+          type="password"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="Digite sua senha"
+          required>
+      </div>
+
       <div class="actions">
-        <button class="btn gold" type="submit">Entrar</button>
-        <button type="button" class="btn" id="cancel">
+        <button class="btn gold" type="submit">
+          Entrar
+        </button>
+
+        <button
+          class="btn"
+          type="button"
+          id="cancelLogin">
           Cancelar
         </button>
       </div>
-      <p class="msg" id="loginMsg"></p>
+
+      <p
+        class="message"
+        id="loginMessage"
+        role="status">
+      </p>
+
     </form>
   </div>
 </div>
 
-<!-- ADMINISTRADOR -->
+<!-- PAINEL ADMINISTRATIVO -->
 
-<div class="overlay" id="panel" hidden>
+<div class="overlay" id="adminOverlay" hidden>
   <div class="modal">
-    <h2>Gerenciar vídeos</h2>
+
+    <h2>Administração da Página VÍDEOS</h2>
 
     <div class="actions">
-      <button class="btn gold" id="save">
+      <button class="btn gold" id="saveTop">
         Salvar alterações
       </button>
-      <button class="btn" id="close">Fechar</button>
-      <button class="btn danger" id="logout">Sair</button>
+
+      <button class="btn" id="closeAdmin">
+        Fechar
+      </button>
+
+      <button class="btn danger" id="logout">
+        Sair
+      </button>
     </div>
 
-    <p class="msg" id="msg"></p>
+    <p
+      class="message"
+      id="saveMessage"
+      role="status">
+    </p>
 
-    <hr>
+    <!-- TEXTOS -->
 
-    <form id="videoForm">
-      <input type="hidden" id="editing" value="-1">
+    <section class="admin-section">
 
-      <label for="title">Título do vídeo</label>
-      <input id="title" required maxlength="180">
+      <h3>Textos do site</h3>
 
-      <label for="url">Link do YouTube</label>
-      <input id="url" type="url" required>
-
-      <div class="actions">
-        <button class="btn gold" type="submit">
-          Adicionar / Atualizar
-        </button>
-        <button type="button" class="btn" id="clear">
-          Limpar
-        </button>
+      <div class="field">
+        <label for="editSiteName">
+          Nome principal
+        </label>
+        <input id="editSiteName" maxlength="100">
       </div>
-    </form>
 
-    <hr>
+      <div class="field">
+        <label for="editSubtitle">
+          Frase do cabeçalho
+        </label>
+        <textarea id="editSubtitle"></textarea>
+      </div>
 
-    <h3>Vídeos cadastrados</h3>
-    <div id="list"></div>
+      <div class="field">
+        <label for="editMenuVideos">
+          Nome do menu Vídeos
+        </label>
+        <input id="editMenuVideos" maxlength="50">
+      </div>
+
+      <div class="field">
+        <label for="editMenuTestimonials">
+          Nome do menu Testemunhos
+        </label>
+        <input id="editMenuTestimonials" maxlength="50">
+      </div>
+
+      <div class="field">
+        <label for="editMenuStudies">
+          Nome do menu Estudos
+        </label>
+        <input id="editMenuStudies" maxlength="50">
+      </div>
+
+      <div class="field">
+        <label for="editPageTitle">
+          Título da página
+        </label>
+        <input id="editPageTitle" maxlength="120">
+      </div>
+
+      <div class="field">
+        <label for="editPageDescription">
+          Descrição da página
+        </label>
+        <textarea id="editPageDescription"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="editFooterName">
+          Nome no rodapé
+        </label>
+        <input id="editFooterName" maxlength="100">
+      </div>
+
+      <div class="field">
+        <label for="editFooterText">
+          Texto do rodapé
+        </label>
+        <textarea id="editFooterText"></textarea>
+      </div>
+
+    </section>
+
+    <!-- WHATSAPP -->
+
+    <section class="admin-section">
+
+      <h3>WhatsApp flutuante</h3>
+
+      <label class="check-row">
+        <input
+          type="checkbox"
+          id="editWhatsappEnabled">
+        <span>Exibir ícone do WhatsApp no site</span>
+      </label>
+
+      <div class="field">
+        <label for="editWhatsappNumber">
+          Número do WhatsApp
+        </label>
+
+        <input
+          id="editWhatsappNumber"
+          type="tel"
+          placeholder="5547999999999">
+
+        <small>
+          Informe código do país + DDD + número.
+          Exemplo: 5547999999999.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="editWhatsappMessage">
+          Mensagem inicial
+        </label>
+
+        <textarea
+          id="editWhatsappMessage"
+          placeholder="Olá, gostaria de conversar."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="editWhatsappLabel">
+          Texto de acessibilidade do botão
+        </label>
+
+        <input
+          id="editWhatsappLabel"
+          maxlength="100"
+          placeholder="Conversar pelo WhatsApp">
+      </div>
+
+    </section>
+
+    <!-- VÍDEOS -->
+
+    <section class="admin-section">
+
+      <h3>Cadastrar ou editar vídeos</h3>
+
+      <form id="videoForm">
+
+        <input
+          type="hidden"
+          id="editIndex"
+          value="-1">
+
+        <div class="field">
+          <label for="videoTitle">
+            Título do vídeo
+          </label>
+
+          <input
+            id="videoTitle"
+            type="text"
+            maxlength="180"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="videoUrl">
+            Link do YouTube
+          </label>
+
+          <input
+            id="videoUrl"
+            type="url"
+            placeholder="https://www.youtube.com/watch?v=..."
+            required>
+        </div>
+
+        <div class="actions">
+          <button class="btn gold" type="submit">
+            Adicionar / Atualizar
+          </button>
+
+          <button
+            class="btn"
+            type="button"
+            id="clearForm">
+            Limpar
+          </button>
+        </div>
+
+      </form>
+
+      <hr>
+
+      <h3>Vídeos cadastrados</h3>
+
+      <p style="color:#aaa;font-size:13px">
+        Use as setas para organizar a ordem dos vídeos.
+      </p>
+
+      <div id="adminVideoList"></div>
+
+    </section>
 
     <button class="btn gold" id="saveBottom">
-      Salvar alterações
+      Salvar todas as alterações
     </button>
+
   </div>
 </div>
 
 <script type="module">
 
-import {initializeApp} from
-'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
 import {
   getFirestore,
   doc,
   onSnapshot,
   setDoc
-} from
-'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 import {
   getAuth,
   signInWithCustomToken,
   signOut,
   onAuthStateChanged
-} from
-'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
-/* FIREBASE DO SITE */
+/* FIREBASE */
 
 const firebaseConfig = {
   apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
@@ -317,363 +831,755 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const ref = doc(db,"restaurar","publico");
+const contentRef = doc(db,"restaurar","publico");
 
 const LOGIN_ENDPOINT =
   "https://us-central1-namoro-f18ac.cloudfunctions.net/restaurarAdminLogin";
 
+const ADMIN_UID = "restaurar-admin";
+
 const $ = id => document.getElementById(id);
 
+/* TEXTOS PADRÃO */
+
+const defaultSettings = {
+  siteName:"RESTAURAR",
+  subtitle:"Mensagens de fé, esperança e restauração",
+  menuVideos:"VÍDEOS",
+  menuTestimonials:"TESTEMUNHOS",
+  menuStudies:"ESTUDOS",
+  pageTitle:"VÍDEOS",
+  pageDescription:
+    "Mensagens de fé, esperança e restauração para sua vida.",
+  footerName:"JADIR BRITO",
+  footerText:"Fé • Esperança • Restauração"
+};
+
+const defaultWhatsapp = {
+  enabled:false,
+  number:"",
+  message:"Olá, gostaria de conversar.",
+  label:"Conversar pelo WhatsApp"
+};
+
+const settingsFields = {
+  siteName:"editSiteName",
+  subtitle:"editSubtitle",
+  menuVideos:"editMenuVideos",
+  menuTestimonials:"editMenuTestimonials",
+  menuStudies:"editMenuStudies",
+  pageTitle:"editPageTitle",
+  pageDescription:"editPageDescription",
+  footerName:"editFooterName",
+  footerText:"editFooterText"
+};
+
 let videos = [];
-let draft = [];
+let settings = {...defaultSettings};
+let whatsapp = {...defaultWhatsapp};
+
+let draftVideos = [];
+let draftSettings = {...defaultSettings};
+let draftWhatsapp = {...defaultWhatsapp};
+
+let adminUser = null;
 let dirty = false;
-let admin = false;
-let busy = false;
+let saving = false;
 
-/* IDENTIFICAR VÍDEO DO YOUTUBE */
+/* YOUTUBE */
 
-function idFrom(url) {
-  try {
-    const u = new URL(url);
+function youtubeId(value){
+  try{
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
     let id = "";
 
-    if (["youtu.be","www.youtu.be"].includes(u.hostname)) {
-      id = u.pathname.split("/")[1] || "";
-    } else if ([
+    if(["youtu.be","www.youtu.be"].includes(host)){
+      id = url.pathname.split("/")[1] || "";
+    }else if([
       "youtube.com",
       "www.youtube.com",
       "m.youtube.com",
       "www.youtube-nocookie.com"
-    ].includes(u.hostname)) {
-      id = u.pathname === "/watch"
-        ? u.searchParams.get("v") || ""
-        : (u.pathname.match(
-            /^\/(?:embed|shorts|live)\/([^/]+)/
-          ) || [])[1] || "";
+    ].includes(host)){
+      if(url.pathname === "/watch"){
+        id = url.searchParams.get("v") || "";
+      }else{
+        const match = url.pathname.match(
+          /^\/(?:embed|shorts|live)\/([^/]+)/
+        );
+        id = match ? match[1] : "";
+      }
     }
 
-    return /^[\w-]{11}$/.test(id) ? id : null;
-  } catch {
+    return /^[a-zA-Z0-9_-]{11}$/.test(id)
+      ? id
+      : null;
+
+  }catch{
     return null;
   }
 }
 
-function normalize(items) {
-  return Array.isArray(items)
-    ? items.filter(x => x && idFrom(x.url)).map(x => ({
-        title:String(x.title || "Mensagem").slice(0,180),
-        url:String(x.url)
-      }))
-    : [];
+function normalizeVideos(items){
+  if(!Array.isArray(items)) return [];
+
+  return items
+    .filter(item =>
+      item &&
+      typeof item.url === "string" &&
+      youtubeId(item.url)
+    )
+    .map(item => ({
+      title:String(item.title || "Mensagem").slice(0,180),
+      url:item.url
+    }));
 }
 
-/* MOSTRAR VÍDEOS CADASTRADOS */
+/* NORMALIZAÇÃO */
 
-function render() {
-  const grid = $("grid");
-  grid.replaceChildren();
+function normalizeSettings(data){
+  const result = {...defaultSettings};
 
-  if (!videos.length) {
-    const d = document.createElement("div");
-    d.className = "empty";
-    d.textContent = "Em breve, novas mensagens.";
-    grid.append(d);
+  if(!data || typeof data !== "object"){
+    return result;
+  }
+
+  for(const key of Object.keys(defaultSettings)){
+    if(typeof data[key] === "string"){
+      result[key] = data[key];
+    }
+  }
+
+  return result;
+}
+
+function normalizeWhatsapp(data){
+  if(!data || typeof data !== "object"){
+    return {...defaultWhatsapp};
+  }
+
+  return {
+    enabled:data.enabled === true,
+    number:String(data.number || ""),
+    message:String(
+      data.message ?? defaultWhatsapp.message
+    ),
+    label:String(
+      data.label ?? defaultWhatsapp.label
+    )
+  };
+}
+
+/* EXIBIR TEXTOS */
+
+function renderSettings(){
+  $("siteName").textContent = settings.siteName;
+  $("siteSubtitle").textContent = settings.subtitle;
+
+  $("menuVideos").textContent = settings.menuVideos;
+  $("menuTestimonials").textContent =
+    settings.menuTestimonials;
+  $("menuStudies").textContent = settings.menuStudies;
+
+  $("pageTitle").textContent = settings.pageTitle;
+  $("pageDescription").textContent =
+    settings.pageDescription;
+
+  $("footerName").textContent = settings.footerName;
+  $("footerText").textContent = settings.footerText;
+
+  document.title =
+    settings.pageTitle + " | " + settings.siteName;
+}
+
+/* WHATSAPP */
+
+function normalizePhone(value){
+  return String(value || "").replace(/\D/g,"");
+}
+
+function renderWhatsapp(){
+  const link = $("whatsappChat");
+  const number = normalizePhone(whatsapp.number);
+
+  if(
+    !whatsapp.enabled ||
+    !/^\d{10,15}$/.test(number)
+  ){
+    link.hidden = true;
+    link.removeAttribute("href");
     return;
   }
 
-  for (const item of videos) {
+  const message = encodeURIComponent(
+    whatsapp.message || ""
+  );
+
+  link.href =
+    "https://wa.me/" + number +
+    (message ? "?text=" + message : "");
+
+  link.setAttribute(
+    "aria-label",
+    whatsapp.label || "Conversar pelo WhatsApp"
+  );
+
+  link.title =
+    whatsapp.label || "Conversar pelo WhatsApp";
+
+  link.hidden = false;
+}
+
+/* EXIBIR VÍDEOS */
+
+function renderVideos(){
+  const grid = $("videoGrid");
+  grid.replaceChildren();
+
+  if(!videos.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Em breve, novas mensagens.";
+    grid.append(empty);
+    return;
+  }
+
+  videos.forEach(item => {
+    const id = youtubeId(item.url);
+    if(!id) return;
+
     const card = document.createElement("article");
-    card.className = "card";
+    card.className = "video-card";
 
-    const p = document.createElement("div");
-    p.className = "player";
+    const player = document.createElement("div");
+    player.className = "video-player";
 
-    const frame = document.createElement("iframe");
-    frame.src =
+    const iframe = document.createElement("iframe");
+
+    iframe.src =
       "https://www.youtube-nocookie.com/embed/" +
-      idFrom(item.url) + "?rel=0";
+      encodeURIComponent(id) + "?rel=0";
 
-    frame.title = item.title;
-    frame.loading = "lazy";
-    frame.allow =
+    iframe.title = item.title;
+    iframe.loading = "lazy";
+
+    iframe.allow =
       "accelerometer; autoplay; clipboard-write; " +
       "encrypted-media; gyroscope; picture-in-picture; web-share";
-    frame.allowFullscreen = true;
 
-    p.append(frame);
+    iframe.allowFullscreen = true;
 
-    const h = document.createElement("h3");
-    h.textContent = item.title;
+    player.append(iframe);
 
-    card.append(p,h);
+    const info = document.createElement("div");
+    info.className = "video-info";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    info.append(title);
+    card.append(player,info);
     grid.append(card);
+  });
+}
+
+/* MENSAGENS */
+
+function showMessage(id,text,error=false){
+  const el = $(id);
+  el.textContent = text;
+  el.className =
+    "message" + (error ? " error" : "");
+}
+
+function markDirty(){
+  dirty = true;
+  showMessage(
+    "saveMessage",
+    "Alterações pendentes. Clique em Salvar alterações."
+  );
+}
+
+/* CAMPOS EDITÁVEIS */
+
+function fillSettingsForm(){
+  for(const [key,id] of Object.entries(settingsFields)){
+    $(id).value = draftSettings[key] || "";
   }
+
+  $("editWhatsappEnabled").checked =
+    draftWhatsapp.enabled;
+
+  $("editWhatsappNumber").value =
+    draftWhatsapp.number;
+
+  $("editWhatsappMessage").value =
+    draftWhatsapp.message;
+
+  $("editWhatsappLabel").value =
+    draftWhatsapp.label;
 }
 
-function notice(text,error=false,el="msg") {
-  $(el).textContent = text;
-  $(el).className = "msg" + (error ? " error" : "");
+function collectSettingsForm(){
+  const result = {};
+
+  for(const [key,id] of Object.entries(settingsFields)){
+    result[key] = $(id).value.trim();
+  }
+
+  return result;
 }
 
-function button(label,fn,cls="") {
-  const b = document.createElement("button");
-  b.type = "button";
-  b.className = "btn " + cls;
-  b.textContent = label;
-  b.onclick = fn;
-  return b;
+function collectWhatsappForm(){
+  return {
+    enabled:$("editWhatsappEnabled").checked,
+    number:normalizePhone(
+      $("editWhatsappNumber").value
+    ),
+    message:$("editWhatsappMessage").value.trim(),
+    label:$("editWhatsappLabel").value.trim()
+  };
 }
 
-/* LISTA DO ADM */
+for(const id of Object.values(settingsFields)){
+  $(id).addEventListener("input",markDirty);
+}
 
-function renderList() {
-  const list = $("list");
+[
+  "editWhatsappEnabled",
+  "editWhatsappNumber",
+  "editWhatsappMessage",
+  "editWhatsappLabel"
+].forEach(id => {
+  $(id).addEventListener("change",markDirty);
+  $(id).addEventListener("input",markDirty);
+});
+
+/* ADMINISTRAR VÍDEOS */
+
+function makeButton(text,callback,style=""){
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "btn " + style;
+  button.textContent = text;
+  button.onclick = callback;
+  return button;
+}
+
+function renderAdminList(){
+  const list = $("adminVideoList");
   list.replaceChildren();
 
-  draft.forEach((v,i) => {
-    const row = document.createElement("div");
-    row.className = "item";
+  if(!draftVideos.length){
+    const p = document.createElement("p");
+    p.textContent = "Nenhum vídeo cadastrado.";
+    list.append(p);
+    return;
+  }
+
+  draftVideos.forEach((item,index) => {
+    const box = document.createElement("div");
+    box.className = "admin-item";
 
     const title = document.createElement("strong");
-    title.textContent = (i+1) + ". " + v.title;
+    title.textContent =
+      `${index+1}. ${item.title}`;
 
     const actions = document.createElement("div");
     actions.className = "actions";
 
     actions.append(
-      button("Editar",() => {
-        $("editing").value = i;
-        $("title").value = v.title;
-        $("url").value = v.url;
-        $("title").focus();
-      }),
-
-      button("↑",() => move(i,-1)),
-      button("↓",() => move(i,1)),
-
-      button("Excluir",() => {
-        if (confirm("Excluir vídeo?")) {
-          draft.splice(i,1);
-          changed();
-          renderList();
-        }
-      },"danger")
+      makeButton("Editar",() => editVideo(index)),
+      makeButton("↑",() => moveVideo(index,-1)),
+      makeButton("↓",() => moveVideo(index,1)),
+      makeButton(
+        "Excluir",
+        () => deleteVideo(index),
+        "danger"
+      )
     );
 
-    row.append(title,actions);
-    list.append(row);
+    box.append(title,actions);
+    list.append(box);
   });
 }
 
-function changed() {
-  dirty = true;
-  notice("Alterações pendentes. Clique em Salvar alterações.");
-}
-
-function move(i,d) {
-  const j = i+d;
-  if (j<0 || j>=draft.length) return;
-
-  [draft[i],draft[j]] = [draft[j],draft[i]];
-  changed();
-  renderList();
-}
-
-function resetForm() {
+function clearForm(){
   $("videoForm").reset();
-  $("editing").value = "-1";
+  $("editIndex").value = "-1";
 }
 
-$("clear").onclick = resetForm;
+function editVideo(index){
+  const item = draftVideos[index];
+  if(!item) return;
 
-$("videoForm").onsubmit = e => {
-  e.preventDefault();
+  $("editIndex").value = index;
+  $("videoTitle").value = item.title;
+  $("videoUrl").value = item.url;
+  $("videoTitle").focus();
+}
 
-  const title = $("title").value.trim();
-  const url = $("url").value.trim();
+function moveVideo(index,delta){
+  const target = index + delta;
 
-  if (!title || !idFrom(url)) {
-    alert("Informe título e URL válida do YouTube.");
+  if(
+    target < 0 ||
+    target >= draftVideos.length
+  ) return;
+
+  [
+    draftVideos[index],
+    draftVideos[target]
+  ] = [
+    draftVideos[target],
+    draftVideos[index]
+  ];
+
+  markDirty();
+  renderAdminList();
+}
+
+function deleteVideo(index){
+  if(!confirm("Deseja excluir este vídeo?")){
     return;
   }
 
-  const i = Number($("editing").value);
-
-  if (i>=0 && i<draft.length) {
-    draft[i] = {title,url};
-  } else {
-    draft.push({title,url});
-  }
-
-  resetForm();
-  changed();
-  renderList();
-};
-
-/* ABRIR ADMINISTRADOR */
-
-function openPanel() {
-  if (!admin) return;
-
-  draft = structuredClone(videos);
-  dirty = false;
-  renderList();
-  resetForm();
-  notice("");
-
-  $("login").hidden = true;
-  $("panel").hidden = false;
+  draftVideos.splice(index,1);
+  markDirty();
+  renderAdminList();
 }
 
-$("open").onclick = () => {
-  if (admin) {
+$("videoForm").onsubmit = event => {
+  event.preventDefault();
+
+  const title = $("videoTitle").value.trim();
+  const url = $("videoUrl").value.trim();
+
+  if(!title || !youtubeId(url)){
+    alert(
+      "Informe um título e um link válido do YouTube."
+    );
+    return;
+  }
+
+  const index = Number($("editIndex").value);
+  const item = {title,url};
+
+  if(
+    index >= 0 &&
+    index < draftVideos.length
+  ){
+    draftVideos[index] = item;
+  }else{
+    draftVideos.push(item);
+  }
+
+  clearForm();
+  markDirty();
+  renderAdminList();
+};
+
+$("clearForm").onclick = clearForm;
+
+/* ABRIR PAINEL */
+
+function isAdmin(){
+  return !!auth.currentUser &&
+    auth.currentUser.uid === ADMIN_UID;
+}
+
+function openPanel(){
+  if(!isAdmin()) return;
+
+  draftVideos = structuredClone(videos);
+  draftSettings = {...settings};
+  draftWhatsapp = {...whatsapp};
+
+  dirty = false;
+
+  fillSettingsForm();
+  renderAdminList();
+  clearForm();
+
+  showMessage("saveMessage","");
+  showMessage("loginMessage","");
+
+  $("loginOverlay").hidden = true;
+  $("adminOverlay").hidden = false;
+}
+
+$("openAdmin").onclick = () => {
+  if(isAdmin()){
     openPanel();
-  } else {
-    $("login").hidden = false;
-    $("password").focus();
+  }else{
+    $("loginOverlay").hidden = false;
+    $("adminPassword").value = "";
+    $("adminPassword").focus();
   }
 };
 
-$("cancel").onclick = () => {
-  $("login").hidden = true;
+$("cancelLogin").onclick = () => {
+  $("loginOverlay").hidden = true;
 };
 
-/* LOGIN SOMENTE COM SENHA */
+/* LOGIN SOMENTE SENHA */
 
-$("loginForm").onsubmit = async e => {
-  e.preventDefault();
+$("loginForm").onsubmit = async event => {
+  event.preventDefault();
 
-  notice("Validando senha...",false,"loginMsg");
+  const password = $("adminPassword").value;
 
-  try {
-    const res = await fetch(LOGIN_ENDPOINT,{
+  showMessage(
+    "loginMessage",
+    "Verificando senha..."
+  );
+
+  try{
+    const response = await fetch(LOGIN_ENDPOINT,{
       method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        password:$("password").value
-      })
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({password})
     });
 
-    if (!res.ok) throw Error("Acesso negado");
+    if(!response.ok){
+      throw new Error("Acesso negado");
+    }
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (!data.token) throw Error("Token ausente");
+    if(!data.token){
+      throw new Error("Token não recebido");
+    }
 
-    await signInWithCustomToken(auth,data.token);
+    const credential =
+      await signInWithCustomToken(
+        auth,
+        data.token
+      );
 
-    $("password").value = "";
+    if(credential.user.uid !== ADMIN_UID){
+      await signOut(auth);
+      throw new Error("Conta não autorizada");
+    }
+
+    $("adminPassword").value = "";
     openPanel();
 
-  } catch(err) {
-    console.error(err);
+  }catch(error){
+    console.error(error);
 
-    notice(
-      "Senha incorreta ou serviço de login indisponível.",
-      true,
-      "loginMsg"
+    showMessage(
+      "loginMessage",
+      "Senha incorreta ou serviço de autenticação indisponível.",
+      true
     );
   }
 };
 
-function close() {
-  if (dirty && !confirm(
-    "Descartar alterações não salvas?"
-  )) return;
+/* FECHAR E SAIR */
+
+function closePanel(){
+  if(
+    dirty &&
+    !confirm(
+      "Existem alterações não salvas. Deseja fechar?"
+    )
+  ) return;
 
   dirty = false;
-  $("panel").hidden = true;
+  $("adminOverlay").hidden = true;
 }
 
-$("close").onclick = close;
+$("closeAdmin").onclick = closePanel;
 
 $("logout").onclick = async () => {
-  if (dirty && !confirm(
-    "Descartar alterações não salvas?"
-  )) return;
+  if(
+    dirty &&
+    !confirm(
+      "Descartar alterações não salvas?"
+    )
+  ) return;
 
   dirty = false;
+
   await signOut(auth);
-  $("panel").hidden = true;
+
+  $("adminOverlay").hidden = true;
 };
 
 onAuthStateChanged(auth,user => {
-  admin = !!user && user.uid === "restaurar-admin";
+  adminUser = user;
 
-  if (!admin) {
-    $("panel").hidden = true;
+  if(!user || user.uid !== ADMIN_UID){
+    $("adminOverlay").hidden = true;
   }
 });
 
-/* SALVAR NO FIREBASE */
+/* SALVAR TUDO NO FIREBASE */
 
-async function save() {
-  if (!admin || busy) return;
+async function saveAll(){
+  if(!isAdmin() || saving){
+    showMessage(
+      "saveMessage",
+      "Acesso não autorizado ou salvamento em andamento.",
+      true
+    );
+    return;
+  }
 
-  busy = true;
-  notice("Salvando...");
+  const nextSettings = collectSettingsForm();
+  const nextWhatsapp = collectWhatsappForm();
 
-  try {
+  if(
+    nextWhatsapp.enabled &&
+    !/^\d{10,15}$/.test(nextWhatsapp.number)
+  ){
+    showMessage(
+      "saveMessage",
+      "Informe um número válido de WhatsApp com código do país e DDD.",
+      true
+    );
+    return;
+  }
+
+  saving = true;
+
+  $("saveTop").disabled = true;
+  $("saveBottom").disabled = true;
+
+  showMessage(
+    "saveMessage",
+    "Salvando alterações no Firebase..."
+  );
+
+  try{
+    const nextVideos = normalizeVideos(draftVideos);
+
     await setDoc(
-      ref,
-      {videos:normalize(draft)},
+      contentRef,
+      {
+        videos:nextVideos,
+        videoPageSettings:nextSettings,
+        videoPageWhatsapp:nextWhatsapp
+      },
       {merge:true}
     );
 
-    videos = normalize(draft);
-    draft = structuredClone(videos);
+    videos = nextVideos;
+    settings = nextSettings;
+    whatsapp = nextWhatsapp;
+
+    draftVideos = structuredClone(videos);
+    draftSettings = {...settings};
+    draftWhatsapp = {...whatsapp};
+
     dirty = false;
 
-    render();
-    renderList();
+    renderVideos();
+    renderSettings();
+    renderWhatsapp();
+    renderAdminList();
 
-    notice("Vídeos salvos no Firebase com sucesso!");
+    showMessage(
+      "saveMessage",
+      "Todas as alterações foram salvas no Firebase!"
+    );
 
-  } catch(e) {
-    console.error(e);
+  }catch(error){
+    console.error(error);
 
-    notice(
-      "Erro ao salvar. Confira as regras do Firestore.",
+    showMessage(
+      "saveMessage",
+      "Erro ao salvar. Confira as permissões do Firestore.",
       true
     );
-  } finally {
-    busy = false;
+
+  }finally{
+    saving = false;
+
+    $("saveTop").disabled = false;
+    $("saveBottom").disabled = false;
   }
 }
 
-$("save").onclick = save;
-$("saveBottom").onclick = save;
+$("saveTop").onclick = saveAll;
+$("saveBottom").onclick = saveAll;
 
-/* CARREGAR VÍDEOS JÁ CADASTRADOS */
+/* CARREGAR CONTEÚDO EXISTENTE */
 
-onSnapshot(ref,snapshot => {
-  videos = normalize(
-    snapshot.exists() ? snapshot.data().videos : []
-  );
+onSnapshot(
+  contentRef,
 
-  render();
+  snapshot => {
+    const data = snapshot.exists()
+      ? snapshot.data()
+      : {};
 
-  if (!dirty) {
-    draft = structuredClone(videos);
+    videos = normalizeVideos(data.videos);
 
-    if (!$("panel").hidden) {
-      renderList();
+    settings = normalizeSettings(
+      data.videoPageSettings
+    );
+
+    whatsapp = normalizeWhatsapp(
+      data.videoPageWhatsapp
+    );
+
+    renderVideos();
+    renderSettings();
+    renderWhatsapp();
+
+    if(!dirty){
+      draftVideos = structuredClone(videos);
+      draftSettings = {...settings};
+      draftWhatsapp = {...whatsapp};
+
+      if(!$("adminOverlay").hidden){
+        fillSettingsForm();
+        renderAdminList();
+      }
+    }
+  },
+
+  error => {
+    console.error(error);
+
+    $("videoGrid").textContent =
+      "Não foi possível carregar os vídeos do Firebase. Verifique as permissões do Firestore.";
+  }
+);
+
+/* PROTEGER ALTERAÇÕES NÃO SALVAS */
+
+window.addEventListener(
+  "beforeunload",
+  event => {
+    if(dirty){
+      event.preventDefault();
+      event.returnValue = "";
     }
   }
+);
 
-},error => {
-  console.error(error);
-  $("grid").textContent =
-    "Erro ao carregar vídeos. Confira o Firestore.";
-});
+document.addEventListener(
+  "keydown",
+  event => {
+    if(event.key === "Escape"){
+      $("loginOverlay").hidden = true;
 
-window.addEventListener("beforeunload",e => {
-  if (dirty) {
-    e.preventDefault();
-    e.returnValue = "";
+      if(!$("adminOverlay").hidden){
+        closePanel();
+      }
+    }
   }
-});
+);
 
+renderSettings();
+renderWhatsapp();
 </script>
+
 </body>
 </html>
