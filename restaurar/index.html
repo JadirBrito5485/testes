@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,235 +8,358 @@
 
 <style>
 :root {
-  --dark:#111827;
-  --dark2:#1f2937;
+  --bg:#000000;
+  --card:#000000;
+  --text:#ffffff;
+  --muted:#b5b5b5;
   --gold:#b89455;
-  --bg:#f5f6f8;
-  --white:#ffffff;
-  --text:#172033;
-  --muted:#6b7280;
-  --border:#e5e7eb;
+  --border:#292929;
 }
-* { box-sizing:border-box; }
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
 body {
   margin:0;
-  background:var(--bg);
+  background:#000000;
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
-button,input { font:inherit; }
-button { cursor:pointer; }
-[hidden] { display:none!important; }
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+[hidden] {
+  display:none!important;
+}
+
+/* CABEÇALHO */
 
 header {
-  background:var(--dark);
-  color:white;
+  background:#000000;
   text-align:center;
-  padding:35px 15px 25px;
+  padding:38px 15px 25px;
 }
+
 header h1 {
-  font-size:clamp(30px,5vw,48px);
+  font-size:clamp(32px,5vw,50px);
   letter-spacing:3px;
   margin:0 0 12px;
+  color:white;
 }
+
 header p {
-  margin:0;
-  color:#d1d5db;
+  color:#b5b5b5;
   font-size:15px;
+  margin:0;
 }
+
+/* MENU */
+
 nav {
-  background:var(--dark2);
+  background:#000000;
   display:flex;
   justify-content:center;
+  align-items:center;
   flex-wrap:wrap;
-  gap:4px;
-  padding:8px;
+  gap:8px;
+  padding:15px 10px;
+  border-bottom:1px solid #292929;
 }
+
 nav a {
   color:white;
   text-decoration:none;
-  padding:14px 20px;
+  padding:13px 20px;
   font-size:13px;
   font-weight:bold;
   letter-spacing:1px;
-  border-radius:5px;
+  border-radius:6px;
+  transition:.2s;
 }
-nav a:hover,nav a.active {
+
+nav a:hover,
+nav a.active {
   background:var(--gold);
-  color:#111827;
+  color:#000000;
 }
+
+/* CONTEÚDO */
+
 main {
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
-  padding:40px 20px 70px;
-  min-height:60vh;
+  padding:45px 20px 90px;
+  min-height:65vh;
 }
+
 .page-title {
   text-align:center;
-  font-size:clamp(26px,4vw,36px);
-  margin:0 0 12px;
+  font-size:clamp(26px,4vw,38px);
+  margin:0 0 15px;
+  color:white;
 }
+
 .page-description {
   text-align:center;
   color:var(--muted);
-  margin:0 0 40px;
   line-height:1.7;
+  margin:0 0 45px;
 }
+
+/* GRADE DE VÍDEOS */
+
 .video-grid {
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:22px;
+  gap:24px;
 }
+
 .video-card {
-  background:white;
+  background:#000000;
   border:1px solid var(--border);
   border-radius:12px;
   overflow:hidden;
-  box-shadow:0 4px 15px #0000000a;
 }
+
 .video-player {
   position:relative;
   width:100%;
   aspect-ratio:16/9;
-  background:black;
+  background:#000000;
 }
+
 .video-player iframe {
+  display:block;
   width:100%;
   height:100%;
   border:0;
-  display:block;
 }
-.video-info { padding:15px; }
+
+.video-info {
+  padding:17px 14px;
+  background:#000000;
+}
+
 .video-info h3 {
+  color:white;
   font-size:16px;
   line-height:1.5;
   margin:0;
   overflow-wrap:anywhere;
 }
+
 .empty {
   grid-column:1/-1;
   text-align:center;
-  background:white;
-  padding:65px 15px;
+  background:#000000;
+  border:1px dashed #444444;
   border-radius:12px;
-  color:var(--muted);
-  border:1px dashed #cbd5e1;
+  color:#b5b5b5;
+  padding:65px 15px;
 }
+
+/* RODAPÉ */
+
 footer {
   position:relative;
-  background:var(--dark);
-  color:#d1d5db;
-  padding:35px 20px;
+  background:#000000;
+  border-top:1px solid #292929;
+  color:#b5b5b5;
   text-align:center;
+  padding:35px 20px;
 }
-footer p { margin:7px 0; }
+
+footer p {
+  margin:8px 0;
+}
+
 .admin-trigger {
   position:absolute;
-  bottom:9px;
+  bottom:8px;
   right:12px;
   border:0;
   background:transparent;
   color:#ffffff30;
   font-size:11px;
-  padding:5px;
+  padding:6px;
 }
+
 .admin-trigger:hover,
-.admin-trigger:focus { color:white; }
+.admin-trigger:focus {
+  color:white;
+}
+
+/* JANELAS ADMINISTRATIVAS */
 
 .overlay {
   position:fixed;
   inset:0;
-  background:#000b;
+  background:#000c;
   z-index:100;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   padding:15px;
 }
+
 .modal {
-  background:white;
-  border-radius:14px;
   width:min(100%,760px);
   max-height:94vh;
   overflow-y:auto;
+  background:#111111;
+  color:white;
+  border:1px solid #333333;
+  border-radius:14px;
   padding:25px;
 }
-.modal h2 { margin:0 0 20px; }
-.field { margin:15px 0; }
+
+.modal h2 {
+  margin:0 0 20px;
+}
+
+.field {
+  margin:16px 0;
+}
+
 .field label {
   display:block;
   font-weight:bold;
   margin-bottom:8px;
 }
+
 .field input {
+  display:block;
   width:100%;
   padding:12px;
-  border:1px solid #cbd5e1;
+  background:#1b1b1b;
+  color:white;
+  border:1px solid #444444;
   border-radius:8px;
 }
+
 .actions {
   display:flex;
-  gap:8px;
   flex-wrap:wrap;
+  gap:8px;
   margin:15px 0;
 }
+
 .btn {
-  border:0;
+  background:#292929;
+  color:white;
+  border:1px solid #444444;
   border-radius:7px;
   padding:11px 16px;
-  background:var(--dark);
-  color:white;
 }
-.btn.secondary {
-  background:#e5e7eb;
-  color:var(--text);
+
+.btn:hover {
+  background:#393939;
 }
-.btn.danger { background:#b91c1c; }
+
 .btn.gold {
   background:var(--gold);
-  color:#111827;
+  border-color:var(--gold);
+  color:#000000;
 }
-.btn:disabled { opacity:.55;cursor:wait; }
+
+.btn.danger {
+  background:#9f2020;
+  border-color:#9f2020;
+}
+
+.btn:disabled {
+  opacity:.5;
+  cursor:wait;
+}
+
 .admin-item {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
   padding:14px;
-  margin:10px 0;
-  border:1px solid var(--border);
+  border:1px solid #333333;
   border-radius:9px;
+  margin:10px 0;
 }
+
 .admin-item strong {
-  overflow-wrap:anywhere;
   flex:1;
+  overflow-wrap:anywhere;
 }
-.admin-item .actions { margin:0; }
-.admin-item .btn { padding:8px 10px; }
+
+.admin-item .actions {
+  margin:0;
+}
+
+.admin-item .btn {
+  padding:8px 10px;
+}
+
 .message {
   font-size:14px;
-  color:#166534;
+  color:#86efac;
   min-height:20px;
 }
-.message.error { color:#b91c1c; }
+
+.message.error {
+  color:#fca5a5;
+}
+
 hr {
   border:0;
-  border-top:1px solid var(--border);
+  border-top:1px solid #333333;
   margin:25px 0;
 }
 
-@media(max-width:1050px) {
-  .video-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+/* RESPONSIVIDADE */
+
+@media(max-width:1100px) {
+  .video-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
 }
-@media(max-width:750px) {
-  .video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  main { padding:30px 14px 55px; }
+
+@media(max-width:800px) {
+  .video-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
-@media(max-width:480px) {
-  .video-grid { grid-template-columns:1fr;gap:18px; }
-  nav a { padding:12px 10px;font-size:12px; }
-  .modal { padding:17px; }
-  .admin-item { flex-direction:column;align-items:stretch; }
+
+@media(max-width:500px) {
+  .video-grid {
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  main {
+    padding:30px 14px 60px;
+  }
+
+  nav a {
+    padding:12px 9px;
+    font-size:12px;
+  }
+
+  .modal {
+    padding:17px;
+  }
+
+  .admin-item {
+    flex-direction:column;
+    align-items:stretch;
+  }
 }
 </style>
 </head>
@@ -248,15 +372,16 @@ hr {
 </header>
 
 <nav aria-label="Menu principal">
-  <a class="active" href="videos.html">VÍDEOS</a>
+  <a href="videos.html" class="active">VÍDEOS</a>
   <a href="testemunhos.html">TESTEMUNHOS</a>
   <a href="estudos.html">ESTUDOS</a>
 </nav>
 
 <main>
   <h2 class="page-title">VÍDEOS</h2>
+
   <p class="page-description">
-    Assista às mensagens e fortaleça sua fé.
+    Mensagens de fé, esperança e restauração para sua vida.
   </p>
 
   <div class="video-grid" id="videoGrid">
@@ -267,11 +392,15 @@ hr {
 <footer>
   <p><strong>JADIR BRITO</strong></p>
   <p>Fé • Esperança • Restauração</p>
-  <button class="admin-trigger" id="openAdmin"
+
+  <button
+    class="admin-trigger"
+    id="openAdmin"
     aria-label="Abrir administração">A</button>
 </footer>
 
-<!-- LOGIN ADMINISTRATIVO -->
+<!-- LOGIN -->
+
 <div class="overlay" id="loginOverlay" hidden>
   <div class="modal" style="max-width:420px">
     <h2>Administração</h2>
@@ -279,19 +408,19 @@ hr {
     <form id="loginForm">
       <div class="field">
         <label for="adminEmail">E-mail</label>
-        <input type="email" id="adminEmail" required
-          autocomplete="username">
+        <input id="adminEmail" type="email"
+          autocomplete="username" required>
       </div>
 
       <div class="field">
         <label for="adminPassword">Senha</label>
-        <input type="password" id="adminPassword" required
-          autocomplete="current-password">
+        <input id="adminPassword" type="password"
+          autocomplete="current-password" required>
       </div>
 
       <div class="actions">
-        <button class="btn" type="submit">Entrar</button>
-        <button class="btn secondary" type="button"
+        <button class="btn gold" type="submit">Entrar</button>
+        <button class="btn" type="button"
           id="cancelLogin">Cancelar</button>
       </div>
 
@@ -301,19 +430,22 @@ hr {
 </div>
 
 <!-- PAINEL ADMINISTRATIVO -->
+
 <div class="overlay" id="adminOverlay" hidden>
   <div class="modal">
     <h2>Gerenciar Vídeos</h2>
 
-    <p id="adminAccount" style="color:#6b7280;font-size:13px"></p>
+    <p id="adminAccount" style="color:#b5b5b5;font-size:13px"></p>
 
     <div class="actions">
       <button class="btn gold" id="saveTop">
         Salvar alterações
       </button>
-      <button class="btn secondary" id="closeAdmin">
+
+      <button class="btn" id="closeAdmin">
         Fechar
       </button>
+
       <button class="btn danger" id="logout">
         Sair
       </button>
@@ -330,9 +462,9 @@ hr {
 
       <div class="field">
         <label for="videoTitle">Título do vídeo</label>
-        <input id="videoTitle" type="text" required
-          maxlength="180"
-          placeholder="Ex.: Restauração de casamento">
+        <input id="videoTitle" type="text"
+          maxlength="180" required
+          placeholder="Título da mensagem">
       </div>
 
       <div class="field">
@@ -342,12 +474,12 @@ hr {
       </div>
 
       <div class="actions">
-        <button class="btn" type="submit">
+        <button class="btn gold" type="submit">
           Adicionar / Atualizar
         </button>
-        <button class="btn secondary" type="button"
-          id="clearForm">
-          Limpar campos
+
+        <button class="btn" type="button" id="clearForm">
+          Limpar
         </button>
       </div>
     </form>
@@ -355,8 +487,8 @@ hr {
     <hr>
 
     <h3>Vídeos cadastrados</h3>
-    <p style="font-size:13px;color:#6b7280">
-      Utilize as setas para alterar a ordem dos vídeos.
+    <p style="color:#b5b5b5;font-size:13px">
+      Use as setas para organizar a ordem de exibição.
     </p>
 
     <div id="adminVideoList"></div>
@@ -371,7 +503,7 @@ hr {
 
 <script type="module">
 import { initializeApp } from
-  "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+"https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
 import {
   getFirestore,
@@ -379,7 +511,7 @@ import {
   onSnapshot,
   setDoc
 } from
-  "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+"https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 import {
   getAuth,
@@ -387,41 +519,30 @@ import {
   signOut,
   onAuthStateChanged
 } from
-  "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+"https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 /*
-  CONFIGURAÇÃO FIREBASE
+  FIREBASE
 
-  Substitua os valores abaixo pelos dados do seu projeto.
-  Não coloque a senha do ADM neste arquivo.
+  Preencha com os dados do mesmo projeto
+  utilizado anteriormente no site RESTAURAR.
 */
 const firebaseConfig = {
-  apiKey: "COLE_SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJETO",
-  storageBucket: "SEU_PROJETO.firebasestorage.app",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
+  apiKey:"COLE_SUA_API_KEY",
+  authDomain:"SEU_PROJETO.firebaseapp.com",
+  projectId:"SEU_PROJETO",
+  storageBucket:"SEU_PROJETO.firebasestorage.app",
+  messagingSenderId:"SEU_SENDER_ID",
+  appId:"SEU_APP_ID"
 };
 
-/*
-  UID do administrador autorizado.
-  Use o mesmo UID nas regras do Firestore.
-*/
 const ADMIN_UID = "COLE_UID_DO_ADMINISTRADOR";
 
-/*
-  DOCUMENTO COMPARTILHADO
-
-  O documento restaurar/publico pode ser usado pelas
-  três páginas, desde que as outras seções sejam
-  preservadas ao salvar os vídeos.
-*/
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-const contentRef = doc(db,"restaurar","publico");
 
+const contentRef = doc(db,"restaurar","publico");
 const $ = id => document.getElementById(id);
 
 let videos = [];
@@ -429,7 +550,6 @@ let draftVideos = [];
 let adminUser = null;
 let dirty = false;
 let saving = false;
-let receivedFirstSnapshot = false;
 
 function youtubeId(value) {
   try {
@@ -437,8 +557,7 @@ function youtubeId(value) {
     const host = url.hostname.toLowerCase();
     let id = "";
 
-    if (host === "youtu.be" ||
-        host === "www.youtu.be") {
+    if (["youtu.be","www.youtu.be"].includes(host)) {
       id = url.pathname.split("/")[1] || "";
     } else if ([
       "youtube.com",
@@ -462,19 +581,17 @@ function youtubeId(value) {
   }
 }
 
-function normalizeVideos(data) {
-  if (!Array.isArray(data)) return [];
+function normalizeVideos(items) {
+  if (!Array.isArray(items)) return [];
 
-  return data
-    .filter(item =>
-      item &&
-      typeof item.url === "string" &&
-      youtubeId(item.url)
-    )
-    .map(item => ({
-      title:String(item.title || "Mensagem").slice(0,180),
-      url:item.url
-    }));
+  return items.filter(item =>
+    item &&
+    typeof item.url === "string" &&
+    youtubeId(item.url)
+  ).map(item => ({
+    title:String(item.title || "Mensagem").slice(0,180),
+    url:item.url
+  }));
 }
 
 function renderVideos() {
@@ -509,7 +626,6 @@ function renderVideos() {
       "accelerometer; autoplay; clipboard-write; " +
       "encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
-    iframe.referrerPolicy = "strict-origin-when-cross-origin";
 
     player.append(iframe);
 
@@ -525,7 +641,7 @@ function renderVideos() {
   });
 }
 
-function message(id,text,error=false) {
+function showMessage(id,text,error=false) {
   const el = $(id);
   el.textContent = text;
   el.className = "message" + (error ? " error" : "");
@@ -533,27 +649,27 @@ function message(id,text,error=false) {
 
 function markDirty() {
   dirty = true;
-  message("saveMessage",
+  showMessage("saveMessage",
     "Alterações pendentes. Clique em Salvar alterações.");
 }
 
-function createButton(text,callback,style="secondary") {
+function makeButton(text,callback,style="") {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "btn " + style;
   button.textContent = text;
-  button.addEventListener("click",callback);
+  button.onclick = callback;
   return button;
 }
 
 function renderAdminList() {
-  const container = $("adminVideoList");
-  container.replaceChildren();
+  const list = $("adminVideoList");
+  list.replaceChildren();
 
   if (!draftVideos.length) {
     const p = document.createElement("p");
     p.textContent = "Nenhum vídeo cadastrado.";
-    container.append(p);
+    list.append(p);
     return;
   }
 
@@ -568,14 +684,14 @@ function renderAdminList() {
     actions.className = "actions";
 
     actions.append(
-      createButton("Editar",() => editVideo(index)),
-      createButton("↑",() => moveVideo(index,-1)),
-      createButton("↓",() => moveVideo(index,1)),
-      createButton("Excluir",() => deleteVideo(index),"danger")
+      makeButton("Editar",() => editVideo(index)),
+      makeButton("↑",() => moveVideo(index,-1)),
+      makeButton("↓",() => moveVideo(index,1)),
+      makeButton("Excluir",() => deleteVideo(index),"danger")
     );
 
     box.append(title,actions);
-    container.append(box);
+    list.append(box);
   });
 }
 
@@ -614,7 +730,7 @@ function deleteVideo(index) {
   renderAdminList();
 }
 
-$("videoForm").addEventListener("submit",event => {
+$("videoForm").onsubmit = event => {
   event.preventDefault();
 
   const title = $("videoTitle").value.trim();
@@ -637,7 +753,7 @@ $("videoForm").addEventListener("submit",event => {
   clearForm();
   markDirty();
   renderAdminList();
-});
+};
 
 $("clearForm").onclick = clearForm;
 
@@ -653,7 +769,7 @@ function openPanel() {
   $("adminAccount").textContent =
     "Administrador: " + (adminUser.email || "");
 
-  message("saveMessage","");
+  showMessage("saveMessage","");
   $("loginOverlay").hidden = true;
   $("adminOverlay").hidden = false;
 }
@@ -681,10 +797,10 @@ $("cancelLogin").onclick = () => {
 
 $("closeAdmin").onclick = closePanel;
 
-$("loginForm").addEventListener("submit",async event => {
+$("loginForm").onsubmit = async event => {
   event.preventDefault();
 
-  message("loginMessage","Verificando acesso...");
+  showMessage("loginMessage","Verificando acesso...");
 
   try {
     const result = await signInWithEmailAndPassword(
@@ -702,11 +818,11 @@ $("loginForm").addEventListener("submit",async event => {
     openPanel();
   } catch(error) {
     console.error(error);
-    message("loginMessage",
+    showMessage("loginMessage",
       "Não foi possível entrar. Confira o e-mail e a senha.",
       true);
   }
-});
+};
 
 $("logout").onclick = async () => {
   if (dirty && !confirm(
@@ -731,7 +847,7 @@ async function saveVideos() {
 
   if (!auth.currentUser ||
       auth.currentUser.uid !== ADMIN_UID) {
-    message("saveMessage","Acesso não autorizado.",true);
+    showMessage("saveMessage","Acesso não autorizado.",true);
     return;
   }
 
@@ -739,13 +855,9 @@ async function saveVideos() {
   $("saveTop").disabled = true;
   $("saveBottom").disabled = true;
 
-  message("saveMessage","Salvando vídeos no servidor...");
+  showMessage("saveMessage","Salvando no servidor...");
 
   try {
-    /*
-      merge:true preserva os campos de testemunhos
-      e estudos que já existirem no documento.
-    */
     await setDoc(
       contentRef,
       {videos:normalizeVideos(draftVideos)},
@@ -759,12 +871,12 @@ async function saveVideos() {
     renderVideos();
     renderAdminList();
 
-    message("saveMessage",
-      "Vídeos salvos no servidor com sucesso!");
+    showMessage("saveMessage",
+      "Vídeos salvos com sucesso!");
   } catch(error) {
     console.error(error);
-    message("saveMessage",
-      "Erro ao salvar. Verifique a conexão e as regras do Firebase.",
+    showMessage("saveMessage",
+      "Erro ao salvar. Verifique o Firebase e as permissões.",
       true);
   } finally {
     saving = false;
@@ -789,16 +901,11 @@ onSnapshot(contentRef,snapshot => {
       renderAdminList();
     }
   }
-
-  receivedFirstSnapshot = true;
 },error => {
   console.error(error);
-
-  if (!receivedFirstSnapshot) {
-    $("videoGrid").textContent =
-      "Não foi possível carregar os vídeos. " +
-      "Verifique a configuração do Firebase.";
-  }
+  $("videoGrid").textContent =
+    "Não foi possível carregar os vídeos. " +
+    "Verifique a configuração do Firebase.";
 });
 
 window.addEventListener("beforeunload",event => {
