@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Restaurar | Jadir Brito</title>
 <meta name="description" content="Mensagens, testemunhos e estudos bíblicos de restauração.">
+<title>Restaurar | Jadir Brito</title>
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 <style>
@@ -20,15 +20,18 @@
 * {box-sizing:border-box}
 html {scroll-behavior:smooth}
 body {
-  margin:0;background:var(--bg);color:var(--text);
-  font:16px/1.7 Arial, sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.7 Arial,sans-serif;
 }
 button,input,textarea {font:inherit}
 button {cursor:pointer}
 a {color:var(--accent)}
 .container {width:min(1080px,92%);margin:auto}
 header {
-  padding:20px 0;border-bottom:1px solid var(--border);
+  padding:20px 0;
+  border-bottom:1px solid var(--border);
   text-align:center;
 }
 .brand {font-size:23px;font-weight:800;letter-spacing:2px}
@@ -39,36 +42,71 @@ section {padding:30px 0 48px}
 h2 {font-size:clamp(26px,4vw,36px);margin-bottom:8px}
 .subtitle {color:var(--muted);margin-top:0}
 .panel,.study {
-  background:var(--card);border:1px solid var(--border);
-  border-radius:17px;overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  overflow:hidden;
 }
 .video-title {
-  text-align:center;font-size:clamp(22px,4vw,36px);
-  padding:20px;margin:0;
+  text-align:center;
+  font-size:clamp(22px,4vw,36px);
+  padding:20px;
+  margin:0;
 }
 iframe {width:100%;aspect-ratio:16/9;border:0;display:block}
 .controls {
-  display:flex;justify-content:center;align-items:center;
-  gap:20px;padding:16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  padding:16px;
 }
 button,.btn {
-  background:#263345;color:white;border:1px solid var(--border);
-  padding:11px 17px;border-radius:10px;text-decoration:none;
+  background:#263345;
+  color:white;
+  border:1px solid var(--border);
+  padding:11px 17px;
+  border-radius:10px;
+  text-decoration:none;
 }
 .primary {
-  background:var(--accent);color:#082019;
-  border-color:var(--accent);font-weight:bold;
+  background:var(--accent);
+  color:#082019;
+  border-color:var(--accent);
+  font-weight:bold;
 }
 .arrow {font-size:24px}
 .counter {color:var(--muted)}
 .testimony-image {
-  width:100%;height:min(65vh,580px);
-  object-fit:contain;padding:12px;
+  width:100%;
+  height:min(65vh,580px);
+  object-fit:contain;
+  padding:12px;
 }
 .testimony-title {text-align:center}
 .group {
-  text-align:center;background:var(--card);
-  padding:40px 20px;border-radius:18px;
+  text-align:center;
+  background:var(--card);
+  padding:40px 20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+}
+.group-image-link {
+  display:block;
+  max-width:760px;
+  margin:25px auto;
+  border-radius:16px;
+  overflow:hidden;
+  transition:transform .2s;
+}
+.group-image-link:hover {transform:scale(1.015)}
+.group-image {
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:460px;
+  object-fit:contain;
+  border-radius:16px;
 }
 .group .btn {display:inline-block;margin-top:15px}
 .grid {
@@ -82,50 +120,91 @@ button,.btn {
 .study p {color:var(--muted)}
 footer {
   border-top:1px solid var(--border);
-  text-align:center;padding:35px 0;color:var(--muted);
+  text-align:center;
+  padding:35px 0;
+  color:var(--muted);
 }
-.social {display:flex;justify-content:center;gap:25px;margin:18px}
+.social {
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  margin:18px;
+}
 .social a {text-decoration:none;font-weight:bold}
 .admin-link {
-  background:none;border:0;color:#fff;opacity:.12;
-  font-size:11px;margin-top:18px;
+  background:none;
+  border:0;
+  color:#fff;
+  opacity:.12;
+  font-size:11px;
+  margin-top:18px;
 }
-.admin-link:hover {opacity:1}
+.admin-link:hover,.admin-link:focus {opacity:1}
 .whatsapp {
-  position:fixed;bottom:20px;right:20px;
-  background:#25d366;color:white;border-radius:50%;
-  width:62px;height:62px;display:grid;place-items:center;
-  font-size:30px;text-decoration:none;z-index:15;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25d366;
+  color:white;
+  border-radius:50%;
+  width:62px;
+  height:62px;
+  display:grid;
+  place-items:center;
+  text-decoration:none;
+  z-index:15;
   box-shadow:0 5px 20px #0008;
 }
 .whatsapp svg {width:36px;height:36px}
 .hidden {display:none!important}
 .overlay {
-  position:fixed;inset:0;background:#000b;z-index:30;
-  display:flex;align-items:center;justify-content:center;padding:15px;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
 }
 .modal {
-  background:var(--bg);border:1px solid var(--border);
-  width:min(900px,100%);max-height:94vh;overflow:auto;
-  border-radius:16px;padding:23px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  width:min(900px,100%);
+  max-height:94vh;
+  overflow:auto;
+  border-radius:16px;
+  padding:23px;
 }
 .modal-head {
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 .fields {display:grid;gap:13px}
 .field {display:grid;gap:5px}
 input,textarea {
-  width:100%;background:var(--card);color:white;
-  border:1px solid var(--border);padding:11px;border-radius:8px;
+  width:100%;
+  background:var(--card);
+  color:white;
+  border:1px solid var(--border);
+  padding:11px;
+  border-radius:8px;
 }
 textarea {min-height:90px}
 .tabs {display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
 .tabs .active {background:var(--accent);color:#082019}
 .edit-row {
-  border:1px solid var(--border);padding:12px;
-  border-radius:9px;margin:9px 0;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;flex-wrap:wrap;
+  border:1px solid var(--border);
+  padding:12px;
+  border-radius:9px;
+  margin:9px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
 .actions {display:flex;gap:8px;flex-wrap:wrap}
 .status {color:var(--muted)}
@@ -141,6 +220,7 @@ textarea {min-height:90px}
   .modal {padding:15px}
   .testimony-image {height:430px}
   .whatsapp {width:55px;height:55px}
+  .group {padding:24px 14px}
 }
 </style>
 </head>
@@ -164,9 +244,9 @@ textarea {min-height:90px}
       <h3 class="video-title" id="videoTitle"></h3>
       <div id="videoContent"></div>
       <div class="controls">
-        <button class="arrow" id="prevVideo">❮</button>
+        <button class="arrow" id="prevVideo" aria-label="Vídeo anterior">❮</button>
         <span class="counter" id="videoCount"></span>
-        <button class="arrow" id="nextVideo">❯</button>
+        <button class="arrow" id="nextVideo" aria-label="Próximo vídeo">❯</button>
       </div>
     </div>
   </section>
@@ -180,19 +260,35 @@ textarea {min-height:90px}
       <h3 class="testimony-title" id="testimonyTitle"></h3>
       <div id="testimonyContent"></div>
       <div class="controls">
-        <button class="arrow" id="prevTestimony">❮</button>
+        <button class="arrow" id="prevTestimony" aria-label="Testemunho anterior">❮</button>
         <span class="counter" id="testimonyCount"></span>
-        <button class="arrow" id="nextTestimony">❯</button>
+        <button class="arrow" id="nextTestimony" aria-label="Próximo testemunho">❯</button>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="groupSection">
     <div class="group">
       <h2 id="groupHeading">Grupo de WhatsApp</h2>
-      <p id="groupSubtitle">Participe do nosso grupo de oração e estudos.</p>
-      <a id="groupLink" class="btn primary hidden"
-         target="_blank" rel="noopener noreferrer">
+      <p id="groupSubtitle">
+        Participe do nosso grupo de oração e estudos.
+      </p>
+
+      <a id="groupImageLink"
+         class="group-image-link hidden"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Entrar no grupo de WhatsApp">
+        <img id="groupImage"
+             class="group-image"
+             alt="Imagem de convite para o grupo de WhatsApp"
+             loading="lazy">
+      </a>
+
+      <a id="groupLink"
+         class="btn primary hidden"
+         target="_blank"
+         rel="noopener noreferrer">
         Entrar no grupo do WhatsApp
       </a>
     </div>
@@ -209,14 +305,16 @@ textarea {min-height:90px}
 
 <footer>
   <div class="container">
-    <div id="footerText">Jadir Brito — Fé, conhecimento e restauração.</div>
+    <div id="footerText">
+      Jadir Brito — Fé, conhecimento e restauração.
+    </div>
     <div class="social">
       <a id="tiktokLink" class="hidden" target="_blank"
          rel="noopener noreferrer">TikTok</a>
       <a id="youtubeLink" class="hidden" target="_blank"
          rel="noopener noreferrer">YouTube</a>
     </div>
-    <button id="openAdmin" class="admin-link">A</button>
+    <button id="openAdmin" class="admin-link" aria-label="Administração">A</button>
   </div>
 </footer>
 
@@ -238,12 +336,12 @@ textarea {min-height:90px}
     <div id="loginView" class="fields">
       <p>Entre com sua conta de administrador do Firebase.</p>
       <div class="field">
-        <label>E-mail</label>
-        <input type="email" id="loginEmail">
+        <label for="loginEmail">E-mail</label>
+        <input type="email" id="loginEmail" autocomplete="username">
       </div>
       <div class="field">
-        <label>Senha</label>
-        <input type="password" id="loginPassword">
+        <label for="loginPassword">Senha</label>
+        <input type="password" id="loginPassword" autocomplete="current-password">
       </div>
       <button class="primary" id="loginBtn">Entrar</button>
     </div>
@@ -261,7 +359,7 @@ textarea {min-height:90px}
       </div>
       <div id="tabContent"></div>
     </div>
-    <p id="status" class="status"></p>
+    <p id="status" class="status" role="status"></p>
   </div>
 </div>
 
@@ -312,10 +410,11 @@ const defaults={
   testimoniesSubtitle:"Histórias compartilhadas com autorização.",
   groupHeading:"Grupo de WhatsApp",
   groupSubtitle:"Participe do nosso grupo de oração e estudos.",
+  groupUrl:"",
+  groupImageUrl:"",
   studiesHeading:"Estudos bíblicos",
   studiesSubtitle:"Aprofunde seu conhecimento na Palavra.",
   footerText:"Jadir Brito — Fé, conhecimento e restauração.",
-  groupUrl:"",
   tiktokUrl:"",
   youtubeUrl:"",
   whatsapp:"",
@@ -323,7 +422,10 @@ const defaults={
 };
 
 let state={
-  texts:{...defaults},videos:{},testimonies:{},studies:{}
+  texts:{...defaults},
+  videos:{},
+  testimonies:{},
+  studies:{}
 };
 let vi=0,ti=0,tab="texts",editing=null,quill=null;
 
@@ -337,6 +439,19 @@ const items=k=>Object.entries(state[k]||{})
   .sort((a,b)=>(a.order??0)-(b.order??0));
 
 const status=s=>$("status").textContent=s;
+
+function validHttps(url){
+  try{return new URL(url).protocol==="https:"}
+  catch{return false}
+}
+
+function validUrl(url,hosts){
+  try{
+    const u=new URL(url);
+    return u.protocol==="https:" &&
+      hosts.some(h=>u.hostname===h||u.hostname.endsWith("."+h));
+  }catch{return false}
+}
 
 function youtubeId(url){
   try{
@@ -353,24 +468,25 @@ function youtubeId(url){
   }catch{return null}
 }
 
-function validUrl(url,hosts){
-  try{
-    const u=new URL(url);
-    return u.protocol==="https:" &&
-      hosts.some(h=>u.hostname===h||u.hostname.endsWith("."+h));
-  }catch{return false}
-}
-
 function safeHTML(html){
   const doc=new DOMParser().parseFromString(html||"","text/html");
-  doc.querySelectorAll(
-    "script,iframe,object,embed,form,style,link,meta,svg,math"
-  ).forEach(n=>n.remove());
-  for(const e of doc.body.querySelectorAll("*")){
+  const allowed=new Set([
+    "P","BR","H1","H2","H3","H4","STRONG","B","EM","I","U","S",
+    "UL","OL","LI","BLOCKQUOTE","A","IMG","SPAN","DIV","PRE","CODE"
+  ]);
+  for(const e of [...doc.body.querySelectorAll("*")].reverse()){
+    if(!allowed.has(e.tagName)){
+      e.remove();
+      continue;
+    }
     for(const a of [...e.attributes]){
-      if(a.name.startsWith("on")||a.name==="style"||
-        (["href","src"].includes(a.name)&&
-         !/^https:\/\//i.test(a.value)&&!a.value.startsWith("#")))
+      const name=a.name.toLowerCase();
+      const value=a.value;
+      const safeLink=e.tagName==="A"&&name==="href"&&validHttps(value);
+      const safeImage=e.tagName==="IMG"&&name==="src"&&validHttps(value);
+      const safeClass=name==="class"&&
+        /^(ql-align-(center|right|justify)|ql-indent-[1-8]|ql-size-(small|large|huge))$/.test(value);
+      if(!safeLink&&!safeImage&&!safeClass)
         e.removeAttribute(a.name);
     }
     if(e.tagName==="A")e.setAttribute("rel","noopener noreferrer");
@@ -390,6 +506,7 @@ function renderVideo(){
     `<iframe src="https://www.youtube-nocookie.com/embed/${id}"
       title="${esc(v.title)}" loading="lazy"
       allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen></iframe>`:
     '<div class="empty">Nenhum vídeo cadastrado.</div>';
   $("prevVideo").disabled=$("nextVideo").disabled=arr.length<2;
@@ -403,10 +520,7 @@ function renderTestimony(){
   $("testimonyCount").textContent=arr.length?
     `${ti+1} de ${arr.length}`:"Nenhum testemunho";
   $("testimonyContent").replaceChildren();
-  if(v?.url&&validUrl(v.url,[] )===false &&
-     !/^https:\/\//i.test(v.url)){
-    $("testimonyContent").textContent="Imagem inválida.";
-  }else if(v?.url){
+  if(v?.url&&validHttps(v.url)){
     const img=document.createElement("img");
     img.className="testimony-image";
     img.src=v.url;
@@ -417,15 +531,14 @@ function renderTestimony(){
     $("testimonyContent").innerHTML=
       '<div class="empty">Nenhum testemunho cadastrado.</div>';
   }
-  $("prevTestimony").disabled=
-    $("nextTestimony").disabled=arr.length<2;
+  $("prevTestimony").disabled=$("nextTestimony").disabled=arr.length<2;
 }
 
 function renderStudies(){
   const arr=items("studies");
   $("studies").innerHTML=arr.length?arr.map(v=>`
     <article class="study">
-      ${v.image?`<img src="${esc(v.image)}" alt="${esc(v.title)}">`:""}
+      ${validHttps(v.image)?`<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">`:""}
       <div class="study-body">
         <h3>${esc(v.title)}</h3>
         <p>${esc(v.summary||"Leia o estudo completo.")}</p>
@@ -440,9 +553,10 @@ function renderStudies(){
 function renderTexts(){
   const texts={...defaults,...state.texts};
   for(const [k,v] of Object.entries(texts)){
-    if($(k)&&!["groupUrl","tiktokUrl","youtubeUrl",
-      "whatsapp","whatsappMessage"].includes(k))
-      $(k).textContent=v;
+    if($(k)&&![
+      "groupUrl","groupImageUrl","tiktokUrl","youtubeUrl",
+      "whatsapp","whatsappMessage"
+    ].includes(k))$(k).textContent=v;
   }
 
   const links=[
@@ -458,16 +572,33 @@ function renderTexts(){
     else el.removeAttribute("href");
   }
 
+  // Imagem do grupo: o clique abre o convite cadastrado.
+  const groupValid=validUrl(texts.groupUrl||"",["chat.whatsapp.com"]);
+  const imageValid=validHttps(texts.groupImageUrl||"");
+  const groupImageLink=$("groupImageLink");
+  groupImageLink.classList.toggle("hidden",!(groupValid&&imageValid));
+  if(groupValid&&imageValid){
+    groupImageLink.href=texts.groupUrl;
+    $("groupImage").src=texts.groupImageUrl;
+  }else{
+    groupImageLink.removeAttribute("href");
+    $("groupImage").removeAttribute("src");
+  }
+
   const phone=String(texts.whatsapp||"").replace(/\D/g,"");
   $("whatsapp").classList.toggle("hidden",phone.length<10);
   if(phone.length>=10)
     $("whatsapp").href=`https://wa.me/${phone}?text=${
       encodeURIComponent(texts.whatsappMessage||"Olá!")
     }`;
+  else $("whatsapp").removeAttribute("href");
 }
 
 function render(){
-  renderTexts();renderVideo();renderTestimony();renderStudies();
+  renderTexts();
+  renderVideo();
+  renderTestimony();
+  renderStudies();
 }
 
 for(const k of ["texts","videos","testimonies","studies"]){
@@ -496,7 +627,7 @@ $("studies").onclick=e=>{
   if(!v)return;
   $("readerTitle").textContent=v.title;
   $("readerContent").innerHTML=
-    (v.image&&/^https:\/\//i.test(v.image)?
+    (validHttps(v.image)?
       `<img src="${esc(v.image)}" alt="">`:"")+
     safeHTML(v.html);
   $("readerOverlay").classList.remove("hidden");
@@ -547,6 +678,7 @@ const textFields=[
   ["groupHeading","Título do grupo WhatsApp"],
   ["groupSubtitle","Descrição do grupo"],
   ["groupUrl","Link de convite do grupo WhatsApp"],
+  ["groupImageUrl","Link HTTPS da imagem do grupo WhatsApp"],
   ["studiesHeading","Título dos estudos"],
   ["studiesSubtitle","Descrição dos estudos"],
   ["footerText","Texto do rodapé"],
@@ -598,6 +730,16 @@ function renderTab(){
       const data={};
       for(const [k] of textFields)
         data[k]=$("f_"+k).value.trim();
+
+      if(data.groupUrl&&!validUrl(data.groupUrl,["chat.whatsapp.com"]))
+        return status("Informe um convite válido do WhatsApp.");
+      if(data.groupImageUrl&&!validHttps(data.groupImageUrl))
+        return status("A imagem do grupo precisa de um link HTTPS.");
+      if(data.tiktokUrl&&!validUrl(data.tiktokUrl,["tiktok.com"]))
+        return status("Informe um link válido do TikTok.");
+      if(data.youtubeUrl&&!validUrl(data.youtubeUrl,["youtube.com","youtu.be"]))
+        return status("Informe um link válido do YouTube.");
+
       await save(set(ref(db,`${root}/texts`),data));
     };
     return;
@@ -675,7 +817,7 @@ function renderTab(){
     if(!title)return status("Informe o título.");
     if(tab==="videos"&&!youtubeId(url))
       return status("Link do YouTube inválido.");
-    if(tab!=="videos"&&url&&!/^https:\/\//i.test(url))
+    if(tab!=="videos"&&url&&!validHttps(url))
       return status("A imagem precisa de um link HTTPS.");
 
     const data={title,order,...(tab==="studies"?{
