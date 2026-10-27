@@ -3,397 +3,196 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Mensagens, testemunhos e estudos bíblicos de restauração.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Restaurar | Jadir Brito</title>
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
 <style>
-:root {
-  --bg:#0e1219;
-  --card:#1b2330;
-  --text:#f5f7fb;
-  --muted:#aeb9c8;
-  --border:#344051;
-  --accent:#56d6a5;
-}
-* {box-sizing:border-box}
-html {scroll-behavior:smooth}
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font:16px/1.7 Arial,sans-serif;
-}
-button,input,textarea {font:inherit}
-button {cursor:pointer}
-a {color:var(--accent)}
-.container {width:min(1080px,92%);margin:auto}
-header {
-  padding:20px 0;
-  border-bottom:1px solid var(--border);
-  text-align:center;
-}
-.brand {font-size:23px;font-weight:800;letter-spacing:2px}
-.hero {padding:65px 0 40px;text-align:center}
-.hero h1 {font-size:clamp(36px,6vw,65px);margin:0}
-.hero p {color:var(--muted);font-size:18px}
-section {padding:30px 0 48px}
-h2 {font-size:clamp(26px,4vw,36px);margin-bottom:8px}
-.subtitle {color:var(--muted);margin-top:0}
-.panel,.study {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:17px;
-  overflow:hidden;
-}
-.video-title {
-  text-align:center;
-  font-size:clamp(22px,4vw,36px);
-  padding:20px;
-  margin:0;
-}
-iframe {width:100%;aspect-ratio:16/9;border:0;display:block}
-.controls {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:20px;
-  padding:16px;
-}
-button,.btn {
-  background:#263345;
-  color:white;
-  border:1px solid var(--border);
-  padding:11px 17px;
-  border-radius:10px;
-  text-decoration:none;
-}
-.primary {
-  background:var(--accent);
-  color:#082019;
-  border-color:var(--accent);
-  font-weight:bold;
-}
-.arrow {font-size:24px}
-.counter {color:var(--muted)}
-.testimony-image {
-  width:100%;
-  height:min(65vh,580px);
-  object-fit:contain;
-  padding:12px;
-}
-.testimony-title {text-align:center}
-.group {
-  text-align:center;
-  background:var(--card);
-  padding:40px 20px;
-  border:1px solid var(--border);
-  border-radius:18px;
-}
-.group-image-link {
-  display:block;
-  max-width:760px;
-  margin:25px auto;
-  border-radius:16px;
-  overflow:hidden;
-  transition:transform .2s;
-}
-.group-image-link:hover {transform:scale(1.015)}
-.group-image {
-  display:block;
-  width:100%;
-  height:auto;
-  max-height:460px;
-  object-fit:contain;
-  border-radius:16px;
-}
-.group .btn {display:inline-block;margin-top:15px}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));
-  gap:20px;
-}
-.study img {width:100%;height:190px;object-fit:cover}
-.study-body {padding:20px}
-.study h3 {font-size:22px;margin:0}
-.study p {color:var(--muted)}
-footer {
-  border-top:1px solid var(--border);
-  text-align:center;
-  padding:35px 0;
-  color:var(--muted);
-}
-.social {
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  margin:18px;
-}
-.social a {text-decoration:none;font-weight:bold}
-.admin-link {
-  background:none;
-  border:0;
-  color:#fff;
-  opacity:.12;
-  font-size:11px;
-  margin-top:18px;
-}
-.admin-link:hover,.admin-link:focus {opacity:1}
-.whatsapp {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#25d366;
-  color:white;
-  border-radius:50%;
-  width:62px;
-  height:62px;
-  display:grid;
-  place-items:center;
-  text-decoration:none;
-  z-index:15;
-  box-shadow:0 5px 20px #0008;
-}
-.whatsapp svg {width:36px;height:36px}
-.hidden {display:none!important}
-.overlay {
-  position:fixed;
-  inset:0;
-  background:#000b;
-  z-index:30;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-.modal {
-  background:var(--bg);
-  border:1px solid var(--border);
-  width:min(900px,100%);
-  max-height:94vh;
-  overflow:auto;
-  border-radius:16px;
-  padding:23px;
-}
-.modal-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.fields {display:grid;gap:13px}
-.field {display:grid;gap:5px}
-input,textarea {
-  width:100%;
-  background:var(--card);
-  color:white;
-  border:1px solid var(--border);
-  padding:11px;
-  border-radius:8px;
-}
-textarea {min-height:90px}
-.tabs {display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
-.tabs .active {background:var(--accent);color:#082019}
-.edit-row {
-  border:1px solid var(--border);
-  padding:12px;
-  border-radius:9px;
-  margin:9px 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.actions {display:flex;gap:8px;flex-wrap:wrap}
-.status {color:var(--muted)}
-.empty {padding:30px;text-align:center;color:var(--muted)}
-.article-content {overflow-wrap:anywhere}
-.article-content img {max-width:100%;height:auto}
-.ql-toolbar,.ql-container {background:#fff;color:#222}
-.ql-editor {min-height:250px;font-size:16px}
-.ql-editor img {max-width:100%}
-@media(max-width:600px) {
-  .hero {padding:40px 0}
-  section {padding:24px 0}
-  .modal {padding:15px}
-  .testimony-image {height:430px}
-  .whatsapp {width:55px;height:55px}
-  .group {padding:24px 14px}
-}
+:root{--bg:#0e1219;--card:#1b2330;--text:#f5f7fb;--muted:#aeb9c8;--border:#344051;--accent:#56d6a5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+.container{width:min(1080px,92%);margin:auto}
+header{text-align:center;padding:20px;border-bottom:1px solid var(--border)}
+.brand{font-size:23px;font-weight:800;letter-spacing:2px}
+.hero{text-align:center;padding:60px 0 35px}
+.hero h1{font-size:clamp(36px,6vw,65px);margin:0}
+.hero p,.subtitle{color:var(--muted)}
+section{padding:28px 0 45px}
+h2{font-size:clamp(26px,4vw,36px);margin-bottom:8px}
+.panel,.study,.group{background:var(--card);border:1px solid var(--border);border-radius:17px;overflow:hidden}
+.video-title{text-align:center;font-size:clamp(22px,4vw,36px);padding:20px;margin:0}
+iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.controls{display:flex;justify-content:center;align-items:center;gap:20px;padding:16px}
+button,.btn{background:#263345;color:white;border:1px solid var(--border);padding:11px 17px;border-radius:10px;text-decoration:none}
+.primary{background:var(--accent);color:#082019;border-color:var(--accent);font-weight:bold}
+.arrow{font-size:24px}
+.counter{color:var(--muted)}
+.testimony-image{width:100%;height:min(65vh,580px);object-fit:contain;padding:12px}
+.testimony-title{text-align:center}
+.group{text-align:center;padding:35px 20px}
+.group-image-link{display:block;max-width:760px;margin:25px auto;border-radius:16px;overflow:hidden;transition:transform .2s}
+.group-image-link:hover{transform:scale(1.015)}
+.group-image{display:block;width:100%;height:auto;max-height:460px;object-fit:contain}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:20px}
+.study img{width:100%;height:190px;object-fit:cover}
+.study-body{padding:20px}
+.study h3{font-size:22px;margin:0}
+.study p{color:var(--muted)}
+footer{text-align:center;border-top:1px solid var(--border);padding:35px 0;color:var(--muted)}
+.social{display:flex;justify-content:center;gap:25px;margin:18px}
+.social a{text-decoration:none;font-weight:bold}
+.admin-link{background:none;border:0;color:white;opacity:.12;font-size:11px;margin-top:18px}
+.admin-link:hover,.admin-link:focus{opacity:1}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;border-radius:50%;width:62px;height:62px;display:grid;place-items:center;z-index:15;box-shadow:0 5px 20px #0008}
+.whatsapp svg{width:36px;height:36px}
+.hidden{display:none!important}
+.overlay{position:fixed;inset:0;background:#000b;z-index:30;display:flex;align-items:center;justify-content:center;padding:15px}
+.modal{background:var(--bg);border:1px solid var(--border);width:min(900px,100%);max-height:94vh;overflow:auto;border-radius:16px;padding:23px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fields{display:grid;gap:13px}
+.field{display:grid;gap:5px}
+input,textarea{width:100%;background:var(--card);color:white;border:1px solid var(--border);padding:11px;border-radius:8px}
+textarea{min-height:90px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.tabs .active{background:var(--accent);color:#082019}
+.edit-row{border:1px solid var(--border);padding:12px;border-radius:9px;margin:9px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.status,.empty{color:var(--muted)}
+.empty{padding:30px;text-align:center}
+.article-content{overflow-wrap:anywhere}
+.article-content img{max-width:100%;height:auto}
+.ql-toolbar,.ql-container{background:white;color:#222}
+.ql-editor{min-height:250px;font-size:16px}
+.ql-editor img{max-width:100%}
+@media(max-width:600px){.hero{padding:40px 0}section{padding:24px 0}.modal{padding:15px}.testimony-image{height:430px}.whatsapp{width:55px;height:55px}.group{padding:24px 14px}}
 </style>
 </head>
-
 <body>
 
-<header>
-  <div class="brand" id="brand">JADIR BRITO</div>
-</header>
+<header><div class="brand" id="brand">JADIR BRITO</div></header>
 
 <main class="container">
-  <div class="hero">
-    <h1 id="heroTitle">Restaurar</h1>
-    <p id="heroText">Uma palavra de fé, esperança e restauração.</p>
-  </div>
+<div class="hero">
+<h1 id="heroTitle">Restaurar</h1>
+<p id="heroText">Uma palavra de fé, esperança e restauração.</p>
+</div>
 
-  <section>
-    <h2 id="videosHeading">Mensagens em vídeo</h2>
-    <p class="subtitle" id="videosSubtitle">Assista sem sair do site.</p>
-    <div class="panel">
-      <h3 class="video-title" id="videoTitle"></h3>
-      <div id="videoContent"></div>
-      <div class="controls">
-        <button class="arrow" id="prevVideo" aria-label="Vídeo anterior">❮</button>
-        <span class="counter" id="videoCount"></span>
-        <button class="arrow" id="nextVideo" aria-label="Próximo vídeo">❯</button>
-      </div>
-    </div>
-  </section>
+<section>
+<h2 id="videosHeading">Mensagens em vídeo</h2>
+<p class="subtitle" id="videosSubtitle">Assista sem sair do site.</p>
+<div class="panel">
+<h3 class="video-title" id="videoTitle"></h3>
+<div id="videoContent"></div>
+<div class="controls">
+<button class="arrow" id="prevVideo">❮</button>
+<span class="counter" id="videoCount"></span>
+<button class="arrow" id="nextVideo">❯</button>
+</div>
+</div>
+</section>
 
-  <section>
-    <h2 id="testimoniesHeading">Testemunhos</h2>
-    <p class="subtitle" id="testimoniesSubtitle">
-      Histórias compartilhadas com autorização.
-    </p>
-    <div class="panel">
-      <h3 class="testimony-title" id="testimonyTitle"></h3>
-      <div id="testimonyContent"></div>
-      <div class="controls">
-        <button class="arrow" id="prevTestimony" aria-label="Testemunho anterior">❮</button>
-        <span class="counter" id="testimonyCount"></span>
-        <button class="arrow" id="nextTestimony" aria-label="Próximo testemunho">❯</button>
-      </div>
-    </div>
-  </section>
+<section>
+<h2 id="testimoniesHeading">Testemunhos</h2>
+<p class="subtitle" id="testimoniesSubtitle">Histórias compartilhadas com autorização.</p>
+<div class="panel">
+<h3 class="testimony-title" id="testimonyTitle"></h3>
+<div id="testimonyContent"></div>
+<div class="controls">
+<button class="arrow" id="prevTestimony">❮</button>
+<span class="counter" id="testimonyCount"></span>
+<button class="arrow" id="nextTestimony">❯</button>
+</div>
+</div>
+</section>
 
-  <section id="groupSection">
-    <div class="group">
-      <h2 id="groupHeading">Grupo de WhatsApp</h2>
-      <p id="groupSubtitle">
-        Participe do nosso grupo de oração e estudos.
-      </p>
+<section>
+<div class="group">
+<h2 id="groupHeading">Grupo de WhatsApp</h2>
+<p id="groupSubtitle">Participe do nosso grupo de oração e estudos.</p>
+<a id="groupImageLink" class="group-image-link hidden" target="_blank" rel="noopener noreferrer" aria-label="Entrar no grupo de WhatsApp">
+<img id="groupImage" class="group-image" alt="Imagem do grupo de WhatsApp" loading="lazy">
+</a>
+</div>
+</section>
 
-      <a id="groupImageLink"
-         class="group-image-link hidden"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Entrar no grupo de WhatsApp">
-        <img id="groupImage"
-             class="group-image"
-             alt="Imagem de convite para o grupo de WhatsApp"
-             loading="lazy">
-      </a>
-
-      <a id="groupLink"
-         class="btn primary hidden"
-         target="_blank"
-         rel="noopener noreferrer">
-        Entrar no grupo do WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <h2 id="studiesHeading">Estudos bíblicos</h2>
-    <p class="subtitle" id="studiesSubtitle">
-      Aprofunde seu conhecimento na Palavra.
-    </p>
-    <div class="grid" id="studies"></div>
-  </section>
+<section>
+<h2 id="studiesHeading">Estudos bíblicos</h2>
+<p class="subtitle" id="studiesSubtitle">Aprofunde seu conhecimento na Palavra.</p>
+<div class="grid" id="studies"></div>
+</section>
 </main>
 
 <footer>
-  <div class="container">
-    <div id="footerText">
-      Jadir Brito — Fé, conhecimento e restauração.
-    </div>
-    <div class="social">
-      <a id="tiktokLink" class="hidden" target="_blank"
-         rel="noopener noreferrer">TikTok</a>
-      <a id="youtubeLink" class="hidden" target="_blank"
-         rel="noopener noreferrer">YouTube</a>
-    </div>
-    <button id="openAdmin" class="admin-link" aria-label="Administração">A</button>
-  </div>
+<div class="container">
+<div id="footerText">Jadir Brito — Fé, conhecimento e restauração.</div>
+<div class="social">
+<a id="tiktokLink" class="hidden" target="_blank" rel="noopener noreferrer">TikTok</a>
+<a id="youtubeLink" class="hidden" target="_blank" rel="noopener noreferrer">YouTube</a>
+</div>
+<button id="openAdmin" class="admin-link">A</button>
+</div>
 </footer>
 
-<a id="whatsapp" class="whatsapp hidden"
-   target="_blank" rel="noopener noreferrer"
-   aria-label="Atendimento pelo WhatsApp">
-  <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-    <path d="M16 .8A15.1 15.1 0 0 0 3 23.5L.9 31l7.7-2A15.2 15.2 0 1 0 16 .8Zm0 27.4a12 12 0 0 1-6.1-1.7l-.4-.2-4.5 1.2 1.2-4.4-.3-.4A12.2 12.2 0 1 1 16 28.2Zm6.7-9.1c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.4-.2.2-.4.3-.8.1a10 10 0 0 1-3-1.8 11 11 0 0 1-2-2.5c-.2-.4 0-.6.2-.8l.6-.7.4-.6c.1-.2 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.2s1.4 3.7 1.6 3.9c.2.2 2.8 4.3 6.8 6 1 .4 1.8.6 2.4.7 1 .2 1.9.2 2.6.1.8-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z"/>
-  </svg>
+<a id="whatsapp" class="whatsapp hidden" target="_blank" rel="noopener noreferrer" aria-label="Atendimento pelo WhatsApp">
+<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+<path d="M16 .8A15.1 15.1 0 0 0 3 23.5L.9 31l7.7-2A15.2 15.2 0 1 0 16 .8Zm0 27.4a12 12 0 0 1-6.1-1.7l-.4-.2-4.5 1.2 1.2-4.4-.3-.4A12.2 12.2 0 1 1 16 28.2Zm6.7-9.1c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.4-.2.2-.4.3-.8.1a10 10 0 0 1-3-1.8 11 11 0 0 1-2-2.5c-.2-.4 0-.6.2-.8l.6-.7.4-.6c.1-.2 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.2s1.4 3.7 1.6 3.9c.2.2 2.8 4.3 6.8 6 1 .4 1.8.6 2.4.7 1 .2 1.9.2 2.6.1.8-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z"/>
+</svg>
 </a>
 
 <div class="overlay hidden" id="adminOverlay">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>ADM — Restaurar</h2>
-      <button id="closeAdmin">Fechar ×</button>
-    </div>
-
-    <div id="loginView" class="fields">
-      <p>Entre com sua conta de administrador do Firebase.</p>
-      <div class="field">
-        <label for="loginEmail">E-mail</label>
-        <input type="email" id="loginEmail" autocomplete="username">
-      </div>
-      <div class="field">
-        <label for="loginPassword">Senha</label>
-        <input type="password" id="loginPassword" autocomplete="current-password">
-      </div>
-      <button class="primary" id="loginBtn">Entrar</button>
-    </div>
-
-    <div id="adminView" class="hidden">
-      <div class="actions">
-        <span id="loggedUser"></span>
-        <button id="logoutBtn">Sair</button>
-      </div>
-      <div class="tabs" id="tabs">
-        <button class="active" data-tab="texts">Textos e links</button>
-        <button data-tab="videos">Vídeos</button>
-        <button data-tab="testimonies">Testemunhos</button>
-        <button data-tab="studies">Estudos bíblicos</button>
-      </div>
-      <div id="tabContent"></div>
-    </div>
-    <p id="status" class="status" role="status"></p>
-  </div>
+<div class="modal">
+<div class="modal-head">
+<h2>ADM — Restaurar</h2>
+<button id="closeAdmin">Fechar ×</button>
+</div>
+<div id="loginView" class="fields">
+<p>Entre com sua conta de administrador do Firebase.</p>
+<div class="field"><label>E-mail</label><input type="email" id="loginEmail"></div>
+<div class="field"><label>Senha</label><input type="password" id="loginPassword"></div>
+<button class="primary" id="loginBtn">Entrar</button>
+</div>
+<div id="adminView" class="hidden">
+<div class="actions"><span id="loggedUser"></span><button id="logoutBtn">Sair</button></div>
+<div class="tabs" id="tabs">
+<button class="active" data-tab="texts">Textos e links</button>
+<button data-tab="videos">Vídeos</button>
+<button data-tab="testimonies">Testemunhos</button>
+<button data-tab="studies">Estudos bíblicos</button>
+</div>
+<div id="tabContent"></div>
+</div>
+<p id="status" class="status"></p>
+</div>
 </div>
 
 <div class="overlay hidden" id="readerOverlay">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="readerTitle"></h2>
-      <button id="closeReader">Fechar ×</button>
-    </div>
-    <div id="readerContent" class="article-content"></div>
-  </div>
+<div class="modal">
+<div class="modal-head">
+<h2 id="readerTitle"></h2>
+<button id="closeReader">Fechar ×</button>
+</div>
+<div id="readerContent" class="article-content"></div>
+</div>
 </div>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-
 <script type="module">
-import {initializeApp} from
-'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import {getDatabase,ref,onValue,set,push,remove} from
-'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from
-'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getDatabase,ref,onValue,set,push,remove} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-  authDomain:"namoro-f18ac.firebaseapp.com",
-  databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
-  projectId:"namoro-f18ac",
-  storageBucket:"namoro-f18ac.firebasestorage.app",
-  messagingSenderId:"336479537433",
-  appId:"1:336479537433:web:dd282c67e98ca196e05d88",
-  measurementId:"G-1YLR1JNZYY"
+const firebaseConfig={
+apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain:"namoro-f18ac.firebaseapp.com",
+databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId:"namoro-f18ac",
+storageBucket:"namoro-f18ac.firebasestorage.app",
+messagingSenderId:"336479537433",
+appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId:"G-1YLR1JNZYY"
 };
-
 const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 const auth=getAuth(app);
@@ -401,452 +200,263 @@ const root="restaurar";
 const $=id=>document.getElementById(id);
 
 const defaults={
-  brand:"JADIR BRITO",
-  heroTitle:"Restaurar",
-  heroText:"Uma palavra de fé, esperança e restauração.",
-  videosHeading:"Mensagens em vídeo",
-  videosSubtitle:"Assista sem sair do site.",
-  testimoniesHeading:"Testemunhos",
-  testimoniesSubtitle:"Histórias compartilhadas com autorização.",
-  groupHeading:"Grupo de WhatsApp",
-  groupSubtitle:"Participe do nosso grupo de oração e estudos.",
-  groupUrl:"",
-  groupImageUrl:"",
-  studiesHeading:"Estudos bíblicos",
-  studiesSubtitle:"Aprofunde seu conhecimento na Palavra.",
-  footerText:"Jadir Brito — Fé, conhecimento e restauração.",
-  tiktokUrl:"",
-  youtubeUrl:"",
-  whatsapp:"",
-  whatsappMessage:"Olá! Gostaria de receber atendimento."
+brand:"JADIR BRITO",
+heroTitle:"Restaurar",
+heroText:"Uma palavra de fé, esperança e restauração.",
+videosHeading:"Mensagens em vídeo",
+videosSubtitle:"Assista sem sair do site.",
+testimoniesHeading:"Testemunhos",
+testimoniesSubtitle:"Histórias compartilhadas com autorização.",
+groupHeading:"Grupo de WhatsApp",
+groupSubtitle:"Participe do nosso grupo de oração e estudos.",
+groupUrl:"",
+groupImageUrl:"",
+studiesHeading:"Estudos bíblicos",
+studiesSubtitle:"Aprofunde seu conhecimento na Palavra.",
+footerText:"Jadir Brito — Fé, conhecimento e restauração.",
+tiktokUrl:"",
+youtubeUrl:"",
+whatsapp:"",
+whatsappMessage:"Olá! Gostaria de receber atendimento."
 };
 
-let state={
-  texts:{...defaults},
-  videos:{},
-  testimonies:{},
-  studies:{}
-};
+let state={texts:{...defaults},videos:{},testimonies:{},studies:{}};
 let vi=0,ti=0,tab="texts",editing=null,quill=null;
-
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",
-  '"':"&quot;","'":"&#39;"
-}[c]));
-
-const items=k=>Object.entries(state[k]||{})
-  .map(([id,x])=>({id,...x}))
-  .sort((a,b)=>(a.order??0)-(b.order??0));
-
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const items=k=>Object.entries(state[k]||{}).map(([id,x])=>({id,...x})).sort((a,b)=>(a.order??0)-(b.order??0));
 const status=s=>$("status").textContent=s;
 
 function validHttps(url){
-  try{return new URL(url).protocol==="https:"}
-  catch{return false}
+try{return new URL(url).protocol==="https:"}catch{return false}
 }
-
 function validUrl(url,hosts){
-  try{
-    const u=new URL(url);
-    return u.protocol==="https:" &&
-      hosts.some(h=>u.hostname===h||u.hostname.endsWith("."+h));
-  }catch{return false}
+try{
+const u=new URL(url);
+return u.protocol==="https:"&&hosts.some(h=>u.hostname===h||u.hostname.endsWith("."+h));
+}catch{return false}
 }
-
 function youtubeId(url){
-  try{
-    const u=new URL(url);
-    const h=u.hostname.replace(/^www\./,"");
-    let id=null;
-    if(h==="youtu.be")id=u.pathname.split("/")[1];
-    else if(["youtube.com","m.youtube.com","youtube-nocookie.com"].includes(h)){
-      if(/^\/(shorts|embed|live)\//.test(u.pathname))
-        id=u.pathname.split("/")[2];
-      else id=u.searchParams.get("v");
-    }
-    return /^[\w-]{11}$/.test(id||"")?id:null;
-  }catch{return null}
+try{
+const u=new URL(url),h=u.hostname.replace(/^www\./,"");
+let id=null;
+if(h==="youtu.be")id=u.pathname.split("/")[1];
+else if(["youtube.com","m.youtube.com","youtube-nocookie.com"].includes(h)){
+if(/^\/(shorts|embed|live)\//.test(u.pathname))id=u.pathname.split("/")[2];
+else id=u.searchParams.get("v");
 }
-
+return /^[\w-]{11}$/.test(id||"")?id:null;
+}catch{return null}
+}
 function safeHTML(html){
-  const doc=new DOMParser().parseFromString(html||"","text/html");
-  const allowed=new Set([
-    "P","BR","H1","H2","H3","H4","STRONG","B","EM","I","U","S",
-    "UL","OL","LI","BLOCKQUOTE","A","IMG","SPAN","DIV","PRE","CODE"
-  ]);
-  for(const e of [...doc.body.querySelectorAll("*")].reverse()){
-    if(!allowed.has(e.tagName)){
-      e.remove();
-      continue;
-    }
-    for(const a of [...e.attributes]){
-      const name=a.name.toLowerCase();
-      const value=a.value;
-      const safeLink=e.tagName==="A"&&name==="href"&&validHttps(value);
-      const safeImage=e.tagName==="IMG"&&name==="src"&&validHttps(value);
-      const safeClass=name==="class"&&
-        /^(ql-align-(center|right|justify)|ql-indent-[1-8]|ql-size-(small|large|huge))$/.test(value);
-      if(!safeLink&&!safeImage&&!safeClass)
-        e.removeAttribute(a.name);
-    }
-    if(e.tagName==="A")e.setAttribute("rel","noopener noreferrer");
-  }
-  return doc.body.innerHTML;
+const doc=new DOMParser().parseFromString(html||"","text/html");
+const allowed=new Set(["P","BR","H1","H2","H3","H4","STRONG","B","EM","I","U","S","UL","OL","LI","BLOCKQUOTE","A","IMG","SPAN","DIV","PRE","CODE"]);
+for(const e of [...doc.body.querySelectorAll("*")].reverse()){
+if(!allowed.has(e.tagName)){e.remove();continue}
+for(const a of [...e.attributes]){
+const name=a.name.toLowerCase(),value=a.value;
+const link=e.tagName==="A"&&name==="href"&&validHttps(value);
+const img=e.tagName==="IMG"&&name==="src"&&validHttps(value);
+const cls=name==="class"&&/^(ql-align-(center|right|justify)|ql-indent-[1-8]|ql-size-(small|large|huge))$/.test(value);
+if(!link&&!img&&!cls)e.removeAttribute(a.name);
 }
-
+if(e.tagName==="A")e.setAttribute("rel","noopener noreferrer");
+}
+return doc.body.innerHTML;
+}
 function renderVideo(){
-  const arr=items("videos");
-  vi=arr.length?(vi+arr.length)%arr.length:0;
-  const v=arr[vi];
-  const id=v?youtubeId(v.url):null;
-  $("videoTitle").textContent=v?.title||"";
-  $("videoCount").textContent=arr.length?
-    `${vi+1} de ${arr.length}`:"Nenhum vídeo";
-  $("videoContent").innerHTML=id?
-    `<iframe src="https://www.youtube-nocookie.com/embed/${id}"
-      title="${esc(v.title)}" loading="lazy"
-      allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen></iframe>`:
-    '<div class="empty">Nenhum vídeo cadastrado.</div>';
-  $("prevVideo").disabled=$("nextVideo").disabled=arr.length<2;
+const arr=items("videos");
+vi=arr.length?(vi+arr.length)%arr.length:0;
+const v=arr[vi],id=v?youtubeId(v.url):null;
+$("videoTitle").textContent=v?.title||"";
+$("videoCount").textContent=arr.length?`${vi+1} de ${arr.length}`:"Nenhum vídeo";
+$("videoContent").innerHTML=id?`<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${esc(v.title)}" loading="lazy" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe>`:'<div class="empty">Nenhum vídeo cadastrado.</div>';
+$("prevVideo").disabled=$("nextVideo").disabled=arr.length<2;
 }
-
 function renderTestimony(){
-  const arr=items("testimonies");
-  ti=arr.length?(ti+arr.length)%arr.length:0;
-  const v=arr[ti];
-  $("testimonyTitle").textContent=v?.title||"";
-  $("testimonyCount").textContent=arr.length?
-    `${ti+1} de ${arr.length}`:"Nenhum testemunho";
-  $("testimonyContent").replaceChildren();
-  if(v?.url&&validHttps(v.url)){
-    const img=document.createElement("img");
-    img.className="testimony-image";
-    img.src=v.url;
-    img.alt=v.title||"Testemunho";
-    img.loading="lazy";
-    $("testimonyContent").append(img);
-  }else{
-    $("testimonyContent").innerHTML=
-      '<div class="empty">Nenhum testemunho cadastrado.</div>';
-  }
-  $("prevTestimony").disabled=$("nextTestimony").disabled=arr.length<2;
+const arr=items("testimonies");
+ti=arr.length?(ti+arr.length)%arr.length:0;
+const v=arr[ti];
+$("testimonyTitle").textContent=v?.title||"";
+$("testimonyCount").textContent=arr.length?`${ti+1} de ${arr.length}`:"Nenhum testemunho";
+$("testimonyContent").replaceChildren();
+if(v?.url&&validHttps(v.url)){
+const img=document.createElement("img");
+img.className="testimony-image";img.src=v.url;img.alt=v.title||"Testemunho";img.loading="lazy";
+$("testimonyContent").append(img);
+}else $("testimonyContent").innerHTML='<div class="empty">Nenhum testemunho cadastrado.</div>';
+$("prevTestimony").disabled=$("nextTestimony").disabled=arr.length<2;
 }
-
 function renderStudies(){
-  const arr=items("studies");
-  $("studies").innerHTML=arr.length?arr.map(v=>`
-    <article class="study">
-      ${validHttps(v.image)?`<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">`:""}
-      <div class="study-body">
-        <h3>${esc(v.title)}</h3>
-        <p>${esc(v.summary||"Leia o estudo completo.")}</p>
-        <button class="primary" data-read="${esc(v.id)}">
-          Ler estudo
-        </button>
-      </div>
-    </article>
-  `).join(""):'<div class="empty">Nenhum estudo cadastrado.</div>';
+const arr=items("studies");
+$("studies").innerHTML=arr.length?arr.map(v=>`
+<article class="study">
+${validHttps(v.image)?`<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">`:""}
+<div class="study-body">
+<h3>${esc(v.title)}</h3>
+<p>${esc(v.summary||"Leia o estudo completo.")}</p>
+<button class="primary" data-read="${esc(v.id)}">Ler estudo</button>
+</div></article>`).join(""):'<div class="empty">Nenhum estudo cadastrado.</div>';
 }
-
 function renderTexts(){
-  const texts={...defaults,...state.texts};
-  for(const [k,v] of Object.entries(texts)){
-    if($(k)&&![
-      "groupUrl","groupImageUrl","tiktokUrl","youtubeUrl",
-      "whatsapp","whatsappMessage"
-    ].includes(k))$(k).textContent=v;
-  }
-
-  const links=[
-    ["groupLink","groupUrl",["chat.whatsapp.com"]],
-    ["tiktokLink","tiktokUrl",["tiktok.com"]],
-    ["youtubeLink","youtubeUrl",["youtube.com","youtu.be"]]
-  ];
-  for(const [id,key,hosts] of links){
-    const el=$(id),url=texts[key]||"";
-    const ok=validUrl(url,hosts);
-    el.classList.toggle("hidden",!ok);
-    if(ok)el.href=url;
-    else el.removeAttribute("href");
-  }
-
-  // Imagem do grupo: o clique abre o convite cadastrado.
-  const groupValid=validUrl(texts.groupUrl||"",["chat.whatsapp.com"]);
-  const imageValid=validHttps(texts.groupImageUrl||"");
-  const groupImageLink=$("groupImageLink");
-  groupImageLink.classList.toggle("hidden",!(groupValid&&imageValid));
-  if(groupValid&&imageValid){
-    groupImageLink.href=texts.groupUrl;
-    $("groupImage").src=texts.groupImageUrl;
-  }else{
-    groupImageLink.removeAttribute("href");
-    $("groupImage").removeAttribute("src");
-  }
-
-  const phone=String(texts.whatsapp||"").replace(/\D/g,"");
-  $("whatsapp").classList.toggle("hidden",phone.length<10);
-  if(phone.length>=10)
-    $("whatsapp").href=`https://wa.me/${phone}?text=${
-      encodeURIComponent(texts.whatsappMessage||"Olá!")
-    }`;
-  else $("whatsapp").removeAttribute("href");
+const t={...defaults,...state.texts};
+for(const [k,v] of Object.entries(t)){
+if($(k)&&!["groupUrl","groupImageUrl","tiktokUrl","youtubeUrl","whatsapp","whatsappMessage"].includes(k))$(k).textContent=v;
 }
-
-function render(){
-  renderTexts();
-  renderVideo();
-  renderTestimony();
-  renderStudies();
+for(const [id,key,hosts] of [
+["tiktokLink","tiktokUrl",["tiktok.com"]],
+["youtubeLink","youtubeUrl",["youtube.com","youtu.be"]]
+]){
+const el=$(id),url=t[key]||"",ok=validUrl(url,hosts);
+el.classList.toggle("hidden",!ok);
+if(ok)el.href=url;else el.removeAttribute("href");
 }
-
+const groupValid=validUrl(t.groupUrl||"",["chat.whatsapp.com"]);
+const imageValid=validHttps(t.groupImageUrl||"");
+$("groupImageLink").classList.toggle("hidden",!(groupValid&&imageValid));
+if(groupValid&&imageValid){
+$("groupImageLink").href=t.groupUrl;
+$("groupImage").src=t.groupImageUrl;
+}else{
+$("groupImageLink").removeAttribute("href");
+$("groupImage").removeAttribute("src");
+}
+const phone=String(t.whatsapp||"").replace(/\D/g,"");
+$("whatsapp").classList.toggle("hidden",phone.length<10);
+if(phone.length>=10)$("whatsapp").href=`https://wa.me/${phone}?text=${encodeURIComponent(t.whatsappMessage||"Olá!")}`;
+else $("whatsapp").removeAttribute("href");
+}
+function render(){renderTexts();renderVideo();renderTestimony();renderStudies()}
 for(const k of ["texts","videos","testimonies","studies"]){
-  onValue(ref(db,`${root}/${k}`),snap=>{
-    state[k]=snap.val()||(k==="texts"?{...defaults}:{});
-    render();
-    if(auth.currentUser&&tab===k&&
-       !document.activeElement?.closest("#tabContent"))
-      renderTab();
-  },e=>status("Erro de leitura: "+e.message));
+onValue(ref(db,`${root}/${k}`),snap=>{
+state[k]=snap.val()||(k==="texts"?{...defaults}:{});
+render();
+if(auth.currentUser&&tab===k&&!document.activeElement?.closest("#tabContent"))renderTab();
+},e=>status("Erro de leitura: "+e.message));
 }
-
 $("prevVideo").onclick=()=>{vi--;renderVideo()};
 $("nextVideo").onclick=()=>{vi++;renderVideo()};
 $("prevTestimony").onclick=()=>{ti--;renderTestimony()};
 $("nextTestimony").onclick=()=>{ti++;renderTestimony()};
-
 $("openAdmin").onclick=()=>$("adminOverlay").classList.remove("hidden");
 $("closeAdmin").onclick=()=>$("adminOverlay").classList.add("hidden");
 $("closeReader").onclick=()=>$("readerOverlay").classList.add("hidden");
-
 $("studies").onclick=e=>{
-  const b=e.target.closest("[data-read]");
-  if(!b)return;
-  const v=state.studies[b.dataset.read];
-  if(!v)return;
-  $("readerTitle").textContent=v.title;
-  $("readerContent").innerHTML=
-    (validHttps(v.image)?
-      `<img src="${esc(v.image)}" alt="">`:"")+
-    safeHTML(v.html);
-  $("readerOverlay").classList.remove("hidden");
+const b=e.target.closest("[data-read]");
+if(!b)return;
+const v=state.studies[b.dataset.read];
+if(!v)return;
+$("readerTitle").textContent=v.title;
+$("readerContent").innerHTML=(validHttps(v.image)?`<img src="${esc(v.image)}" alt="">`:"")+safeHTML(v.html);
+$("readerOverlay").classList.remove("hidden");
 };
-
 $("loginBtn").onclick=async()=>{
-  try{
-    status("Autenticando...");
-    await signInWithEmailAndPassword(
-      auth,$("loginEmail").value.trim(),$("loginPassword").value
-    );
-    $("loginPassword").value="";
-    status("");
-  }catch(e){status("Falha no login. Verifique sua conta Firebase.")}
+try{
+status("Autenticando...");
+await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);
+$("loginPassword").value="";status("");
+}catch(e){status("Falha no login. Verifique sua conta Firebase.")}
 };
-
 $("logoutBtn").onclick=()=>signOut(auth);
-
 onAuthStateChanged(auth,u=>{
-  $("loginView").classList.toggle("hidden",!!u);
-  $("adminView").classList.toggle("hidden",!u);
-  if(u){
-    $("loggedUser").textContent=u.email;
-    renderTab();
-  }else{
-    editing=null;status("");
-  }
+$("loginView").classList.toggle("hidden",!!u);
+$("adminView").classList.toggle("hidden",!u);
+if(u){$("loggedUser").textContent=u.email;renderTab()}
+else{editing=null;status("")}
 });
-
 $("tabs").onclick=e=>{
-  const b=e.target.closest("[data-tab]");
-  if(!b)return;
-  tab=b.dataset.tab;
-  editing=null;
-  document.querySelectorAll("#tabs button").forEach(x=>
-    x.classList.toggle("active",x===b));
-  renderTab();
+const b=e.target.closest("[data-tab]");
+if(!b)return;
+tab=b.dataset.tab;editing=null;
+document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("active",x===b));
+renderTab();
 };
-
 const textFields=[
-  ["brand","Nome da página"],
-  ["heroTitle","Título principal"],
-  ["heroText","Descrição principal"],
-  ["videosHeading","Título dos vídeos"],
-  ["videosSubtitle","Descrição dos vídeos"],
-  ["testimoniesHeading","Título dos testemunhos"],
-  ["testimoniesSubtitle","Descrição dos testemunhos"],
-  ["groupHeading","Título do grupo WhatsApp"],
-  ["groupSubtitle","Descrição do grupo"],
-  ["groupUrl","Link de convite do grupo WhatsApp"],
-  ["groupImageUrl","Link HTTPS da imagem do grupo WhatsApp"],
-  ["studiesHeading","Título dos estudos"],
-  ["studiesSubtitle","Descrição dos estudos"],
-  ["footerText","Texto do rodapé"],
-  ["tiktokUrl","Link do TikTok"],
-  ["youtubeUrl","Link do canal YouTube"],
-  ["whatsapp","WhatsApp de atendimento com DDI e DDD"],
-  ["whatsappMessage","Mensagem inicial do atendimento"]
+["brand","Nome da página"],
+["heroTitle","Título principal"],
+["heroText","Descrição principal"],
+["videosHeading","Título dos vídeos"],
+["videosSubtitle","Descrição dos vídeos"],
+["testimoniesHeading","Título dos testemunhos"],
+["testimoniesSubtitle","Descrição dos testemunhos"],
+["groupHeading","Título do grupo WhatsApp"],
+["groupSubtitle","Descrição do grupo"],
+["groupUrl","Link de convite do grupo WhatsApp"],
+["groupImageUrl","Link HTTPS da imagem do grupo WhatsApp"],
+["studiesHeading","Título dos estudos"],
+["studiesSubtitle","Descrição dos estudos"],
+["footerText","Texto do rodapé"],
+["tiktokUrl","Link do TikTok"],
+["youtubeUrl","Link do canal YouTube"],
+["whatsapp","WhatsApp de atendimento com DDI e DDD"],
+["whatsappMessage","Mensagem inicial do atendimento"]
 ];
-
 function field(id,label,value="",multi=false){
-  return `<div class="field">
-    <label for="${id}">${esc(label)}</label>
-    ${multi?
-      `<textarea id="${id}">${esc(value)}</textarea>`:
-      `<input id="${id}" value="${esc(value)}">`}
-  </div>`;
+return `<div class="field"><label for="${id}">${esc(label)}</label>${multi?`<textarea id="${id}">${esc(value)}</textarea>`:`<input id="${id}" value="${esc(value)}">`}</div>`;
 }
-
 async function save(p){
-  try{
-    status("Salvando...");
-    await p;
-    status("Salvo com sucesso.");
-    return true;
-  }catch(e){
-    status("Erro ao salvar: "+e.message);
-    return false;
-  }
+try{status("Salvando...");await p;status("Salvo com sucesso.");return true}
+catch(e){status("Erro ao salvar: "+e.message);return false}
 }
-
 function renderTab(){
-  if(!auth.currentUser)return;
-  quill=null;
-  const box=$("tabContent");
-
-  if(tab==="texts"){
-    box.innerHTML=`<div class="fields">
-      ${textFields.map(([k,l])=>field(
-        "f_"+k,l,state.texts[k]??defaults[k],
-        ["heroText","groupSubtitle","videosSubtitle",
-         "testimoniesSubtitle","studiesSubtitle"].includes(k)
-      )).join("")}
-      <button class="primary" id="saveTexts">
-        Salvar textos e links
-      </button>
-    </div>`;
-
-    $("saveTexts").onclick=async()=>{
-      const data={};
-      for(const [k] of textFields)
-        data[k]=$("f_"+k).value.trim();
-
-      if(data.groupUrl&&!validUrl(data.groupUrl,["chat.whatsapp.com"]))
-        return status("Informe um convite válido do WhatsApp.");
-      if(data.groupImageUrl&&!validHttps(data.groupImageUrl))
-        return status("A imagem do grupo precisa de um link HTTPS.");
-      if(data.tiktokUrl&&!validUrl(data.tiktokUrl,["tiktok.com"]))
-        return status("Informe um link válido do TikTok.");
-      if(data.youtubeUrl&&!validUrl(data.youtubeUrl,["youtube.com","youtu.be"]))
-        return status("Informe um link válido do YouTube.");
-
-      await save(set(ref(db,`${root}/texts`),data));
-    };
-    return;
-  }
-
-  const arr=items(tab);
-  const obj=editing?state[tab][editing]:null;
-  const label=tab==="videos"?"Vídeo":
-    tab==="testimonies"?"Testemunho":"Estudo bíblico";
-
-  box.innerHTML=`
-    <h3>${editing?"Editar":"Cadastrar"} ${label}</h3>
-    <div class="fields">
-      ${field("itemTitle","Título",obj?.title)}
-      ${field("itemUrl",tab==="videos"?
-        "Link do YouTube":"Link da imagem",
-        tab==="studies"?obj?.image:obj?.url)}
-      ${tab==="studies"?
-        field("itemSummary","Resumo",obj?.summary,true):""}
-      ${field("itemOrder","Ordem de exibição",obj?.order??arr.length)}
-      ${tab==="studies"?`
-        <div class="field">
-          <label>Texto do artigo — editor estilo Word</label>
-          <div id="editor"></div>
-        </div>`:""}
-      <div class="actions">
-        <button class="primary" id="saveItem">
-          ${editing?"Salvar alterações":"Adicionar"}
-        </button>
-        <button id="cancelItem">Limpar</button>
-      </div>
-    </div>
-    <h3>Conteúdos cadastrados</h3>
-    <div id="itemList">
-      ${arr.map(x=>`
-        <div class="edit-row">
-          <span>${esc(x.title)}</span>
-          <div class="actions">
-            <button data-edit="${esc(x.id)}">Editar</button>
-            <button data-delete="${esc(x.id)}">Excluir</button>
-          </div>
-        </div>
-      `).join("")||"<p>Nenhum conteúdo cadastrado.</p>"}
-    </div>
-  `;
-
-  if(tab==="studies"){
-    quill=new Quill("#editor",{
-      theme:"snow",
-      modules:{toolbar:[
-        [{header:[1,2,3,false]}],
-        [{font:[]}],
-        [{size:["small",false,"large","huge"]}],
-        ["bold","italic","underline","strike"],
-        [{color:[]},{background:[]}],
-        [{align:[]}],
-        [{list:"ordered"},{list:"bullet"}],
-        [{indent:"-1"},{indent:"+1"}],
-        ["blockquote","link","image"],
-        ["clean"]
-      ]}
-    });
-    quill.root.innerHTML=safeHTML(obj?.html||"");
-  }
-
-  $("cancelItem").onclick=()=>{
-    editing=null;renderTab();
-  };
-
-  $("saveItem").onclick=async()=>{
-    const title=$("itemTitle").value.trim();
-    const url=$("itemUrl").value.trim();
-    const order=Number($("itemOrder").value)||0;
-
-    if(!title)return status("Informe o título.");
-    if(tab==="videos"&&!youtubeId(url))
-      return status("Link do YouTube inválido.");
-    if(tab!=="videos"&&url&&!validHttps(url))
-      return status("A imagem precisa de um link HTTPS.");
-
-    const data={title,order,...(tab==="studies"?{
-      image:url,
-      summary:$("itemSummary").value.trim(),
-      html:safeHTML(quill.root.innerHTML)
-    }:{url})};
-
-    const target=editing?
-      ref(db,`${root}/${tab}/${editing}`):
-      push(ref(db,`${root}/${tab}`));
-
-    if(await save(set(target,data))){
-      editing=null;
-      renderTab();
-    }
-  };
-
-  $("itemList").onclick=async e=>{
-    const b=e.target.closest("button");
-    if(!b)return;
-    if(b.dataset.edit){
-      editing=b.dataset.edit;
-      renderTab();
-    }
-    if(b.dataset.delete&&confirm("Excluir este conteúdo?")){
-      await save(remove(ref(db,`${root}/${tab}/${b.dataset.delete}`)));
-    }
-  };
+if(!auth.currentUser)return;
+quill=null;
+const box=$("tabContent");
+if(tab==="texts"){
+box.innerHTML=`<div class="fields">${textFields.map(([k,l])=>field("f_"+k,l,state.texts[k]??defaults[k],["heroText","groupSubtitle","videosSubtitle","testimoniesSubtitle","studiesSubtitle"].includes(k))).join("")}<button class="primary" id="saveTexts">Salvar textos e links</button></div>`;
+$("saveTexts").onclick=async()=>{
+const data={};
+for(const [k] of textFields)data[k]=$("f_"+k).value.trim();
+if(data.groupUrl&&!validUrl(data.groupUrl,["chat.whatsapp.com"]))return status("Convite do WhatsApp inválido.");
+if(data.groupImageUrl&&!validHttps(data.groupImageUrl))return status("Imagem precisa de um link HTTPS.");
+if(data.tiktokUrl&&!validUrl(data.tiktokUrl,["tiktok.com"]))return status("Link do TikTok inválido.");
+if(data.youtubeUrl&&!validUrl(data.youtubeUrl,["youtube.com","youtu.be"]))return status("Link do YouTube inválido.");
+await save(set(ref(db,`${root}/texts`),data));
+};
+return;
+}
+const arr=items(tab),obj=editing?state[tab][editing]:null;
+const label=tab==="videos"?"Vídeo":tab==="testimonies"?"Testemunho":"Estudo bíblico";
+box.innerHTML=`
+<h3>${editing?"Editar":"Cadastrar"} ${label}</h3>
+<div class="fields">
+${field("itemTitle","Título",obj?.title)}
+${field("itemUrl",tab==="videos"?"Link do YouTube":"Link da imagem",tab==="studies"?obj?.image:obj?.url)}
+${tab==="studies"?field("itemSummary","Resumo",obj?.summary,true):""}
+${field("itemOrder","Ordem de exibição",obj?.order??arr.length)}
+${tab==="studies"?'<div class="field"><label>Texto do artigo — editor estilo Word</label><div id="editor"></div></div>':""}
+<div class="actions">
+<button class="primary" id="saveItem">${editing?"Salvar alterações":"Adicionar"}</button>
+<button id="cancelItem">Limpar</button>
+</div></div>
+<h3>Conteúdos cadastrados</h3>
+<div id="itemList">${arr.map(x=>`<div class="edit-row"><span>${esc(x.title)}</span><div class="actions"><button data-edit="${esc(x.id)}">Editar</button><button data-delete="${esc(x.id)}">Excluir</button></div></div>`).join("")||"<p>Nenhum conteúdo cadastrado.</p>"}</div>`;
+if(tab==="studies"){
+quill=new Quill("#editor",{theme:"snow",modules:{toolbar:[
+[{header:[1,2,3,false]}],[{font:[]}],[{size:["small",false,"large","huge"]}],
+["bold","italic","underline","strike"],[{color:[]},{background:[]}],
+[{align:[]}],[{list:"ordered"},{list:"bullet"}],
+[{indent:"-1"},{indent:"+1"}],["blockquote","link","image"],["clean"]
+]}});
+quill.root.innerHTML=safeHTML(obj?.html||"");
+}
+$("cancelItem").onclick=()=>{editing=null;renderTab()};
+$("saveItem").onclick=async()=>{
+const title=$("itemTitle").value.trim(),url=$("itemUrl").value.trim(),order=Number($("itemOrder").value)||0;
+if(!title)return status("Informe o título.");
+if(tab==="videos"&&!youtubeId(url))return status("Link do YouTube inválido.");
+if(tab!=="videos"&&url&&!validHttps(url))return status("Imagem precisa de um link HTTPS.");
+const data={title,order,...(tab==="studies"?{image:url,summary:$("itemSummary").value.trim(),html:safeHTML(quill.root.innerHTML)}:{url})};
+const target=editing?ref(db,`${root}/${tab}/${editing}`):push(ref(db,`${root}/${tab}`));
+if(await save(set(target,data))){editing=null;renderTab()}
+};
+$("itemList").onclick=async e=>{
+const b=e.target.closest("button");
+if(!b)return;
+if(b.dataset.edit){editing=b.dataset.edit;renderTab()}
+if(b.dataset.delete&&confirm("Excluir este conteúdo?")){
+await save(remove(ref(db,`${root}/${tab}/${b.dataset.delete}`)));
+}
+};
 }
 </script>
 </body>
