@@ -1,230 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vídeos | Restaurar - Jadir Brito</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vídeos | Restaurar</title>
 
 <style>
-:root {
-  --bg:#000;
-  --text:#fff;
-  --muted:#aaa;
-  --gold:#b89455;
-  --border:#292929;
-}
-* {box-sizing:border-box}
-html {scroll-behavior:smooth}
-body {
+*{box-sizing:border-box}
+body{
   margin:0;
   background:#000;
   color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
 }
-button,input {font:inherit}
-button {cursor:pointer}
-[hidden] {display:none!important}
-
-header {
-  padding:40px 15px 25px;
+header{
   text-align:center;
-  background:#000;
+  padding:38px 15px 24px;
 }
-header h1 {
-  font-size:clamp(32px,5vw,50px);
+h1{
   letter-spacing:3px;
+  font-size:clamp(30px,5vw,48px);
   margin:0 0 12px;
 }
-header p {color:#aaa;margin:0}
-
-nav {
+header p,.sub{color:#aaa}
+nav{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
   gap:8px;
-  padding:15px 10px;
   border-bottom:1px solid #292929;
+  padding:14px;
 }
-nav a {
+nav a{
   color:#fff;
   text-decoration:none;
-  padding:13px 20px;
   font-size:13px;
   font-weight:bold;
-  letter-spacing:1px;
+  padding:13px 18px;
   border-radius:6px;
 }
-nav a.active,nav a:hover {
-  background:var(--gold);
+nav a:hover,nav .active{
+  background:#b89455;
   color:#000;
 }
-
-main {
+main{
   max-width:1450px;
-  margin:auto;
-  padding:45px 20px 90px;
   min-height:65vh;
+  margin:auto;
+  padding:42px 20px 80px;
 }
-h2.page-title {
-  text-align:center;
-  font-size:clamp(27px,4vw,38px);
-  margin:0 0 15px;
-}
-.description {
-  color:#aaa;
-  text-align:center;
-  margin:0 0 45px;
-  line-height:1.7;
-}
-.video-grid {
+main h2,.sub{text-align:center}
+.sub{margin-bottom:38px}
+.grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:24px;
+  gap:22px;
 }
-.video-card {
+.card{
   border:1px solid #292929;
   border-radius:12px;
   overflow:hidden;
-  background:#000;
 }
-.video-player {
-  width:100%;
-  aspect-ratio:16/9;
-  background:#000;
-}
-.video-player iframe {
+.player{aspect-ratio:16/9}
+.player iframe{
   width:100%;
   height:100%;
   border:0;
   display:block;
 }
-.video-info {padding:16px}
-.video-info h3 {
+.card h3{
+  padding:15px;
   margin:0;
   font-size:16px;
   line-height:1.5;
   overflow-wrap:anywhere;
 }
-.empty {
+.empty{
   grid-column:1/-1;
   text-align:center;
-  padding:65px 15px;
+  color:#aaa;
+  padding:60px;
   border:1px dashed #444;
   border-radius:12px;
-  color:#aaa;
 }
-
-footer {
+footer{
   position:relative;
-  border-top:1px solid #292929;
-  padding:35px 20px;
   text-align:center;
+  border-top:1px solid #292929;
+  padding:30px;
   color:#aaa;
 }
-footer p {margin:8px 0}
-.admin-trigger {
+.a{
   position:absolute;
   bottom:8px;
   right:12px;
+  color:#444;
   background:none;
   border:0;
-  color:#ffffff30;
-  font-size:11px;
+  cursor:pointer;
 }
-.admin-trigger:hover {color:white}
-
-.overlay {
+.a:hover{color:white}
+.overlay{
   position:fixed;
   inset:0;
-  z-index:100;
   background:#000d;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display:grid;
+  place-items:center;
   padding:15px;
+  z-index:5;
 }
-.modal {
-  width:min(100%,760px);
+.overlay[hidden]{display:none}
+.modal{
+  width:min(760px,100%);
   max-height:94vh;
-  overflow-y:auto;
+  overflow:auto;
   background:#111;
   border:1px solid #333;
-  border-radius:14px;
-  padding:25px;
+  border-radius:12px;
+  padding:24px;
 }
-.modal h2 {margin:0 0 20px}
-.field {margin:16px 0}
-.field label {
-  display:block;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-.field input {
+.modal input{
   width:100%;
   padding:12px;
   background:#1b1b1b;
-  color:white;
   border:1px solid #444;
-  border-radius:8px;
+  color:white;
+  border-radius:7px;
+  margin:8px 0 14px;
 }
-.actions {
+.btn{
+  border:1px solid #444;
+  border-radius:7px;
+  background:#292929;
+  color:white;
+  padding:10px 14px;
+  cursor:pointer;
+}
+.gold{
+  background:#b89455;
+  color:#000;
+  border-color:#b89455;
+}
+.danger{background:#962424}
+.actions{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin:15px 0;
+  margin:12px 0;
 }
-.btn {
-  background:#292929;
-  color:white;
-  border:1px solid #444;
-  border-radius:7px;
-  padding:11px 16px;
-}
-.btn.gold {
-  background:var(--gold);
-  border-color:var(--gold);
-  color:#000;
-}
-.btn.danger {
-  background:#9f2020;
-  border-color:#9f2020;
-}
-.admin-item {
+.item{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  padding:14px;
-  margin:10px 0;
   border:1px solid #333;
   border-radius:9px;
+  padding:12px;
+  margin:10px 0;
 }
-.admin-item strong {
-  flex:1;
-  overflow-wrap:anywhere;
-}
-.admin-item .actions {margin:0}
-.admin-item .btn {padding:8px 10px}
-.message {color:#86efac;font-size:14px}
-.message.error {color:#fca5a5}
-hr {
-  border:0;
-  border-top:1px solid #333;
-  margin:25px 0;
-}
+.item strong{overflow-wrap:anywhere}
+.msg{color:#a7e9b3}
+.error{color:#fda4af}
+[hidden]{display:none!important}
 
-@media(max-width:1100px) {
-  .video-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-@media(max-width:800px) {
-  .video-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:800px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media(max-width:500px) {
-  .video-grid {grid-template-columns:1fr}
-  main {padding:30px 14px 60px}
-  nav a {padding:12px 9px;font-size:12px}
-  .modal {padding:17px}
-  .admin-item {flex-direction:column;align-items:stretch}
+@media(max-width:500px){
+  .grid{grid-template-columns:1fr}
+  .item{display:block}
+  nav a{padding:10px;font-size:12px}
 }
 </style>
 </head>
@@ -236,483 +184,496 @@ hr {
   <p>Mensagens de fé, esperança e restauração</p>
 </header>
 
-<nav aria-label="Menu principal">
-  <a href="videos.html" class="active">VÍDEOS</a>
+<nav>
+  <a class="active" href="videos.html">VÍDEOS</a>
   <a href="testemunhos.html">TESTEMUNHOS</a>
   <a href="estudos.html">ESTUDOS</a>
 </nav>
 
 <main>
-  <h2 class="page-title">VÍDEOS</h2>
-  <p class="description">
+  <h2>VÍDEOS</h2>
+  <p class="sub">
     Mensagens de fé, esperança e restauração para sua vida.
   </p>
-  <div class="video-grid" id="videoGrid"></div>
+  <div class="grid" id="grid">
+    <div class="empty">Carregando vídeos...</div>
+  </div>
 </main>
 
 <footer>
-  <p><strong>JADIR BRITO</strong></p>
+  <p><b>JADIR BRITO</b></p>
   <p>Fé • Esperança • Restauração</p>
-  <button class="admin-trigger" id="openAdmin"
-    aria-label="Administração">A</button>
+  <button class="a" id="open" aria-label="Administração">A</button>
 </footer>
 
-<!-- ACESSO POR SENHA -->
+<!-- LOGIN: SOMENTE SENHA -->
 
-<div class="overlay" id="loginOverlay" hidden>
+<div class="overlay" id="login" hidden>
   <div class="modal" style="max-width:400px">
-    <h2>Acesso Administrativo</h2>
-
+    <h2>Administração</h2>
     <form id="loginForm">
-      <div class="field">
-        <label for="adminPassword">Senha do ADM</label>
-        <input
-          id="adminPassword"
-          type="password"
-          inputmode="numeric"
-          autocomplete="off"
-          placeholder="Digite a senha"
-          required>
-      </div>
-
+      <label for="password">Senha do ADM</label>
+      <input
+        type="password"
+        id="password"
+        inputmode="numeric"
+        required
+        autocomplete="off"
+      >
       <div class="actions">
-        <button class="btn gold" type="submit">
-          Entrar
+        <button class="btn gold" type="submit">Entrar</button>
+        <button type="button" class="btn" id="cancel">
+          Cancelar
         </button>
-        <button class="btn" type="button"
-          id="cancelLogin">Cancelar</button>
       </div>
-      <p id="loginMessage" class="message"></p>
+      <p class="msg" id="loginMsg"></p>
     </form>
   </div>
 </div>
 
-<!-- PAINEL ADMINISTRATIVO -->
+<!-- ADMINISTRADOR -->
 
-<div class="overlay" id="adminOverlay" hidden>
+<div class="overlay" id="panel" hidden>
   <div class="modal">
-    <h2>Gerenciar Vídeos</h2>
+    <h2>Gerenciar vídeos</h2>
 
     <div class="actions">
-      <button class="btn gold" id="saveTop">
+      <button class="btn gold" id="save">
         Salvar alterações
       </button>
-      <button class="btn" id="closeAdmin">Fechar</button>
+      <button class="btn" id="close">Fechar</button>
       <button class="btn danger" id="logout">Sair</button>
     </div>
 
-    <p id="saveMessage" class="message"></p>
+    <p class="msg" id="msg"></p>
 
     <hr>
 
-    <h3>Cadastrar ou editar vídeo</h3>
-
     <form id="videoForm">
-      <input type="hidden" id="editIndex" value="-1">
+      <input type="hidden" id="editing" value="-1">
 
-      <div class="field">
-        <label for="videoTitle">Título do vídeo</label>
-        <input
-          id="videoTitle"
-          type="text"
-          maxlength="180"
-          placeholder="Título da mensagem"
-          required>
-      </div>
+      <label for="title">Título do vídeo</label>
+      <input id="title" required maxlength="180">
 
-      <div class="field">
-        <label for="videoUrl">Link do YouTube</label>
-        <input
-          id="videoUrl"
-          type="url"
-          placeholder="https://www.youtube.com/watch?v=..."
-          required>
-      </div>
+      <label for="url">Link do YouTube</label>
+      <input id="url" type="url" required>
 
       <div class="actions">
         <button class="btn gold" type="submit">
           Adicionar / Atualizar
         </button>
-        <button class="btn" type="button"
-          id="clearForm">Limpar</button>
+        <button type="button" class="btn" id="clear">
+          Limpar
+        </button>
       </div>
     </form>
 
     <hr>
 
     <h3>Vídeos cadastrados</h3>
-    <p style="color:#aaa;font-size:13px">
-      Utilize as setas para alterar a ordem dos vídeos.
-    </p>
-
-    <div id="adminVideoList"></div>
-
-    <hr>
+    <div id="list"></div>
 
     <button class="btn gold" id="saveBottom">
-      Salvar todas as alterações
+      Salvar alterações
     </button>
   </div>
 </div>
 
-<script>
-/*
-  CONFIGURAÇÕES
+<script type="module">
 
-  Atenção: esta senha é visível para quem
-  inspecionar o código-fonte da página.
-  Não use este modelo para proteger dados privados.
-*/
-const ADMIN_PASSWORD = "848218";
-const STORAGE_KEY = "jadir_restaurar_videos_v1";
+import {initializeApp} from
+'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
+
+import {
+  getFirestore,
+  doc,
+  onSnapshot,
+  setDoc
+} from
+'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+
+import {
+  getAuth,
+  signInWithCustomToken,
+  signOut,
+  onAuthStateChanged
+} from
+'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+
+/* FIREBASE DO SITE */
+
+const firebaseConfig = {
+  apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+  authDomain:"namoro-f18ac.firebaseapp.com",
+  databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+  projectId:"namoro-f18ac",
+  storageBucket:"namoro-f18ac.firebasestorage.app",
+  messagingSenderId:"336479537433",
+  appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+  measurementId:"G-1YLR1JNZYY"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const ref = doc(db,"restaurar","publico");
+
+const LOGIN_ENDPOINT =
+  "https://us-central1-namoro-f18ac.cloudfunctions.net/restaurarAdminLogin";
 
 const $ = id => document.getElementById(id);
 
 let videos = [];
-let draftVideos = [];
-let loggedIn = false;
+let draft = [];
 let dirty = false;
+let admin = false;
+let busy = false;
 
-function youtubeId(value) {
+/* IDENTIFICAR VÍDEO DO YOUTUBE */
+
+function idFrom(url) {
   try {
-    const url = new URL(value);
-    const host = url.hostname.toLowerCase();
+    const u = new URL(url);
     let id = "";
 
-    if (["youtu.be","www.youtu.be"].includes(host)) {
-      id = url.pathname.split("/")[1] || "";
+    if (["youtu.be","www.youtu.be"].includes(u.hostname)) {
+      id = u.pathname.split("/")[1] || "";
     } else if ([
       "youtube.com",
       "www.youtube.com",
       "m.youtube.com",
       "www.youtube-nocookie.com"
-    ].includes(host)) {
-      if (url.pathname === "/watch") {
-        id = url.searchParams.get("v") || "";
-      } else {
-        const match = url.pathname.match(
-          /^\/(?:embed|shorts|live)\/([^/]+)/
-        );
-        id = match ? match[1] : "";
-      }
+    ].includes(u.hostname)) {
+      id = u.pathname === "/watch"
+        ? u.searchParams.get("v") || ""
+        : (u.pathname.match(
+            /^\/(?:embed|shorts|live)\/([^/]+)/
+          ) || [])[1] || "";
     }
 
-    return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
+    return /^[\w-]{11}$/.test(id) ? id : null;
   } catch {
     return null;
   }
 }
 
-function normalizeVideos(items) {
-  if (!Array.isArray(items)) return [];
-
-  return items.filter(item =>
-    item &&
-    typeof item.url === "string" &&
-    youtubeId(item.url)
-  ).map(item => ({
-    title:String(item.title || "Mensagem").slice(0,180),
-    url:item.url
-  }));
+function normalize(items) {
+  return Array.isArray(items)
+    ? items.filter(x => x && idFrom(x.url)).map(x => ({
+        title:String(x.title || "Mensagem").slice(0,180),
+        url:String(x.url)
+      }))
+    : [];
 }
 
-function loadVideos() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    videos = saved ? normalizeVideos(JSON.parse(saved)) : [];
-  } catch(error) {
-    console.error("Erro ao carregar vídeos:",error);
-    videos = [];
-  }
-  renderVideos();
-}
+/* MOSTRAR VÍDEOS CADASTRADOS */
 
-function renderVideos() {
-  const grid = $("videoGrid");
+function render() {
+  const grid = $("grid");
   grid.replaceChildren();
 
   if (!videos.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "Em breve, novas mensagens.";
-    grid.append(empty);
+    const d = document.createElement("div");
+    d.className = "empty";
+    d.textContent = "Em breve, novas mensagens.";
+    grid.append(d);
     return;
   }
 
-  videos.forEach(item => {
-    const id = youtubeId(item.url);
-    if (!id) return;
-
+  for (const item of videos) {
     const card = document.createElement("article");
-    card.className = "video-card";
+    card.className = "card";
 
-    const player = document.createElement("div");
-    player.className = "video-player";
+    const p = document.createElement("div");
+    p.className = "player";
 
-    const iframe = document.createElement("iframe");
-    iframe.src =
+    const frame = document.createElement("iframe");
+    frame.src =
       "https://www.youtube-nocookie.com/embed/" +
-      encodeURIComponent(id) + "?rel=0";
-    iframe.title = item.title;
-    iframe.loading = "lazy";
-    iframe.allow =
+      idFrom(item.url) + "?rel=0";
+
+    frame.title = item.title;
+    frame.loading = "lazy";
+    frame.allow =
       "accelerometer; autoplay; clipboard-write; " +
       "encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.allowFullscreen = true;
+    frame.allowFullscreen = true;
 
-    player.append(iframe);
+    p.append(frame);
 
-    const info = document.createElement("div");
-    info.className = "video-info";
+    const h = document.createElement("h3");
+    h.textContent = item.title;
 
-    const title = document.createElement("h3");
-    title.textContent = item.title;
-
-    info.append(title);
-    card.append(player,info);
+    card.append(p,h);
     grid.append(card);
-  });
+  }
 }
 
-function showMessage(id,text,error=false) {
-  const el = $(id);
-  el.textContent = text;
-  el.className = "message" + (error ? " error" : "");
+function notice(text,error=false,el="msg") {
+  $(el).textContent = text;
+  $(el).className = "msg" + (error ? " error" : "");
 }
 
-function markDirty() {
-  dirty = true;
-  showMessage("saveMessage",
-    "Alterações pendentes. Clique em Salvar alterações.");
+function button(label,fn,cls="") {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "btn " + cls;
+  b.textContent = label;
+  b.onclick = fn;
+  return b;
 }
 
-function makeButton(text,callback,style="") {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "btn " + style;
-  button.textContent = text;
-  button.onclick = callback;
-  return button;
-}
+/* LISTA DO ADM */
 
-function renderAdminList() {
-  const list = $("adminVideoList");
+function renderList() {
+  const list = $("list");
   list.replaceChildren();
 
-  if (!draftVideos.length) {
-    const p = document.createElement("p");
-    p.textContent = "Nenhum vídeo cadastrado.";
-    list.append(p);
-    return;
-  }
-
-  draftVideos.forEach((item,index) => {
-    const box = document.createElement("div");
-    box.className = "admin-item";
+  draft.forEach((v,i) => {
+    const row = document.createElement("div");
+    row.className = "item";
 
     const title = document.createElement("strong");
-    title.textContent = `${index+1}. ${item.title}`;
+    title.textContent = (i+1) + ". " + v.title;
 
     const actions = document.createElement("div");
     actions.className = "actions";
 
     actions.append(
-      makeButton("Editar",() => editVideo(index)),
-      makeButton("↑",() => moveVideo(index,-1)),
-      makeButton("↓",() => moveVideo(index,1)),
-      makeButton("Excluir",() => deleteVideo(index),"danger")
+      button("Editar",() => {
+        $("editing").value = i;
+        $("title").value = v.title;
+        $("url").value = v.url;
+        $("title").focus();
+      }),
+
+      button("↑",() => move(i,-1)),
+      button("↓",() => move(i,1)),
+
+      button("Excluir",() => {
+        if (confirm("Excluir vídeo?")) {
+          draft.splice(i,1);
+          changed();
+          renderList();
+        }
+      },"danger")
     );
 
-    box.append(title,actions);
-    list.append(box);
+    row.append(title,actions);
+    list.append(row);
   });
 }
 
-function clearForm() {
+function changed() {
+  dirty = true;
+  notice("Alterações pendentes. Clique em Salvar alterações.");
+}
+
+function move(i,d) {
+  const j = i+d;
+  if (j<0 || j>=draft.length) return;
+
+  [draft[i],draft[j]] = [draft[j],draft[i]];
+  changed();
+  renderList();
+}
+
+function resetForm() {
   $("videoForm").reset();
-  $("editIndex").value = "-1";
+  $("editing").value = "-1";
 }
 
-function editVideo(index) {
-  const item = draftVideos[index];
-  if (!item) return;
+$("clear").onclick = resetForm;
 
-  $("editIndex").value = index;
-  $("videoTitle").value = item.title;
-  $("videoUrl").value = item.url;
-  $("videoTitle").focus();
-}
+$("videoForm").onsubmit = e => {
+  e.preventDefault();
 
-function moveVideo(index,delta) {
-  const target = index + delta;
+  const title = $("title").value.trim();
+  const url = $("url").value.trim();
 
-  if (target < 0 || target >= draftVideos.length) return;
-
-  [draftVideos[index],draftVideos[target]] =
-    [draftVideos[target],draftVideos[index]];
-
-  markDirty();
-  renderAdminList();
-}
-
-function deleteVideo(index) {
-  if (!confirm("Deseja excluir este vídeo?")) return;
-
-  draftVideos.splice(index,1);
-  markDirty();
-  renderAdminList();
-}
-
-$("videoForm").onsubmit = event => {
-  event.preventDefault();
-
-  const title = $("videoTitle").value.trim();
-  const url = $("videoUrl").value.trim();
-
-  if (!title || !youtubeId(url)) {
-    alert("Informe um título e um link válido do YouTube.");
+  if (!title || !idFrom(url)) {
+    alert("Informe título e URL válida do YouTube.");
     return;
   }
 
-  const index = Number($("editIndex").value);
-  const item = {title,url};
+  const i = Number($("editing").value);
 
-  if (index >= 0 && index < draftVideos.length) {
-    draftVideos[index] = item;
+  if (i>=0 && i<draft.length) {
+    draft[i] = {title,url};
   } else {
-    draftVideos.push(item);
+    draft.push({title,url});
   }
 
-  clearForm();
-  markDirty();
-  renderAdminList();
+  resetForm();
+  changed();
+  renderList();
 };
 
-$("clearForm").onclick = clearForm;
-
-/* LOGIN COM APENAS SENHA */
-
-$("openAdmin").onclick = () => {
-  if (loggedIn) {
-    openPanel();
-  } else {
-    $("loginOverlay").hidden = false;
-    $("adminPassword").value = "";
-    $("adminPassword").focus();
-  }
-};
-
-$("loginForm").onsubmit = event => {
-  event.preventDefault();
-
-  const password = $("adminPassword").value;
-
-  if (password === ADMIN_PASSWORD) {
-    loggedIn = true;
-    $("adminPassword").value = "";
-    $("loginOverlay").hidden = true;
-    openPanel();
-  } else {
-    showMessage("loginMessage","Senha incorreta.",true);
-    $("adminPassword").value = "";
-    $("adminPassword").focus();
-  }
-};
-
-$("cancelLogin").onclick = () => {
-  $("loginOverlay").hidden = true;
-};
+/* ABRIR ADMINISTRADOR */
 
 function openPanel() {
-  if (!loggedIn) return;
+  if (!admin) return;
 
-  draftVideos = structuredClone(videos);
+  draft = structuredClone(videos);
   dirty = false;
+  renderList();
+  resetForm();
+  notice("");
 
-  renderAdminList();
-  clearForm();
-  showMessage("saveMessage","");
-
-  $("adminOverlay").hidden = false;
+  $("login").hidden = true;
+  $("panel").hidden = false;
 }
 
-function closePanel() {
-  if (dirty && !confirm(
-    "Existem alterações não salvas. Deseja fechar?"
-  )) return;
+$("open").onclick = () => {
+  if (admin) {
+    openPanel();
+  } else {
+    $("login").hidden = false;
+    $("password").focus();
+  }
+};
 
-  dirty = false;
-  $("adminOverlay").hidden = true;
-}
+$("cancel").onclick = () => {
+  $("login").hidden = true;
+};
 
-$("closeAdmin").onclick = closePanel;
+/* LOGIN SOMENTE COM SENHA */
 
-$("logout").onclick = () => {
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+
+  notice("Validando senha...",false,"loginMsg");
+
+  try {
+    const res = await fetch(LOGIN_ENDPOINT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        password:$("password").value
+      })
+    });
+
+    if (!res.ok) throw Error("Acesso negado");
+
+    const data = await res.json();
+
+    if (!data.token) throw Error("Token ausente");
+
+    await signInWithCustomToken(auth,data.token);
+
+    $("password").value = "";
+    openPanel();
+
+  } catch(err) {
+    console.error(err);
+
+    notice(
+      "Senha incorreta ou serviço de login indisponível.",
+      true,
+      "loginMsg"
+    );
+  }
+};
+
+function close() {
   if (dirty && !confirm(
     "Descartar alterações não salvas?"
   )) return;
 
   dirty = false;
-  loggedIn = false;
-  $("adminOverlay").hidden = true;
+  $("panel").hidden = true;
+}
+
+$("close").onclick = close;
+
+$("logout").onclick = async () => {
+  if (dirty && !confirm(
+    "Descartar alterações não salvas?"
+  )) return;
+
+  dirty = false;
+  await signOut(auth);
+  $("panel").hidden = true;
 };
 
-/* SALVAMENTO LOCAL */
+onAuthStateChanged(auth,user => {
+  admin = !!user && user.uid === "restaurar-admin";
 
-function saveVideos() {
-  if (!loggedIn) {
-    showMessage("saveMessage","Acesso não autorizado.",true);
-    return;
+  if (!admin) {
+    $("panel").hidden = true;
   }
+});
+
+/* SALVAR NO FIREBASE */
+
+async function save() {
+  if (!admin || busy) return;
+
+  busy = true;
+  notice("Salvando...");
 
   try {
-    const normalized = normalizeVideos(draftVideos);
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(normalized)
+    await setDoc(
+      ref,
+      {videos:normalize(draft)},
+      {merge:true}
     );
 
-    videos = normalized;
-    draftVideos = structuredClone(videos);
+    videos = normalize(draft);
+    draft = structuredClone(videos);
     dirty = false;
 
-    renderVideos();
-    renderAdminList();
+    render();
+    renderList();
 
-    showMessage("saveMessage",
-      "Vídeos salvos neste navegador com sucesso!");
-  } catch(error) {
-    console.error(error);
-    showMessage("saveMessage",
-      "Não foi possível salvar. Verifique o armazenamento do navegador.",
-      true);
+    notice("Vídeos salvos no Firebase com sucesso!");
+
+  } catch(e) {
+    console.error(e);
+
+    notice(
+      "Erro ao salvar. Confira as regras do Firestore.",
+      true
+    );
+  } finally {
+    busy = false;
   }
 }
 
-$("saveTop").onclick = saveVideos;
-$("saveBottom").onclick = saveVideos;
+$("save").onclick = save;
+$("saveBottom").onclick = save;
 
-window.addEventListener("beforeunload",event => {
-  if (dirty) {
-    event.preventDefault();
-    event.returnValue = "";
-  }
-});
+/* CARREGAR VÍDEOS JÁ CADASTRADOS */
 
-document.addEventListener("keydown",event => {
-  if (event.key === "Escape") {
-    $("loginOverlay").hidden = true;
+onSnapshot(ref,snapshot => {
+  videos = normalize(
+    snapshot.exists() ? snapshot.data().videos : []
+  );
 
-    if (!$("adminOverlay").hidden) {
-      closePanel();
+  render();
+
+  if (!dirty) {
+    draft = structuredClone(videos);
+
+    if (!$("panel").hidden) {
+      renderList();
     }
   }
+
+},error => {
+  console.error(error);
+  $("grid").textContent =
+    "Erro ao carregar vídeos. Confira o Firestore.";
 });
 
-/* INICIALIZAÇÃO */
-loadVideos();
-</script>
+window.addEventListener("beforeunload",e => {
+  if (dirty) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});
 
+</script>
 </body>
 </html>
