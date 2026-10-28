@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,20 +18,19 @@ font-family:Arial,sans-serif;
 }
 
 header{
-padding:30px 15px;
 text-align:center;
+padding:30px 15px;
 border-bottom:1px solid #222;
 }
 
 header h1{
 margin:0 0 20px;
-font-size:30px;
 }
 
 nav{
 display:flex;
-justify-content:center;
 gap:25px;
+justify-content:center;
 flex-wrap:wrap;
 }
 
@@ -57,10 +55,7 @@ min-height:65vh;
 
 h2{
 font-size:25px;
-margin-bottom:25px;
 }
-
-/* GRADE */
 
 .grade{
 display:grid;
@@ -70,20 +65,19 @@ gap:20px;
 
 .card{
 position:relative;
-background:#101010;
+min-width:0;
 border:1px solid #282828;
 border-radius:10px;
+background:#101010;
 overflow:hidden;
-min-width:0;
 }
 
 .imagem-box{
-height:330px;
+height:340px;
 background:#080808;
 display:flex;
-justify-content:center;
 align-items:center;
-overflow:hidden;
+justify-content:center;
 }
 
 .imagem-box img{
@@ -91,52 +85,43 @@ width:100%;
 height:100%;
 object-fit:contain;
 cursor:zoom-in;
-display:block;
 }
 
 .legenda{
 padding:15px;
 color:#ccc;
-font-size:14px;
 line-height:1.6;
 overflow-wrap:anywhere;
 }
 
-/* BOTÃO X */
-
 .botao-x{
 position:absolute;
-top:9px;
 right:9px;
+top:9px;
+z-index:2;
 width:36px;
 height:36px;
 border-radius:50%;
-background:rgba(0,0,0,.88);
+background:#000d;
 color:#fff;
-border:1px solid #666;
-font-size:24px;
+border:1px solid #777;
+font-size:23px;
 cursor:pointer;
-z-index:5;
-display:flex;
-align-items:center;
-justify-content:center;
 }
 
 .botao-x:hover{
 background:#a32323;
 }
 
-/* AMPLIAÇÃO */
-
 .zoom{
 display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.97);
+background:#000f;
 z-index:200;
 align-items:center;
 justify-content:center;
-padding:20px;
+padding:16px;
 cursor:zoom-out;
 }
 
@@ -148,21 +133,13 @@ display:flex;
 max-width:100%;
 max-height:94vh;
 object-fit:contain;
-border-radius:5px;
 }
 
-.zoom-instrucao{
+.zoom small{
 position:absolute;
-bottom:12px;
-left:0;
-right:0;
-text-align:center;
-font-size:12px;
+bottom:10px;
 color:#aaa;
-pointer-events:none;
 }
-
-/* RODAPÉ */
 
 footer{
 padding:35px;
@@ -180,10 +157,7 @@ background:none;
 border:0;
 color:#393939;
 cursor:pointer;
-font-size:11px;
 }
-
-/* WHATSAPP */
 
 .whats{
 position:fixed;
@@ -207,8 +181,6 @@ width:22px;
 height:22px;
 fill:currentColor;
 }
-
-/* ADMINISTRADOR */
 
 .modal{
 display:none;
@@ -247,7 +219,7 @@ font:inherit;
 }
 
 textarea{
-min-height:100px;
+min-height:90px;
 }
 
 button.acao{
@@ -258,6 +230,10 @@ padding:12px 18px;
 border-radius:5px;
 font-weight:bold;
 cursor:pointer;
+}
+
+button.acao:disabled{
+opacity:.5;
 }
 
 button.excluir{
@@ -278,10 +254,6 @@ gap:12px;
 align-items:center;
 }
 
-.linha span{
-overflow-wrap:anywhere;
-}
-
 .fechar{
 float:right;
 background:transparent;
@@ -296,73 +268,50 @@ color:#aaa;
 line-height:1.6;
 }
 
+.erro{
+color:#ff8585;
+}
+
+.ok{
+color:#9be3ac;
+}
+
 hr{
 border:0;
 border-top:1px solid #333;
 margin:25px 0;
 }
 
-/* TABLET */
-
 @media(max-width:850px){
-
 .grade{
 grid-template-columns:repeat(2,minmax(0,1fr));
 }
-
-.imagem-box{
-height:300px;
 }
-
-}
-
-/* CELULAR */
 
 @media(max-width:550px){
-
-header h1{
-font-size:25px;
-}
-
 .grade{
 grid-template-columns:1fr;
-gap:16px;
 }
 
 .imagem-box{
-height:380px;
-}
-
-.whats{
-font-size:11px;
+height:390px;
 }
 
 main{
 padding:25px 12px;
 }
 
-.linha{
-align-items:flex-start;
-}
-
-}
-
-/* CELULARES PEQUENOS */
-
-@media(max-width:360px){
-
-.imagem-box{
-height:300px;
+.whats{
+font-size:11px;
 }
 
 nav{
-gap:14px;
+gap:15px;
 }
 
 nav a{
 font-size:12px;
 }
-
 }
 </style>
 </head>
@@ -380,18 +329,14 @@ font-size:12px;
 </header>
 
 <main>
-
 <h2>TESTEMUNHOS</h2>
 
-<div id="gradeTestemunhos" class="grade"></div>
-
-<p id="mensagemVazia" class="aviso" style="display:none">
-Nenhum testemunho cadastrado.
+<p id="estado" class="aviso">
+Carregando testemunhos...
 </p>
 
+<div id="gradeTestemunhos" class="grade"></div>
 </main>
-
-<!-- IMAGEM AMPLIADA -->
 
 <div
 id="zoom"
@@ -399,18 +344,10 @@ class="zoom"
 role="dialog"
 aria-modal="true"
 aria-label="Testemunho ampliado"
-onclick="fecharZoom()"
 >
-
 <img id="fotoZoom" alt="Testemunho ampliado">
-
-<div class="zoom-instrucao">
-Clique novamente para fechar
+<small>Clique para fechar</small>
 </div>
-
-</div>
-
-<!-- WHATSAPP -->
 
 <a
 id="whatsapp"
@@ -418,39 +355,32 @@ class="whats"
 target="_blank"
 rel="noopener"
 >
-
 <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4 9.4 9.4 0 01-4.8-1.3zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
 
 FALE COM O PROFETA
-
 </a>
 
 <footer>
-
 © RESTAURAR
 
 <button
+id="abrirADM"
 class="adm-btn"
-onclick="abrirADM()"
 aria-label="Administrador"
 >
 A
 </button>
-
 </footer>
 
-<!-- ADMINISTRADOR -->
-
 <div id="modal" class="modal">
-
 <div class="painel">
 
 <button
+id="fecharADM"
 class="fechar"
-onclick="fecharADM()"
-aria-label="Fechar administrador"
+aria-label="Fechar"
 >
 ×
 </button>
@@ -459,21 +389,41 @@ aria-label="Fechar administrador"
 
 <div id="login">
 
+<p class="aviso">
+Use o e-mail e a senha do Firebase Authentication,
+os mesmos da página VÍDEOS.
+</p>
+
 <input
-type="password"
-id="senha"
-placeholder="Senha do administrador"
+id="email"
+type="email"
+placeholder="E-mail"
+autocomplete="username"
 >
 
-<button class="acao" onclick="entrar()">
+<input
+id="senha"
+type="password"
+placeholder="Senha"
+autocomplete="current-password"
+>
+
+<button class="acao" id="entrar">
 ENTRAR
 </button>
 
-<p id="erro" style="color:#f66"></p>
-
+<p id="erro" class="erro"></p>
 </div>
 
 <div id="conteudoADM" style="display:none">
+
+<p id="usuarioAtual" class="aviso"></p>
+
+<button class="acao" id="sair">
+SAIR
+</button>
+
+<hr>
 
 <h3>Configurações gerais</h3>
 
@@ -483,7 +433,7 @@ ENTRAR
 <label>WhatsApp (somente números)</label>
 <input id="numeroWhats">
 
-<button class="acao" onclick="salvarConfig()">
+<button class="acao" id="salvarConfig">
 SALVAR CONFIGURAÇÕES
 </button>
 
@@ -491,101 +441,124 @@ SALVAR CONFIGURAÇÕES
 
 <h3>Cadastrar testemunho</h3>
 
-<label>Link da imagem</label>
-
 <input
 id="imagemLink"
-placeholder="https://site.com/imagem.jpg"
+placeholder="Link direto da imagem (https://...)"
 >
-
-<label>Descrição do testemunho</label>
 
 <textarea
 id="imagemLegenda"
 placeholder="Descrição (opcional)"
 ></textarea>
 
-<button class="acao" onclick="adicionarTestemunho()">
-SALVAR TESTEMUNHO
+<button class="acao" id="adicionarTestemunho">
+SALVAR TESTEMUNHO NO FIREBASE
+</button>
+
+<p id="mensagemADM" role="status"></p>
+
+<hr>
+
+<h3>Importar testemunhos antigos deste navegador</h3>
+
+<p class="aviso">
+Se você cadastrou imagens na versão antiga,
+clique para enviá-las ao Firebase.
+Imagens de outros dispositivos não podem
+ser recuperadas aqui.
+</p>
+
+<button class="acao" id="importarAntigos">
+IMPORTAR CADASTROS ANTIGOS
 </button>
 
 <hr>
 
-<h3>Testemunhos cadastrados</h3>
+<h3>Testemunhos no Firebase</h3>
 
 <div id="listaADM"></div>
 
-<p class="aviso">
-Os cadastros desta versão são salvos neste navegador.
-</p>
-
 </div>
 </div>
 </div>
 
-<script>
+<script type="module">
 
-const CHAVE="restaurar_site_v3";
-const SENHA="848218";
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 
-const FILA_CHAVE="restaurar_fila_testemunhos_v1";
+import {
+getDatabase,
+ref,
+onValue,
+push,
+set,
+remove,
+update
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
+import {
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain:"namoro-f18ac.firebaseapp.com",
+databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId:"namoro-f18ac",
+storageBucket:"namoro-f18ac.firebasestorage.app",
+messagingSenderId:"336479537433",
+appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId:"G-1YLR1JNZYY"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const auth=getAuth(app);
+
+const $=id=>document.getElementById(id);
+
+const testemunhosRef=ref(db,"restaurar/testemunhos");
+const configRef=ref(db,"restaurar/config");
+
+const FILA_KEY="restaurar_fila_testemunhos_firebase_v1";
+
+let testemunhos={};
 let ordem=[];
-let imagemAberta=false;
 
-function el(id){
-return document.getElementById(id);
+let config={
+titulo:"RESTAURAR",
+whatsapp:"5547999999999"
+};
+
+function msg(s,erro=false){
+
+$("mensagemADM").textContent=s;
+
+$("mensagemADM").className=erro?"erro":"ok";
+
 }
 
-function dados(){
+function estado(s,erro=false){
+
+$("estado").textContent=s;
+
+$("estado").className=erro?"erro":"aviso";
+
+}
+
+function urlValida(s){
 
 try{
 
-return JSON.parse(localStorage.getItem(CHAVE)) || {
-config:{
-titulo:"RESTAURAR",
-whatsapp:"5547999999999"
-},
-videos:[],
-testemunhos:[],
-estudos:[]
-};
+const u=new URL(s);
 
-}catch(e){
-
-return {
-config:{
-titulo:"RESTAURAR",
-whatsapp:"5547999999999"
-},
-videos:[],
-testemunhos:[],
-estudos:[]
-};
-
-}
-
-}
-
-function salvar(d){
-
-localStorage.setItem(
-CHAVE,
-JSON.stringify(d)
-);
-
-}
-
-function urlValida(url){
-
-try{
-
-const u=new URL(url);
-
-return (
-u.protocol==="https:" ||
-u.protocol==="http:"
-);
+return ["https:","http:"].includes(u.protocol);
 
 }catch(e){
 
@@ -595,32 +568,13 @@ return false;
 
 }
 
-function configurar(){
-
-const d=dados();
-
-el("tituloSite").textContent=
-d.config?.titulo||"RESTAURAR";
-
-el("whatsapp").href=
-"https://wa.me/"+
-String(
-d.config?.whatsapp||"5547999999999"
-).replace(/\D/g,"");
-
-}
-
-/* FILA INDIVIDUAL */
-
 function recuperarOrdem(){
 
 try{
 
-const valor=JSON.parse(
-localStorage.getItem(FILA_CHAVE)
-);
+const x=JSON.parse(localStorage.getItem(FILA_KEY));
 
-return Array.isArray(valor)?valor:[];
+return Array.isArray(x)?x:[];
 
 }catch(e){
 
@@ -635,7 +589,7 @@ function salvarOrdem(){
 try{
 
 localStorage.setItem(
-FILA_CHAVE,
+FILA_KEY,
 JSON.stringify(ordem)
 );
 
@@ -645,58 +599,95 @@ JSON.stringify(ordem)
 
 function atualizarOrdem(){
 
-const testemunhos=dados().testemunhos||[];
-
-const ids=testemunhos.map(t=>String(t.id));
+const ids=Object.keys(testemunhos).sort((a,b)=>
+(Number(testemunhos[b].criadoEm)||0)-
+(Number(testemunhos[a].criadoEm)||0)
+);
 
 const anterior=ordem.length
 ?ordem
 :recuperarOrdem();
 
-ordem=anterior.filter(
-id=>ids.includes(String(id))
-);
+ordem=anterior.filter(k=>ids.includes(k));
 
-const novos=ids.filter(
-id=>!ordem.includes(id)
-);
-
-ordem=[...novos,...ordem];
+ordem=[
+...ids.filter(k=>!ordem.includes(k)),
+...ordem
+];
 
 salvarOrdem();
 
 }
 
-function listaOrdenada(){
-
-const testemunhos=dados().testemunhos||[];
+function moverFinal(k){
 
 atualizarOrdem();
 
-return ordem
-.map(id=>testemunhos.find(
-t=>String(t.id)===String(id)
-))
-.filter(Boolean);
+if(!ordem.includes(k))return;
+
+ordem=ordem.filter(x=>x!==k);
+
+ordem.push(k);
+
+salvarOrdem();
+
+render();
 
 }
 
-/* EXIBIR GRADE */
+function abrirZoom(t){
+
+$("fotoZoom").src=t.imagem;
+
+$("fotoZoom").alt=t.legenda||"Testemunho ampliado";
+
+$("zoom").classList.add("aberto");
+
+document.body.style.overflow="hidden";
+
+}
+
+function fecharZoom(){
+
+$("zoom").classList.remove("aberto");
+
+$("fotoZoom").removeAttribute("src");
+
+document.body.style.overflow="";
+
+}
+
+$("zoom").onclick=fecharZoom;
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape"){
+
+fecharZoom();
+
+$("modal").classList.remove("aberto");
+
+}
+
+});
 
 function render(){
 
-configurar();
+atualizarOrdem();
 
-const area=el("gradeTestemunhos");
+const area=$("gradeTestemunhos");
 
 area.replaceChildren();
 
-const testemunhos=listaOrdenada();
+estado(
+ordem.length?"":"Nenhum testemunho cadastrado no Firebase."
+);
 
-el("mensagemVazia").style.display=
-testemunhos.length?"none":"block";
+for(const key of ordem){
 
-testemunhos.forEach(t=>{
+const t=testemunhos[key];
+
+if(!t||!urlValida(t.imagem))continue;
 
 const card=document.createElement("article");
 
@@ -709,255 +700,95 @@ box.className="imagem-box";
 const img=document.createElement("img");
 
 img.src=t.imagem;
+
 img.alt=t.legenda||"Testemunho";
+
 img.loading="lazy";
+
 img.tabIndex=0;
 
-img.onclick=()=>ampliar(t.imagem,t.legenda);
+img.onclick=()=>abrirZoom(t);
 
 img.onkeydown=e=>{
 
 if(e.key==="Enter"||e.key===" "){
+
 e.preventDefault();
-ampliar(t.imagem,t.legenda);
+
+abrirZoom(t);
+
 }
 
 };
 
-const botao=document.createElement("button");
+img.onerror=()=>{
 
-botao.className="botao-x";
+img.alt="Não foi possível carregar a imagem. Confira o link no ADM.";
 
-botao.textContent="×";
+};
 
-botao.title="Mover testemunho para o final";
+const x=document.createElement("button");
 
-botao.setAttribute(
+x.className="botao-x";
+
+x.textContent="×";
+
+x.title="Mover para o final da fila";
+
+x.setAttribute(
 "aria-label",
-"Mover testemunho para o final da lista"
+"Mover testemunho para o final"
 );
 
-botao.onclick=()=>moverParaFinal(t.id);
+x.onclick=()=>moverFinal(key);
 
-box.append(img,botao);
+box.append(img,x);
 
 card.append(box);
 
 if(t.legenda){
 
-const legenda=document.createElement("div");
+const p=document.createElement("div");
 
-legenda.className="legenda";
+p.className="legenda";
 
-legenda.textContent=t.legenda;
+p.textContent=t.legenda;
 
-card.append(legenda);
+card.append(p);
 
 }
 
 area.append(card);
 
-});
-
 }
-
-/* X: MOVER PARA O FINAL */
-
-function moverParaFinal(id){
-
-const chave=String(id);
-
-atualizarOrdem();
-
-if(!ordem.includes(chave))return;
-
-ordem=ordem.filter(
-item=>item!==chave
-);
-
-ordem.push(chave);
-
-salvarOrdem();
-
-render();
-
-}
-
-/* AMPLIAR E RECUAR IMAGEM */
-
-function ampliar(url,legenda){
-
-if(!urlValida(url))return;
-
-imagemAberta=true;
-
-el("fotoZoom").src=url;
-
-el("fotoZoom").alt=legenda||"Testemunho ampliado";
-
-el("zoom").classList.add("aberto");
-
-document.body.style.overflow="hidden";
-
-}
-
-function fecharZoom(){
-
-if(!imagemAberta)return;
-
-imagemAberta=false;
-
-el("zoom").classList.remove("aberto");
-
-el("fotoZoom").removeAttribute("src");
-
-document.body.style.overflow="";
-
-}
-
-document.addEventListener("keydown",function(e){
-
-if(e.key==="Escape"){
-
-fecharZoom();
-
-fecharADM();
-
-}
-
-});
-
-/* ADMINISTRADOR */
-
-function abrirADM(){
-
-el("modal").classList.add("aberto");
-
-if(
-sessionStorage.getItem("restaurar_adm")==="sim"
-){
-
-mostrarADM();
-
-}
-
-}
-
-function fecharADM(){
-
-el("modal").classList.remove("aberto");
-
-}
-
-function entrar(){
-
-if(el("senha").value.trim()===SENHA){
-
-sessionStorage.setItem(
-"restaurar_adm",
-"sim"
-);
-
-el("erro").textContent="";
-
-mostrarADM();
-
-}else{
-
-el("erro").textContent="Senha incorreta.";
-
-}
-
-}
-
-function mostrarADM(){
-
-el("login").style.display="none";
-
-el("conteudoADM").style.display="block";
-
-const d=dados();
-
-el("nomeSite").value=
-d.config?.titulo||"RESTAURAR";
-
-el("numeroWhats").value=
-d.config?.whatsapp||"";
 
 listarADM();
 
 }
 
-function salvarConfig(){
+function configurar(){
 
-const d=dados();
+$("tituloSite").textContent=config.titulo||"RESTAURAR";
 
-d.config={
-titulo:el("nomeSite").value.trim()||"RESTAURAR",
-whatsapp:el("numeroWhats").value.replace(/\D/g,"")
-};
+$("whatsapp").href=
+"https://wa.me/"+
+String(config.whatsapp||"5547999999999").replace(/\D/g,"");
 
-salvar(d);
+$("nomeSite").value=config.titulo||"RESTAURAR";
 
-render();
-
-alert("Configurações salvas!");
+$("numeroWhats").value=config.whatsapp||"";
 
 }
-
-/* CADASTRAR TESTEMUNHO */
-
-function adicionarTestemunho(){
-
-const imagem=el("imagemLink").value.trim();
-
-const legenda=el("imagemLegenda").value.trim();
-
-if(!urlValida(imagem)){
-
-alert("Informe um link válido de imagem.");
-
-return;
-
-}
-
-const d=dados();
-
-d.testemunhos=d.testemunhos||[];
-
-d.testemunhos.push({
-
-id:Date.now().toString()+"-"+Math.random().toString(36).slice(2),
-
-imagem:imagem,
-
-legenda:legenda
-
-});
-
-salvar(d);
-
-el("imagemLink").value="";
-
-el("imagemLegenda").value="";
-
-render();
-
-listarADM();
-
-alert("Testemunho salvo com sucesso!");
-
-}
-
-/* LISTAR NO ADMINISTRADOR */
 
 function listarADM(){
 
-const area=el("listaADM");
+const area=$("listaADM");
 
 area.replaceChildren();
 
-(dados().testemunhos||[]).forEach((t,i)=>{
+if(!auth.currentUser)return;
+
+for(const [key,t] of Object.entries(testemunhos).reverse()){
 
 const div=document.createElement("div");
 
@@ -965,8 +796,7 @@ div.className="linha";
 
 const span=document.createElement("span");
 
-span.textContent=
-t.legenda||"Testemunho "+(i+1);
+span.textContent=t.legenda||"Testemunho";
 
 const btn=document.createElement("button");
 
@@ -974,51 +804,270 @@ btn.className="excluir";
 
 btn.textContent="EXCLUIR";
 
-btn.onclick=()=>excluirTestemunho(t.id);
+btn.onclick=async()=>{
+
+if(!confirm("Excluir este testemunho do Firebase?"))return;
+
+try{
+
+await remove(
+ref(db,"restaurar/testemunhos/"+key)
+);
+
+msg("Testemunho excluído.");
+
+}catch(e){
+
+msg("Erro: "+e.message,true);
+
+}
+
+};
 
 div.append(span,btn);
 
 area.append(div);
 
-});
+}
 
 }
 
-/* EXCLUSÃO DEFINITIVA SOMENTE NO ADM */
+$("abrirADM").onclick=()=>{
 
-function excluirTestemunho(id){
+$("modal").classList.add("aberto");
 
-if(!confirm("Deseja excluir este testemunho?"))return;
+};
 
-const d=dados();
+$("fecharADM").onclick=()=>{
 
-d.testemunhos=(d.testemunhos||[]).filter(
-t=>String(t.id)!==String(id)
+$("modal").classList.remove("aberto");
+
+};
+
+$("entrar").onclick=async()=>{
+
+try{
+
+$("erro").textContent="";
+
+await signInWithEmailAndPassword(
+auth,
+$("email").value.trim(),
+$("senha").value
 );
 
-salvar(d);
+}catch(e){
 
-ordem=ordem.filter(
-item=>item!==String(id)
-);
+$("erro").textContent="Falha no login: "+e.code;
 
-salvarOrdem();
+}
 
-render();
+};
+
+$("sair").onclick=()=>signOut(auth);
+
+onAuthStateChanged(auth,u=>{
+
+$("login").style.display=u?"none":"block";
+
+$("conteudoADM").style.display=u?"block":"none";
+
+$("usuarioAtual").textContent=u
+?"Conectado: "+u.email
+:"";
+
+if(u){
+
+configurar();
 
 listarADM();
 
 }
 
-/* SINCRONIZAR ABAS */
+});
 
-window.addEventListener("storage",function(e){
+$("salvarConfig").onclick=async()=>{
 
-if(e.key===CHAVE||e.key===FILA_CHAVE){
+try{
 
-if(e.key===FILA_CHAVE){
-ordem=recuperarOrdem();
+await update(configRef,{
+
+titulo:$("nomeSite").value.trim()||"RESTAURAR",
+
+whatsapp:$("numeroWhats").value.replace(/\D/g,"")
+
+});
+
+msg("Configurações salvas no Firebase.");
+
+}catch(e){
+
+msg("Erro: "+e.message,true);
+
 }
+
+};
+
+$("adicionarTestemunho").onclick=async()=>{
+
+const imagem=$("imagemLink").value.trim();
+
+const legenda=$("imagemLegenda").value.trim();
+
+if(!urlValida(imagem)){
+
+msg("Informe um link válido de imagem.",true);
+
+return;
+
+}
+
+const btn=$("adicionarTestemunho");
+
+btn.disabled=true;
+
+try{
+
+await set(push(testemunhosRef),{
+
+imagem,
+legenda,
+criadoEm:Date.now()
+
+});
+
+$("imagemLink").value="";
+
+$("imagemLegenda").value="";
+
+msg("Testemunho salvo no Firebase com sucesso!");
+
+}catch(e){
+
+msg("Erro ao salvar: "+e.message,true);
+
+}finally{
+
+btn.disabled=false;
+
+}
+
+};
+
+$("importarAntigos").onclick=async()=>{
+
+let antigos=[];
+
+try{
+
+const d=JSON.parse(
+localStorage.getItem("restaurar_site_v3")||"{}"
+);
+
+antigos=Array.isArray(d.testemunhos)
+?d.testemunhos
+:[];
+
+}catch(e){}
+
+if(!antigos.length){
+
+msg("Nenhum testemunho antigo encontrado neste navegador.",true);
+
+return;
+
+}
+
+if(!confirm(
+"Importar "+antigos.length+
+" testemunho(s) antigos para o Firebase?"
+))return;
+
+const btn=$("importarAntigos");
+
+btn.disabled=true;
+
+let feitos=0;
+
+try{
+
+for(const t of antigos){
+
+if(!urlValida(t.imagem))continue;
+
+await set(push(testemunhosRef),{
+
+imagem:t.imagem,
+
+legenda:t.legenda||"",
+
+criadoEm:Date.now()+feitos,
+
+origemLocalId:String(t.id||"")
+
+});
+
+feitos++;
+
+}
+
+msg(
+feitos+" testemunho(s) importado(s). "+
+"Atenção: importar novamente pode duplicar imagens."
+);
+
+}catch(e){
+
+msg(
+"Importação interrompida após "+
+feitos+" imagem(ns): "+e.message,
+true
+);
+
+}finally{
+
+btn.disabled=false;
+
+}
+
+};
+
+onValue(testemunhosRef,s=>{
+
+testemunhos=s.val()||{};
+
+render();
+
+},e=>{
+
+estado(
+"Erro ao carregar testemunhos: "+e.message,
+true
+);
+
+});
+
+onValue(configRef,s=>{
+
+config={
+titulo:"RESTAURAR",
+whatsapp:"5547999999999",
+...(s.val()||{})
+};
+
+configurar();
+
+},e=>{
+
+console.error("Erro nas configurações:",e);
+
+});
+
+window.addEventListener("storage",e=>{
+
+if(e.key===FILA_KEY){
+
+ordem=recuperarOrdem();
 
 render();
 
@@ -1026,11 +1075,6 @@ render();
 
 });
 
-/* INICIALIZAÇÃO */
-
-render();
-
 </script>
-
 </body>
 </html>
