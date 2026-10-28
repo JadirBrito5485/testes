@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -27,23 +26,27 @@ footer{padding:35px;text-align:center;border-top:1px solid #222;color:#777;posit
 .modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:25px}
 .modal.aberto{display:block}
 .painel{max-width:750px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
-input,textarea,select{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
+input,textarea{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
 textarea{min-height:100px}
 button.acao{background:#d4aa55;color:#000;border:0;padding:12px 18px;border-radius:5px;font-weight:bold;cursor:pointer}
+button.acao:disabled{opacity:.5;cursor:wait}
 button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:5px;cursor:pointer}
 .linha{padding:14px 0;border-bottom:1px solid #333;display:flex;justify-content:space-between;gap:12px;align-items:center}
 .fechar{float:right;background:transparent;color:#fff;border:0;font-size:25px;cursor:pointer}
-.aviso{color:#aaa}
+.aviso{color:#aaa;line-height:1.5}
+.erro{color:#ff8585}
+.ok{color:#9be3ac}
 @media(max-width:850px){.grade{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:550px){.grade{grid-template-columns:1fr}header h1{font-size:25px}.whats{font-size:11px}}
 </style>
 </head>
+
 <body>
 
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
 <nav>
-<a class="active" href="videos.html">VÍDEOS</a>
+<a class="active" href="index.html">VÍDEOS</a>
 <a href="testemunhos.html">TESTEMUNHOS</a>
 <a href="estudos.html">ESTUDOS</a>
 </nav>
@@ -51,6 +54,7 @@ button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:
 
 <main>
 <h2>VÍDEOS</h2>
+<p id="estado" class="aviso">Carregando vídeos...</p>
 <div id="gradeVideos" class="grade"></div>
 </main>
 
@@ -63,145 +67,359 @@ FALE COM O PROFETA
 
 <footer>
 © RESTAURAR
-<button class="adm-btn" onclick="abrirADM()">A</button>
+<button class="adm-btn" id="abrirADM">A</button>
 </footer>
 
 <div id="modal" class="modal">
 <div class="painel">
-<button class="fechar" onclick="fecharADM()">×</button>
+
+<button class="fechar" id="fecharADM" aria-label="Fechar">×</button>
 <h2>ADMINISTRADOR</h2>
 
 <div id="login">
-<input type="password" id="senha" placeholder="Senha do administrador">
-<button class="acao" onclick="entrar()">ENTRAR</button>
-<p id="erro" style="color:#f66"></p>
+<p class="aviso">
+Entre com o e-mail e a senha cadastrados no Firebase Authentication.
+</p>
+
+<input id="email" type="email"
+placeholder="E-mail do administrador"
+autocomplete="username">
+
+<input id="senha" type="password"
+placeholder="Senha do Firebase"
+autocomplete="current-password">
+
+<button class="acao" id="entrar">ENTRAR</button>
+<p id="erro" class="erro" role="alert"></p>
 </div>
 
 <div id="conteudoADM" style="display:none">
+
+<p id="usuarioAtual" class="aviso"></p>
+<button class="acao" id="sair">SAIR</button>
+
+<hr>
+
 <h3>Configurações gerais</h3>
 <label>Nome do site</label>
 <input id="nomeSite">
+
 <label>WhatsApp (somente números)</label>
 <input id="numeroWhats">
-<button class="acao" onclick="salvarConfig()">SALVAR CONFIGURAÇÕES</button>
+
+<button class="acao" id="salvarConfig">
+SALVAR CONFIGURAÇÕES
+</button>
 
 <hr>
+
 <h3>Cadastrar vídeo</h3>
+
 <input id="videoTitulo" placeholder="Título do vídeo">
 <input id="videoLink" placeholder="Link do YouTube">
-<textarea id="videoDescricao" placeholder="Descrição (opcional)"></textarea>
-<button class="acao" onclick="adicionarVideo()">SALVAR VÍDEO</button>
+
+<textarea id="videoDescricao"
+placeholder="Descrição (opcional)"></textarea>
+
+<button class="acao" id="adicionarVideo">
+SALVAR VÍDEO NO FIREBASE
+</button>
+
+<p id="mensagemADM" role="status"></p>
 
 <h3>Vídeos cadastrados</h3>
 <div id="listaADM"></div>
-<p class="aviso">As alterações são salvas neste navegador.</p>
+
 </div>
 </div>
 </div>
 
-<script>
-const CHAVE="restaurar_site_v3";
-const SENHA="848218";
+<script type="module">
 
-function dados(){
-try{
-return JSON.parse(localStorage.getItem(CHAVE)) || {
-config:{titulo:"RESTAURAR",whatsapp:"5547999999999"},
-videos:[],testemunhos:[],estudos:[]
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+onValue,
+push,
+set,
+remove,
+update
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain: "namoro-f18ac.firebaseapp.com",
+databaseURL: "https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId: "namoro-f18ac",
+storageBucket: "namoro-f18ac.firebasestorage.app",
+messagingSenderId: "336479537433",
+appId: "1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId: "G-1YLR1JNZYY"
 };
-}catch(e){return {config:{titulo:"RESTAURAR",whatsapp:"5547999999999"},videos:[],testemunhos:[],estudos:[]}}
-}
-function salvar(d){localStorage.setItem(CHAVE,JSON.stringify(d))}
-function el(id){return document.getElementById(id)}
-function texto(t){return String(t||"")}
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+const $ = id => document.getElementById(id);
+
+let videos = {};
+let config = {
+titulo:"RESTAURAR",
+whatsapp:"5547999999999"
+};
+
+const videosRef = ref(db,"restaurar/videos");
+const configRef = ref(db,"restaurar/config");
+
 function youtubeID(url){
 try{
-const u=new URL(url);
-let h=u.hostname.replace(/^www\./,"");
-let id="";
-if(h==="youtu.be")id=u.pathname.slice(1).split("/")[0];
-else if(["youtube.com","m.youtube.com","youtube-nocookie.com"].includes(h)){
-if(u.pathname==="/watch")id=u.searchParams.get("v")||"";
-else if(/^\/(shorts|embed|live)\//.test(u.pathname))id=u.pathname.split("/")[2];
+const u = new URL(url);
+const h = u.hostname.replace(/^www\./,"");
+let id = "";
+
+if(h==="youtu.be"){
+id=u.pathname.slice(1).split("/")[0];
+}else if([
+"youtube.com",
+"m.youtube.com",
+"youtube-nocookie.com"
+].includes(h)){
+if(u.pathname==="/watch"){
+id=u.searchParams.get("v")||"";
+}else if(/^\/(shorts|embed|live)\//.test(u.pathname)){
+id=u.pathname.split("/")[2];
 }
+}
+
 return /^[\w-]{11}$/.test(id)?id:null;
-}catch(e){return null}
+}catch(e){
+return null;
 }
-function configurar(){
-const d=dados();
-el("tituloSite").textContent=d.config?.titulo||"RESTAURAR";
-el("whatsapp").href="https://wa.me/"+(d.config?.whatsapp||"5547999999999").replace(/\D/g,"");
 }
+
+function status(msg,error=false){
+$("estado").textContent=msg;
+$("estado").className=error?"erro":"aviso";
+}
+
+function mensagem(msg,error=false){
+$("mensagemADM").textContent=msg;
+$("mensagemADM").className=error?"erro":"ok";
+}
+
 function render(){
-configurar();
-const area=el("gradeVideos");area.replaceChildren();
-const videos=dados().videos||[];
-if(!videos.length){area.textContent="Nenhum vídeo cadastrado.";return}
-videos.forEach(v=>{
-const id=youtubeID(v.link);if(!id)return;
-const card=document.createElement("article");card.className="card";
+
+const area=$("gradeVideos");
+area.replaceChildren();
+
+const lista=Object.entries(videos).reverse();
+
+status(lista.length?"":"Nenhum vídeo cadastrado.");
+
+for(const [key,v] of lista){
+
+const id=youtubeID(v.link);
+if(!id)continue;
+
+const card=document.createElement("article");
+card.className="card";
+
 const frame=document.createElement("iframe");
 frame.src="https://www.youtube-nocookie.com/embed/"+id;
-frame.title=v.titulo;frame.loading="lazy";
+frame.title=v.titulo||"Vídeo";
+frame.loading="lazy";
 frame.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 frame.allowFullscreen=true;
-const h=document.createElement("h3");h.textContent=v.titulo;
-const p=document.createElement("p");p.textContent=v.descricao||"";
-card.append(frame,h,p);area.append(card);
-});
+
+const h=document.createElement("h3");
+h.textContent=v.titulo||"";
+
+const p=document.createElement("p");
+p.textContent=v.descricao||"";
+
+card.append(frame,h,p);
+area.append(card);
+
 }
-function abrirADM(){
-el("modal").classList.add("aberto");
-if(sessionStorage.getItem("restaurar_adm")==="sim")mostrarADM();
-}
-function fecharADM(){el("modal").classList.remove("aberto")}
-function entrar(){
-if(el("senha").value===SENHA){
-sessionStorage.setItem("restaurar_adm","sim");
-mostrarADM();
-}else el("erro").textContent="Senha incorreta.";
-}
-function mostrarADM(){
-el("login").style.display="none";
-el("conteudoADM").style.display="block";
-const d=dados();
-el("nomeSite").value=d.config?.titulo||"RESTAURAR";
-el("numeroWhats").value=d.config?.whatsapp||"";
+
 listarADM();
 }
-function salvarConfig(){
-const d=dados();
-d.config={titulo:el("nomeSite").value.trim()||"RESTAURAR",
-whatsapp:el("numeroWhats").value.replace(/\D/g,"")};
-salvar(d);render();alert("Configurações salvas!");
+
+function configurar(){
+
+$("tituloSite").textContent=config.titulo||"RESTAURAR";
+
+$("whatsapp").href="https://wa.me/"+
+String(config.whatsapp||"5547999999999").replace(/\D/g,"");
+
+$("nomeSite").value=config.titulo||"RESTAURAR";
+$("numeroWhats").value=config.whatsapp||"";
+
 }
-function adicionarVideo(){
-const titulo=el("videoTitulo").value.trim();
-const link=el("videoLink").value.trim();
-if(!titulo||!youtubeID(link)){alert("Informe título e link válido do YouTube.");return}
-const d=dados();d.videos=d.videos||[];
-d.videos.push({id:Date.now(),titulo,link,descricao:el("videoDescricao").value.trim()});
-salvar(d);
-el("videoTitulo").value="";el("videoLink").value="";el("videoDescricao").value="";
-render();listarADM();alert("Vídeo salvo!");
-}
+
 function listarADM(){
-const area=el("listaADM");area.replaceChildren();
-(dados().videos||[]).forEach(v=>{
-const div=document.createElement("div");div.className="linha";
-const span=document.createElement("span");span.textContent=v.titulo;
-const btn=document.createElement("button");btn.className="excluir";btn.textContent="EXCLUIR";
-btn.onclick=()=>excluirVideo(v.id);
-div.append(span,btn);area.append(div);
+
+const area=$("listaADM");
+area.replaceChildren();
+
+if(!auth.currentUser)return;
+
+for(const [key,v] of Object.entries(videos).reverse()){
+
+const div=document.createElement("div");
+div.className="linha";
+
+const span=document.createElement("span");
+span.textContent=v.titulo||"Vídeo";
+
+const btn=document.createElement("button");
+btn.className="excluir";
+btn.textContent="EXCLUIR";
+
+btn.onclick=async()=>{
+
+if(!confirm("Excluir este vídeo do Firebase?"))return;
+
+try{
+await remove(ref(db,"restaurar/videos/"+key));
+mensagem("Vídeo excluído.");
+}catch(e){
+mensagem("Erro ao excluir: "+e.message,true);
+}
+
+};
+
+div.append(span,btn);
+area.append(div);
+
+}
+
+}
+
+$("abrirADM").onclick=()=>{
+$("modal").classList.add("aberto");
+};
+
+$("fecharADM").onclick=()=>{
+$("modal").classList.remove("aberto");
+};
+
+$("entrar").onclick=async()=>{
+
+const email=$("email").value.trim();
+const senha=$("senha").value;
+
+$("erro").textContent="";
+
+try{
+await signInWithEmailAndPassword(auth,email,senha);
+}catch(e){
+$("erro").textContent="Não foi possível entrar: "+e.code;
+}
+
+};
+
+$("sair").onclick=()=>signOut(auth);
+
+onAuthStateChanged(auth,user=>{
+
+$("login").style.display=user?"none":"block";
+$("conteudoADM").style.display=user?"block":"none";
+
+$("usuarioAtual").textContent=user
+?"Conectado: "+user.email:"";
+
+if(user){
+configurar();
+listarADM();
+}
+
 });
+
+$("salvarConfig").onclick=async()=>{
+
+const titulo=$("nomeSite").value.trim()||"RESTAURAR";
+const whatsapp=$("numeroWhats").value.replace(/\D/g,"");
+
+try{
+await update(configRef,{titulo,whatsapp});
+mensagem("Configurações salvas no Firebase.");
+}catch(e){
+mensagem("Erro ao salvar: "+e.message,true);
 }
-function excluirVideo(id){
-if(!confirm("Excluir este vídeo?"))return;
-const d=dados();d.videos=d.videos.filter(v=>v.id!==id);
-salvar(d);render();listarADM();
+
+};
+
+$("adicionarVideo").onclick=async()=>{
+
+const titulo=$("videoTitulo").value.trim();
+const link=$("videoLink").value.trim();
+const descricao=$("videoDescricao").value.trim();
+
+if(!titulo||!youtubeID(link)){
+mensagem("Informe título e link válido do YouTube.",true);
+return;
 }
-window.addEventListener("storage",render);
+
+const btn=$("adicionarVideo");
+btn.disabled=true;
+
+mensagem("Salvando no Firebase...");
+
+try{
+
+await set(push(videosRef),{
+titulo,
+link,
+descricao,
+criadoEm:Date.now()
+});
+
+$("videoTitulo").value="";
+$("videoLink").value="";
+$("videoDescricao").value="";
+
+mensagem("Vídeo salvo no Firebase com sucesso!");
+
+}catch(e){
+
+mensagem("Erro ao salvar: "+e.message,true);
+
+}finally{
+btn.disabled=false;
+}
+
+};
+
+onValue(videosRef,s=>{
+videos=s.val()||{};
 render();
+},e=>{
+status("Não foi possível carregar vídeos: "+e.message,true);
+});
+
+onValue(configRef,s=>{
+config={
+titulo:"RESTAURAR",
+whatsapp:"5547999999999",
+...(s.val()||{})
+};
+configurar();
+},e=>{
+status("Erro de leitura das configurações: "+e.message,true);
+});
+
 </script>
 </body>
 </html>
