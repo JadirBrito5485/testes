@@ -4,40 +4,271 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vídeos | Restaurar</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
-header{padding:30px 15px;text-align:center;border-bottom:1px solid #222}
-header h1{margin:0 0 20px;font-size:30px}
-nav{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
-nav a{color:#ddd;text-decoration:none;font-weight:bold;font-size:14px}
-nav a.active,nav a:hover{color:#e4bd67}
-main{max-width:1200px;margin:auto;padding:35px 18px;min-height:65vh}
-h2{font-size:25px;margin-bottom:25px}
-.grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.card{background:#101010;border:1px solid #282828;border-radius:10px;overflow:hidden}
-.card iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
-.card h3{padding:15px;font-size:17px;margin:0}
-.card p{padding:0 15px 15px;color:#aaa}
-footer{padding:35px;text-align:center;border-top:1px solid #222;color:#777;position:relative}
-.adm-btn{position:absolute;right:12px;bottom:10px;background:none;border:0;color:#393939;cursor:pointer;font-size:11px}
-.whats{position:fixed;bottom:20px;left:20px;background:#168b49;color:white;padding:13px 17px;border-radius:35px;text-decoration:none;font-weight:bold;font-size:13px;z-index:10;display:flex;align-items:center;gap:8px}
-.whats svg{width:22px;height:22px;fill:currentColor}
-.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:25px}
-.modal.aberto{display:block}
-.painel{max-width:750px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
-input,textarea{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
-textarea{min-height:100px}
-button.acao{background:#d4aa55;color:#000;border:0;padding:12px 18px;border-radius:5px;font-weight:bold;cursor:pointer}
-button.acao:disabled{opacity:.5;cursor:wait}
-button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:5px;cursor:pointer}
-.linha{padding:14px 0;border-bottom:1px solid #333;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.fechar{float:right;background:transparent;color:#fff;border:0;font-size:25px;cursor:pointer}
-.aviso{color:#aaa;line-height:1.5}
-.erro{color:#ff8585}
-.ok{color:#9be3ac}
-@media(max-width:850px){.grade{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:550px){.grade{grid-template-columns:1fr}header h1{font-size:25px}.whats{font-size:11px}}
+
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial,sans-serif;
+}
+
+header{
+padding:30px 15px;
+text-align:center;
+border-bottom:1px solid #222;
+}
+
+header h1{
+margin:0 0 20px;
+font-size:30px;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+}
+
+nav a{
+color:#ddd;
+text-decoration:none;
+font-weight:bold;
+font-size:14px;
+}
+
+nav a.active,nav a:hover{
+color:#e4bd67;
+}
+
+main{
+max-width:1200px;
+margin:auto;
+padding:35px 18px;
+min-height:65vh;
+}
+
+h2{
+font-size:25px;
+margin-bottom:25px;
+}
+
+.grade{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:20px;
+}
+
+.card{
+background:#101010;
+border:1px solid #282828;
+border-radius:10px;
+overflow:hidden;
+position:relative;
+}
+
+.video-box{
+position:relative;
+aspect-ratio:16/9;
+background:#080808;
+}
+
+.video-box iframe{
+display:block;
+width:100%;
+height:100%;
+border:0;
+}
+
+.card h3{
+padding:15px;
+font-size:17px;
+margin:0;
+line-height:1.5;
+}
+
+.card p{
+padding:0 15px 15px;
+color:#aaa;
+line-height:1.6;
+margin:0;
+}
+
+.botao-x{
+position:absolute;
+top:8px;
+right:8px;
+z-index:5;
+width:34px;
+height:34px;
+border:1px solid #555;
+border-radius:50%;
+background:rgba(0,0,0,.85);
+color:#fff;
+font-size:22px;
+cursor:pointer;
+}
+
+.botao-x:hover{
+background:#a32323;
+}
+
+footer{
+padding:35px;
+text-align:center;
+border-top:1px solid #222;
+color:#777;
+position:relative;
+}
+
+.adm-btn{
+position:absolute;
+right:12px;
+bottom:10px;
+background:none;
+border:0;
+color:#393939;
+cursor:pointer;
+font-size:11px;
+}
+
+.whats{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#168b49;
+color:white;
+padding:13px 17px;
+border-radius:35px;
+text-decoration:none;
+font-weight:bold;
+font-size:13px;
+z-index:10;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.whats svg{
+width:22px;
+height:22px;
+fill:currentColor;
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#000e;
+z-index:100;
+overflow:auto;
+padding:25px;
+}
+
+.modal.aberto{
+display:block;
+}
+
+.painel{
+max-width:750px;
+margin:25px auto;
+background:#111;
+border:1px solid #333;
+border-radius:12px;
+padding:25px;
+}
+
+input,textarea{
+display:block;
+width:100%;
+background:#050505;
+color:white;
+border:1px solid #444;
+padding:13px;
+margin:10px 0 16px;
+border-radius:5px;
+font:inherit;
+}
+
+textarea{
+min-height:100px;
+}
+
+button.acao{
+background:#d4aa55;
+color:#000;
+border:0;
+padding:12px 18px;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button.acao:disabled{
+opacity:.5;
+cursor:wait;
+}
+
+button.excluir{
+background:#a32323;
+color:#fff;
+border:0;
+padding:9px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.linha{
+padding:14px 0;
+border-bottom:1px solid #333;
+display:flex;
+justify-content:space-between;
+gap:12px;
+align-items:center;
+}
+
+.fechar{
+float:right;
+background:transparent;
+color:#fff;
+border:0;
+font-size:25px;
+cursor:pointer;
+}
+
+.aviso{
+color:#aaa;
+line-height:1.5;
+}
+
+.erro{
+color:#ff8585;
+}
+
+.ok{
+color:#9be3ac;
+}
+
+@media(max-width:850px){
+.grade{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:550px){
+.grade{
+grid-template-columns:1fr;
+}
+header h1{
+font-size:25px;
+}
+.whats{
+font-size:11px;
+}
+}
 </style>
 </head>
 
@@ -45,6 +276,7 @@ button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:
 
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
+
 <nav>
 <a class="active" href="index.html">VÍDEOS</a>
 <a href="testemunhos.html">TESTEMUNHOS</a>
@@ -54,14 +286,20 @@ button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:
 
 <main>
 <h2>VÍDEOS</h2>
-<p id="estado" class="aviso">Carregando vídeos...</p>
+
+<p id="estado" class="aviso">
+Carregando vídeos...
+</p>
+
 <div id="gradeVideos" class="grade"></div>
 </main>
 
 <a id="whatsapp" class="whats" target="_blank" rel="noopener">
+
 <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.1-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
+
 FALE COM O PROFETA
 </a>
 
@@ -73,34 +311,47 @@ FALE COM O PROFETA
 <div id="modal" class="modal">
 <div class="painel">
 
-<button class="fechar" id="fecharADM" aria-label="Fechar">×</button>
+<button class="fechar" id="fecharADM">×</button>
+
 <h2>ADMINISTRADOR</h2>
 
 <div id="login">
+
 <p class="aviso">
 Entre com o e-mail e a senha cadastrados no Firebase Authentication.
 </p>
 
-<input id="email" type="email"
+<input
+id="email"
+type="email"
 placeholder="E-mail do administrador"
 autocomplete="username">
 
-<input id="senha" type="password"
+<input
+id="senha"
+type="password"
 placeholder="Senha do Firebase"
 autocomplete="current-password">
 
-<button class="acao" id="entrar">ENTRAR</button>
-<p id="erro" class="erro" role="alert"></p>
+<button class="acao" id="entrar">
+ENTRAR
+</button>
+
+<p id="erro" class="erro"></p>
 </div>
 
 <div id="conteudoADM" style="display:none">
 
 <p id="usuarioAtual" class="aviso"></p>
-<button class="acao" id="sair">SAIR</button>
+
+<button class="acao" id="sair">
+SAIR
+</button>
 
 <hr>
 
 <h3>Configurações gerais</h3>
+
 <label>Nome do site</label>
 <input id="nomeSite">
 
@@ -116,9 +367,11 @@ SALVAR CONFIGURAÇÕES
 <h3>Cadastrar vídeo</h3>
 
 <input id="videoTitulo" placeholder="Título do vídeo">
+
 <input id="videoLink" placeholder="Link do YouTube">
 
-<textarea id="videoDescricao"
+<textarea
+id="videoDescricao"
 placeholder="Descrição (opcional)"></textarea>
 
 <button class="acao" id="adicionarVideo">
@@ -128,11 +381,14 @@ SALVAR VÍDEO NO FIREBASE
 <p id="mensagemADM" role="status"></p>
 
 <h3>Vídeos cadastrados</h3>
+
 <div id="listaADM"></div>
 
 </div>
 </div>
 </div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
 
@@ -157,36 +413,43 @@ onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-authDomain: "namoro-f18ac.firebaseapp.com",
-databaseURL: "https://namoro-f18ac-default-rtdb.firebaseio.com",
-projectId: "namoro-f18ac",
-storageBucket: "namoro-f18ac.firebasestorage.app",
-messagingSenderId: "336479537433",
-appId: "1:336479537433:web:dd282c67e98ca196e05d88",
-measurementId: "G-1YLR1JNZYY"
+apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain:"namoro-f18ac.firebaseapp.com",
+databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId:"namoro-f18ac",
+storageBucket:"namoro-f18ac.firebasestorage.app",
+messagingSenderId:"336479537433",
+appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId:"G-1YLR1JNZYY"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const auth=getAuth(app);
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
-let videos = {};
-let config = {
+const videosRef=ref(db,"restaurar/videos");
+const configRef=ref(db,"restaurar/config");
+
+const FILA_KEY="restaurar_fila_visitante_v1";
+
+let videos={};
+let ordem=[];
+let players={};
+let ytPronto=false;
+let renderizacao=0;
+
+let config={
 titulo:"RESTAURAR",
 whatsapp:"5547999999999"
 };
 
-const videosRef = ref(db,"restaurar/videos");
-const configRef = ref(db,"restaurar/config");
-
 function youtubeID(url){
 try{
-const u = new URL(url);
-const h = u.hostname.replace(/^www\./,"");
-let id = "";
+const u=new URL(url);
+const h=u.hostname.replace(/^www\./,"");
+let id="";
 
 if(h==="youtu.be"){
 id=u.pathname.slice(1).split("/")[0];
@@ -203,31 +466,141 @@ id=u.pathname.split("/")[2];
 }
 
 return /^[\w-]{11}$/.test(id)?id:null;
+
 }catch(e){
 return null;
 }
 }
 
-function status(msg,error=false){
-$("estado").textContent=msg;
-$("estado").className=error?"erro":"aviso";
+function mensagem(msg,erro=false){
+$("mensagemADM").textContent=msg;
+$("mensagemADM").className=erro?"erro":"ok";
 }
 
-function mensagem(msg,error=false){
-$("mensagemADM").textContent=msg;
-$("mensagemADM").className=error?"erro":"ok";
+function status(msg,erro=false){
+$("estado").textContent=msg;
+$("estado").className=erro?"erro":"aviso";
+}
+
+function salvarOrdem(){
+try{
+localStorage.setItem(FILA_KEY,JSON.stringify(ordem));
+}catch(e){}
+}
+
+function recuperarOrdem(){
+try{
+const valor=JSON.parse(localStorage.getItem(FILA_KEY));
+return Array.isArray(valor)?valor:[];
+}catch(e){
+return [];
+}
+}
+
+function atualizarOrdem(){
+
+const chaves=Object.keys(videos).sort((a,b)=>{
+const ta=Number(videos[a].criadoEm)||0;
+const tb=Number(videos[b].criadoEm)||0;
+return tb-ta;
+});
+
+const anterior=ordem.length?ordem:recuperarOrdem();
+
+ordem=anterior.filter(k=>chaves.includes(k));
+
+const novos=chaves.filter(k=>!ordem.includes(k));
+
+ordem=[...novos,...ordem];
+
+salvarOrdem();
+}
+
+function moverParaFinal(key){
+
+if(!ordem.includes(key))return;
+
+ordem=ordem.filter(k=>k!==key);
+ordem.push(key);
+
+salvarOrdem();
+render();
+
+}
+
+function limparPlayers(){
+
+for(const p of Object.values(players)){
+try{
+p.destroy();
+}catch(e){}
+}
+
+players={};
+}
+
+function criarPlayer(key,id,elemento,versao){
+
+if(!ytPronto||!window.YT||!YT.Player)return;
+
+try{
+
+const player=new YT.Player(elemento,{
+videoId:id,
+playerVars:{
+playsinline:1,
+rel:0,
+origin:location.origin
+},
+events:{
+onStateChange:function(event){
+
+if(event.data===YT.PlayerState.ENDED){
+
+if(versao!==renderizacao)return;
+
+moverParaFinal(key);
+
+}
+
+},
+onError:function(e){
+console.warn("Erro no vídeo:",key,e.data);
+}
+}
+});
+
+players[key]=player;
+
+}catch(e){
+console.warn("Erro ao criar player",e);
+}
 }
 
 function render(){
 
+renderizacao++;
+const versao=renderizacao;
+
+limparPlayers();
+
 const area=$("gradeVideos");
 area.replaceChildren();
 
-const lista=Object.entries(videos).reverse();
+atualizarOrdem();
 
-status(lista.length?"":"Nenhum vídeo cadastrado.");
+if(!ordem.length){
+status("Nenhum vídeo cadastrado.");
+listarADM();
+return;
+}
 
-for(const [key,v] of lista){
+status("");
+
+for(const key of ordem){
+
+const v=videos[key];
+if(!v)continue;
 
 const id=youtubeID(v.link);
 if(!id)continue;
@@ -235,32 +608,45 @@ if(!id)continue;
 const card=document.createElement("article");
 card.className="card";
 
-const frame=document.createElement("iframe");
-frame.src="https://www.youtube-nocookie.com/embed/"+id;
-frame.title=v.titulo||"Vídeo";
-frame.loading="lazy";
-frame.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-frame.allowFullscreen=true;
+const box=document.createElement("div");
+box.className="video-box";
 
-const h=document.createElement("h3");
-h.textContent=v.titulo||"";
+const videoElemento=document.createElement("div");
+videoElemento.id="youtube-"+key;
 
-const p=document.createElement("p");
-p.textContent=v.descricao||"";
+const fechar=document.createElement("button");
+fechar.className="botao-x";
+fechar.textContent="×";
+fechar.title="Mover vídeo para o final da lista";
+fechar.setAttribute("aria-label","Mover vídeo para o final");
 
-card.append(frame,h,p);
+fechar.onclick=()=>moverParaFinal(key);
+
+box.append(videoElemento,fechar);
+
+const titulo=document.createElement("h3");
+titulo.textContent=v.titulo||"Vídeo";
+
+const descricao=document.createElement("p");
+descricao.textContent=v.descricao||"";
+
+card.append(box,titulo,descricao);
 area.append(card);
+
+criarPlayer(key,id,videoElemento.id,versao);
 
 }
 
 listarADM();
+
 }
 
 function configurar(){
 
 $("tituloSite").textContent=config.titulo||"RESTAURAR";
 
-$("whatsapp").href="https://wa.me/"+
+$("whatsapp").href=
+"https://wa.me/"+
 String(config.whatsapp||"5547999999999").replace(/\D/g,"");
 
 $("nomeSite").value=config.titulo||"RESTAURAR";
@@ -292,10 +678,15 @@ btn.onclick=async()=>{
 if(!confirm("Excluir este vídeo do Firebase?"))return;
 
 try{
+
 await remove(ref(db,"restaurar/videos/"+key));
-mensagem("Vídeo excluído.");
+
+mensagem("Vídeo excluído do Firebase.");
+
 }catch(e){
+
 mensagem("Erro ao excluir: "+e.message,true);
+
 }
 
 };
@@ -323,9 +714,14 @@ const senha=$("senha").value;
 $("erro").textContent="";
 
 try{
+
 await signInWithEmailAndPassword(auth,email,senha);
+
 }catch(e){
-$("erro").textContent="Não foi possível entrar: "+e.code;
+
+$("erro").textContent=
+"Não foi possível entrar: "+e.code;
+
 }
 
 };
@@ -337,8 +733,8 @@ onAuthStateChanged(auth,user=>{
 $("login").style.display=user?"none":"block";
 $("conteudoADM").style.display=user?"block":"none";
 
-$("usuarioAtual").textContent=user
-?"Conectado: "+user.email:"";
+$("usuarioAtual").textContent=
+user?"Conectado: "+user.email:"";
 
 if(user){
 configurar();
@@ -353,10 +749,15 @@ const titulo=$("nomeSite").value.trim()||"RESTAURAR";
 const whatsapp=$("numeroWhats").value.replace(/\D/g,"");
 
 try{
+
 await update(configRef,{titulo,whatsapp});
+
 mensagem("Configurações salvas no Firebase.");
+
 }catch(e){
+
 mensagem("Erro ao salvar: "+e.message,true);
+
 }
 
 };
@@ -397,28 +798,54 @@ mensagem("Vídeo salvo no Firebase com sucesso!");
 mensagem("Erro ao salvar: "+e.message,true);
 
 }finally{
+
 btn.disabled=false;
+
 }
 
 };
 
 onValue(videosRef,s=>{
+
 videos=s.val()||{};
 render();
+
 },e=>{
+
 status("Não foi possível carregar vídeos: "+e.message,true);
+
 });
 
 onValue(configRef,s=>{
+
 config={
 titulo:"RESTAURAR",
 whatsapp:"5547999999999",
 ...(s.val()||{})
 };
+
 configurar();
+
 },e=>{
-status("Erro de leitura das configurações: "+e.message,true);
+
+status("Erro nas configurações: "+e.message,true);
+
 });
+
+function quandoYouTubePronto(){
+
+ytPronto=true;
+render();
+
+}
+
+if(window.YT&&window.YT.Player){
+quandoYouTubePronto();
+}else{
+
+window.onYouTubeIframeAPIReady=quandoYouTubePronto;
+
+}
 
 </script>
 </body>
