@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,56 +7,15 @@
 <title>Testemunhos | Restaurar</title>
 
 <style>
-*{
-box-sizing:border-box;
-}
-
-body{
-margin:0;
-background:#000;
-color:#fff;
-font-family:Arial,sans-serif;
-}
-
-header{
-text-align:center;
-padding:30px 15px;
-border-bottom:1px solid #222;
-}
-
-header h1{
-margin:0 0 20px;
-}
-
-nav{
-display:flex;
-gap:25px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-nav a{
-color:#ddd;
-text-decoration:none;
-font-weight:bold;
-font-size:14px;
-}
-
-nav a.active,
-nav a:hover{
-color:#e4bd67;
-}
-
-main{
-max-width:1200px;
-margin:auto;
-padding:35px 18px;
-min-height:65vh;
-}
-
-h2{
-font-size:25px;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
+header{padding:30px 15px;text-align:center;border-bottom:1px solid #222}
+header h1{margin:0 0 20px;font-size:30px}
+nav{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+nav a{color:#ddd;text-decoration:none;font-weight:bold;font-size:14px}
+nav a.active,nav a:hover{color:#e4bd67}
+main{max-width:1200px;margin:auto;padding:35px 18px;min-height:65vh}
+h2{font-size:25px;margin-bottom:25px}
 
 .grade{
 display:grid;
@@ -66,13 +26,13 @@ gap:20px;
 .card{
 position:relative;
 min-width:0;
+background:#101010;
 border:1px solid #282828;
 border-radius:10px;
-background:#101010;
 overflow:hidden;
 }
 
-.imagem-box{
+.midia{
 height:340px;
 background:#080808;
 display:flex;
@@ -80,11 +40,18 @@ align-items:center;
 justify-content:center;
 }
 
-.imagem-box img{
+.midia img{
 width:100%;
 height:100%;
 object-fit:contain;
 cursor:zoom-in;
+}
+
+.midia iframe,
+.midia .youtube-player{
+width:100%;
+height:100%;
+border:0;
 }
 
 .legenda{
@@ -98,26 +65,24 @@ overflow-wrap:anywhere;
 position:absolute;
 right:9px;
 top:9px;
-z-index:2;
+z-index:5;
 width:36px;
 height:36px;
 border-radius:50%;
-background:#000d;
+background:rgba(0,0,0,.88);
 color:#fff;
 border:1px solid #777;
 font-size:23px;
 cursor:pointer;
 }
 
-.botao-x:hover{
-background:#a32323;
-}
+.botao-x:hover{background:#a32323}
 
 .zoom{
 display:none;
 position:fixed;
 inset:0;
-background:#000f;
+background:rgba(0,0,0,.97);
 z-index:200;
 align-items:center;
 justify-content:center;
@@ -125,9 +90,7 @@ padding:16px;
 cursor:zoom-out;
 }
 
-.zoom.aberto{
-display:flex;
-}
+.zoom.aberto{display:flex}
 
 .zoom img{
 max-width:100%;
@@ -164,7 +127,7 @@ position:fixed;
 bottom:20px;
 left:20px;
 background:#168b49;
-color:white;
+color:#fff;
 padding:13px 17px;
 border-radius:35px;
 text-decoration:none;
@@ -192,9 +155,7 @@ overflow:auto;
 padding:25px;
 }
 
-.modal.aberto{
-display:block;
-}
+.modal.aberto{display:block}
 
 .painel{
 max-width:750px;
@@ -205,12 +166,11 @@ border-radius:12px;
 padding:25px;
 }
 
-input,
-textarea{
+input,textarea,select{
 display:block;
 width:100%;
 background:#050505;
-color:white;
+color:#fff;
 border:1px solid #444;
 padding:13px;
 margin:10px 0 16px;
@@ -218,9 +178,7 @@ border-radius:5px;
 font:inherit;
 }
 
-textarea{
-min-height:90px;
-}
+textarea{min-height:90px}
 
 button.acao{
 background:#d4aa55;
@@ -232,9 +190,7 @@ font-weight:bold;
 cursor:pointer;
 }
 
-button.acao:disabled{
-opacity:.5;
-}
+button.acao:disabled{opacity:.5}
 
 button.excluir{
 background:#a32323;
@@ -263,18 +219,9 @@ font-size:25px;
 cursor:pointer;
 }
 
-.aviso{
-color:#aaa;
-line-height:1.6;
-}
-
-.erro{
-color:#ff8585;
-}
-
-.ok{
-color:#9be3ac;
-}
+.aviso{color:#aaa;line-height:1.6}
+.erro{color:#ff8585}
+.ok{color:#9be3ac}
 
 hr{
 border:0;
@@ -283,35 +230,17 @@ margin:25px 0;
 }
 
 @media(max-width:850px){
-.grade{
-grid-template-columns:repeat(2,minmax(0,1fr));
-}
+.grade{grid-template-columns:repeat(2,minmax(0,1fr))}
+.midia{height:300px}
 }
 
 @media(max-width:550px){
-.grade{
-grid-template-columns:1fr;
-}
-
-.imagem-box{
-height:390px;
-}
-
-main{
-padding:25px 12px;
-}
-
-.whats{
-font-size:11px;
-}
-
-nav{
-gap:15px;
-}
-
-nav a{
-font-size:12px;
-}
+.grade{grid-template-columns:1fr}
+.midia{height:390px}
+main{padding:25px 12px}
+.whats{font-size:11px}
+nav{gap:15px}
+nav a{font-size:12px}
 }
 </style>
 </head>
@@ -320,7 +249,6 @@ font-size:12px;
 
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
-
 <nav>
 <a href="index.html">VÍDEOS</a>
 <a class="active" href="testemunhos.html">TESTEMUNHOS</a>
@@ -330,98 +258,45 @@ font-size:12px;
 
 <main>
 <h2>TESTEMUNHOS</h2>
-
-<p id="estado" class="aviso">
-Carregando testemunhos...
-</p>
-
+<p id="estado" class="aviso">Carregando testemunhos...</p>
 <div id="gradeTestemunhos" class="grade"></div>
 </main>
 
-<div
-id="zoom"
-class="zoom"
-role="dialog"
-aria-modal="true"
-aria-label="Testemunho ampliado"
->
+<div id="zoom" class="zoom" role="dialog" aria-modal="true">
 <img id="fotoZoom" alt="Testemunho ampliado">
-<small>Clique para fechar</small>
+<small>Clique novamente para fechar</small>
 </div>
 
-<a
-id="whatsapp"
-class="whats"
-target="_blank"
-rel="noopener"
->
+<a id="whatsapp" class="whats" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
-
 FALE COM O PROFETA
 </a>
 
 <footer>
 © RESTAURAR
-
-<button
-id="abrirADM"
-class="adm-btn"
-aria-label="Administrador"
->
-A
-</button>
+<button id="abrirADM" class="adm-btn">A</button>
 </footer>
 
 <div id="modal" class="modal">
 <div class="painel">
 
-<button
-id="fecharADM"
-class="fechar"
-aria-label="Fechar"
->
-×
-</button>
-
+<button id="fecharADM" class="fechar">×</button>
 <h2>ADMINISTRADOR</h2>
 
 <div id="login">
-
-<p class="aviso">
-Use o e-mail e a senha do Firebase Authentication,
-os mesmos da página VÍDEOS.
-</p>
-
-<input
-id="email"
-type="email"
-placeholder="E-mail"
-autocomplete="username"
->
-
-<input
-id="senha"
-type="password"
-placeholder="Senha"
-autocomplete="current-password"
->
-
-<button class="acao" id="entrar">
-ENTRAR
-</button>
-
+<p class="aviso">Entre com seu e-mail e senha do Firebase Authentication.</p>
+<input id="email" type="email" placeholder="E-mail do administrador">
+<input id="senha" type="password" placeholder="Senha">
+<button class="acao" id="entrar">ENTRAR</button>
 <p id="erro" class="erro"></p>
 </div>
 
 <div id="conteudoADM" style="display:none">
 
 <p id="usuarioAtual" class="aviso"></p>
-
-<button class="acao" id="sair">
-SAIR
-</button>
+<button class="acao" id="sair">SAIR</button>
 
 <hr>
 
@@ -441,15 +316,17 @@ SALVAR CONFIGURAÇÕES
 
 <h3>Cadastrar testemunho</h3>
 
-<input
-id="imagemLink"
-placeholder="Link direto da imagem (https://...)"
->
+<label>Tipo de testemunho</label>
+<select id="tipoTestemunho">
+<option value="imagem">IMAGEM</option>
+<option value="video">VÍDEO DO YOUTUBE</option>
+</select>
 
-<textarea
-id="imagemLegenda"
-placeholder="Descrição (opcional)"
-></textarea>
+<label id="rotuloLink">Link da imagem</label>
+<input id="midiaLink" placeholder="https://site.com/imagem.jpg">
+
+<label>Descrição ou título</label>
+<textarea id="midiaLegenda" placeholder="Descrição (opcional)"></textarea>
 
 <button class="acao" id="adicionarTestemunho">
 SALVAR TESTEMUNHO NO FIREBASE
@@ -459,28 +336,24 @@ SALVAR TESTEMUNHO NO FIREBASE
 
 <hr>
 
-<h3>Importar testemunhos antigos deste navegador</h3>
-
+<h3>Importar testemunhos antigos</h3>
 <p class="aviso">
-Se você cadastrou imagens na versão antiga,
-clique para enviá-las ao Firebase.
-Imagens de outros dispositivos não podem
-ser recuperadas aqui.
+Importa imagens cadastradas na versão antiga neste mesmo navegador.
 </p>
-
 <button class="acao" id="importarAntigos">
 IMPORTAR CADASTROS ANTIGOS
 </button>
 
 <hr>
 
-<h3>Testemunhos no Firebase</h3>
-
+<h3>Testemunhos cadastrados</h3>
 <div id="listaADM"></div>
 
 </div>
 </div>
 </div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
 
@@ -488,21 +361,12 @@ import {initializeApp}
 from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 
 import {
-getDatabase,
-ref,
-onValue,
-push,
-set,
-remove,
-update
+getDatabase,ref,onValue,push,set,remove,update
 }
 from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
 import {
-getAuth,
-signInWithEmailAndPassword,
-signOut,
-onAuthStateChanged
+getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
@@ -526,554 +390,448 @@ const $=id=>document.getElementById(id);
 const testemunhosRef=ref(db,"restaurar/testemunhos");
 const configRef=ref(db,"restaurar/config");
 
-const FILA_KEY="restaurar_fila_testemunhos_firebase_v1";
+const FILA_KEY="restaurar_fila_testemunhos_mistos_v1";
 
 let testemunhos={};
 let ordem=[];
+let players={};
+let ytPronto=false;
+let versaoRender=0;
 
 let config={
 titulo:"RESTAURAR",
 whatsapp:"5547999999999"
 };
 
-function msg(s,erro=false){
-
-$("mensagemADM").textContent=s;
-
+function msg(texto,erro=false){
+$("mensagemADM").textContent=texto;
 $("mensagemADM").className=erro?"erro":"ok";
-
 }
 
-function estado(s,erro=false){
-
-$("estado").textContent=s;
-
+function estado(texto,erro=false){
+$("estado").textContent=texto;
 $("estado").className=erro?"erro":"aviso";
-
 }
 
 function urlValida(s){
-
 try{
-
 const u=new URL(s);
-
-return ["https:","http:"].includes(u.protocol);
-
+return ["http:","https:"].includes(u.protocol);
 }catch(e){
-
 return false;
-
+}
 }
 
+function youtubeID(url){
+try{
+const u=new URL(url);
+const host=u.hostname.replace(/^www\./,"");
+let id="";
+
+if(host==="youtu.be"){
+id=u.pathname.split("/")[1];
+}else if([
+"youtube.com","m.youtube.com","youtube-nocookie.com"
+].includes(host)){
+if(u.pathname==="/watch"){
+id=u.searchParams.get("v")||"";
+}else if(/^\/(shorts|embed|live)\//.test(u.pathname)){
+id=u.pathname.split("/")[2];
+}
+}
+
+return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:null;
+
+}catch(e){
+return null;
+}
 }
 
 function recuperarOrdem(){
-
 try{
-
-const x=JSON.parse(localStorage.getItem(FILA_KEY));
-
-return Array.isArray(x)?x:[];
-
+const a=JSON.parse(localStorage.getItem(FILA_KEY));
+return Array.isArray(a)?a:[];
 }catch(e){
-
 return [];
-
 }
-
 }
 
 function salvarOrdem(){
-
 try{
-
-localStorage.setItem(
-FILA_KEY,
-JSON.stringify(ordem)
-);
-
+localStorage.setItem(FILA_KEY,JSON.stringify(ordem));
 }catch(e){}
-
 }
 
 function atualizarOrdem(){
-
 const ids=Object.keys(testemunhos).sort((a,b)=>
 (Number(testemunhos[b].criadoEm)||0)-
 (Number(testemunhos[a].criadoEm)||0)
 );
 
-const anterior=ordem.length
-?ordem
-:recuperarOrdem();
+const anterior=ordem.length?ordem:recuperarOrdem();
 
 ordem=anterior.filter(k=>ids.includes(k));
-
-ordem=[
-...ids.filter(k=>!ordem.includes(k)),
-...ordem
-];
+ordem=[...ids.filter(k=>!ordem.includes(k)),...ordem];
 
 salvarOrdem();
-
 }
 
-function moverFinal(k){
-
+function moverFinal(key){
 atualizarOrdem();
+if(!ordem.includes(key))return;
 
-if(!ordem.includes(k))return;
-
-ordem=ordem.filter(x=>x!==k);
-
-ordem.push(k);
-
+ordem=ordem.filter(k=>k!==key);
+ordem.push(key);
 salvarOrdem();
-
 render();
+}
 
+function limparPlayers(){
+for(const player of Object.values(players)){
+try{player.destroy()}catch(e){}
+}
+players={};
+}
+
+function criarPlayer(key,id,elemento,versao){
+if(!ytPronto||!window.YT?.Player)return;
+
+try{
+players[key]=new YT.Player(elemento,{
+videoId:id,
+playerVars:{
+playsinline:1,
+rel:0,
+origin:location.origin
+},
+events:{
+onStateChange:event=>{
+if(
+event.data===YT.PlayerState.ENDED &&
+versao===versaoRender
+){
+moverFinal(key);
+}
+}
+}
+});
+}catch(e){
+console.error("Erro no player",e);
+}
 }
 
 function abrirZoom(t){
-
 $("fotoZoom").src=t.imagem;
-
 $("fotoZoom").alt=t.legenda||"Testemunho ampliado";
-
 $("zoom").classList.add("aberto");
-
 document.body.style.overflow="hidden";
-
 }
 
 function fecharZoom(){
-
 $("zoom").classList.remove("aberto");
-
 $("fotoZoom").removeAttribute("src");
-
 document.body.style.overflow="";
-
 }
 
 $("zoom").onclick=fecharZoom;
 
 document.addEventListener("keydown",e=>{
-
 if(e.key==="Escape"){
-
 fecharZoom();
-
 $("modal").classList.remove("aberto");
-
 }
-
 });
 
 function render(){
+versaoRender++;
+const versao=versaoRender;
 
+limparPlayers();
 atualizarOrdem();
 
 const area=$("gradeTestemunhos");
-
 area.replaceChildren();
 
-estado(
-ordem.length?"":"Nenhum testemunho cadastrado no Firebase."
-);
+estado(ordem.length?"":"Nenhum testemunho cadastrado.");
 
 for(const key of ordem){
-
 const t=testemunhos[key];
+if(!t)continue;
 
-if(!t||!urlValida(t.imagem))continue;
-
+const tipo=t.tipo==="video"?"video":"imagem";
 const card=document.createElement("article");
-
 card.className="card";
 
 const box=document.createElement("div");
+box.className="midia";
 
-box.className="imagem-box";
+if(tipo==="video"){
+const id=youtubeID(t.video||t.link||"");
 
+if(id){
+const div=document.createElement("div");
+div.id="yt-"+key;
+div.className="youtube-player";
+box.append(div);
+criarPlayer(key,id,div.id,versao);
+}else{
+const aviso=document.createElement("p");
+aviso.textContent="Link de vídeo inválido.";
+box.append(aviso);
+}
+}else{
 const img=document.createElement("img");
-
 img.src=t.imagem;
-
 img.alt=t.legenda||"Testemunho";
-
 img.loading="lazy";
-
 img.tabIndex=0;
-
 img.onclick=()=>abrirZoom(t);
-
 img.onkeydown=e=>{
-
 if(e.key==="Enter"||e.key===" "){
-
 e.preventDefault();
-
 abrirZoom(t);
-
+}
+};
+box.append(img);
 }
 
-};
-
-img.onerror=()=>{
-
-img.alt="Não foi possível carregar a imagem. Confira o link no ADM.";
-
-};
-
 const x=document.createElement("button");
-
 x.className="botao-x";
-
 x.textContent="×";
-
 x.title="Mover para o final da fila";
-
-x.setAttribute(
-"aria-label",
-"Mover testemunho para o final"
-);
-
+x.setAttribute("aria-label","Mover para o final da fila");
 x.onclick=()=>moverFinal(key);
 
-box.append(img,x);
-
+box.append(x);
 card.append(box);
 
 if(t.legenda){
-
 const p=document.createElement("div");
-
 p.className="legenda";
-
 p.textContent=t.legenda;
-
 card.append(p);
-
 }
 
 area.append(card);
-
 }
 
 listarADM();
-
 }
 
 function configurar(){
-
 $("tituloSite").textContent=config.titulo||"RESTAURAR";
-
-$("whatsapp").href=
-"https://wa.me/"+
+$("whatsapp").href="https://wa.me/"+
 String(config.whatsapp||"5547999999999").replace(/\D/g,"");
 
 $("nomeSite").value=config.titulo||"RESTAURAR";
-
 $("numeroWhats").value=config.whatsapp||"";
-
 }
 
 function listarADM(){
-
 const area=$("listaADM");
-
 area.replaceChildren();
 
 if(!auth.currentUser)return;
 
 for(const [key,t] of Object.entries(testemunhos).reverse()){
-
 const div=document.createElement("div");
-
 div.className="linha";
 
 const span=document.createElement("span");
-
-span.textContent=t.legenda||"Testemunho";
+span.textContent=
+(t.tipo==="video"?"🎬 ":"🖼️ ")+(t.legenda||"Testemunho");
 
 const btn=document.createElement("button");
-
 btn.className="excluir";
-
 btn.textContent="EXCLUIR";
 
 btn.onclick=async()=>{
-
 if(!confirm("Excluir este testemunho do Firebase?"))return;
-
 try{
-
-await remove(
-ref(db,"restaurar/testemunhos/"+key)
-);
-
+await remove(ref(db,"restaurar/testemunhos/"+key));
 msg("Testemunho excluído.");
-
 }catch(e){
-
 msg("Erro: "+e.message,true);
-
 }
-
 };
 
 div.append(span,btn);
-
 area.append(div);
-
+}
 }
 
-}
-
-$("abrirADM").onclick=()=>{
-
-$("modal").classList.add("aberto");
-
+$("tipoTestemunho").onchange=()=>{
+const video=$("tipoTestemunho").value==="video";
+$("rotuloLink").textContent=video?"Link do vídeo do YouTube":"Link da imagem";
+$("midiaLink").placeholder=video
+?"https://www.youtube.com/watch?v=..."
+:"https://site.com/imagem.jpg";
 };
 
-$("fecharADM").onclick=()=>{
-
-$("modal").classList.remove("aberto");
-
-};
+$("abrirADM").onclick=()=>$("modal").classList.add("aberto");
+$("fecharADM").onclick=()=>$("modal").classList.remove("aberto");
 
 $("entrar").onclick=async()=>{
-
 try{
-
 $("erro").textContent="";
-
 await signInWithEmailAndPassword(
 auth,
 $("email").value.trim(),
 $("senha").value
 );
-
 }catch(e){
-
 $("erro").textContent="Falha no login: "+e.code;
-
 }
-
 };
 
 $("sair").onclick=()=>signOut(auth);
 
 onAuthStateChanged(auth,u=>{
-
 $("login").style.display=u?"none":"block";
-
 $("conteudoADM").style.display=u?"block":"none";
-
-$("usuarioAtual").textContent=u
-?"Conectado: "+u.email
-:"";
+$("usuarioAtual").textContent=u?"Conectado: "+u.email:"";
 
 if(u){
-
 configurar();
-
 listarADM();
-
 }
-
 });
 
 $("salvarConfig").onclick=async()=>{
-
 try{
-
 await update(configRef,{
-
 titulo:$("nomeSite").value.trim()||"RESTAURAR",
-
 whatsapp:$("numeroWhats").value.replace(/\D/g,"")
-
 });
-
 msg("Configurações salvas no Firebase.");
-
 }catch(e){
-
 msg("Erro: "+e.message,true);
-
 }
-
 };
 
 $("adicionarTestemunho").onclick=async()=>{
+const tipo=$("tipoTestemunho").value;
+const link=$("midiaLink").value.trim();
+const legenda=$("midiaLegenda").value.trim();
 
-const imagem=$("imagemLink").value.trim();
-
-const legenda=$("imagemLegenda").value.trim();
-
-if(!urlValida(imagem)){
-
-msg("Informe um link válido de imagem.",true);
-
+if(tipo==="video"&&!youtubeID(link)){
+msg("Informe um link válido do YouTube.",true);
 return;
+}
 
+if(tipo==="imagem"&&!urlValida(link)){
+msg("Informe um link válido de imagem.",true);
+return;
 }
 
 const btn=$("adicionarTestemunho");
-
 btn.disabled=true;
 
 try{
-
-await set(push(testemunhosRef),{
-
-imagem,
+const novo={
+tipo,
 legenda,
 criadoEm:Date.now()
+};
 
-});
+if(tipo==="video"){
+novo.video=link;
+}else{
+novo.imagem=link;
+}
 
-$("imagemLink").value="";
+await set(push(testemunhosRef),novo);
 
-$("imagemLegenda").value="";
+$("midiaLink").value="";
+$("midiaLegenda").value="";
 
 msg("Testemunho salvo no Firebase com sucesso!");
 
 }catch(e){
-
 msg("Erro ao salvar: "+e.message,true);
-
 }finally{
-
 btn.disabled=false;
-
 }
-
 };
 
 $("importarAntigos").onclick=async()=>{
-
 let antigos=[];
 
 try{
-
 const d=JSON.parse(
 localStorage.getItem("restaurar_site_v3")||"{}"
 );
-
-antigos=Array.isArray(d.testemunhos)
-?d.testemunhos
-:[];
-
+antigos=Array.isArray(d.testemunhos)?d.testemunhos:[];
 }catch(e){}
 
 if(!antigos.length){
-
-msg("Nenhum testemunho antigo encontrado neste navegador.",true);
-
+msg("Nenhum cadastro antigo encontrado.",true);
 return;
-
 }
 
-if(!confirm(
-"Importar "+antigos.length+
-" testemunho(s) antigos para o Firebase?"
-))return;
+if(!confirm("Importar "+antigos.length+" testemunho(s)?"))return;
 
 const btn=$("importarAntigos");
-
 btn.disabled=true;
-
 let feitos=0;
 
 try{
-
 for(const t of antigos){
-
 if(!urlValida(t.imagem))continue;
 
 await set(push(testemunhosRef),{
-
+tipo:"imagem",
 imagem:t.imagem,
-
 legenda:t.legenda||"",
-
 criadoEm:Date.now()+feitos,
-
 origemLocalId:String(t.id||"")
-
 });
 
 feitos++;
-
 }
 
-msg(
-feitos+" testemunho(s) importado(s). "+
-"Atenção: importar novamente pode duplicar imagens."
-);
+msg(feitos+" testemunho(s) importado(s).");
 
 }catch(e){
-
-msg(
-"Importação interrompida após "+
-feitos+" imagem(ns): "+e.message,
-true
-);
-
+msg("Erro ao importar: "+e.message,true);
 }finally{
-
 btn.disabled=false;
-
 }
-
 };
 
 onValue(testemunhosRef,s=>{
-
 testemunhos=s.val()||{};
-
 render();
-
 },e=>{
-
-estado(
-"Erro ao carregar testemunhos: "+e.message,
-true
-);
-
+estado("Erro ao carregar testemunhos: "+e.message,true);
 });
 
 onValue(configRef,s=>{
-
 config={
 titulo:"RESTAURAR",
 whatsapp:"5547999999999",
 ...(s.val()||{})
 };
-
 configurar();
-
-},e=>{
-
-console.error("Erro nas configurações:",e);
-
 });
 
 window.addEventListener("storage",e=>{
-
 if(e.key===FILA_KEY){
-
 ordem=recuperarOrdem();
-
 render();
+}
+});
 
+function youtubePronto(){
+ytPronto=true;
+render();
 }
 
-});
+if(window.YT?.Player){
+youtubePronto();
+}else{
+window.onYouTubeIframeAPIReady=youtubePronto;
+}
 
 </script>
 </body>
