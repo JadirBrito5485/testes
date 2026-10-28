@@ -1,403 +1,207 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VÍDEOS | RESTAURAR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vídeos | Restaurar</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
-[hidden]{display:none!important}
-header{text-align:center;padding:40px 15px 25px}
-header h1{font-size:clamp(32px,5vw,50px);letter-spacing:3px;margin:0 0 12px}
-header p,.description{color:#aaa;line-height:1.7}
-nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:15px;border-bottom:1px solid #292929}
-nav a{color:#fff;text-decoration:none;font-weight:bold;font-size:13px;padding:13px 18px;border-radius:7px}
-nav a.active,nav a:hover{background:#b89455;color:#000}
-main{max-width:1450px;min-height:65vh;margin:auto;padding:40px 20px 80px}
-main h2,.description{text-align:center}
-.description{margin-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
-.card{border:1px solid #292929;border-radius:12px;overflow:hidden}
-.player{aspect-ratio:16/9}
-.player iframe{width:100%;height:100%;border:0;display:block}
-.card h3{font-size:16px;line-height:1.5;padding:15px;margin:0}
-.empty{grid-column:1/-1;text-align:center;padding:60px;color:#aaa}
-footer{position:relative;text-align:center;border-top:1px solid #292929;padding:35px 15px;color:#aaa}
-.socials{display:flex;justify-content:center;gap:20px;margin-top:18px}
-.socials a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:7px}
-.socials svg{width:25px;height:25px;fill:currentColor}
-.admin-a{position:absolute;right:10px;bottom:6px;background:none;border:0;color:#444;cursor:pointer}
-.admin-a:hover{color:#fff}
-.whatsapp{position:fixed;right:18px;bottom:20px;z-index:30;display:flex;align-items:center;gap:10px;background:#25d366;color:#083b1e;text-decoration:none;font-weight:bold;font-size:13px;border-radius:40px;padding:12px 16px;box-shadow:0 4px 20px #0008}
-.whatsapp svg{width:28px;height:28px;fill:currentColor}
-.overlay{position:fixed;inset:0;background:#000d;display:grid;place-items:center;z-index:50;padding:12px}
-.modal{width:min(850px,100%);max-height:95vh;overflow:auto;background:#111;border:1px solid #333;border-radius:12px;padding:24px}
-.field{margin:14px 0}
-.field label{display:block;margin-bottom:7px;font-weight:bold;font-size:14px}
-.field input,.field textarea{width:100%;padding:12px;background:#1c1c1c;color:#fff;border:1px solid #444;border-radius:7px;font:inherit}
-.field textarea{min-height:100px}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-button{cursor:pointer;font:inherit}
-.btn{background:#292929;color:#fff;border:1px solid #444;padding:11px 15px;border-radius:7px}
-.gold{background:#b89455;color:#000;border-color:#b89455}
-.danger{background:#912323}
-.item{padding:12px;border:1px solid #333;border-radius:8px;margin:10px 0}
-.status{color:#9ee9b2}
-section{border-top:1px solid #333;margin-top:22px;padding-top:16px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}main{padding:30px 14px 65px}.modal{padding:15px}nav a{padding:10px;font-size:12px}.whatsapp{right:10px;bottom:12px;font-size:11px}}
+header{padding:30px 15px;text-align:center;border-bottom:1px solid #222}
+header h1{margin:0 0 20px;font-size:30px}
+nav{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+nav a{color:#ddd;text-decoration:none;font-weight:bold;font-size:14px}
+nav a.active,nav a:hover{color:#e4bd67}
+main{max-width:1200px;margin:auto;padding:35px 18px;min-height:65vh}
+h2{font-size:25px;margin-bottom:25px}
+.grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#101010;border:1px solid #282828;border-radius:10px;overflow:hidden}
+.card iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+.card h3{padding:15px;font-size:17px;margin:0}
+.card p{padding:0 15px 15px;color:#aaa}
+footer{padding:35px;text-align:center;border-top:1px solid #222;color:#777;position:relative}
+.adm-btn{position:absolute;right:12px;bottom:10px;background:none;border:0;color:#393939;cursor:pointer;font-size:11px}
+.whats{position:fixed;bottom:20px;left:20px;background:#168b49;color:white;padding:13px 17px;border-radius:35px;text-decoration:none;font-weight:bold;font-size:13px;z-index:10;display:flex;align-items:center;gap:8px}
+.whats svg{width:22px;height:22px;fill:currentColor}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:25px}
+.modal.aberto{display:block}
+.painel{max-width:750px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
+input,textarea,select{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
+textarea{min-height:100px}
+button.acao{background:#d4aa55;color:#000;border:0;padding:12px 18px;border-radius:5px;font-weight:bold;cursor:pointer}
+button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:5px;cursor:pointer}
+.linha{padding:14px 0;border-bottom:1px solid #333;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.fechar{float:right;background:transparent;color:#fff;border:0;font-size:25px;cursor:pointer}
+.aviso{color:#aaa}
+@media(max-width:850px){.grade{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.grade{grid-template-columns:1fr}header h1{font-size:25px}.whats{font-size:11px}}
 </style>
 </head>
 <body>
 
 <header>
-<h1 id="brand">RESTAURAR</h1>
-<p id="tagline">Mensagens de fé, esperança e restauração</p>
+<h1 id="tituloSite">RESTAURAR</h1>
+<nav>
+<a class="active" href="videos.html">VÍDEOS</a>
+<a href="testemunhos.html">TESTEMUNHOS</a>
+<a href="estudos.html">ESTUDOS</a>
+</nav>
 </header>
 
-<nav>
-<a href="videos.html" class="active" id="navVideos">VÍDEOS</a>
-<a href="testemunhos.html" id="navTestimonials">TESTEMUNHOS</a>
-<a href="estudos.html" id="navStudies">ESTUDOS</a>
-</nav>
-
 <main>
-<h2 id="pageTitle">VÍDEOS</h2>
-<p class="description" id="pageDescription"></p>
-<div class="grid" id="content"></div>
+<h2>VÍDEOS</h2>
+<div id="gradeVideos" class="grade"></div>
 </main>
 
-<footer>
-<p id="footerName">JADIR BRITO</p>
-<p id="footerText">Fé • Esperança • Restauração</p>
-<div class="socials">
-<a id="youtube" hidden target="_blank" rel="noopener noreferrer">
-<svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg>
-YouTube</a>
-<a id="tiktok" hidden target="_blank" rel="noopener noreferrer">
-<svg viewBox="0 0 24 24"><path d="M16.8 1h-4v14a3.2 3.2 0 1 1-3.2-3.2V7.7a7.3 7.3 0 1 0 7.3 7.3V8a10 10 0 0 0 5.5 1.6V5.5A5.5 5.5 0 0 1 16.8 1Z"/></svg>
-TikTok</a>
-</div>
-<button class="admin-a" id="openAdmin">A</button>
-</footer>
-
-<a class="whatsapp" id="whatsapp" hidden target="_blank" rel="noopener noreferrer">
-<svg viewBox="0 0 32 32"><path d="M16 2A14 14 0 0 0 4 23.3L2 30l7-1.8A14 14 0 1 0 16 2Zm0 25.5a11.4 11.4 0 0 1-5.8-1.6l-.4-.2-4.1 1.1 1.1-4-.3-.5A11.5 11.5 0 1 1 16 27.5Zm6.4-8.8c-.4-.2-2-1-2.4-1.1-.3-.1-.5-.1-.7.2-.2.3-.9 1.1-1 1.2-.2.2-.4.2-.7.1a9.6 9.6 0 0 1-2.8-1.7 10.5 10.5 0 0 1-1.9-2.4c-.2-.3 0-.5.1-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1.1-2.5c-.3-.6-.5-.5-.8-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.8s1.2 3.1 1.4 3.3c.2.2 2.3 3.7 5.7 5 .8.3 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.5-.3Z"/></svg>
-<span id="waLabel">FALE COM O PROFETA</span>
+<a id="whatsapp" class="whats" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 .9c-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+</svg>
+FALE COM O PROFETA
 </a>
 
-<div class="overlay" id="login" hidden>
-<div class="modal" style="max-width:400px">
-<h2>Acesso ADM</h2>
-<form id="loginForm">
-<div class="field">
-<label>Senha</label>
-<input id="password" type="password" inputmode="numeric" required>
-</div>
-<div class="row">
-<button class="btn gold">Entrar</button>
-<button class="btn" type="button" id="cancelLogin">Cancelar</button>
-</div>
-<p class="status" id="loginStatus"></p>
-</form>
-</div>
+<footer>
+© RESTAURAR
+<button class="adm-btn" onclick="abrirADM()">A</button>
+</footer>
+
+<div id="modal" class="modal">
+<div class="painel">
+<button class="fechar" onclick="fecharADM()">×</button>
+<h2>ADMINISTRADOR</h2>
+
+<div id="login">
+<input type="password" id="senha" placeholder="Senha do administrador">
+<button class="acao" onclick="entrar()">ENTRAR</button>
+<p id="erro" style="color:#f66"></p>
 </div>
 
-<div class="overlay" id="admin" hidden>
-<div class="modal">
-<h2>Administrador RESTAURAR</h2>
-<div class="row">
-<button class="btn gold" id="saveTop">Salvar no Firebase</button>
-<button class="btn" id="closeAdmin">Fechar</button>
-<button class="btn danger" id="logout">Sair</button>
+<div id="conteudoADM" style="display:none">
+<h3>Configurações gerais</h3>
+<label>Nome do site</label>
+<input id="nomeSite">
+<label>WhatsApp (somente números)</label>
+<input id="numeroWhats">
+<button class="acao" onclick="salvarConfig()">SALVAR CONFIGURAÇÕES</button>
+
+<hr>
+<h3>Cadastrar vídeo</h3>
+<input id="videoTitulo" placeholder="Título do vídeo">
+<input id="videoLink" placeholder="Link do YouTube">
+<textarea id="videoDescricao" placeholder="Descrição (opcional)"></textarea>
+<button class="acao" onclick="adicionarVideo()">SALVAR VÍDEO</button>
+
+<h3>Vídeos cadastrados</h3>
+<div id="listaADM"></div>
+<p class="aviso">As alterações são salvas neste navegador.</p>
 </div>
-<p class="status" id="status"></p>
-
-<section>
-<h3>Todos os textos das três páginas</h3>
-<div id="textFields"></div>
-</section>
-
-<section>
-<h3>WhatsApp e redes sociais</h3>
-<label><input type="checkbox" id="waEnabled"> Exibir WhatsApp</label>
-<div class="field"><label>Número com 55 + DDD</label><input id="waNumber"></div>
-<div class="field"><label>Texto do botão</label><input id="waText"></div>
-<div class="field"><label>Mensagem inicial</label><textarea id="waMessage"></textarea></div>
-<div class="field"><label>Link YouTube</label><input id="youtubeUrl"></div>
-<div class="field"><label>Link TikTok</label><input id="tiktokUrl"></div>
-</section>
-
-<section>
-<h3>Gerenciar vídeos</h3>
-<form id="itemForm">
-<input type="hidden" id="itemIndex" value="-1">
-<div class="field"><label>Título</label><input id="itemTitle" required></div>
-<div class="field"><label>Link do YouTube</label><input id="itemUrl" required></div>
-<div class="row">
-<button class="btn gold">Adicionar / Atualizar</button>
-<button class="btn" type="button" id="clearItem">Limpar</button>
-</div>
-</form>
-<div id="itemList"></div>
-</section>
-
-<button class="btn gold" id="saveBottom">Salvar todas as alterações</button>
 </div>
 </div>
 
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import{getFirestore,doc,onSnapshot,setDoc}from"https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-import{getAuth,signInWithCustomToken,signOut}from"https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+<script>
+const CHAVE="restaurar_site_v3";
+const SENHA="848218";
 
-const firebaseConfig={
-apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-authDomain:"namoro-f18ac.firebaseapp.com",
-databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
-projectId:"namoro-f18ac",
-storageBucket:"namoro-f18ac.firebasestorage.app",
-messagingSenderId:"336479537433",
-appId:"1:336479537433:web:dd282c67e98ca196e05d88",
-measurementId:"G-1YLR1JNZYY"
-};
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-const auth=getAuth(app);
-const ref=doc(db,"restaurar","publico");
-const LOGIN_URL="https://us-central1-namoro-f18ac.cloudfunctions.net/restaurarAdminLogin";
-const $=id=>document.getElementById(id);
-
-const defaults={
-brand:"RESTAURAR",
-tagline:"Mensagens de fé, esperança e restauração",
-navVideos:"VÍDEOS",
-navTestimonials:"TESTEMUNHOS",
-navStudies:"ESTUDOS",
-videosTitle:"VÍDEOS",
-videosDescription:"Mensagens de fé, esperança e restauração para sua vida.",
-testimonialsTitle:"TESTEMUNHOS",
-testimonialsDescription:"Testemunhos de fé e restauração.",
-studiesTitle:"ESTUDOS",
-studiesDescription:"Artigos e estudos para seu crescimento espiritual.",
-footerName:"JADIR BRITO",
-footerText:"Fé • Esperança • Restauração"
-};
-const labels={
-brand:"Nome do site",tagline:"Frase principal",
-navVideos:"Menu Vídeos",navTestimonials:"Menu Testemunhos",
-navStudies:"Menu Estudos",videosTitle:"Título da página Vídeos",
-videosDescription:"Descrição da página Vídeos",
-testimonialsTitle:"Título da página Testemunhos",
-testimonialsDescription:"Descrição da página Testemunhos",
-studiesTitle:"Título da página Estudos",
-studiesDescription:"Descrição da página Estudos",
-footerName:"Nome do rodapé",footerText:"Texto do rodapé"
-};
-const contactDefault={
-enabled:false,number:"",text:"FALE COM O PROFETA",
-message:"Olá, gostaria de conversar.",youtube:"",tiktok:""
-};
-
-let state={
-videos:[],settings:{...defaults},contact:{...contactDefault}
-};
-let draft=null,dirty=false;
-
-function youtubeId(raw){
+function dados(){
 try{
-const u=new URL(raw);
+return JSON.parse(localStorage.getItem(CHAVE)) || {
+config:{titulo:"RESTAURAR",whatsapp:"5547999999999"},
+videos:[],testemunhos:[],estudos:[]
+};
+}catch(e){return {config:{titulo:"RESTAURAR",whatsapp:"5547999999999"},videos:[],testemunhos:[],estudos:[]}}
+}
+function salvar(d){localStorage.setItem(CHAVE,JSON.stringify(d))}
+function el(id){return document.getElementById(id)}
+function texto(t){return String(t||"")}
+function youtubeID(url){
+try{
+const u=new URL(url);
+let h=u.hostname.replace(/^www\./,"");
 let id="";
-if(["youtu.be","www.youtu.be"].includes(u.hostname))
-id=u.pathname.split("/")[1]||"";
-else if(["youtube.com","www.youtube.com","m.youtube.com"].includes(u.hostname))
-id=u.pathname==="/watch"
-?u.searchParams.get("v")||""
-:(u.pathname.match(/^\/(?:shorts|embed|live)\/([^/]+)/)||[])[1]||"";
+if(h==="youtu.be")id=u.pathname.slice(1).split("/")[0];
+else if(["youtube.com","m.youtube.com","youtube-nocookie.com"].includes(h)){
+if(u.pathname==="/watch")id=u.searchParams.get("v")||"";
+else if(/^\/(shorts|embed|live)\//.test(u.pathname))id=u.pathname.split("/")[2];
+}
 return /^[\w-]{11}$/.test(id)?id:null;
-}catch{return null}
+}catch(e){return null}
 }
-function safeUrl(raw){
-try{const u=new URL(raw);return ["https:","http:"].includes(u.protocol)?u.href:""}
-catch{return ""}
-}
-function node(tag,text){
-const n=document.createElement(tag);
-if(text!==undefined)n.textContent=text;
-return n;
+function configurar(){
+const d=dados();
+el("tituloSite").textContent=d.config?.titulo||"RESTAURAR";
+el("whatsapp").href="https://wa.me/"+(d.config?.whatsapp||"5547999999999").replace(/\D/g,"");
 }
 function render(){
-const s=state.settings,c=state.contact;
-for(const k of ["brand","tagline","navVideos","navTestimonials","navStudies","footerName","footerText"])
-$(k).textContent=s[k]||"";
-$("pageTitle").textContent=s.videosTitle;
-$("pageDescription").textContent=s.videosDescription;
-document.title=s.videosTitle+" | "+s.brand;
-
-const phone=String(c.number||"").replace(/\D/g,"");
-$("whatsapp").hidden=!(c.enabled&&/^\d{10,15}$/.test(phone));
-if(!$("whatsapp").hidden)
-$("whatsapp").href="https://wa.me/"+phone+"?text="+encodeURIComponent(c.message||"");
-$("waLabel").textContent=c.text||"FALE COM O PROFETA";
-for(const k of ["youtube","tiktok"]){
-$(k).hidden=!safeUrl(c[k]);
-if(!$(k).hidden)$(k).href=safeUrl(c[k]);
-}
-const root=$("content");root.replaceChildren();
-if(!state.videos.length){root.append(node("p","Em breve, novos vídeos."));return}
-for(const v of state.videos){
-const id=youtubeId(v.url);if(!id)continue;
-const card=node("article");card.className="card";
-const player=node("div");player.className="player";
-const iframe=node("iframe");
-iframe.src="https://www.youtube-nocookie.com/embed/"+id;
-iframe.title=v.title;iframe.loading="lazy";
-iframe.allow="accelerometer; autoplay; encrypted-media; picture-in-picture";
-iframe.allowFullscreen=true;
-player.append(iframe);
-card.append(player,node("h3",v.title));
-root.append(card);
-}
-}
-function markDirty(){dirty=true;$("status").textContent="Alterações pendentes de salvamento."}
-for(const [key,label] of Object.entries(labels)){
-const div=node("div");div.className="field";
-const l=node("label",label);
-const input=node("textarea");
-input.id="text_"+key;
-input.addEventListener("input",markDirty);
-div.append(l,input);$("textFields").append(div);
-}
-for(const id of ["waEnabled","waNumber","waText","waMessage","youtubeUrl","tiktokUrl"])
-$(id).addEventListener("input",markDirty);
-
-function fill(){
-for(const k of Object.keys(defaults))$("text_"+k).value=draft.settings[k]||"";
-$("waEnabled").checked=!!draft.contact.enabled;
-$("waNumber").value=draft.contact.number||"";
-$("waText").value=draft.contact.text||"";
-$("waMessage").value=draft.contact.message||"";
-$("youtubeUrl").value=draft.contact.youtube||"";
-$("tiktokUrl").value=draft.contact.tiktok||"";
-renderList();
-}
-function renderList(){
-const list=$("itemList");list.replaceChildren();
-draft.videos.forEach((v,i)=>{
-const box=node("div");box.className="item";
-box.append(node("strong",(i+1)+". "+v.title));
-const actions=node("div");actions.className="row";
-for(const [label,fn] of [
-["Editar",()=>{$("itemIndex").value=i;$("itemTitle").value=v.title;$("itemUrl").value=v.url}],
-["↑",()=>move(i,-1)],["↓",()=>move(i,1)],
-["Excluir",()=>{if(confirm("Excluir vídeo?")){draft.videos.splice(i,1);markDirty();renderList()}}]
-]){
-const b=node("button",label);b.className="btn";b.onclick=fn;
-actions.append(b);
-}
-box.append(actions);list.append(box);
+configurar();
+const area=el("gradeVideos");area.replaceChildren();
+const videos=dados().videos||[];
+if(!videos.length){area.textContent="Nenhum vídeo cadastrado.";return}
+videos.forEach(v=>{
+const id=youtubeID(v.link);if(!id)return;
+const card=document.createElement("article");card.className="card";
+const frame=document.createElement("iframe");
+frame.src="https://www.youtube-nocookie.com/embed/"+id;
+frame.title=v.titulo;frame.loading="lazy";
+frame.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+frame.allowFullscreen=true;
+const h=document.createElement("h3");h.textContent=v.titulo;
+const p=document.createElement("p");p.textContent=v.descricao||"";
+card.append(frame,h,p);area.append(card);
 });
 }
-function move(i,d){
-const j=i+d;if(j<0||j>=draft.videos.length)return;
-[draft.videos[i],draft.videos[j]]=[draft.videos[j],draft.videos[i]];
-markDirty();renderList();
+function abrirADM(){
+el("modal").classList.add("aberto");
+if(sessionStorage.getItem("restaurar_adm")==="sim")mostrarADM();
 }
-$("itemForm").onsubmit=e=>{
-e.preventDefault();
-const v={title:$("itemTitle").value.trim(),url:$("itemUrl").value.trim()};
-if(!youtubeId(v.url)){alert("Link do YouTube inválido.");return}
-const i=Number($("itemIndex").value);
-if(i>=0&&i<draft.videos.length)draft.videos[i]=v;
-else draft.videos.push(v);
-$("itemForm").reset();$("itemIndex").value="-1";
-markDirty();renderList();
-};
-$("clearItem").onclick=()=>{$("itemForm").reset();$("itemIndex").value="-1"};
-
-function isAdmin(){return auth.currentUser?.uid==="restaurar-admin"}
-function openPanel(){
-if(!isAdmin())return;
-draft=structuredClone(state);dirty=false;fill();
-$("login").hidden=true;$("admin").hidden=false;
+function fecharADM(){el("modal").classList.remove("aberto")}
+function entrar(){
+if(el("senha").value===SENHA){
+sessionStorage.setItem("restaurar_adm","sim");
+mostrarADM();
+}else el("erro").textContent="Senha incorreta.";
 }
-$("openAdmin").onclick=()=>{
-if(isAdmin())openPanel();
-else{$("login").hidden=false;$("password").focus()}
-};
-$("cancelLogin").onclick=()=>{$("login").hidden=true};
-$("loginForm").onsubmit=async e=>{
-e.preventDefault();
-$("loginStatus").textContent="Verificando senha...";
-try{
-const r=await fetch(LOGIN_URL,{
-method:"POST",headers:{"Content-Type":"application/json"},
-body:JSON.stringify({password:$("password").value})
+function mostrarADM(){
+el("login").style.display="none";
+el("conteudoADM").style.display="block";
+const d=dados();
+el("nomeSite").value=d.config?.titulo||"RESTAURAR";
+el("numeroWhats").value=d.config?.whatsapp||"";
+listarADM();
+}
+function salvarConfig(){
+const d=dados();
+d.config={titulo:el("nomeSite").value.trim()||"RESTAURAR",
+whatsapp:el("numeroWhats").value.replace(/\D/g,"")};
+salvar(d);render();alert("Configurações salvas!");
+}
+function adicionarVideo(){
+const titulo=el("videoTitulo").value.trim();
+const link=el("videoLink").value.trim();
+if(!titulo||!youtubeID(link)){alert("Informe título e link válido do YouTube.");return}
+const d=dados();d.videos=d.videos||[];
+d.videos.push({id:Date.now(),titulo,link,descricao:el("videoDescricao").value.trim()});
+salvar(d);
+el("videoTitulo").value="";el("videoLink").value="";el("videoDescricao").value="";
+render();listarADM();alert("Vídeo salvo!");
+}
+function listarADM(){
+const area=el("listaADM");area.replaceChildren();
+(dados().videos||[]).forEach(v=>{
+const div=document.createElement("div");div.className="linha";
+const span=document.createElement("span");span.textContent=v.titulo;
+const btn=document.createElement("button");btn.className="excluir";btn.textContent="EXCLUIR";
+btn.onclick=()=>excluirVideo(v.id);
+div.append(span,btn);area.append(div);
 });
-if(!r.ok)throw Error("Login recusado");
-const result=await r.json();
-const cred=await signInWithCustomToken(auth,result.token);
-if(cred.user.uid!=="restaurar-admin")throw Error("Sem permissão");
-$("password").value="";openPanel();
-}catch(error){
-console.error(error);
-$("loginStatus").textContent="Senha incorreta ou função Firebase indisponível.";
 }
-};
-$("closeAdmin").onclick=()=>{
-if(dirty&&!confirm("Descartar alterações?"))return;
-$("admin").hidden=true;dirty=false;
-};
-$("logout").onclick=async()=>{
-if(dirty&&!confirm("Descartar alterações?"))return;
-dirty=false;await signOut(auth);$("admin").hidden=true;
-};
-async function save(){
-if(!isAdmin())return;
-for(const k of Object.keys(defaults))
-draft.settings[k]=$("text_"+k).value.trim();
-draft.contact={
-enabled:$("waEnabled").checked,
-number:$("waNumber").value.replace(/\D/g,""),
-text:$("waText").value.trim(),
-message:$("waMessage").value.trim(),
-youtube:$("youtubeUrl").value.trim(),
-tiktok:$("tiktokUrl").value.trim()
-};
-if(draft.contact.enabled&&!/^\d{10,15}$/.test(draft.contact.number)){
-alert("Número de WhatsApp inválido.");return;
+function excluirVideo(id){
+if(!confirm("Excluir este vídeo?"))return;
+const d=dados();d.videos=d.videos.filter(v=>v.id!==id);
+salvar(d);render();listarADM();
 }
-$("status").textContent="Salvando...";
-try{
-await setDoc(ref,{
-videos:draft.videos,
-restaurarSettings:draft.settings,
-restaurarContact:draft.contact
-},{merge:true});
-state=structuredClone(draft);dirty=false;render();
-$("status").textContent="Salvo no Firebase!";
-}catch(error){
-console.error(error);$("status").textContent="Erro ao salvar no Firebase.";
-}
-}
-$("saveTop").onclick=save;
-$("saveBottom").onclick=save;
-
-onSnapshot(ref,snap=>{
-const d=snap.exists()?snap.data():{};
-state={
-videos:Array.isArray(d.videos)?d.videos:[],
-settings:{...defaults,...(d.restaurarSettings||d.videoPageSettings||{})},
-contact:{...contactDefault,...(d.restaurarContact||d.videoPageWhatsapp||{})}
-};
+window.addEventListener("storage",render);
 render();
-if(!dirty&&draft){draft=structuredClone(state);fill()}
-},error=>{
-console.error(error);
-$("content").textContent="Erro ao carregar dados do Firebase.";
-});
 </script>
 </body>
 </html>
