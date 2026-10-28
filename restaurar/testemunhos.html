@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Testemunhos | Restaurar</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
 header{text-align:center;padding:30px 15px;border-bottom:1px solid #222}
 header h1{margin:0 0 20px;font-size:30px}
-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:25px}
+nav{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
 nav a{color:#ddd;text-decoration:none;font-weight:bold;font-size:14px}
 nav a.active,nav a:hover{color:#e4bd67}
 main{max-width:1200px;margin:auto;padding:35px 18px;min-height:65vh}
-h2{font-size:25px}
+h2{font-size:25px;margin-bottom:25px}
 .grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .card{position:relative;min-width:0;background:#101010;border:1px solid #282828;border-radius:10px;overflow:hidden}
 .midia{height:340px;background:#080808;display:flex;align-items:center;justify-content:center}
@@ -30,20 +31,39 @@ footer{padding:35px;text-align:center;border-top:1px solid #222;color:#777;posit
 .adm-btn{position:absolute;right:12px;bottom:10px;background:none;border:0;color:#393939;cursor:pointer}
 .whats{position:fixed;bottom:20px;left:20px;background:#168b49;color:#fff;padding:13px 17px;border-radius:35px;text-decoration:none;font-weight:bold;font-size:13px;z-index:10;display:flex;align-items:center;gap:8px}
 .whats svg{width:22px;height:22px;fill:currentColor}
-.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:25px}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:20px}
 .modal.aberto{display:block}
-.painel{max-width:750px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
-input,textarea,select{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
+.painel{max-width:850px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
+input,textarea,select{display:block;width:100%;background:#050505;color:#fff;border:1px solid #444;padding:13px;margin:10px 0 16px;border-radius:5px;font:inherit}
 textarea{min-height:90px}
 button.acao{background:#d4aa55;color:#000;border:0;padding:12px 18px;border-radius:5px;font-weight:bold;cursor:pointer}
 button.acao:disabled{opacity:.5}
 button.excluir{background:#a32323;color:#fff;border:0;padding:9px;border-radius:5px;cursor:pointer}
-.linha{padding:14px 0;border-bottom:1px solid #333;display:flex;justify-content:space-between;gap:12px;align-items:center}
 .fechar{float:right;background:transparent;color:white;border:0;font-size:25px;cursor:pointer}
 .aviso{color:#aaa;line-height:1.6}
 .erro{color:#ff8585}
 .ok{color:#9be3ac}
 hr{border:0;border-top:1px solid #333;margin:25px 0}
+
+/* ORGANIZADOR DO ADMINISTRADOR */
+.organizador{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.item-ordem{display:flex;align-items:center;gap:12px;padding:12px;background:#191919;border:1px solid #383838;border-radius:9px;min-width:0}
+.numero-ordem{font-weight:bold;color:#e4bd67;min-width:28px;text-align:center}
+.preview-ordem{width:90px;height:72px;flex-shrink:0;background:#050505;border-radius:5px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.preview-ordem img{width:100%;height:100%;object-fit:contain}
+.preview-ordem span{font-size:27px}
+.dados-ordem{flex:1;min-width:0}
+.dados-ordem strong{display:block;font-size:14px;overflow-wrap:anywhere}
+.dados-ordem small{display:block;color:#aaa;margin-top:5px}
+.controles-ordem{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end}
+.controles-ordem button{background:#303030;color:#fff;border:1px solid #555;border-radius:5px;padding:8px 10px;cursor:pointer}
+.controles-ordem button:hover{background:#d4aa55;color:#000}
+.controles-ordem button:disabled{opacity:.3;cursor:default}
+.controles-ordem .excluir{background:#922;color:#fff}
+.acoes-ordem{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.dica{font-size:13px;color:#aaa;line-height:1.6}
+.contador{color:#d4aa55;font-weight:bold}
+
 @media(max-width:850px){
 .grade{grid-template-columns:repeat(2,minmax(0,1fr))}
 .midia{height:300px}
@@ -55,11 +75,16 @@ main{padding:25px 12px}
 .whats{font-size:11px}
 nav{gap:15px}
 nav a{font-size:12px}
+.painel{padding:15px}
+.item-ordem{flex-wrap:wrap}
+.preview-ordem{width:70px;height:65px}
+.controles-ordem{width:100%;justify-content:space-between}
+.controles-ordem button{flex:1}
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
 <nav>
@@ -98,7 +123,7 @@ FALE COM O PROFETA
 <h2>ADMINISTRADOR</h2>
 
 <div id="login">
-<p class="aviso">Entre com seu e-mail e senha do Firebase Authentication.</p>
+<p class="aviso">Entre com o e-mail e a senha cadastrados no Firebase Authentication.</p>
 <input id="email" type="email" placeholder="E-mail do administrador">
 <input id="senha" type="password" placeholder="Senha">
 <button class="acao" id="entrar">ENTRAR</button>
@@ -108,33 +133,63 @@ FALE COM O PROFETA
 <div id="conteudoADM" style="display:none">
 <p id="usuarioAtual" class="aviso"></p>
 <button class="acao" id="sair">SAIR</button>
+
 <hr>
-<h3>Configurações gerais</h3>
+
+<h3>CONFIGURAÇÕES GERAIS</h3>
 <label>Nome do site</label>
 <input id="nomeSite">
 <label>WhatsApp (somente números)</label>
 <input id="numeroWhats">
 <button class="acao" id="salvarConfig">SALVAR CONFIGURAÇÕES</button>
+
 <hr>
-<h3>Cadastrar testemunho</h3>
+
+<h3>CADASTRAR TESTEMUNHO</h3>
 <label>Tipo de testemunho</label>
 <select id="tipoTestemunho">
 <option value="imagem">IMAGEM</option>
 <option value="video">VÍDEO DO YOUTUBE</option>
 </select>
+
 <label id="rotuloLink">Link da imagem</label>
 <input id="midiaLink" placeholder="https://site.com/imagem.jpg">
+
 <label>Descrição ou título</label>
 <textarea id="midiaLegenda" placeholder="Descrição (opcional)"></textarea>
-<button class="acao" id="adicionarTestemunho">SALVAR TESTEMUNHO NO FIREBASE</button>
+
+<button class="acao" id="adicionarTestemunho">SALVAR TESTEMUNHO</button>
 <p id="mensagemADM" role="status"></p>
+
 <hr>
-<h3>Importar testemunhos antigos</h3>
-<p class="aviso">Importa imagens cadastradas na versão antiga neste mesmo navegador.</p>
+
+<h3>ORGANIZAR ORDEM DOS TESTEMUNHOS</h3>
+<p class="aviso">
+Organize vídeos e imagens na sequência que deseja apresentar aos visitantes.
+</p>
+
+<p class="contador" id="contadorTestemunhos">0 testemunhos cadastrados</p>
+
+<p class="dica">
+↑ Sobe uma posição | ↓ Desce uma posição | ⇈ Primeiro | ⇊ Último.
+A ordem é alterada na lista abaixo e só será publicada quando clicar em SALVAR ORDEM.
+</p>
+
+<div id="listaOrdem" class="organizador"></div>
+
+<div class="acoes-ordem">
+<button class="acao" id="salvarOrdemADM">SALVAR ORDEM NO FIREBASE</button>
+<button class="acao" id="cancelarOrdemADM" style="background:#444;color:white">CANCELAR ALTERAÇÕES</button>
+</div>
+
+<p id="mensagemOrdem" role="status"></p>
+
+<hr>
+
+<h3>IMPORTAR TESTEMUNHOS ANTIGOS</h3>
+<p class="aviso">Importa imagens da versão antiga salvas neste navegador.</p>
 <button class="acao" id="importarAntigos">IMPORTAR CADASTROS ANTIGOS</button>
-<hr>
-<h3>Testemunhos cadastrados</h3>
-<div id="listaADM"></div>
+
 </div>
 </div>
 </div>
@@ -162,34 +217,61 @@ const $=id=>document.getElementById(id);
 
 const testemunhosRef=ref(db,"restaurar/testemunhos");
 const configRef=ref(db,"restaurar/config");
-const FILA_KEY="restaurar_fila_testemunhos_mistos_v1";
+const ordemRef=ref(db,"restaurar/ordemTestemunhos");
+
+const FILA_KEY="restaurar_fila_visitante_v2";
 
 let testemunhos={};
-let ordem=[];
-let config={titulo:"RESTAURAR",whatsapp:"5547999999999"};
+let ordemOficial=[];
+let ordemEdicao=[];
+let movimentosVisitante=[];
+let config={
+titulo:"RESTAURAR",
+whatsapp:"5547999999999"
+};
+let ordemCarregada=false;
+let testemunhosCarregados=false;
+let alteracoesPendentes=false;
+let salvandoOrdem=false;
 
-function msg(texto,erro=false){
+function mensagem(texto,erro=false){
 $("mensagemADM").textContent=texto;
 $("mensagemADM").className=erro?"erro":"ok";
 }
+
+function mensagemOrdem(texto,erro=false){
+$("mensagemOrdem").textContent=texto;
+$("mensagemOrdem").className=erro?"erro":"ok";
+}
+
 function estado(texto,erro=false){
 $("estado").textContent=texto;
 $("estado").className=erro?"erro":"aviso";
 }
+
 function urlValida(s){
 try{
 const u=new URL(s);
 return ["http:","https:"].includes(u.protocol);
 }catch(e){return false}
 }
+
 function youtubeID(url){
 try{
 const u=new URL(url);
-const host=u.hostname.toLowerCase().replace(/^www\./,"").replace(/^music\./,"");
+const host=u.hostname.toLowerCase()
+.replace(/^www\./,"")
+.replace(/^music\./,"");
+
 let id="";
+
 if(host==="youtu.be"){
 id=u.pathname.split("/")[1];
-}else if(["youtube.com","m.youtube.com","youtube-nocookie.com"].includes(host)){
+}else if([
+"youtube.com",
+"m.youtube.com",
+"youtube-nocookie.com"
+].includes(host)){
 if(u.pathname==="/watch"){
 id=u.searchParams.get("v")||"";
 }else if(/^\/(shorts|embed|live|v)\//.test(u.pathname)){
@@ -199,35 +281,55 @@ id=u.pathname.split("/")[2];
 return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:null;
 }catch(e){return null}
 }
-function recuperarOrdem(){
+
+function idsDisponiveis(){
+return Object.keys(testemunhos).sort((a,b)=>
+(Number(testemunhos[b].criadoEm)||0)-
+(Number(testemunhos[a].criadoEm)||0)
+);
+}
+
+function normalizarOrdem(lista){
+const ids=idsDisponiveis();
+const validos=Array.isArray(lista)
+?lista.filter(id=>ids.includes(id)):[];
+const unicos=[...new Set(validos)];
+return [...unicos,...ids.filter(id=>!unicos.includes(id))];
+}
+
+function ordemPublica(){
+let lista=normalizarOrdem(ordemOficial);
+for(const id of movimentosVisitante){
+if(lista.includes(id)){
+lista=lista.filter(k=>k!==id);
+lista.push(id);
+}
+}
+return lista;
+}
+
+function recuperarMovimentos(){
 try{
-const a=JSON.parse(localStorage.getItem(FILA_KEY));
+const a=JSON.parse(sessionStorage.getItem(FILA_KEY)||"[]");
 return Array.isArray(a)?a:[];
 }catch(e){return []}
 }
-function salvarOrdem(){
-try{localStorage.setItem(FILA_KEY,JSON.stringify(ordem))}catch(e){}
+
+movimentosVisitante=recuperarMovimentos();
+
+function moverFinalVisitante(id){
+movimentosVisitante=movimentosVisitante.filter(k=>k!==id);
+movimentosVisitante.push(id);
+try{
+sessionStorage.setItem(FILA_KEY,JSON.stringify(movimentosVisitante));
+}catch(e){}
+renderPublico();
 }
-function atualizarOrdem(){
-const ids=Object.keys(testemunhos).sort((a,b)=>
-(Number(testemunhos[b].criadoEm)||0)-(Number(testemunhos[a].criadoEm)||0)
-);
-const anterior=ordem.length?ordem:recuperarOrdem();
-ordem=anterior.filter(k=>ids.includes(k));
-ordem=[...ids.filter(k=>!ordem.includes(k)),...ordem];
-salvarOrdem();
-}
-function moverFinal(key){
-atualizarOrdem();
-if(!ordem.includes(key))return;
-ordem=ordem.filter(k=>k!==key);
-ordem.push(key);
-salvarOrdem();
-render();
-}
+
 function criarPlayer(id){
 const iframe=document.createElement("iframe");
-iframe.src="https://www.youtube.com/embed/"+encodeURIComponent(id)+"?rel=0&playsinline=1";
+iframe.src="https://www.youtube.com/embed/"+
+encodeURIComponent(id)+"?rel=0&playsinline=1";
 iframe.title="Vídeo do testemunho";
 iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 iframe.allowFullscreen=true;
@@ -235,18 +337,22 @@ iframe.loading="lazy";
 iframe.referrerPolicy="strict-origin-when-cross-origin";
 return iframe;
 }
+
 function abrirZoom(t){
-$("fotoZoom").src=t.imagem;
+$("fotoZoom").src=t.imagem||t.link||"";
 $("fotoZoom").alt=t.legenda||"Testemunho ampliado";
 $("zoom").classList.add("aberto");
 document.body.style.overflow="hidden";
 }
+
 function fecharZoom(){
 $("zoom").classList.remove("aberto");
 $("fotoZoom").removeAttribute("src");
 document.body.style.overflow="";
 }
+
 $("zoom").onclick=fecharZoom;
+
 document.addEventListener("keydown",e=>{
 if(e.key==="Escape"){
 fecharZoom();
@@ -254,30 +360,36 @@ $("modal").classList.remove("aberto");
 }
 });
 
-function render(){
-atualizarOrdem();
+function renderPublico(){
 const area=$("gradeTestemunhos");
 area.replaceChildren();
-estado(ordem.length?"":"Nenhum testemunho cadastrado.");
 
-for(const key of ordem){
+if(!testemunhosCarregados||!ordemCarregada){
+estado("Carregando testemunhos...");
+return;
+}
+
+const lista=ordemPublica();
+estado(lista.length?"":"Nenhum testemunho cadastrado.");
+
+for(const key of lista){
 const t=testemunhos[key];
 if(!t)continue;
 
-const tipo=t.tipo==="video"?"video":"imagem";
 const card=document.createElement("article");
 card.className="card";
+
 const box=document.createElement("div");
 box.className="midia";
 
-if(tipo==="video"){
+if(t.tipo==="video"){
 const id=youtubeID(t.video||t.link||"");
 if(id){
 box.append(criarPlayer(id));
 }else{
-const aviso=document.createElement("p");
-aviso.textContent="Link de vídeo inválido.";
-box.append(aviso);
+const p=document.createElement("p");
+p.textContent="Link de vídeo inválido.";
+box.append(p);
 }
 }else{
 const img=document.createElement("img");
@@ -300,20 +412,184 @@ x.className="botao-x";
 x.textContent="×";
 x.title="Mover para o final da fila";
 x.setAttribute("aria-label","Mover para o final da fila");
-x.onclick=()=>moverFinal(key);
+x.onclick=()=>moverFinalVisitante(key);
+
 box.append(x);
 card.append(box);
 
 if(t.legenda){
-const p=document.createElement("div");
-p.className="legenda";
-p.textContent=t.legenda;
-card.append(p);
+const legenda=document.createElement("div");
+legenda.className="legenda";
+legenda.textContent=t.legenda;
+card.append(legenda);
 }
 area.append(card);
 }
-listarADM();
 }
+
+/* PAINEL DE ORGANIZAÇÃO */
+
+function iniciarEdicao(){
+ordemEdicao=normalizarOrdem(ordemOficial);
+alteracoesPendentes=false;
+renderOrganizador();
+}
+
+function moverADM(id,destino){
+const pos=ordemEdicao.indexOf(id);
+if(pos<0)return;
+
+ordemEdicao.splice(pos,1);
+
+if(destino==="primeiro"){
+ordemEdicao.unshift(id);
+}else if(destino==="ultimo"){
+ordemEdicao.push(id);
+}else{
+const nova=Math.max(0,Math.min(ordemEdicao.length,pos+destino));
+ordemEdicao.splice(nova,0,id);
+}
+
+alteracoesPendentes=true;
+mensagemOrdem("Ordem alterada. Clique em SALVAR ORDEM para publicar.");
+renderOrganizador();
+}
+
+function criarBotaoOrdem(texto,titulo,acao,desativado=false){
+const b=document.createElement("button");
+b.type="button";
+b.textContent=texto;
+b.title=titulo;
+b.setAttribute("aria-label",titulo);
+b.disabled=desativado;
+b.onclick=acao;
+return b;
+}
+
+function renderOrganizador(){
+const area=$("listaOrdem");
+area.replaceChildren();
+
+if(!auth.currentUser)return;
+
+ordemEdicao=normalizarOrdem(ordemEdicao);
+
+$("contadorTestemunhos").textContent=
+ordemEdicao.length+" testemunho(s) cadastrado(s)";
+
+if(!ordemEdicao.length){
+const p=document.createElement("p");
+p.className="aviso";
+p.textContent="Nenhum testemunho cadastrado.";
+area.append(p);
+return;
+}
+
+ordemEdicao.forEach((id,i)=>{
+const t=testemunhos[id];
+if(!t)return;
+
+const item=document.createElement("div");
+item.className="item-ordem";
+
+const numero=document.createElement("div");
+numero.className="numero-ordem";
+numero.textContent=String(i+1);
+
+const preview=document.createElement("div");
+preview.className="preview-ordem";
+
+if(t.tipo==="video"){
+const videoId=youtubeID(t.video||t.link||"");
+if(videoId){
+const img=document.createElement("img");
+img.src="https://img.youtube.com/vi/"+videoId+"/hqdefault.jpg";
+img.alt="Capa do vídeo";
+preview.append(img);
+}else{
+const span=document.createElement("span");
+span.textContent="▶";
+preview.append(span);
+}
+}else{
+const img=document.createElement("img");
+img.src=t.imagem||t.link||"";
+img.alt="Miniatura";
+img.loading="lazy";
+preview.append(img);
+}
+
+const dados=document.createElement("div");
+dados.className="dados-ordem";
+
+const titulo=document.createElement("strong");
+titulo.textContent=t.legenda||(
+t.tipo==="video"?"Vídeo sem título":"Imagem sem título"
+);
+
+const tipo=document.createElement("small");
+tipo.textContent=t.tipo==="video"?"▶ VÍDEO DO YOUTUBE":"▧ IMAGEM";
+
+dados.append(titulo,tipo);
+
+const controles=document.createElement("div");
+controles.className="controles-ordem";
+
+controles.append(
+criarBotaoOrdem("⇈","Mover para o primeiro",()=>moverADM(id,"primeiro"),i===0),
+criarBotaoOrdem("↑","Subir uma posição",()=>moverADM(id,-1),i===0),
+criarBotaoOrdem("↓","Descer uma posição",()=>moverADM(id,1),i===ordemEdicao.length-1),
+criarBotaoOrdem("⇊","Mover para o último",()=>moverADM(id,"ultimo"),i===ordemEdicao.length-1)
+);
+
+const excluir=criarBotaoOrdem("EXCLUIR","Excluir testemunho",async()=>{
+if(!confirm("Excluir este testemunho permanentemente do Firebase?"))return;
+try{
+await remove(ref(db,"restaurar/testemunhos/"+id));
+mensagemOrdem("Testemunho excluído.");
+}catch(e){
+mensagemOrdem("Erro ao excluir: "+e.message,true);
+}
+});
+excluir.className="excluir";
+controles.append(excluir);
+
+item.append(numero,preview,dados,controles);
+area.append(item);
+});
+}
+
+$("salvarOrdemADM").onclick=async()=>{
+if(!auth.currentUser){
+mensagemOrdem("Faça login para salvar.",true);
+return;
+}
+if(salvandoOrdem)return;
+
+const btn=$("salvarOrdemADM");
+salvandoOrdem=true;
+btn.disabled=true;
+
+try{
+const lista=normalizarOrdem(ordemEdicao);
+await set(ordemRef,lista);
+ordemEdicao=[...lista];
+alteracoesPendentes=false;
+mensagemOrdem("Ordem salva no Firebase! Todos os visitantes receberão a nova sequência.");
+}catch(e){
+mensagemOrdem("Erro ao salvar a ordem: "+e.message,true);
+}finally{
+salvandoOrdem=false;
+btn.disabled=false;
+}
+};
+
+$("cancelarOrdemADM").onclick=()=>{
+iniciarEdicao();
+mensagemOrdem("Alterações não salvas canceladas.");
+};
+
+/* CONFIGURAÇÕES */
 
 function configurar(){
 $("tituloSite").textContent=config.titulo||"RESTAURAR";
@@ -321,31 +597,6 @@ $("whatsapp").href="https://wa.me/"+
 String(config.whatsapp||"5547999999999").replace(/\D/g,"");
 $("nomeSite").value=config.titulo||"RESTAURAR";
 $("numeroWhats").value=config.whatsapp||"";
-}
-
-function listarADM(){
-const area=$("listaADM");
-area.replaceChildren();
-if(!auth.currentUser)return;
-
-for(const [key,t] of Object.entries(testemunhos).reverse()){
-const div=document.createElement("div");
-div.className="linha";
-const span=document.createElement("span");
-span.textContent=(t.tipo==="video"?"🎬 ":"🖼️ ")+(t.legenda||"Testemunho");
-const btn=document.createElement("button");
-btn.className="excluir";
-btn.textContent="EXCLUIR";
-btn.onclick=async()=>{
-if(!confirm("Excluir este testemunho do Firebase?"))return;
-try{
-await remove(ref(db,"restaurar/testemunhos/"+key));
-msg("Testemunho excluído.");
-}catch(e){msg("Erro: "+e.message,true)}
-};
-div.append(span,btn);
-area.append(div);
-}
 }
 
 $("tipoTestemunho").onchange=()=>{
@@ -356,8 +607,13 @@ $("midiaLink").placeholder=video
 :"https://site.com/imagem.jpg";
 };
 
-$("abrirADM").onclick=()=>$("modal").classList.add("aberto");
-$("fecharADM").onclick=()=>$("modal").classList.remove("aberto");
+$("abrirADM").onclick=()=>{
+$("modal").classList.add("aberto");
+};
+
+$("fecharADM").onclick=()=>{
+$("modal").classList.remove("aberto");
+};
 
 $("entrar").onclick=async()=>{
 try{
@@ -369,13 +625,18 @@ auth,$("email").value.trim(),$("senha").value
 $("erro").textContent="Falha no login: "+e.code;
 }
 };
+
 $("sair").onclick=()=>signOut(auth);
 
 onAuthStateChanged(auth,u=>{
 $("login").style.display=u?"none":"block";
 $("conteudoADM").style.display=u?"block":"none";
 $("usuarioAtual").textContent=u?"Conectado: "+u.email:"";
-if(u){configurar();listarADM()}
+
+if(u){
+configurar();
+iniciarEdicao();
+}
 });
 
 $("salvarConfig").onclick=async()=>{
@@ -384,9 +645,13 @@ await update(configRef,{
 titulo:$("nomeSite").value.trim()||"RESTAURAR",
 whatsapp:$("numeroWhats").value.replace(/\D/g,"")
 });
-msg("Configurações salvas no Firebase.");
-}catch(e){msg("Erro: "+e.message,true)}
+mensagem("Configurações salvas no Firebase.");
+}catch(e){
+mensagem("Erro: "+e.message,true);
+}
 };
+
+/* CADASTRAR TESTEMUNHOS */
 
 $("adicionarTestemunho").onclick=async()=>{
 const tipo=$("tipoTestemunho").value;
@@ -394,49 +659,71 @@ const link=$("midiaLink").value.trim();
 const legenda=$("midiaLegenda").value.trim();
 
 if(tipo==="video"&&!youtubeID(link)){
-msg("Informe um link válido do YouTube.",true);
+mensagem("Informe um link válido do YouTube.",true);
 return;
 }
+
 if(tipo==="imagem"&&!urlValida(link)){
-msg("Informe um link válido de imagem.",true);
+mensagem("Informe um link válido de imagem.",true);
 return;
 }
 
 const btn=$("adicionarTestemunho");
 btn.disabled=true;
+
 try{
-const novo={tipo,legenda,criadoEm:Date.now()};
-if(tipo==="video")novo.video=link;
-else novo.imagem=link;
+const novo={
+tipo,
+legenda,
+criadoEm:Date.now()
+};
+
+if(tipo==="video"){
+novo.video=link;
+}else{
+novo.imagem=link;
+}
 
 await set(push(testemunhosRef),novo);
+
 $("midiaLink").value="";
 $("midiaLegenda").value="";
-msg("Testemunho salvo no Firebase com sucesso!");
+mensagem("Testemunho salvo no Firebase com sucesso!");
+
 }catch(e){
-msg("Erro ao salvar: "+e.message,true);
-}finally{btn.disabled=false}
+mensagem("Erro ao salvar: "+e.message,true);
+}finally{
+btn.disabled=false;
+}
 };
+
+/* IMPORTAR CADASTROS ANTIGOS */
 
 $("importarAntigos").onclick=async()=>{
 let antigos=[];
+
 try{
-const d=JSON.parse(localStorage.getItem("restaurar_site_v3")||"{}");
+const d=JSON.parse(
+localStorage.getItem("restaurar_site_v3")||"{}"
+);
 antigos=Array.isArray(d.testemunhos)?d.testemunhos:[];
 }catch(e){}
 
 if(!antigos.length){
-msg("Nenhum cadastro antigo encontrado.",true);
+mensagem("Nenhum cadastro antigo encontrado.",true);
 return;
 }
+
 if(!confirm("Importar "+antigos.length+" testemunho(s)?"))return;
 
 const btn=$("importarAntigos");
 btn.disabled=true;
 let feitos=0;
+
 try{
 for(const t of antigos){
 if(!urlValida(t.imagem))continue;
+
 await set(push(testemunhosRef),{
 tipo:"imagem",
 imagem:t.imagem,
@@ -446,17 +733,44 @@ origemLocalId:String(t.id||"")
 });
 feitos++;
 }
-msg(feitos+" testemunho(s) importado(s).");
+mensagem(feitos+" testemunho(s) importado(s).");
 }catch(e){
-msg("Erro ao importar: "+e.message,true);
-}finally{btn.disabled=false}
+mensagem("Erro ao importar: "+e.message,true);
+}finally{
+btn.disabled=false;
+}
 };
+
+/* SINCRONIZAÇÃO FIREBASE */
 
 onValue(testemunhosRef,s=>{
 testemunhos=s.val()||{};
-render();
+testemunhosCarregados=true;
+renderPublico();
+
+if(auth.currentUser){
+if(alteracoesPendentes){
+ordemEdicao=normalizarOrdem(ordemEdicao);
+renderOrganizador();
+}else{
+iniciarEdicao();
+}
+}
 },e=>{
 estado("Erro ao carregar testemunhos: "+e.message,true);
+});
+
+onValue(ordemRef,s=>{
+const dados=s.val();
+ordemOficial=Array.isArray(dados)?dados:[];
+ordemCarregada=true;
+renderPublico();
+
+if(auth.currentUser&&!alteracoesPendentes&&!salvandoOrdem){
+iniciarEdicao();
+}
+},e=>{
+estado("Erro ao carregar ordem: "+e.message,true);
 });
 
 onValue(configRef,s=>{
@@ -468,12 +782,6 @@ whatsapp:"5547999999999",
 configurar();
 });
 
-window.addEventListener("storage",e=>{
-if(e.key===FILA_KEY){
-ordem=recuperarOrdem();
-render();
-}
-});
 </script>
 </body>
 </html>
