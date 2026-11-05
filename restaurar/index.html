@@ -4,806 +4,1329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Estudos | Restaurar</title>
+<meta name="theme-color" content="#000000">
+<title>Vídeos | Restaurar</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:#eee;font-family:Arial,sans-serif}
-header,footer{text-align:center;padding:25px 12px;border-bottom:1px solid #292929}
-footer{border-top:1px solid #292929;border-bottom:0;position:relative;color:#888}
-header h1{margin:0 0 20px}
-nav{display:flex;gap:25px;justify-content:center;flex-wrap:wrap}
-nav a{color:#ddd;text-decoration:none;font-weight:bold;font-size:14px}
-nav a.active{color:#dbb66c}
-main{max-width:1100px;margin:auto;padding:30px 16px;min-height:70vh}
-.grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{border:1px solid #303030;background:#101010;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-.card img{width:100%;aspect-ratio:16/9;object-fit:cover}
-.card section{padding:18px;display:flex;flex-direction:column;flex:1}
-.card h3{margin:0 0 12px}
-.card p{color:#bbb;line-height:1.6;flex:1}
-.artigo{display:none;max-width:850px;margin:auto}
-.artigo h2{font-size:30px}
-.texto{white-space:pre-wrap;line-height:1.9;font-size:18px;overflow-wrap:anywhere}
-.artigo-img{max-width:100%;height:auto;display:block;margin:22px auto;border-radius:8px}
-.video{margin:25px 0}
-.video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:#111}
-.video h3{color:#e5bc70}
-.btn{border:0;background:#d4aa55;color:#111;padding:12px 16px;border-radius:5px;font-weight:bold;cursor:pointer}
-.btn:disabled{opacity:.5}
-.sec{background:#333;color:white}
-.aviso{color:#aaa;line-height:1.5}
-.erro{color:#ff8b8b}
-.ok{color:#a8e8b8}
-.adm-link{position:absolute;right:12px;bottom:8px;background:none;border:0;color:#444;cursor:pointer}
-.whats{position:fixed;bottom:17px;left:17px;z-index:10;border-radius:35px;background:#168b49;color:white;text-decoration:none;padding:12px 15px;font-size:12px;font-weight:bold;display:flex;align-items:center;gap:8px}
-.whats svg{width:22px;height:22px;fill:currentColor}
-.modal{display:none;position:fixed;inset:0;background:#000e;z-index:30;overflow:auto;padding:16px}
-.modal.aberto{display:block}
-.painel{max-width:850px;margin:15px auto;background:#111;border:1px solid #333;border-radius:10px;padding:23px}
-.fechar{float:right;background:none;color:white;border:0;font-size:28px;cursor:pointer}
-input,textarea,select{width:100%;display:block;background:#050505;color:white;border:1px solid #444;padding:12px;margin:8px 0 15px;font:inherit;border-radius:5px}
-textarea{min-height:110px;resize:vertical}
-#estudoTexto{min-height:260px}
-label{display:block;margin-top:14px;color:#ddd}
-hr{border:0;border-top:1px solid #333;margin:25px 0}
-.linha{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #333}
-.linha-info{flex:1;min-width:0;overflow-wrap:anywhere}
-.linha-info small{display:block;color:#aaa;margin-top:5px}
-.acoes{display:flex;gap:5px;flex-wrap:wrap}
-.acoes button{background:#333;color:#fff;border:1px solid #555;border-radius:5px;padding:8px;cursor:pointer}
-.acoes button.danger{background:#8c2222}
-.diagnostico{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;background:#080808;border:1px solid #333;padding:12px;border-radius:6px}
-@media(max-width:850px){.grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:550px){.grade{grid-template-columns:1fr}.linha{flex-wrap:wrap}.acoes{width:100%}.texto{font-size:16px}nav{gap:15px}.painel{padding:14px}}
+
+body{
+ margin:0;
+ background:#000;
+ color:#fff;
+ font-family:Arial,sans-serif;
+}
+
+header{
+ padding:30px 15px;
+ text-align:center;
+ border-bottom:1px solid #222;
+}
+
+header h1{
+ font-size:30px;
+ margin:0 0 22px;
+}
+
+nav{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:25px;
+}
+
+nav a{
+ color:#ddd;
+ text-decoration:none;
+ font-size:14px;
+ font-weight:bold;
+}
+
+nav a:hover,
+nav a.active{
+ color:#e4bd67;
+}
+
+main{
+ max-width:1400px;
+ min-height:70vh;
+ margin:auto;
+ padding:30px 18px;
+}
+
+#estado{
+ color:#aaa;
+ text-align:center;
+ line-height:1.6;
+}
+
+.grade{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:20px;
+}
+
+.video-card{
+ background:#101010;
+ border:1px solid #292929;
+ border-radius:10px;
+ overflow:hidden;
+ min-width:0;
+ display:flex;
+ flex-direction:column;
+}
+
+.video-titulo{
+ padding:15px 14px;
+ font-size:17px;
+ font-weight:bold;
+ line-height:1.45;
+ color:#fff;
+ min-height:72px;
+ overflow-wrap:anywhere;
+}
+
+.video-player{
+ width:100%;
+ aspect-ratio:16/9;
+ background:#080808;
+}
+
+.video-player iframe{
+ display:block;
+ width:100%;
+ height:100%;
+ border:0;
+}
+
+.video-descricao{
+ color:#aaa;
+ font-size:13px;
+ line-height:1.6;
+ padding:12px 14px;
+ overflow-wrap:anywhere;
+}
+
+.video-acoes{
+ margin-top:auto;
+ padding:12px;
+ display:flex;
+ justify-content:flex-end;
+}
+
+.fim-fila{
+ background:#242424;
+ color:#bbb;
+ border:1px solid #444;
+ border-radius:5px;
+ padding:7px 11px;
+ cursor:pointer;
+}
+
+.fim-fila:hover{
+ background:#444;
+ color:white;
+}
+
+footer{
+ padding:35px 15px;
+ border-top:1px solid #222;
+ text-align:center;
+ color:#777;
+ position:relative;
+}
+
+.adm-btn{
+ position:absolute;
+ right:12px;
+ bottom:10px;
+ border:0;
+ background:none;
+ color:#393939;
+ font-size:11px;
+ cursor:pointer;
+}
+
+.whats{
+ position:fixed;
+ bottom:18px;
+ left:18px;
+ z-index:20;
+ display:flex;
+ align-items:center;
+ gap:9px;
+ background:#168b49;
+ color:#fff;
+ text-decoration:none;
+ padding:12px 16px;
+ border-radius:35px;
+ font-size:12px;
+ font-weight:bold;
+ box-shadow:0 3px 15px #0008;
+}
+
+.whats svg{
+ width:22px;
+ height:22px;
+ fill:currentColor;
+}
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#000e;
+ z-index:100;
+ overflow:auto;
+ padding:18px;
+}
+
+.modal.aberto{
+ display:block;
+}
+
+.painel{
+ max-width:850px;
+ margin:20px auto;
+ background:#111;
+ border:1px solid #333;
+ border-radius:12px;
+ padding:25px;
+}
+
+.fechar{
+ float:right;
+ border:0;
+ background:none;
+ color:#fff;
+ font-size:28px;
+ cursor:pointer;
+}
+
+input,textarea{
+ display:block;
+ width:100%;
+ padding:12px;
+ margin:10px 0 18px;
+ background:#050505;
+ color:white;
+ border:1px solid #444;
+ border-radius:5px;
+ font:inherit;
+}
+
+textarea{
+ min-height:100px;
+ resize:vertical;
+}
+
+label{
+ display:block;
+ color:#ddd;
+ margin-top:14px;
+}
+
+button{
+ cursor:pointer;
+}
+
+.btn{
+ background:#d4aa55;
+ color:#000;
+ border:0;
+ border-radius:5px;
+ padding:12px 17px;
+ font-weight:bold;
+}
+
+.btn:disabled{
+ opacity:.5;
+ cursor:wait;
+}
+
+.sec{
+ background:#333;
+ color:white;
+}
+
+.danger{
+ background:#a32323;
+ color:white;
+}
+
+hr{
+ border:0;
+ border-top:1px solid #333;
+ margin:25px 0;
+}
+
+.linha{
+ display:flex;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:10px;
+ padding:13px 0;
+ border-bottom:1px solid #333;
+}
+
+.linha-info{
+ flex:1;
+ min-width:180px;
+ overflow-wrap:anywhere;
+}
+
+.linha-info small{
+ display:block;
+ color:#aaa;
+ margin-top:5px;
+}
+
+.linha-acoes{
+ display:flex;
+ gap:5px;
+ flex-wrap:wrap;
+}
+
+.linha-acoes button{
+ padding:8px;
+ border:1px solid #555;
+ background:#333;
+ color:white;
+ border-radius:5px;
+}
+
+.linha-acoes button.danger{
+ background:#a32323;
+}
+
+.aviso{
+ color:#aaa;
+ line-height:1.6;
+}
+
+.erro{
+ color:#ff8585;
+}
+
+.sucesso{
+ color:#a2e7b2;
+}
+
+@media(max-width:1100px){
+ .grade{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+ }
+}
+
+@media(max-width:800px){
+ .grade{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+}
+
+@media(max-width:550px){
+ .grade{
+  grid-template-columns:1fr;
+ }
+ main{
+  padding:22px 12px;
+ }
+ nav{
+  gap:15px;
+ }
+ nav a{
+  font-size:12px;
+ }
+ .painel{
+  padding:15px;
+ }
+ .whats{
+  font-size:11px;
+ }
+}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
+
 <nav>
-<a href="index.html">VÍDEOS</a>
-<a href="testemunhos.html">TESTEMUNHOS</a>
-<a class="active" href="estudos.html">ESTUDOS</a>
+<a class="active" href="/videos">VÍDEOS</a>
+<a href="/testemunhos">TESTEMUNHOS</a>
+<a href="/estudos">ESTUDOS</a>
 </nav>
 </header>
 
 <main>
-<section id="lista">
-<h2>ESTUDOS BÍBLICOS</h2>
-<p id="estado" class="aviso">Carregando estudos...</p>
-<div id="grade" class="grade"></div>
-</section>
-<article id="artigo" class="artigo">
-<button class="btn sec" id="voltar">← VOLTAR AOS ESTUDOS</button>
-<h2 id="artigoTitulo"></h2>
-<div id="artigoConteudo"></div>
-<button class="btn" id="voltar2">VER OUTROS ESTUDOS</button>
-</article>
+
+<p id="estado">Carregando vídeos do Firebase...</p>
+
+<div id="gradeVideos" class="grade"></div>
+
 </main>
 
-<a class="whats" id="whatsapp" href="https://wa.me/5547988233530" target="_blank" rel="noopener">
+<a
+ id="whatsapp"
+ class="whats"
+ href="https://wa.me/5547988233530"
+ target="_blank"
+ rel="noopener noreferrer">
+
 <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.2-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.2-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-.2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
+
 ORAÇÃO E ACONSELHAMENTO
 </a>
 
 <footer>
 © RESTAURAR
-<button id="abrirADM" class="adm-link">A</button>
+<button id="abrirADM" class="adm-btn">A</button>
 </footer>
 
 <div id="modal" class="modal">
 <div class="painel">
-<button class="fechar" id="fecharADM">×</button>
-<h2>ADMINISTRADOR — ESTUDOS</h2>
+
+<button id="fecharADM" class="fechar">×</button>
+
+<h2>ADMINISTRADOR — VÍDEOS</h2>
 
 <div id="login">
-<p class="aviso">Entre com seu e-mail e senha do Firebase Authentication.</p>
-<input id="email" type="email" placeholder="E-mail">
-<input id="senha" type="password" placeholder="Senha">
-<button class="btn" id="entrar">ENTRAR</button>
+<p class="aviso">
+Entre com a conta cadastrada no Firebase Authentication.
+</p>
+
+<input
+ type="email"
+ id="email"
+ placeholder="E-mail do administrador"
+ autocomplete="username">
+
+<input
+ type="password"
+ id="senha"
+ placeholder="Senha"
+ autocomplete="current-password">
+
+<button id="entrar" class="btn">ENTRAR</button>
+
 <p id="erroLogin" class="erro"></p>
 </div>
 
-<div id="adm" style="display:none">
-<p id="usuario" class="aviso"></p>
+<div id="conteudoADM" style="display:none">
+
+<p id="usuarioAtual" class="aviso"></p>
+
 <button id="sair" class="btn sec">SAIR</button>
+
 <hr>
-<h3>DIAGNÓSTICO DO FIREBASE</h3>
-<div id="diagnostico" class="diagnostico">Aguardando leitura...</div>
-<p class="aviso">Vídeos externos só entram em um estudo quando possuem estudoId, idEstudo ou outro vínculo reconhecido. Vídeos sem vínculo não são inseridos aleatoriamente.</p>
+
+<h3>FONTE DOS VÍDEOS</h3>
+<p id="fonteAtual" class="aviso"></p>
+<p id="diagnostico" class="aviso"></p>
+
 <hr>
+
 <h3>CONFIGURAÇÕES</h3>
+
 <label>Nome do site</label>
 <input id="nomeSite">
-<label>WhatsApp (somente números)</label>
+
+<label>WhatsApp</label>
 <input id="numeroWhats">
-<button class="btn" id="salvarConfig">SALVAR CONFIGURAÇÕES</button>
+
+<button id="salvarConfig" class="btn">
+SALVAR CONFIGURAÇÕES
+</button>
+
 <hr>
-<h3 id="tituloFormulario">CADASTRAR ESTUDO</h3>
-<input type="hidden" id="estudoID">
-<label>Título</label>
-<input id="estudoTitulo">
-<label>Imagem de capa (URL)</label>
-<input id="estudoCapa">
-<label>Resumo</label>
-<textarea id="estudoResumo"></textarea>
-<label>Conteúdo completo</label>
-<textarea id="estudoTexto"></textarea>
-<label>Vídeos do YouTube — um link por linha</label>
-<textarea id="estudoVideos" placeholder="https://www.youtube.com/watch?v=..."></textarea>
-<label>Imagens adicionais — uma URL por linha</label>
-<textarea id="estudoImagens"></textarea>
-<button class="btn" id="salvarEstudo">SALVAR ESTUDO</button>
-<button class="btn sec" id="limpar">LIMPAR</button>
-<p id="mensagemADM"></p>
+
+<h3 id="tituloFormulario">CADASTRAR VÍDEO</h3>
+
+<input type="hidden" id="videoID">
+
+<label>Título do vídeo</label>
+<input id="videoTitulo" placeholder="Título">
+
+<label>Link do YouTube</label>
+<input
+ id="videoLink"
+ placeholder="https://www.youtube.com/watch?v=...">
+
+<label>Descrição do vídeo</label>
+<textarea id="videoDescricao"></textarea>
+
+<button id="salvarVideo" class="btn">
+SALVAR VÍDEO
+</button>
+
+<button id="limparFormulario" class="btn sec">
+LIMPAR
+</button>
+
+<p id="mensagemADM" role="status"></p>
+
 <hr>
-<h3>ESTUDOS CADASTRADOS</h3>
+
+<h3>VÍDEOS CADASTRADOS</h3>
+
+<p id="contador" class="aviso"></p>
+
 <div id="listaADM"></div>
-<p class="aviso">Use as setas para reorganizar.</p>
-<button class="btn" id="salvarOrdem">SALVAR ORDEM</button>
+
+<p class="aviso">
+Utilize as setas para organizar os vídeos.
+</p>
+
+<button id="salvarOrdem" class="btn">
+SALVAR ORDEM
+</button>
+
 <p id="mensagemOrdem"></p>
+
 </div>
 </div>
 </div>
 
 <script type="module">
-import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import {getDatabase,ref,onValue,push,set,update,remove} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
-import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+
+import {
+ initializeApp
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+import {
+ getFirestore,
+ doc,
+ onSnapshot,
+ updateDoc
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+import {
+ getDatabase,
+ ref,
+ onValue,
+ push,
+ set,
+ update,
+ remove
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+import {
+ getAuth,
+ signInWithEmailAndPassword,
+ signOut,
+ onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+/* CONFIGURAÇÃO ORIGINAL DO FIREBASE */
 
 const firebaseConfig={
- apiKey:'AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM',
- authDomain:'namoro-f18ac.firebaseapp.com',
- databaseURL:'https://namoro-f18ac-default-rtdb.firebaseio.com',
- projectId:'namoro-f18ac',
- storageBucket:'namoro-f18ac.firebasestorage.app',
- messagingSenderId:'336479537433',
- appId:'1:336479537433:web:dd282c67e98ca196e05d88',
- measurementId:'G-1YLR1JNZYY'
+ apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+ authDomain:"namoro-f18ac.firebaseapp.com",
+ databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+ projectId:"namoro-f18ac",
+ storageBucket:"namoro-f18ac.firebasestorage.app",
+ messagingSenderId:"336479537433",
+ appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+ measurementId:"G-1YLR1JNZYY"
 };
 
 const app=initializeApp(firebaseConfig);
-const db=getDatabase(app);
+
+const firestore=getFirestore(app);
+const database=getDatabase(app);
 const auth=getAuth(app);
+
+const documento=doc(firestore,"restaurar","publico");
+
+const videosRef=ref(database,"restaurar/videos");
+const configRef=ref(database,"restaurar/config");
+const ordemRef=ref(database,"restaurar/ordemVideos");
+
 const $=id=>document.getElementById(id);
 
-const estudosRef=ref(db,'restaurar/estudos');
-const ordemRef=ref(db,'restaurar/ordemEstudos');
-const configRef=ref(db,'restaurar/config');
+const FILA_KEY="restaurar_videos_fila_v2";
 
-const fontes=['restaurar/videos','videos'];
+let firestoreVideos=[];
+let realtimeVideos={};
 
-let estudos={};
-let externos={};
-let statusFontes={};
-let ordem=[];
-let edicao=[];
-let ordemAlterada=false;
-let atual=null;
-let carregou=false;
+let firestoreCarregado=false;
+let realtimeCarregado=false;
+
+let firestoreErro="";
+let realtimeErro="";
+
+let fonte="nenhuma";
+let videos=[];
+
+let ordemFirebase=[];
+let ordemVisitante=[];
+
+let ordemEdicao=[];
+let ordemPendente=false;
+
 let config={
- titulo:'RESTAURAR',
- whatsapp:'5547988233530'
+ titulo:"RESTAURAR",
+ whatsapp:"5547988233530"
 };
 
-function mensagem(id,s,erro=false){
- $(id).textContent=s;
- $(id).className=erro?'erro':'ok';
+/* FUNÇÕES BÁSICAS */
+
+function mensagem(id,texto,erro=false){
+ const el=$(id);
+ el.textContent=texto;
+ el.className=erro?"erro":"sucesso";
 }
 
-function lista(v){
- if(!v)return[];
- if(typeof v==='string')
-  return v.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
- if(Array.isArray(v))return v.filter(Boolean);
- if(typeof v==='object')return Object.values(v).filter(Boolean);
- return[];
-}
+function youtubeID(link){
+ if(typeof link!=="string")return null;
 
-function campo(e,...nomes){
- for(const n of nomes){
-  if(e?.[n]!==undefined&&e[n]!==null&&e[n]!=='')
-   return e[n];
+ const valor=link.trim();
+
+ if(/^[\w-]{11}$/.test(valor)){
+  return valor;
  }
- return'';
-}
-
-function titulo(e){
- return campo(e,'titulo','title','nome')||'Estudo bíblico';
-}
-
-function capa(e){
- return campo(e,'capa','imagem','image');
-}
-
-function resumo(e){
- return campo(e,'resumo','descricao','description');
-}
-
-function texto(e){
- return campo(e,'texto','conteudo','content');
-}
-
-function urlValida(s){
- try{
-  return ['http:','https:'].includes(new URL(s).protocol);
- }catch{
-  return false;
- }
-}
-
-function youtubeId(link){
- if(typeof link!=='string')return null;
- let s=link.trim();
-
- if(/^[\w-]{11}$/.test(s))return s;
 
  try{
-  const u=new URL(s);
-  const h=u.hostname.toLowerCase().replace(/^www\./,'');
-  let id='';
+  const u=new URL(valor);
+  const h=u.hostname.toLowerCase().replace(/^www\./,"");
 
-  if(h==='youtu.be'){
-   id=u.pathname.split('/')[1];
+  let id="";
+
+  if(h==="youtu.be"){
+   id=u.pathname.split("/")[1]||"";
   }else if([
-   'youtube.com','m.youtube.com',
-   'music.youtube.com','youtube-nocookie.com'
+   "youtube.com",
+   "m.youtube.com",
+   "music.youtube.com",
+   "youtube-nocookie.com"
   ].includes(h)){
-   if(u.pathname==='/watch'){
-    id=u.searchParams.get('v');
+
+   if(u.pathname==="/watch"){
+    id=u.searchParams.get("v")||"";
    }else{
-    const p=u.pathname.split('/').filter(Boolean);
-    if(['embed','shorts','live','v'].includes(p[0]))
-     id=p[1];
+    const p=u.pathname.split("/").filter(Boolean);
+
+    if(["embed","shorts","live","v"].includes(p[0])){
+     id=p[1]||"";
+    }
    }
   }
 
-  return /^[\w-]{11}$/.test(id||'')?id:null;
- }catch{
+  return /^[\w-]{11}$/.test(id)?id:null;
+
+ }catch(e){
   return null;
  }
 }
 
-function extrairLinks(valor,prof=0){
- if(prof>4||!valor)return[];
- if(typeof valor==='string')return lista(valor);
- if(Array.isArray(valor))
-  return valor.flatMap(x=>extrairLinks(x,prof+1));
+function registrosFirestore(valor){
+ if(Array.isArray(valor))return valor;
 
- if(typeof valor==='object'){
-  const chaves=[
-   'url','link','videoUrl','videoURL',
-   'youtubeUrl','youtube','src',
-   'embedUrl','idVideo','videoId',
-   'video','videos'
-  ];
-
-  let a=[];
-  for(const k of chaves){
-   if(valor[k])
-    a.push(...extrairLinks(valor[k],prof+1));
-  }
-
-  if(a.length)return a;
-  return Object.values(valor)
-   .flatMap(x=>extrairLinks(x,prof+1));
- }
- return[];
-}
-
-function videosInternos(e){
- let v=[];
- for(const k of [
-  'videos','video','youtube','videoUrl',
-  'videoURL','youtubeUrl','linkVideo',
-  'linkYoutube','urlVideo'
- ]){
-  if(e?.[k])v.push(...extrairLinks(e[k]));
- }
- return v;
-}
-
-function registroVideo(v){
- return v&&typeof v==='object'&&!Array.isArray(v);
-}
-
-function registros(v){
- if(!v)return[];
- if(Array.isArray(v))return v.filter(registroVideo);
- if(typeof v==='object')
-  return Object.values(v).filter(registroVideo);
- return[];
-}
-
-function videosVinculados(id,e){
- let encontrados=[...videosInternos(e)];
-
- for(const dados of Object.values(externos)){
-  for(const v of registros(dados)){
-   const vinculo=campo(
-    v,'estudoId','idEstudo','estudoID',
-    'estudo_id','studyId','estudo','estudoTitulo'
-   );
-
-   const tituloEstudo=String(titulo(e)).trim().toLowerCase();
-   const alvo=String(vinculo).trim().toLowerCase();
-
-   if(alvo&&(
-    alvo===id.toLowerCase()||
-    alvo===tituloEstudo
-   )){
-    encontrados.push(...extrairLinks(v));
-   }
-  }
+ if(valor&&typeof valor==="object"){
+  return Object.entries(valor).map(([id,v])=>({
+   ...(typeof v==="object"&&v?v:{}),
+   _chave:id
+  }));
  }
 
- return [...new Set(
-  encontrados.map(youtubeId).filter(Boolean)
- )];
+ return [];
 }
 
-function ordenar(){
- const ids=Object.keys(estudos).sort((a,b)=>
-  (Number(estudos[b]?.criadoEm)||0)-
-  (Number(estudos[a]?.criadoEm)||0)
+function normalizarVideo(v,id){
+ if(typeof v==="string"){
+  v={url:v};
+ }
+
+ if(!v||typeof v!=="object")return null;
+
+ const link=String(
+  v.url||v.link||v.youtube||
+  v.videoUrl||v.video||""
  );
- return [...new Set([
-  ...ordem.filter(id=>ids.includes(id)),
-  ...ids
- ])];
+
+ const yt=youtubeID(link);
+ if(!yt)return null;
+
+ return {
+  id:String(id),
+  titulo:String(v.titulo||v.title||v.nome||"Vídeo"),
+  link,
+  descricao:String(v.descricao||v.description||""),
+  criadoEm:Number(v.criadoEm)||0,
+  ordem:Number(v.ordem)||0,
+  youtube:yt
+ };
 }
 
-function imagem(area,src){
- if(!urlValida(src))return;
- const i=document.createElement('img');
- i.src=src;
- i.className='artigo-img';
- i.loading='lazy';
- i.alt='Imagem do estudo';
- area.append(i);
+function converterFirestore(){
+ return firestoreVideos
+  .map((v,i)=>normalizarVideo(v,v._chave??i))
+  .filter(Boolean);
 }
+
+function converterRealtime(){
+ return Object.entries(realtimeVideos||{})
+  .map(([id,v])=>normalizarVideo(v,id))
+  .filter(Boolean);
+}
+
+function recuperarFila(){
+ try{
+  const x=JSON.parse(localStorage.getItem(FILA_KEY));
+  return Array.isArray(x)?x:[];
+ }catch(e){
+  return [];
+ }
+}
+
+function salvarFila(){
+ try{
+  localStorage.setItem(
+   FILA_KEY,
+   JSON.stringify(ordemVisitante)
+  );
+ }catch(e){}
+}
+
+function selecionarFonte(){
+
+ const fs=converterFirestore();
+ const rt=converterRealtime();
+
+ // Prioridade para os vídeos do documento
+ // original do Cloud Firestore.
+
+ if(fs.length){
+  fonte="firestore";
+  videos=fs;
+ }else if(rt.length){
+  fonte="realtime";
+  videos=rt;
+ }else{
+  fonte="nenhuma";
+  videos=[];
+ }
+
+ atualizarFila();
+ render();
+ renderADM();
+ diagnostico();
+}
+
+function atualizarFila(){
+ const ids=videos.map(v=>v.id);
+ const anterior=ordemVisitante.length?
+  ordemVisitante:recuperarFila();
+
+ const oficiais=ordemFirebase.filter(id=>ids.includes(id));
+
+ const base=fonte==="realtime"&&oficiais.length?
+  [...oficiais,...ids.filter(id=>!oficiais.includes(id))]:
+  [...videos]
+   .sort((a,b)=>{
+    if(a.ordem!==b.ordem)return a.ordem-b.ordem;
+    return b.criadoEm-a.criadoEm;
+   })
+   .map(v=>v.id);
+
+ ordemVisitante=[
+  ...anterior.filter(id=>ids.includes(id)),
+  ...base.filter(id=>!anterior.includes(id))
+ ];
+
+ salvarFila();
+
+ if(!ordemPendente){
+  ordemEdicao=[...base];
+ }
+}
+
+function listaOrdenada(){
+ const mapa=new Map(videos.map(v=>[v.id,v]));
+
+ return ordemVisitante
+  .map(id=>mapa.get(id))
+  .filter(Boolean);
+}
+
+/* RENDERIZAR SOMENTE VÍDEOS */
 
 function render(){
- if(!carregou)return;
 
- const grade=$('grade');
+ const grade=$("gradeVideos");
  grade.replaceChildren();
- const ids=ordenar();
 
- $('estado').textContent=ids.length?
-  '':'Nenhum estudo encontrado no Firebase.';
+ if(!firestoreCarregado||!realtimeCarregado){
+  $("estado").textContent="Carregando vídeos do Firebase...";
+  return;
+ }
 
- for(const id of ids){
-  const e=estudos[id];
-  if(!e)continue;
+ const lista=listaOrdenada();
 
-  const c=document.createElement('article');
-  c.className='card';
+ if(!lista.length){
+  $("estado").textContent=
+   firestoreErro||realtimeErro?
+   "Não foi possível localizar vídeos. Verifique as permissões do Firebase e o diagnóstico no ADM.":
+   "Nenhum vídeo cadastrado foi encontrado.";
+  return;
+ }
 
-  if(urlValida(capa(e))){
-   const i=document.createElement('img');
-   i.src=capa(e);
-   i.loading='lazy';
-   i.alt=titulo(e);
-   c.append(i);
+ $("estado").textContent="";
+
+ for(const v of lista){
+
+  const card=document.createElement("article");
+  card.className="video-card";
+
+  const titulo=document.createElement("div");
+  titulo.className="video-titulo";
+  titulo.textContent=v.titulo;
+
+  const player=document.createElement("div");
+  player.className="video-player";
+
+  const iframe=document.createElement("iframe");
+
+  iframe.src=
+   "https://www.youtube-nocookie.com/embed/"+
+   v.youtube+"?enablejsapi=1&rel=0";
+
+  iframe.title=v.titulo;
+  iframe.loading="lazy";
+  iframe.referrerPolicy="strict-origin-when-cross-origin";
+
+  iframe.allow=
+   "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+  iframe.allowFullscreen=true;
+
+  player.append(iframe);
+
+  card.append(titulo,player);
+
+  if(v.descricao){
+   const descricao=document.createElement("div");
+   descricao.className="video-descricao";
+   descricao.textContent=v.descricao;
+   card.append(descricao);
   }
 
-  const s=document.createElement('section');
-  const h=document.createElement('h3');
-  const p=document.createElement('p');
-  const b=document.createElement('button');
+  const acoes=document.createElement("div");
+  acoes.className="video-acoes";
 
-  h.textContent=titulo(e);
-  p.textContent=resumo(e);
-  b.className='btn';
-  b.textContent='LER ESTUDO COMPLETO';
-  b.onclick=()=>abrir(id);
+  const botao=document.createElement("button");
+  botao.className="fim-fila";
+  botao.textContent="X";
+  botao.title="Enviar vídeo ao final da fila";
 
-  s.append(h,p,b);
-  c.append(s);
-  grade.append(c);
+  botao.onclick=()=>{
+   enviarFinal(v.id);
+  };
+
+  acoes.append(botao);
+  card.append(acoes);
+  grade.append(card);
  }
-
- const q=new URLSearchParams(location.search).get('estudo');
-
- if(q&&estudos[q])mostrar(q,false);
- else if(atual&&estudos[atual])mostrar(atual,false);
-
- diagnosticar();
 }
 
-function mostrar(id,rolar=true){
- const e=estudos[id];
- if(!e)return;
+function enviarFinal(id){
+ ordemVisitante=ordemVisitante.filter(x=>x!==id);
+ ordemVisitante.push(id);
+ salvarFila();
+ render();
+}
 
- atual=id;
- $('lista').style.display='none';
- $('artigo').style.display='block';
- $('artigoTitulo').textContent=titulo(e);
+/* DIAGNÓSTICO */
 
- const area=$('artigoConteudo');
- area.replaceChildren();
+function diagnostico(){
 
- imagem(area,capa(e));
+ $("fonteAtual").textContent=
+  fonte==="firestore"?
+  "Fonte ativa: Cloud Firestore — restaurar/publico → videos":
+  fonte==="realtime"?
+  "Fonte ativa: Realtime Database — restaurar/videos":
+  "Nenhuma fonte com vídeos válidos encontrada.";
 
- const t=document.createElement('div');
- t.className='texto';
- t.textContent=texto(e);
- area.append(t);
+ $("diagnostico").textContent=
+  "Firestore: "+converterFirestore().length+" vídeo(s)."+
+  (firestoreErro?" Erro: "+firestoreErro:"")+
+  "\nRealtime Database: "+converterRealtime().length+" vídeo(s)."+
+  (realtimeErro?" Erro: "+realtimeErro:"");
 
- const vids=videosVinculados(id,e);
+ $("contador").textContent=
+  videos.length+" vídeo(s) disponível(is).";
+}
 
- if(vids.length){
-  const sec=document.createElement('section');
-  sec.className='video';
+/* ADMINISTRADOR */
 
-  const h=document.createElement('h3');
-  h.textContent=vids.length===1?
-   'VÍDEO DO ESTUDO':'VÍDEOS DO ESTUDO';
-  sec.append(h);
+$("abrirADM").onclick=()=>{
+ $("modal").classList.add("aberto");
+ diagnostico();
+};
 
-  for(const vid of vids){
-   const f=document.createElement('iframe');
-   f.src='https://www.youtube-nocookie.com/embed/'+vid;
-   f.title='Vídeo do estudo';
-   f.loading='lazy';
-   f.referrerPolicy='strict-origin-when-cross-origin';
-   f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-   f.allowFullscreen=true;
-   sec.append(f);
-  }
+$("fecharADM").onclick=()=>{
+ $("modal").classList.remove("aberto");
+};
 
-  area.append(sec);
+$("modal").onclick=e=>{
+ if(e.target===$("modal")){
+  $("modal").classList.remove("aberto");
  }
+};
 
- for(const u of lista(e.imagens))imagem(area,u);
-
- document.title=titulo(e)+' | Restaurar';
- if(rolar)scrollTo(0,0);
-}
-
-function abrir(id){
- const u=new URL(location.href);
- u.searchParams.set('estudo',id);
- history.pushState({},'',u);
- mostrar(id);
-}
-
-function voltar(){
- atual=null;
- const u=new URL(location.href);
- u.searchParams.delete('estudo');
- history.pushState({},'',u);
- $('lista').style.display='block';
- $('artigo').style.display='none';
- $('artigoConteudo').replaceChildren();
- document.title='Estudos | Restaurar';
- scrollTo(0,0);
-}
-
-$('voltar').onclick=voltar;
-$('voltar2').onclick=voltar;
-
-window.addEventListener('popstate',()=>{
- const id=new URLSearchParams(location.search).get('estudo');
- if(id&&estudos[id])mostrar(id);
- else voltar();
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  $("modal").classList.remove("aberto");
+ }
 });
 
-function diagnosticar(){
- const linhas=['Estudos: '+Object.keys(estudos).length];
+$("entrar").onclick=async()=>{
 
- for(const f of fontes){
-  const st=statusFontes[f]||'aguardando';
-  linhas.push(f+': '+st);
- }
+ $("erroLogin").textContent="";
 
- let vinculados=0;
- for(const [id,e] of Object.entries(estudos)){
-  vinculados+=videosVinculados(id,e).length;
- }
-
- linhas.push('Vídeos associados aos estudos: '+vinculados);
- $('diagnostico').textContent=linhas.join('\n');
-}
-
-$('abrirADM').onclick=()=>{
- $('modal').classList.add('aberto');
- diagnosticar();
-};
-
-$('fecharADM').onclick=()=>{
- $('modal').classList.remove('aberto');
-};
-
-$('modal').onclick=e=>{
- if(e.target===$('modal'))
-  $('modal').classList.remove('aberto');
-};
-
-document.addEventListener('keydown',e=>{
- if(e.key==='Escape')
-  $('modal').classList.remove('aberto');
-});
-
-$('entrar').onclick=async()=>{
  try{
-  $('erroLogin').textContent='';
   await signInWithEmailAndPassword(
-   auth,$('email').value.trim(),$('senha').value
+   auth,
+   $("email").value.trim(),
+   $("senha").value
   );
  }catch(e){
-  $('erroLogin').textContent='Falha no login: '+e.code;
+  $("erroLogin").textContent=
+   "Erro ao entrar: "+e.code;
  }
 };
 
-$('sair').onclick=()=>signOut(auth);
+$("sair").onclick=()=>signOut(auth);
 
 onAuthStateChanged(auth,u=>{
- $('login').style.display=u?'none':'block';
- $('adm').style.display=u?'block':'none';
- $('usuario').textContent=u?'Conectado: '+u.email:'';
+
+ $("login").style.display=u?"none":"block";
+ $("conteudoADM").style.display=u?"block":"none";
+
+ $("usuarioAtual").textContent=
+  u?"Conectado: "+u.email:"";
 
  if(u){
-  $('nomeSite').value=config.titulo;
-  $('numeroWhats').value=config.whatsapp;
-  edicao=ordenar();
+  $("nomeSite").value=config.titulo;
+  $("numeroWhats").value=config.whatsapp;
+  diagnostico();
   renderADM();
  }
 });
+
+/* CONFIGURAÇÕES */
 
 function configurar(){
- $('tituloSite').textContent=config.titulo||'RESTAURAR';
- $('whatsapp').href='https://wa.me/'+
-  String(config.whatsapp||'5547988233530').replace(/\D/g,'');
+ $("tituloSite").textContent=config.titulo||"RESTAURAR";
+
+ $("whatsapp").href="https://wa.me/"+
+  String(config.whatsapp||"5547988233530")
+   .replace(/\D/g,"");
 }
 
-$('salvarConfig').onclick=async()=>{
+$("salvarConfig").onclick=async()=>{
+
  try{
   await update(configRef,{
-   titulo:$('nomeSite').value.trim()||'RESTAURAR',
-   whatsapp:$('numeroWhats').value.replace(/\D/g,'')
+   titulo:$("nomeSite").value.trim()||"RESTAURAR",
+   whatsapp:$("numeroWhats").value.replace(/\D/g,"")
   });
-  mensagem('mensagemADM','Configurações salvas.');
+
+  mensagem("mensagemADM","Configurações salvas.");
  }catch(e){
-  mensagem('mensagemADM',e.message,true);
+  mensagem("mensagemADM",e.message,true);
  }
 };
 
-function limpar(){
+/* CADASTRO E EDIÇÃO */
+
+function limparFormulario(){
+
  for(const id of [
-  'estudoID','estudoTitulo','estudoCapa',
-  'estudoResumo','estudoTexto',
-  'estudoVideos','estudoImagens'
+  "videoID",
+  "videoTitulo",
+  "videoLink",
+  "videoDescricao"
  ]){
-  $(id).value='';
+  $(id).value="";
  }
 
- $('tituloFormulario').textContent='CADASTRAR ESTUDO';
- $('salvarEstudo').textContent='SALVAR ESTUDO';
+ $("tituloFormulario").textContent="CADASTRAR VÍDEO";
+ $("salvarVideo").textContent="SALVAR VÍDEO";
 }
 
-$('limpar').onclick=limpar;
+$("limparFormulario").onclick=limparFormulario;
 
-$('salvarEstudo').onclick=async()=>{
- if(!auth.currentUser)
-  return mensagem('mensagemADM','Entre no administrador.',true);
+function editarVideo(id){
 
- const id=$('estudoID').value;
- const t=$('estudoTitulo').value.trim();
- const txt=$('estudoTexto').value.trim();
- const c=$('estudoCapa').value.trim();
- const videos=lista($('estudoVideos').value);
- const imagens=lista($('estudoImagens').value);
+ const v=videos.find(x=>x.id===id);
+ if(!v)return;
 
- if(!t||!txt)
-  return mensagem('mensagemADM','Informe título e texto.',true);
+ $("videoID").value=id;
+ $("videoTitulo").value=v.titulo;
+ $("videoLink").value=v.link;
+ $("videoDescricao").value=v.descricao;
 
- if(c&&!urlValida(c))
-  return mensagem('mensagemADM','Capa inválida.',true);
+ $("tituloFormulario").textContent="EDITAR VÍDEO";
+ $("salvarVideo").textContent="SALVAR ALTERAÇÕES";
 
- if(imagens.some(x=>!urlValida(x)))
-  return mensagem('mensagemADM','Imagem inválida.',true);
+ $("videoTitulo").scrollIntoView({
+  behavior:"smooth",
+  block:"center"
+ });
+}
 
- if(videos.some(x=>!youtubeId(x)))
-  return mensagem('mensagemADM','Link do YouTube inválido.',true);
+function dadosVideo(){
+ return {
+  titulo:$("videoTitulo").value.trim(),
+  link:$("videoLink").value.trim(),
+  descricao:$("videoDescricao").value.trim()
+ };
+}
 
- const b=$('salvarEstudo');
- b.disabled=true;
+async function gravarFirestore(novaLista){
+ // Atualiza apenas o campo videos.
+ // Não substitui estudos nem testemunhos.
+ await updateDoc(documento,{
+  videos:novaLista
+ });
+}
+
+$("salvarVideo").onclick=async()=>{
+
+ if(!auth.currentUser){
+  mensagem("mensagemADM","Entre no administrador.",true);
+  return;
+ }
+
+ const id=$("videoID").value;
+ const dados=dadosVideo();
+
+ if(!dados.titulo||!youtubeID(dados.link)){
+  mensagem(
+   "mensagemADM",
+   "Informe título e link válido do YouTube.",
+   true
+  );
+  return;
+ }
+
+ const botao=$("salvarVideo");
+ botao.disabled=true;
 
  try{
-  const agora=Date.now();
 
-  const dados={
-   titulo:t,
-   capa:c,
-   resumo:$('estudoResumo').value.trim(),
-   texto:txt,
-   videos,
-   imagens,
-   criadoEm:id?
-    (Number(estudos[id]?.criadoEm)||agora):agora,
-   atualizadoEm:agora
-  };
+  if(fonte==="firestore"){
 
-  if(id){
-   await update(ref(db,'restaurar/estudos/'+id),dados);
+   const lista=[...firestoreVideos];
+
+   const registro={
+    title:dados.titulo,
+    url:dados.link,
+    description:dados.descricao
+   };
+
+   if(id){
+    const indice=Number(id);
+
+    if(!Number.isInteger(indice)||
+       indice<0||indice>=lista.length){
+     throw new Error(
+      "Identificador inválido para edição no Firestore."
+     );
+    }
+
+    lista[indice]={
+     ...lista[indice],
+     ...registro
+    };
+
+   }else{
+    lista.push(registro);
+   }
+
+   await gravarFirestore(lista);
+
   }else{
-   await set(push(estudosRef),dados);
+
+   const registro={
+    titulo:dados.titulo,
+    link:dados.link,
+    descricao:dados.descricao,
+    atualizadoEm:Date.now()
+   };
+
+   if(id){
+    await update(
+     ref(database,"restaurar/videos/"+id),
+     registro
+    );
+   }else{
+    await set(push(videosRef),{
+     ...registro,
+     criadoEm:Date.now()
+    });
+   }
   }
 
-  limpar();
-  mensagem('mensagemADM','Estudo e vídeos salvos no Firebase.');
+  limparFormulario();
+
+  mensagem(
+   "mensagemADM",
+   "Vídeo salvo com sucesso no Firebase."
+  );
+
  }catch(e){
-  mensagem('mensagemADM','Erro ao salvar: '+e.message,true);
+  mensagem(
+   "mensagemADM",
+   "Erro ao salvar: "+e.message,
+   true
+  );
  }finally{
-  b.disabled=false;
+  botao.disabled=false;
  }
 };
 
-function editar(id){
- const e=estudos[id];
- if(!e)return;
-
- $('estudoID').value=id;
- $('estudoTitulo').value=titulo(e);
- $('estudoCapa').value=capa(e);
- $('estudoResumo').value=resumo(e);
- $('estudoTexto').value=texto(e);
- $('estudoVideos').value=videosInternos(e).join('\n');
- $('estudoImagens').value=lista(e.imagens).join('\n');
-
- $('tituloFormulario').textContent='EDITAR ESTUDO';
- $('salvarEstudo').textContent='SALVAR ALTERAÇÕES';
-
- $('estudoTitulo').scrollIntoView({
-  behavior:'smooth',
-  block:'center'
- });
-}
+/* LISTA DO ADMINISTRADOR */
 
 function renderADM(){
+
  if(!auth.currentUser)return;
 
- edicao=[...new Set([
-  ...edicao.filter(x=>estudos[x]),
-  ...ordenar()
- ])];
+ const area=$("listaADM");
+ area.replaceChildren();
 
- const a=$('listaADM');
- a.replaceChildren();
+ const mapa=new Map(videos.map(v=>[v.id,v]));
 
- edicao.forEach((id,i)=>{
-  const e=estudos[id];
-  const l=document.createElement('div');
-  const info=document.createElement('div');
-  const acoes=document.createElement('div');
+ ordemEdicao=[
+  ...ordemEdicao.filter(id=>mapa.has(id)),
+  ...videos.map(v=>v.id).filter(id=>!ordemEdicao.includes(id))
+ ];
 
-  l.className='linha';
-  info.className='linha-info';
-  acoes.className='acoes';
+ ordemEdicao.forEach((id,i)=>{
 
-  const st=document.createElement('strong');
-  const sm=document.createElement('small');
+  const v=mapa.get(id);
+  if(!v)return;
 
-  st.textContent=(i+1)+'. '+titulo(e);
-  sm.textContent=videosVinculados(id,e).length+
-   ' vídeo(s) associado(s)';
+  const linha=document.createElement("div");
+  linha.className="linha";
 
-  info.append(st,sm);
+  const info=document.createElement("div");
+  info.className="linha-info";
 
-  const bot=(txt,fn,cls='')=>{
-   const b=document.createElement('button');
-   b.textContent=txt;
-   b.className=cls;
-   b.onclick=fn;
-   acoes.append(b);
-  };
+  const titulo=document.createElement("strong");
+  titulo.textContent=(i+1)+". "+v.titulo;
 
-  bot('↑',()=>mover(id,-1));
-  bot('↓',()=>mover(id,1));
-  bot('EDITAR',()=>editar(id));
+  const subtitulo=document.createElement("small");
+  subtitulo.textContent=v.link;
 
-  bot('EXCLUIR',async()=>{
-   if(confirm('Excluir este estudo?')){
-    try{
-     await remove(ref(db,'restaurar/estudos/'+id));
-     mensagem('mensagemOrdem','Estudo excluído.');
-    }catch(e){
-     mensagem('mensagemOrdem',e.message,true);
+  info.append(titulo,subtitulo);
+
+  const acoes=document.createElement("div");
+  acoes.className="linha-acoes";
+
+  function botao(texto,acao,classe=""){
+   const b=document.createElement("button");
+   b.textContent=texto;
+   b.className=classe;
+   b.onclick=acao;
+   return b;
+  }
+
+  const subir=botao("↑",()=>mover(id,-1));
+  subir.disabled=i===0;
+
+  const descer=botao("↓",()=>mover(id,1));
+  descer.disabled=i===ordemEdicao.length-1;
+
+  const editar=botao("EDITAR",()=>editarVideo(id));
+
+  const excluir=botao("EXCLUIR",async()=>{
+
+   if(!confirm("Excluir este vídeo do Firebase?"))return;
+
+   try{
+
+    if(fonte==="firestore"){
+     const indice=Number(id);
+
+     if(!Number.isInteger(indice)||
+        indice<0||indice>=firestoreVideos.length){
+      throw new Error("Identificador inválido.");
+     }
+
+     const nova=[...firestoreVideos];
+     nova.splice(indice,1);
+
+     await gravarFirestore(nova);
+
+    }else{
+     await remove(
+      ref(database,"restaurar/videos/"+id)
+     );
     }
-   }
-  },'danger');
 
-  l.append(info,acoes);
-  a.append(l);
+    mensagem("mensagemOrdem","Vídeo excluído.");
+
+   }catch(e){
+    mensagem("mensagemOrdem",e.message,true);
+   }
+
+  },"danger");
+
+  acoes.append(subir,descer,editar,excluir);
+  linha.append(info,acoes);
+  area.append(linha);
  });
 }
 
-function mover(id,dir){
- const i=edicao.indexOf(id);
- const j=i+dir;
+function mover(id,direcao){
 
- if(j<0||j>=edicao.length)return;
+ const i=ordemEdicao.indexOf(id);
+ const j=i+direcao;
 
- [edicao[i],edicao[j]]=[edicao[j],edicao[i]];
- ordemAlterada=true;
+ if(j<0||j>=ordemEdicao.length)return;
+
+ [ordemEdicao[i],ordemEdicao[j]]=
+ [ordemEdicao[j],ordemEdicao[i]];
+
+ ordemPendente=true;
  renderADM();
- mensagem('mensagemOrdem','Clique em SALVAR ORDEM.');
+
+ mensagem(
+  "mensagemOrdem",
+  "Ordem alterada. Clique em SALVAR ORDEM."
+ );
 }
 
-$('salvarOrdem').onclick=async()=>{
+$("salvarOrdem").onclick=async()=>{
+
+ if(!auth.currentUser)return;
+
+ const botao=$("salvarOrdem");
+ botao.disabled=true;
+
  try{
-  await set(ordemRef,edicao);
-  ordemAlterada=false;
-  mensagem('mensagemOrdem','Ordem salva.');
+
+  if(fonte==="firestore"){
+
+   const mapa=new Map(
+    firestoreVideos.map((v,i)=>[String(i),v])
+   );
+
+   const nova=ordemEdicao
+    .map(id=>mapa.get(id))
+    .filter(Boolean);
+
+   await gravarFirestore(nova);
+
+  }else if(fonte==="realtime"){
+
+   await set(ordemRef,ordemEdicao);
+
+  }else{
+   throw new Error("Nenhuma fonte de vídeos ativa.");
+  }
+
+  ordemPendente=false;
+  ordemVisitante=[...ordemEdicao];
+  salvarFila();
+
+  mensagem("mensagemOrdem","Ordem salva no Firebase.");
+
  }catch(e){
-  mensagem('mensagemOrdem',e.message,true);
+  mensagem("mensagemOrdem",e.message,true);
+ }finally{
+  botao.disabled=false;
  }
 };
 
-onValue(estudosRef,s=>{
- estudos=s.val()||{};
- carregou=true;
- render();
+/* LEITURA DO CLOUD FIRESTORE */
 
- if(auth.currentUser){
-  if(!ordemAlterada)edicao=ordenar();
-  renderADM();
- }
+onSnapshot(documento,snapshot=>{
+
+ const dados=snapshot.exists()?snapshot.data():{};
+
+ firestoreVideos=registrosFirestore(dados.videos);
+
+ firestoreCarregado=true;
+ firestoreErro="";
+
+ selecionarFonte();
+
 },e=>{
- $('estado').textContent=
-  'Erro ao carregar estudos: '+e.message;
- $('estado').className='erro';
- statusFontes['restaurar/estudos']='erro: '+e.code;
- diagnosticar();
+
+ firestoreCarregado=true;
+ firestoreErro=e.message;
+ firestoreVideos=[];
+
+ selecionarFonte();
 });
 
-onValue(ordemRef,s=>{
- ordem=Array.isArray(s.val())?s.val():[];
- render();
+/* LEITURA DO REALTIME DATABASE */
 
- if(auth.currentUser&&!ordemAlterada){
-  edicao=ordenar();
+onValue(videosRef,snapshot=>{
+
+ realtimeVideos=snapshot.val()||{};
+ realtimeCarregado=true;
+ realtimeErro="";
+
+ selecionarFonte();
+
+},e=>{
+
+ realtimeCarregado=true;
+ realtimeErro=e.message;
+ realtimeVideos={};
+
+ selecionarFonte();
+});
+
+/* ORDEM DOS VÍDEOS */
+
+onValue(ordemRef,snapshot=>{
+
+ const valor=snapshot.val();
+ ordemFirebase=Array.isArray(valor)?valor:[];
+
+ if(!ordemPendente){
+  ordemVisitante=[];
+  atualizarFila();
+  render();
   renderADM();
  }
-},e=>console.warn('Ordem:',e));
 
-onValue(configRef,s=>{
+},e=>{
+ console.warn("Erro na ordem:",e);
+});
+
+/* CONFIGURAÇÕES */
+
+onValue(configRef,snapshot=>{
+
  config={
-  titulo:'RESTAURAR',
-  whatsapp:'5547988233530',
-  ...(s.val()||{})
+  titulo:"RESTAURAR",
+  whatsapp:"5547988233530",
+  ...(snapshot.val()||{})
  };
 
  configurar();
 
  if(auth.currentUser){
-  $('nomeSite').value=config.titulo;
-  $('numeroWhats').value=config.whatsapp;
+  $("nomeSite").value=config.titulo;
+  $("numeroWhats").value=config.whatsapp;
  }
-},e=>console.warn('Config:',e));
 
-for(const caminho of fontes){
- statusFontes[caminho]='carregando';
+},e=>{
+ console.warn("Erro nas configurações:",e);
+});
 
- onValue(ref(db,caminho),s=>{
-  externos[caminho]=s.val()||{};
+configurar();
 
-  statusFontes[caminho]=s.exists()?
-   registros(s.val()).length+' registro(s)':'vazio';
-
-  render();
-
-  if(auth.currentUser)renderADM();
- },e=>{
-  externos[caminho]={};
-  statusFontes[caminho]='erro: '+(e.code||e.message);
-  diagnosticar();
- });
-}
 </script>
 </body>
 </html>
