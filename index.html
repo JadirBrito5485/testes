@@ -3,388 +3,187 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jadir Brito | Estudos Bíblicos</title>
 
 <style>
-:root {
-  --fundo:#ffffff;
-  --texto:#172033;
-  --secundario:#667085;
-  --cartao:#ffffff;
-  --borda:#e5e7eb;
-  --destaque:#20365f;
-}
-
-* {
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
-  margin:0;
-  background:var(--fundo);
-  color:var(--texto);
-  font-family:Arial,sans-serif;
-  line-height:1.65;
-}
-
-body.escuro {
-  --fundo:#111418;
-  --texto:#f5f5f5;
-  --secundario:#b7c0cc;
-  --cartao:#1b2027;
-  --borda:#333b46;
-  --destaque:#89b5f5;
-}
-
-header {
-  background:var(--cartao);
-  border-bottom:1px solid var(--borda);
-  padding:23px 15px;
-  text-align:center;
-}
-
-header h1 {
-  font-size:30px;
-  letter-spacing:2px;
-  margin:0;
-  font-weight:800;
-}
-
-header p {
-  color:var(--secundario);
-  margin:8px 0 0;
-  font-size:15px;
-}
-
-main {
-  width:min(1160px,94%);
-  margin:auto;
-  min-height:70vh;
-}
-
-.apresentacao {
-  text-align:center;
-  padding:48px 0 28px;
-}
-
-.apresentacao h2 {
-  font-size:clamp(30px,5vw,48px);
-  line-height:1.2;
-  margin:0 0 15px;
-  font-family:Georgia,serif;
-}
-
-.apresentacao p {
-  max-width:750px;
-  margin:auto;
-  color:var(--secundario);
-  font-size:17px;
-}
-
-.grade {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:22px;
-  padding:20px 0 65px;
-}
-
-.card {
-  background:var(--cartao);
-  border:1px solid var(--borda);
-  border-radius:13px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-  transition:transform .2s,box-shadow .2s;
-}
-
-.card:hover {
-  transform:translateY(-3px);
-  box-shadow:0 10px 25px #00000015;
-}
-
-.card img {
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-}
-
-.card-corpo {
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  flex:1;
-}
-
-.card h3 {
-  font-family:Georgia,serif;
-  font-size:22px;
-  line-height:1.3;
-  margin:0 0 12px;
-}
-
-.card p {
-  color:var(--secundario);
-  font-size:15px;
-  line-height:1.7;
-  flex:1;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-}
-
-.botao {
-  display:inline-block;
-  background:#20365f;
-  color:#ffffff;
-  border:0;
-  border-radius:7px;
-  padding:11px 17px;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  text-decoration:none;
-  text-align:center;
-}
-
-.botao:hover {
-  background:#304d80;
-}
-
-.aviso {
-  color:var(--secundario);
-  text-align:center;
-  padding:20px;
-}
-
-.artigo {
-  display:none;
-  max-width:850px;
-  margin:35px auto 75px;
-}
-
-.artigo h1 {
-  font-family:Georgia,serif;
-  font-size:clamp(30px,5vw,48px);
-  line-height:1.18;
-  margin:22px 0;
-}
-
-.artigo-imagem {
-  display:block;
-  width:100%;
-  max-height:520px;
-  object-fit:contain;
-  margin:25px auto;
-  border-radius:9px;
-}
-
-.artigo-texto {
-  font-family:Georgia,serif;
-  font-size:19px;
-  line-height:1.85;
-  overflow-wrap:anywhere;
-}
-
-.artigo-texto p {
-  margin:0 0 24px;
-  white-space:pre-wrap;
-}
-
-.artigo-texto h2 {
-  font-size:28px;
-  line-height:1.3;
-  margin:35px 0 16px;
-}
-
-.artigo-texto img {
-  max-width:100%;
-  height:auto;
-}
-
-.voltar {
-  background:transparent;
-  color:var(--destaque);
-  border:0;
-  padding:10px 0;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-footer {
-  border-top:1px solid var(--borda);
-  text-align:center;
-  padding:30px 15px;
-  color:var(--secundario);
-  font-size:14px;
-}
-
-.tema {
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:50;
-  width:43px;
-  height:43px;
-  border:1px solid var(--borda);
-  border-radius:50%;
-  background:var(--cartao);
-  color:var(--texto);
-  cursor:pointer;
-  font-size:21px;
-}
-
-@media(max-width:900px) {
-  .grade {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media(max-width:600px) {
-  header h1 {
-    font-size:24px;
-  }
-
-  .apresentacao {
-    padding:35px 0 20px;
-  }
-
-  .grade {
-    grid-template-columns:1fr;
-    gap:16px;
-  }
-
-  .card h3 {
-    font-size:20px;
-  }
-
-  .artigo {
-    margin:22px auto 55px;
-  }
-
-  .artigo-texto {
-    font-size:17px;
-    line-height:1.75;
-  }
-
-  .artigo-texto h2 {
-    font-size:24px;
-  }
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;line-height:1.7}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+header{text-align:center;padding:32px 15px;border-bottom:1px solid #252525}
+header h1{margin:0;font-size:30px;letter-spacing:2px}
+header p{color:#aaa;margin:8px 0 0}
+main{width:min(1160px,94%);margin:auto;min-height:70vh}
+.hero{text-align:center;padding:48px 0 25px}
+.hero h2{font:700 clamp(30px,5vw,48px)/1.2 Georgia,serif;margin:0 0 15px}
+.hero p{max-width:750px;margin:auto;color:#bbb}
+.grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:20px 0 65px}
+.card{background:#101010;border:1px solid #292929;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.card-corpo{padding:19px;display:flex;flex-direction:column;flex:1}
+.card h3{font:700 21px/1.35 Georgia,serif;margin:0 0 10px}
+.card p{color:#bbb;font-size:15px;flex:1;white-space:pre-wrap;overflow-wrap:anywhere}
+.btn{background:#d4aa55;color:#000;border:0;border-radius:6px;padding:11px 16px;font-weight:700}
+.btn:hover{background:#edc879}
+.btn.sec{background:#333;color:#fff}
+.btn.danger{background:#a52a2a;color:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+.aviso{color:#aaa;text-align:center}
+.artigo{display:none;max-width:850px;margin:30px auto 75px}
+.artigo h1{font:700 clamp(30px,5vw,46px)/1.2 Georgia,serif}
+.artigo-imagem{display:block;width:100%;max-height:500px;object-fit:contain;margin:24px auto;border-radius:8px}
+.artigo-texto{font:18px/1.85 Georgia,serif;color:#e2e2e2;overflow-wrap:anywhere}
+.artigo-texto p{white-space:pre-wrap;margin:0 0 23px}
+.voltar{background:none;color:#e4bd67;border:0;font-weight:bold;padding:10px 0}
+footer{position:relative;border-top:1px solid #252525;text-align:center;color:#888;padding:32px 45px;font-size:14px}
+.adminA{position:absolute;right:12px;bottom:9px;background:none;border:0;color:#555;font-size:11px;opacity:.4;padding:5px}
+.adminA:hover{opacity:1;color:#ddd}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:20px}
+.modal.aberto{display:block}
+.painel{max-width:850px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
+.fechar{float:right;background:none;border:0;color:#fff;font-size:27px}
+label{display:block;margin:15px 0 5px;color:#ddd;font-size:14px}
+input,textarea{display:block;width:100%;padding:12px;background:#050505;color:#fff;border:1px solid #444;border-radius:6px}
+textarea{min-height:110px;resize:vertical}
+#estudoTexto{min-height:300px}
+.botoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.linha{padding:15px 0;border-bottom:1px solid #333;display:flex;align-items:center;gap:12px}
+.linha-info{flex:1;min-width:0;overflow-wrap:anywhere}
+.linha-acoes{display:flex;gap:6px;flex-wrap:wrap}
+.linha-acoes button{padding:7px 10px;border:0;border-radius:5px;background:#333;color:#fff}
+.linha-acoes .excluir{background:#a52a2a}
+.status{color:#a2e7b2}
+.erro{color:#ff8585}
+hr{border:0;border-top:1px solid #333;margin:27px 0}
+@media(max-width:850px){.grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){
+.grade{grid-template-columns:1fr}
+header h1{font-size:25px}
+.hero{padding:35px 0 20px}
+.artigo-texto{font-size:16px}
+.painel{padding:15px}
+.linha{flex-wrap:wrap}
+.linha-acoes{width:100%}
 }
 </style>
 </head>
 
 <body>
 
-<button class="tema" id="botaoTema"
-        onclick="alternarTema()"
-        aria-label="Alternar tema">
-  ☾
-</button>
-
 <header>
-  <h1>JADIR BRITO</h1>
-  <p>Estudos Bíblicos e Conhecimento da Palavra de Deus</p>
+<h1>JADIR BRITO</h1>
+<p>Estudos Bíblicos e Conhecimento da Palavra de Deus</p>
 </header>
 
 <main>
-
 <section id="paginaInicial">
-
-  <div class="apresentacao">
-    <h2>Estudos Bíblicos</h2>
-    <p>
-      Conheça a Palavra de Deus por meio de estudos
-      com explicações, referências bíblicas e
-      ensinamentos para a vida cristã.
-    </p>
-  </div>
-
-  <p id="estado" class="aviso">
-    Carregando estudos...
-  </p>
-
-  <div id="gradeEstudos" class="grade"></div>
-
+<div class="hero">
+<h2>Estudos Bíblicos</h2>
+<p>Conheça a Palavra de Deus por meio de estudos com explicações, referências bíblicas e ensinamentos para a vida cristã.</p>
+</div>
+<p id="estado" class="aviso">Carregando estudos...</p>
+<div id="gradeEstudos" class="grade"></div>
 </section>
 
 <article id="paginaArtigo" class="artigo">
-
-  <button class="voltar" onclick="voltarEstudos()">
-    ← VOLTAR AOS ESTUDOS
-  </button>
-
-  <h1 id="artigoTitulo"></h1>
-
-  <div id="artigoConteudo"></div>
-
-  <button class="botao"
-          onclick="voltarEstudos()"
-          style="margin-top:30px">
-    VER OUTROS ESTUDOS
-  </button>
-
+<button class="voltar" onclick="voltarEstudos()">← VOLTAR AOS ESTUDOS</button>
+<h1 id="artigoTitulo"></h1>
+<div id="artigoConteudo"></div>
+<button class="btn" onclick="voltarEstudos()" style="margin-top:30px">VER OUTROS ESTUDOS</button>
 </article>
-
 </main>
 
 <footer>
-  © JADIR BRITO — Estudos Bíblicos
+© JADIR BRITO — Estudos Bíblicos
+<button class="adminA" id="abrirADM" title="Administrador">A</button>
 </footer>
 
-<script>
-function alternarTema() {
-  const escuro=document.body.classList.toggle("escuro");
+<div class="modal" id="modal">
+<div class="painel">
+<button class="fechar" id="fecharADM">×</button>
+<h2>ADMINISTRADOR</h2>
 
-  localStorage.setItem(
-    "jadir_tema",
-    escuro?"escuro":"claro"
-  );
+<div id="acessoSenha">
+<label>Senha do administrador</label>
+<input id="senhaAcesso" type="password" placeholder="Digite a senha">
+<div class="botoes">
+<button class="btn" id="validarSenha">ENTRAR</button>
+</div>
+<p id="erroSenha" class="erro"></p>
+</div>
 
-  document.getElementById("botaoTema").textContent=
-    escuro?"☀":"☾";
-}
+<div id="loginFirebase" style="display:none">
+<p>Confirme seu acesso administrativo ao Firebase para gerenciar os estudos.</p>
+<label>E-mail do administrador</label>
+<input id="email" type="email" autocomplete="username">
+<label>Senha do Firebase</label>
+<input id="senhaFirebase" type="password" autocomplete="current-password">
+<div class="botoes">
+<button class="btn" id="entrarFirebase">AUTENTICAR</button>
+</div>
+<p id="erroLogin" class="erro"></p>
+</div>
 
-if(localStorage.getItem("jadir_tema")==="escuro") {
-  document.body.classList.add("escuro");
-}
+<div id="conteudoADM" style="display:none">
+<p id="usuarioAtual" class="status"></p>
+<button class="btn sec" id="sair">SAIR</button>
+<hr>
 
-document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("botaoTema").textContent=
-    document.body.classList.contains("escuro")?"☀":"☾";
-});
-</script>
+<h3 id="tituloFormulario">CADASTRAR ESTUDO</h3>
+<input id="estudoID" type="hidden">
+
+<label>Título do estudo</label>
+<input id="estudoTitulo">
+
+<label>Imagem de capa (URL)</label>
+<input id="estudoCapa" placeholder="https://site.com/imagem.jpg">
+
+<label>Descrição resumida</label>
+<textarea id="estudoResumo"></textarea>
+
+<label>Conteúdo completo</label>
+<textarea id="estudoTexto"></textarea>
+
+<label>Imagens adicionais (uma URL por linha)</label>
+<textarea id="estudoImagens"></textarea>
+
+<div class="botoes">
+<button class="btn" id="salvarEstudo">SALVAR ESTUDO</button>
+<button class="btn sec" id="limparFormulario">LIMPAR</button>
+</div>
+<p id="mensagemADM"></p>
+<hr>
+
+<h3>ESTUDOS CADASTRADOS</h3>
+<p id="contador"></p>
+<div id="listaADM"></div>
+<p>Use as setas para reorganizar os estudos.</p>
+<button class="btn" id="salvarOrdem">SALVAR ORDEM</button>
+<p id="mensagemOrdem"></p>
+</div>
+</div>
+</div>
 
 <script type="module">
-
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
-import {getDatabase,ref,onValue}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getDatabase,ref,onValue,push,set,update,remove} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig={
-  apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-  authDomain:"namoro-f18ac.firebaseapp.com",
-  databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
-  projectId:"namoro-f18ac",
-  storageBucket:"namoro-f18ac.firebasestorage.app",
-  messagingSenderId:"336479537433",
-  appId:"1:336479537433:web:dd282c67e98ca196e05d88",
-  measurementId:"G-1YLR1JNZYY"
+ apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+ authDomain:"namoro-f18ac.firebaseapp.com",
+ databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+ projectId:"namoro-f18ac",
+ storageBucket:"namoro-f18ac.firebasestorage.app",
+ messagingSenderId:"336479537433",
+ appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+ measurementId:"G-1YLR1JNZYY"
 };
 
 const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
-
+const auth=getAuth(app);
 const $=id=>document.getElementById(id);
 
 const estudosRef=ref(db,"restaurar/estudos");
@@ -392,247 +191,269 @@ const ordemRef=ref(db,"restaurar/ordemEstudos");
 
 let estudos={};
 let ordem=[];
+let ordemEdicao=[];
 let carregado=false;
-let estudoAberto=null;
+let acessoLiberado=false;
 
-function titulo(e) {
-  return e.titulo||"Estudo bíblico";
+function titulo(e){return e.titulo||"Estudo bíblico"}
+function capa(e){return e.capa||e.imagem||""}
+function resumo(e){return e.resumo||e.descricao||""}
+function conteudo(e){return e.texto||e.conteudo||""}
+
+function imagens(e){
+ if(Array.isArray(e.imagens))return e.imagens;
+ if(typeof e.imagens==="string")return e.imagens.split("\n").map(x=>x.trim()).filter(Boolean);
+ return [];
 }
 
-function capa(e) {
-  return e.capa||e.imagem||"";
+function urlValida(url){
+ try{
+  const u=new URL(url);
+  return u.protocol==="https:"||u.protocol==="http:";
+ }catch{return false}
 }
 
-function resumo(e) {
-  return e.resumo||e.descricao||"";
-}
-
-function conteudo(e) {
-  return e.texto||e.conteudo||"";
-}
-
-function imagens(e) {
-  if(Array.isArray(e.imagens)) {
-    return e.imagens;
+function obterOrdem(){
+ const ids=Object.keys(estudos).sort((a,b)=>
+  (Number(estudos[b].criadoEm)||0)-(Number(estudos[a].criadoEm)||0)
+ );
+ const vistos=new Set();
+ const resultado=[];
+ if(Array.isArray(ordem)){
+  for(const id of ordem){
+   if(estudos[id]&&!vistos.has(id)){resultado.push(id);vistos.add(id)}
   }
-
-  if(typeof e.imagens==="string") {
-    return e.imagens.split("\n")
-      .map(x=>x.trim())
-      .filter(Boolean);
-  }
-
-  return [];
+ }
+ for(const id of ids)if(!vistos.has(id))resultado.push(id);
+ return resultado;
 }
 
-function urlValida(url) {
-  try {
-    const u=new URL(url);
-    return ["https:","http:"].includes(u.protocol);
-  } catch {
-    return false;
-  }
-}
+function renderizar(){
+ if(!carregado)return;
+ const grade=$("gradeEstudos");
+ grade.replaceChildren();
+ const lista=obterOrdem();
+ $("estado").textContent=lista.length?"":"Nenhum estudo cadastrado.";
 
-function obterOrdem() {
-  const ids=Object.keys(estudos).sort((a,b)=>
-    (Number(estudos[b].criadoEm)||0)-
-    (Number(estudos[a].criadoEm)||0)
-  );
-
-  const validos=new Set(ids);
-  const vistos=new Set();
-  const resultado=[];
-
-  if(Array.isArray(ordem)) {
-    for(const id of ordem) {
-      if(validos.has(id)&&!vistos.has(id)) {
-        resultado.push(id);
-        vistos.add(id);
-      }
-    }
-  }
-
-  for(const id of ids) {
-    if(!vistos.has(id))resultado.push(id);
-  }
-
-  return resultado;
-}
-
-function renderizar() {
-  if(!carregado)return;
-
-  const grade=$("gradeEstudos");
-  grade.replaceChildren();
-
-  const lista=obterOrdem();
-
-  $("estado").textContent=
-    lista.length?"":"Nenhum estudo cadastrado.";
-
-  for(const id of lista) {
-    const e=estudos[id];
-    if(!e)continue;
-
-    const card=document.createElement("article");
-    card.className="card";
-
-    const imagem=capa(e);
-
-    if(imagem&&urlValida(imagem)) {
-      const img=document.createElement("img");
-      img.src=imagem;
-      img.alt=titulo(e);
-      img.loading="lazy";
-      card.appendChild(img);
-    }
-
-    const corpo=document.createElement("div");
-    corpo.className="card-corpo";
-
-    const h3=document.createElement("h3");
-    h3.textContent=titulo(e);
-
-    const p=document.createElement("p");
-    p.textContent=resumo(e);
-
-    const botao=document.createElement("button");
-    botao.className="botao";
-    botao.textContent="LER ESTUDO COMPLETO";
-    botao.onclick=()=>abrirEstudo(id);
-
-    corpo.append(h3,p,botao);
-    card.appendChild(corpo);
-    grade.appendChild(card);
-  }
-
-  const parametro=new URLSearchParams(
-    window.location.search
-  ).get("estudo");
-
-  if(parametro&&estudos[parametro]) {
-    mostrarEstudo(parametro);
-  }
-}
-
-function adicionarImagem(area,url,alt) {
-  if(!urlValida(url))return;
-
-  const img=document.createElement("img");
-  img.src=url;
-  img.alt=alt;
-  img.className="artigo-imagem";
-  img.loading="lazy";
-
-  area.appendChild(img);
-}
-
-function adicionarTexto(area,texto) {
-  const div=document.createElement("div");
-  div.className="artigo-texto";
-
-  const partes=String(texto||"").split(/\n\s*\n/);
-
-  for(const parte of partes) {
-    if(!parte.trim())continue;
-
-    const p=document.createElement("p");
-    p.textContent=parte.trim();
-
-    div.appendChild(p);
-  }
-
-  area.appendChild(div);
-}
-
-function mostrarEstudo(id) {
+ for(const id of lista){
   const e=estudos[id];
-  if(!e)return;
-
-  estudoAberto=id;
-
-  $("paginaInicial").style.display="none";
-  $("paginaArtigo").style.display="block";
-
-  $("artigoTitulo").textContent=titulo(e);
-
-  const area=$("artigoConteudo");
-  area.replaceChildren();
-
-  adicionarImagem(area,capa(e),titulo(e));
-  adicionarTexto(area,conteudo(e));
-
-  for(const url of imagens(e)) {
-    adicionarImagem(area,url,titulo(e));
+  if(!e)continue;
+  const card=document.createElement("article");
+  card.className="card";
+  if(urlValida(capa(e))){
+   const img=document.createElement("img");
+   img.src=capa(e);img.alt=titulo(e);img.loading="lazy";
+   card.append(img);
   }
-
-  document.title=titulo(e)+" | Jadir Brito";
-  window.scrollTo(0,0);
+  const corpo=document.createElement("div");
+  corpo.className="card-corpo";
+  const h=document.createElement("h3");h.textContent=titulo(e);
+  const p=document.createElement("p");p.textContent=resumo(e);
+  const b=document.createElement("button");
+  b.className="btn";b.textContent="LER ESTUDO COMPLETO";
+  b.onclick=()=>abrirEstudo(id);
+  corpo.append(h,p,b);card.append(corpo);grade.append(card);
+ }
+ const id=new URLSearchParams(location.search).get("estudo");
+ if(id&&estudos[id])mostrarEstudo(id);
+ renderADM();
 }
 
-function abrirEstudo(id) {
-  const url=new URL(window.location.href);
-  url.searchParams.set("estudo",id);
-
-  history.pushState({estudo:id},"",url);
-
-  mostrarEstudo(id);
+function adicionarImagem(area,url,alt){
+ if(!urlValida(url))return;
+ const img=document.createElement("img");
+ img.src=url;img.alt=alt;img.className="artigo-imagem";
+ img.loading="lazy";area.append(img);
 }
 
-function voltarEstudos() {
-  estudoAberto=null;
-
-  const url=new URL(window.location.href);
-  url.searchParams.delete("estudo");
-
-  history.pushState({},"",url);
-
-  $("paginaArtigo").style.display="none";
-  $("paginaInicial").style.display="block";
-
-  document.title="Jadir Brito | Estudos Bíblicos";
-  window.scrollTo(0,0);
+function mostrarEstudo(id){
+ const e=estudos[id];if(!e)return;
+ $("paginaInicial").style.display="none";
+ $("paginaArtigo").style.display="block";
+ $("artigoTitulo").textContent=titulo(e);
+ const area=$("artigoConteudo");area.replaceChildren();
+ adicionarImagem(area,capa(e),titulo(e));
+ const texto=document.createElement("div");
+ texto.className="artigo-texto";
+ for(const parte of String(conteudo(e)).split(/\n\s*\n/)){
+  if(!parte.trim())continue;
+  const p=document.createElement("p");p.textContent=parte.trim();texto.append(p);
+ }
+ area.append(texto);
+ for(const url of imagens(e))adicionarImagem(area,url,titulo(e));
+ document.title=titulo(e)+" | Jadir Brito";
+ window.scrollTo(0,0);
 }
 
-window.voltarEstudos=voltarEstudos;
+function abrirEstudo(id){
+ const u=new URL(location.href);u.searchParams.set("estudo",id);
+ history.pushState({},"",u);mostrarEstudo(id);
+}
+
+window.voltarEstudos=function(){
+ const u=new URL(location.href);u.searchParams.delete("estudo");
+ history.pushState({},"",u);
+ $("paginaArtigo").style.display="none";
+ $("paginaInicial").style.display="block";
+ document.title="Jadir Brito | Estudos Bíblicos";
+ window.scrollTo(0,0);
+};
 
 window.addEventListener("popstate",()=>{
-  const id=new URLSearchParams(
-    window.location.search
-  ).get("estudo");
-
-  if(id&&estudos[id]) {
-    mostrarEstudo(id);
-  } else {
-    estudoAberto=null;
-
-    $("paginaArtigo").style.display="none";
-    $("paginaInicial").style.display="block";
-
-    document.title="Jadir Brito | Estudos Bíblicos";
-  }
+ const id=new URLSearchParams(location.search).get("estudo");
+ if(id&&estudos[id])mostrarEstudo(id);
+ else{
+  $("paginaArtigo").style.display="none";
+  $("paginaInicial").style.display="block";
+ }
 });
 
-onValue(estudosRef,snapshot=>{
-  estudos=snapshot.val()||{};
-  carregado=true;
-  renderizar();
-},erro=>{
-  $("estado").textContent=
-    "Não foi possível carregar os estudos: "+erro.message;
-});
+$("abrirADM").onclick=()=>{
+ $("modal").classList.add("aberto");
+ atualizarPainel();
+};
+$("fecharADM").onclick=()=>$("modal").classList.remove("aberto");
 
-onValue(ordemRef,snapshot=>{
-  ordem=snapshot.val()||[];
-  renderizar();
-},erro=>{
-  console.warn("Não foi possível carregar a ordem:",erro);
-  ordem=[];
-  renderizar();
-});
+$("validarSenha").onclick=()=>{
+ if($("senhaAcesso").value!=="848218"){
+  $("erroSenha").textContent="Senha incorreta.";
+  return;
+ }
+ acessoLiberado=true;
+ $("erroSenha").textContent="";
+ $("senhaAcesso").value="";
+ atualizarPainel();
+};
+
+function atualizarPainel(){
+ $("acessoSenha").style.display=acessoLiberado?"none":"block";
+ $("loginFirebase").style.display=acessoLiberado&&!auth.currentUser?"block":"none";
+ $("conteudoADM").style.display=acessoLiberado&&auth.currentUser?"block":"none";
+ if(auth.currentUser)$("usuarioAtual").textContent="Conectado: "+auth.currentUser.email;
+}
+
+$("entrarFirebase").onclick=async()=>{
+ try{
+  await signInWithEmailAndPassword(auth,$("email").value.trim(),$("senhaFirebase").value);
+  $("erroLogin").textContent="";
+ }catch(e){$("erroLogin").textContent="Erro: "+e.code}
+};
+
+$("sair").onclick=async()=>{
+ await signOut(auth);
+ acessoLiberado=false;
+ atualizarPainel();
+};
+
+onAuthStateChanged(auth,atualizarPainel);
+
+function limpar(){
+ ["estudoID","estudoTitulo","estudoCapa","estudoResumo","estudoTexto","estudoImagens"]
+ .forEach(id=>$(id).value="");
+ $("tituloFormulario").textContent="CADASTRAR ESTUDO";
+ $("salvarEstudo").textContent="SALVAR ESTUDO";
+}
+$("limparFormulario").onclick=limpar;
+
+$("salvarEstudo").onclick=async()=>{
+ if(!auth.currentUser||!acessoLiberado)return;
+ const id=$("estudoID").value;
+ const tituloNovo=$("estudoTitulo").value.trim();
+ const textoNovo=$("estudoTexto").value.trim();
+ const capaNova=$("estudoCapa").value.trim();
+ const imgs=$("estudoImagens").value.split("\n").map(x=>x.trim()).filter(Boolean);
+ if(!tituloNovo||!textoNovo){$("mensagemADM").textContent="Informe título e conteúdo.";return}
+ if((capaNova&&!urlValida(capaNova))||imgs.some(x=>!urlValida(x))){
+  $("mensagemADM").textContent="Verifique os links das imagens.";return;
+ }
+ const dados={
+  titulo:tituloNovo,capa:capaNova,
+  resumo:$("estudoResumo").value.trim(),
+  texto:textoNovo,imagens:imgs,
+  criadoEm:id?(Number(estudos[id]?.criadoEm)||Date.now()):Date.now(),
+  atualizadoEm:Date.now()
+ };
+ const btn=$("salvarEstudo");btn.disabled=true;
+ try{
+  if(id)await update(ref(db,"restaurar/estudos/"+id),dados);
+  else await set(push(estudosRef),dados);
+  $("mensagemADM").textContent="Estudo salvo com sucesso.";
+  limpar();
+ }catch(e){$("mensagemADM").textContent="Erro: "+e.message}
+ finally{btn.disabled=false}
+};
+
+function renderADM(){
+ if(!auth.currentUser||!acessoLiberado)return;
+ const lista=$("listaADM");lista.replaceChildren();
+ const ids=obterOrdem();
+ $("contador").textContent=ids.length+" estudos cadastrados.";
+ if(!ordemEdicao.length||ordemEdicao.some(id=>!estudos[id])||
+  ids.some(id=>!ordemEdicao.includes(id)))ordemEdicao=[...ids];
+
+ ordemEdicao.forEach((id,pos)=>{
+  const e=estudos[id];if(!e)return;
+  const linha=document.createElement("div");linha.className="linha";
+  const info=document.createElement("div");info.className="linha-info";
+  const strong=document.createElement("strong");strong.textContent=titulo(e);
+  info.append(strong);
+  const acoes=document.createElement("div");acoes.className="linha-acoes";
+  const editar=document.createElement("button");editar.textContent="EDITAR";
+  editar.onclick=()=>{
+   $("estudoID").value=id;$("estudoTitulo").value=titulo(e);
+   $("estudoCapa").value=capa(e);$("estudoResumo").value=resumo(e);
+   $("estudoTexto").value=conteudo(e);
+   $("estudoImagens").value=imagens(e).join("\n");
+   $("tituloFormulario").textContent="EDITAR ESTUDO";
+   $("salvarEstudo").textContent="SALVAR ALTERAÇÕES";
+   $("tituloFormulario").scrollIntoView({behavior:"smooth"});
+  };
+  const subir=document.createElement("button");subir.textContent="↑";
+  subir.disabled=pos===0;
+  subir.onclick=()=>mover(pos,-1);
+  const descer=document.createElement("button");descer.textContent="↓";
+  descer.disabled=pos===ordemEdicao.length-1;
+  descer.onclick=()=>mover(pos,1);
+  const excluir=document.createElement("button");excluir.textContent="EXCLUIR";
+  excluir.className="excluir";
+  excluir.onclick=async()=>{
+   if(!confirm("Excluir definitivamente este estudo?"))return;
+   try{await remove(ref(db,"restaurar/estudos/"+id))}
+   catch(e){alert("Erro ao excluir: "+e.message)}
+  };
+  acoes.append(editar,subir,descer,excluir);
+  linha.append(info,acoes);lista.append(linha);
+ });
+}
+
+function mover(pos,direcao){
+ const destino=pos+direcao;
+ if(destino<0||destino>=ordemEdicao.length)return;
+ [ordemEdicao[pos],ordemEdicao[destino]]=
+ [ordemEdicao[destino],ordemEdicao[pos]];
+ renderADM();
+}
+
+$("salvarOrdem").onclick=async()=>{
+ if(!auth.currentUser||!acessoLiberado)return;
+ try{
+  await set(ordemRef,ordemEdicao);
+  $("mensagemOrdem").textContent="Ordem salva.";
+ }catch(e){$("mensagemOrdem").textContent="Erro: "+e.message}
+};
+
+onValue(estudosRef,s=>{
+ estudos=s.val()||{};
+ carregado=true;
+ renderizar();
+},e=>$("estado").textContent="Erro ao carregar: "+e.message);
+
+onValue(ordemRef,s=>{
+ ordem=s.val()||[];
+ ordemEdicao=[];
+ renderizar();
+},e=>console.warn(e));
 
 </script>
-
 </body>
 </html>
