@@ -9,342 +9,52 @@
 
 <style>
 *{box-sizing:border-box}
-
-body{
- margin:0;
- background:#000;
- color:#fff;
- font-family:Arial,sans-serif;
-}
-
-header{
- padding:30px 15px;
- text-align:center;
- border-bottom:1px solid #222;
-}
-
-header h1{
- font-size:30px;
- margin:0 0 22px;
-}
-
-nav{
- display:flex;
- justify-content:center;
- align-items:center;
- flex-wrap:wrap;
- gap:25px;
-}
-
-nav a{
- color:#ddd;
- text-decoration:none;
- font-size:14px;
- font-weight:bold;
-}
-
-nav a:hover,
-nav a.active{
- color:#e4bd67;
-}
-
-main{
- max-width:1400px;
- min-height:70vh;
- margin:auto;
- padding:30px 18px;
-}
-
-#estado{
- color:#aaa;
- text-align:center;
- line-height:1.6;
-}
-
-.grade{
- display:grid;
- grid-template-columns:repeat(4,minmax(0,1fr));
- gap:20px;
-}
-
-.video-card{
- background:#101010;
- border:1px solid #292929;
- border-radius:10px;
- overflow:hidden;
- min-width:0;
- display:flex;
- flex-direction:column;
-}
-
-.video-titulo{
- padding:15px 14px;
- font-size:17px;
- font-weight:bold;
- line-height:1.45;
- color:#fff;
- min-height:72px;
- overflow-wrap:anywhere;
-}
-
-.video-player{
- width:100%;
- aspect-ratio:16/9;
- background:#080808;
-}
-
-.video-player iframe{
- display:block;
- width:100%;
- height:100%;
- border:0;
-}
-
-.video-descricao{
- color:#aaa;
- font-size:13px;
- line-height:1.6;
- padding:12px 14px;
- overflow-wrap:anywhere;
-}
-
-.video-acoes{
- margin-top:auto;
- padding:12px;
- display:flex;
- justify-content:flex-end;
-}
-
-.fim-fila{
- background:#242424;
- color:#bbb;
- border:1px solid #444;
- border-radius:5px;
- padding:7px 11px;
- cursor:pointer;
-}
-
-.fim-fila:hover{
- background:#444;
- color:white;
-}
-
-footer{
- padding:35px 15px;
- border-top:1px solid #222;
- text-align:center;
- color:#777;
- position:relative;
-}
-
-.adm-btn{
- position:absolute;
- right:12px;
- bottom:10px;
- border:0;
- background:none;
- color:#393939;
- font-size:11px;
- cursor:pointer;
-}
-
-.whats{
- position:fixed;
- bottom:18px;
- left:18px;
- z-index:20;
- display:flex;
- align-items:center;
- gap:9px;
- background:#168b49;
- color:#fff;
- text-decoration:none;
- padding:12px 16px;
- border-radius:35px;
- font-size:12px;
- font-weight:bold;
- box-shadow:0 3px 15px #0008;
-}
-
-.whats svg{
- width:22px;
- height:22px;
- fill:currentColor;
-}
-
-.modal{
- display:none;
- position:fixed;
- inset:0;
- background:#000e;
- z-index:100;
- overflow:auto;
- padding:18px;
-}
-
-.modal.aberto{
- display:block;
-}
-
-.painel{
- max-width:850px;
- margin:20px auto;
- background:#111;
- border:1px solid #333;
- border-radius:12px;
- padding:25px;
-}
-
-.fechar{
- float:right;
- border:0;
- background:none;
- color:#fff;
- font-size:28px;
- cursor:pointer;
-}
-
-input,textarea{
- display:block;
- width:100%;
- padding:12px;
- margin:10px 0 18px;
- background:#050505;
- color:white;
- border:1px solid #444;
- border-radius:5px;
- font:inherit;
-}
-
-textarea{
- min-height:100px;
- resize:vertical;
-}
-
-label{
- display:block;
- color:#ddd;
- margin-top:14px;
-}
-
-button{
- cursor:pointer;
-}
-
-.btn{
- background:#d4aa55;
- color:#000;
- border:0;
- border-radius:5px;
- padding:12px 17px;
- font-weight:bold;
-}
-
-.btn:disabled{
- opacity:.5;
- cursor:wait;
-}
-
-.sec{
- background:#333;
- color:white;
-}
-
-.danger{
- background:#a32323;
- color:white;
-}
-
-hr{
- border:0;
- border-top:1px solid #333;
- margin:25px 0;
-}
-
-.linha{
- display:flex;
- align-items:center;
- flex-wrap:wrap;
- gap:10px;
- padding:13px 0;
- border-bottom:1px solid #333;
-}
-
-.linha-info{
- flex:1;
- min-width:180px;
- overflow-wrap:anywhere;
-}
-
-.linha-info small{
- display:block;
- color:#aaa;
- margin-top:5px;
-}
-
-.linha-acoes{
- display:flex;
- gap:5px;
- flex-wrap:wrap;
-}
-
-.linha-acoes button{
- padding:8px;
- border:1px solid #555;
- background:#333;
- color:white;
- border-radius:5px;
-}
-
-.linha-acoes button.danger{
- background:#a32323;
-}
-
-.aviso{
- color:#aaa;
- line-height:1.6;
-}
-
-.erro{
- color:#ff8585;
-}
-
-.sucesso{
- color:#a2e7b2;
-}
-
-@media(max-width:1100px){
- .grade{
-  grid-template-columns:repeat(3,minmax(0,1fr));
- }
-}
-
-@media(max-width:800px){
- .grade{
-  grid-template-columns:repeat(2,minmax(0,1fr));
- }
-}
-
-@media(max-width:550px){
- .grade{
-  grid-template-columns:1fr;
- }
- main{
-  padding:22px 12px;
- }
- nav{
-  gap:15px;
- }
- nav a{
-  font-size:12px;
- }
- .painel{
-  padding:15px;
- }
- .whats{
-  font-size:11px;
- }
-}
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
+header{padding:28px 12px;text-align:center;border-bottom:1px solid #222}
+header h1{margin:0 0 20px;font-size:30px}
+nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+nav a{color:#ddd;text-decoration:none;font-size:14px;font-weight:bold}
+nav a:hover,nav a.active{color:#e4bd67}
+main{max-width:1400px;min-height:70vh;margin:auto;padding:28px 16px}
+#estado{color:#aaa;text-align:center;line-height:1.6}
+.grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:#101010;border:1px solid #292929;border-radius:9px;overflow:hidden;min-width:0}
+.card h3{padding:14px;margin:0;font-size:17px;line-height:1.45;overflow-wrap:anywhere}
+.player{width:100%;aspect-ratio:16/9;background:#111}
+.player iframe{width:100%;height:100%;border:0;display:block}
+.thumb{display:block;width:100%;height:100%;border:0;padding:0;position:relative;background:#111;color:white;cursor:pointer}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#e62117;color:white;border-radius:12px;padding:12px 21px;font-size:23px;pointer-events:none}
+.descricao{padding:10px 14px;color:#aaa;font-size:13px;line-height:1.6}
+.acoes{padding:10px;display:flex;justify-content:flex-end}
+.fim{background:#292929;color:#bbb;border:1px solid #444;border-radius:5px;padding:7px 12px;cursor:pointer}
+footer{padding:35px;text-align:center;border-top:1px solid #222;color:#777;position:relative}
+.adm-btn{position:absolute;right:12px;bottom:10px;background:none;border:0;color:#393939;font-size:11px;cursor:pointer}
+.whats{position:fixed;bottom:18px;left:18px;background:#168b49;color:#fff;text-decoration:none;padding:13px 16px;border-radius:35px;font-size:12px;font-weight:bold;z-index:20;display:flex;align-items:center;gap:8px}
+.whats svg{width:22px;height:22px;fill:currentColor}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:16px}
+.modal.aberto{display:block}
+.painel{max-width:800px;margin:20px auto;background:#111;border:1px solid #333;border-radius:10px;padding:23px}
+.fechar{float:right;background:none;color:white;border:0;font-size:28px;cursor:pointer}
+input,textarea{display:block;width:100%;background:#050505;color:white;border:1px solid #444;padding:12px;margin:10px 0 16px;font:inherit;border-radius:5px}
+textarea{min-height:90px;resize:vertical}
+label{display:block;color:#ddd;margin-top:12px}
+.btn{background:#d4aa55;color:#000;border:0;border-radius:5px;padding:12px 17px;font-weight:bold;cursor:pointer}
+.btn:disabled{opacity:.5}
+.sec{background:#333;color:white}
+hr{border:0;border-top:1px solid #333;margin:25px 0}
+.linha{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #333}
+.linha-info{flex:1;min-width:160px;overflow-wrap:anywhere}
+.linha-info small{display:block;color:#aaa;margin-top:5px}
+.linha-acoes{display:flex;gap:5px;flex-wrap:wrap}
+.linha-acoes button{padding:8px;border:1px solid #555;border-radius:5px;background:#333;color:white;cursor:pointer}
+.linha-acoes .danger{background:#922}
+.aviso{color:#aaa;line-height:1.6;white-space:pre-line}
+.erro{color:#ff8585}
+.sucesso{color:#a2e7b2}
+@media(max-width:1100px){.grade{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){.grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.grade{grid-template-columns:1fr}.painel{padding:15px}nav{gap:15px}nav a{font-size:12px}}
 </style>
 </head>
 
@@ -352,33 +62,22 @@ hr{
 
 <header>
 <h1 id="tituloSite">RESTAURAR</h1>
-
 <nav>
-<a class="active" href="/videos">VÍDEOS</a>
-<a href="/testemunhos">TESTEMUNHOS</a>
-<a href="/estudos">ESTUDOS</a>
+<a class="active" href="./index.html">VÍDEOS</a>
+<a href="./testemunhos.html">TESTEMUNHOS</a>
+<a href="./estudos.html">ESTUDOS</a>
 </nav>
 </header>
 
 <main>
-
-<p id="estado">Carregando vídeos do Firebase...</p>
-
-<div id="gradeVideos" class="grade"></div>
-
+<p id="estado">Carregando vídeos...</p>
+<div id="grade" class="grade"></div>
 </main>
 
-<a
- id="whatsapp"
- class="whats"
- href="https://wa.me/5547988233530"
- target="_blank"
- rel="noopener noreferrer">
-
+<a id="whatsapp" class="whats" href="https://wa.me/5547988233530" target="_blank" rel="noopener noreferrer">
 <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.2-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-.2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
+<path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.2-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
-
 ORAÇÃO E ACONSELHAMENTO
 </a>
 
@@ -389,139 +88,61 @@ ORAÇÃO E ACONSELHAMENTO
 
 <div id="modal" class="modal">
 <div class="painel">
-
 <button id="fecharADM" class="fechar">×</button>
-
 <h2>ADMINISTRADOR — VÍDEOS</h2>
 
 <div id="login">
-<p class="aviso">
-Entre com a conta cadastrada no Firebase Authentication.
-</p>
-
-<input
- type="email"
- id="email"
- placeholder="E-mail do administrador"
- autocomplete="username">
-
-<input
- type="password"
- id="senha"
- placeholder="Senha"
- autocomplete="current-password">
-
+<p class="aviso">Entre com sua conta do Firebase Authentication.</p>
+<input id="email" type="email" placeholder="E-mail" autocomplete="username">
+<input id="senha" type="password" placeholder="Senha" autocomplete="current-password">
 <button id="entrar" class="btn">ENTRAR</button>
-
 <p id="erroLogin" class="erro"></p>
 </div>
 
-<div id="conteudoADM" style="display:none">
-
-<p id="usuarioAtual" class="aviso"></p>
-
+<div id="adm" style="display:none">
+<p id="usuario" class="aviso"></p>
 <button id="sair" class="btn sec">SAIR</button>
 
 <hr>
-
 <h3>FONTE DOS VÍDEOS</h3>
-<p id="fonteAtual" class="aviso"></p>
-<p id="diagnostico" class="aviso"></p>
+<p id="fonte" class="aviso"></p>
 
 <hr>
-
 <h3>CONFIGURAÇÕES</h3>
-
 <label>Nome do site</label>
 <input id="nomeSite">
-
 <label>WhatsApp</label>
 <input id="numeroWhats">
-
-<button id="salvarConfig" class="btn">
-SALVAR CONFIGURAÇÕES
-</button>
+<button id="salvarConfig" class="btn">SALVAR CONFIGURAÇÕES</button>
 
 <hr>
-
 <h3 id="tituloFormulario">CADASTRAR VÍDEO</h3>
-
 <input type="hidden" id="videoID">
-
-<label>Título do vídeo</label>
-<input id="videoTitulo" placeholder="Título">
-
+<label>Título</label>
+<input id="videoTitulo">
 <label>Link do YouTube</label>
-<input
- id="videoLink"
- placeholder="https://www.youtube.com/watch?v=...">
-
-<label>Descrição do vídeo</label>
+<input id="videoLink" placeholder="https://www.youtube.com/watch?v=...">
+<label>Descrição</label>
 <textarea id="videoDescricao"></textarea>
-
-<button id="salvarVideo" class="btn">
-SALVAR VÍDEO
-</button>
-
-<button id="limparFormulario" class="btn sec">
-LIMPAR
-</button>
-
-<p id="mensagemADM" role="status"></p>
+<button id="salvarVideo" class="btn">SALVAR VÍDEO</button>
+<button id="limpar" class="btn sec">LIMPAR</button>
+<p id="mensagemADM"></p>
 
 <hr>
-
 <h3>VÍDEOS CADASTRADOS</h3>
-
-<p id="contador" class="aviso"></p>
-
 <div id="listaADM"></div>
-
-<p class="aviso">
-Utilize as setas para organizar os vídeos.
-</p>
-
-<button id="salvarOrdem" class="btn">
-SALVAR ORDEM
-</button>
-
+<button id="salvarOrdem" class="btn">SALVAR ORDEM</button>
 <p id="mensagemOrdem"></p>
-
 </div>
 </div>
 </div>
 
 <script type="module">
 
-import {
- initializeApp
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
-import {
- getFirestore,
- doc,
- onSnapshot,
- updateDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
-import {
- getDatabase,
- ref,
- onValue,
- push,
- set,
- update,
- remove
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-
-import {
- getAuth,
- signInWithEmailAndPassword,
- signOut,
- onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-/* CONFIGURAÇÃO ORIGINAL DO FIREBASE */
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getFirestore,doc,onSnapshot,updateDoc} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import {getDatabase,ref,onValue,push,set,update,remove} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig={
  apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
@@ -535,337 +156,245 @@ const firebaseConfig={
 };
 
 const app=initializeApp(firebaseConfig);
-
-const firestore=getFirestore(app);
-const database=getDatabase(app);
+const fs=getFirestore(app);
+const db=getDatabase(app);
 const auth=getAuth(app);
 
-const documento=doc(firestore,"restaurar","publico");
-
-const videosRef=ref(database,"restaurar/videos");
-const configRef=ref(database,"restaurar/config");
-const ordemRef=ref(database,"restaurar/ordemVideos");
+const documento=doc(fs,"restaurar","publico");
+const videosRef=ref(db,"restaurar/videos");
+const configRef=ref(db,"restaurar/config");
+const ordemRef=ref(db,"restaurar/ordemVideos");
 
 const $=id=>document.getElementById(id);
 
-const FILA_KEY="restaurar_videos_fila_v2";
-
-let firestoreVideos=[];
-let realtimeVideos={};
-
-let firestoreCarregado=false;
-let realtimeCarregado=false;
-
-let firestoreErro="";
-let realtimeErro="";
-
+let dadosFS=[];
+let dadosRT={};
+let formatoFS="array";
+let prontoFS=false;
+let prontoRT=false;
+let erroFS="";
+let erroRT="";
 let fonte="nenhuma";
 let videos=[];
-
-let ordemFirebase=[];
-let ordemVisitante=[];
-
-let ordemEdicao=[];
+let ordem=[];
+let ordemADM=[];
+let ordemOficial=[];
 let ordemPendente=false;
+let config={titulo:"RESTAURAR",whatsapp:"5547988233530"};
 
-let config={
- titulo:"RESTAURAR",
- whatsapp:"5547988233530"
-};
+const CHAVE="restaurar_fila_rapida_v2";
 
-/* FUNÇÕES BÁSICAS */
-
-function mensagem(id,texto,erro=false){
- const el=$(id);
- el.textContent=texto;
- el.className=erro?"erro":"sucesso";
+function msg(id,texto,erro=false){
+ $(id).textContent=texto;
+ $(id).className=erro?"erro":"sucesso";
 }
 
-function youtubeID(link){
+function ytId(link){
  if(typeof link!=="string")return null;
-
- const valor=link.trim();
-
- if(/^[\w-]{11}$/.test(valor)){
-  return valor;
- }
+ if(/^[\w-]{11}$/.test(link.trim()))return link.trim();
 
  try{
-  const u=new URL(valor);
+  const u=new URL(link);
   const h=u.hostname.toLowerCase().replace(/^www\./,"");
-
   let id="";
 
   if(h==="youtu.be"){
-   id=u.pathname.split("/")[1]||"";
+   id=u.pathname.split("/")[1];
   }else if([
-   "youtube.com",
-   "m.youtube.com",
-   "music.youtube.com",
-   "youtube-nocookie.com"
+   "youtube.com","m.youtube.com",
+   "music.youtube.com","youtube-nocookie.com"
   ].includes(h)){
-
    if(u.pathname==="/watch"){
-    id=u.searchParams.get("v")||"";
+    id=u.searchParams.get("v");
    }else{
     const p=u.pathname.split("/").filter(Boolean);
-
-    if(["embed","shorts","live","v"].includes(p[0])){
-     id=p[1]||"";
-    }
+    if(["embed","shorts","live","v"].includes(p[0]))id=p[1];
    }
   }
 
-  return /^[\w-]{11}$/.test(id)?id:null;
-
- }catch(e){
+  return /^[\w-]{11}$/.test(id||"")?id:null;
+ }catch{
   return null;
  }
 }
 
-function registrosFirestore(valor){
- if(Array.isArray(valor))return valor;
-
- if(valor&&typeof valor==="object"){
-  return Object.entries(valor).map(([id,v])=>({
-   ...(typeof v==="object"&&v?v:{}),
-   _chave:id
-  }));
- }
-
- return [];
-}
-
-function normalizarVideo(v,id){
- if(typeof v==="string"){
-  v={url:v};
- }
-
+function normalizar(v,id){
+ if(typeof v==="string")v={url:v};
  if(!v||typeof v!=="object")return null;
 
  const link=String(
-  v.url||v.link||v.youtube||
-  v.videoUrl||v.video||""
+  v.url||v.link||v.youtube||v.videoUrl||""
  );
+ const youtube=ytId(link);
+ if(!youtube)return null;
 
- const yt=youtubeID(link);
- if(!yt)return null;
-
- return {
+ return{
   id:String(id),
   titulo:String(v.titulo||v.title||v.nome||"Vídeo"),
   link,
   descricao:String(v.descricao||v.description||""),
   criadoEm:Number(v.criadoEm)||0,
-  ordem:Number(v.ordem)||0,
-  youtube:yt
+  youtube
  };
 }
 
-function converterFirestore(){
- return firestoreVideos
-  .map((v,i)=>normalizarVideo(v,v._chave??i))
+function listaFS(){
+ return dadosFS.map(x=>normalizar(x.valor,x.id)).filter(Boolean);
+}
+
+function listaRT(){
+ return Object.entries(dadosRT)
+  .map(([id,v])=>normalizar(v,id))
   .filter(Boolean);
 }
 
-function converterRealtime(){
- return Object.entries(realtimeVideos||{})
-  .map(([id,v])=>normalizarVideo(v,id))
-  .filter(Boolean);
-}
-
-function recuperarFila(){
+function lerOrdem(){
  try{
-  const x=JSON.parse(localStorage.getItem(FILA_KEY));
+  const x=JSON.parse(localStorage.getItem(CHAVE));
   return Array.isArray(x)?x:[];
- }catch(e){
-  return [];
- }
+ }catch{return[]}
 }
 
-function salvarFila(){
+function guardarOrdem(){
  try{
-  localStorage.setItem(
-   FILA_KEY,
-   JSON.stringify(ordemVisitante)
-  );
- }catch(e){}
+  localStorage.setItem(CHAVE,JSON.stringify(ordem));
+ }catch{}
 }
 
-function selecionarFonte(){
+function atualizar(){
+ const f=listaFS();
+ const r=listaRT();
 
- const fs=converterFirestore();
- const rt=converterRealtime();
-
- // Prioridade para os vídeos do documento
- // original do Cloud Firestore.
-
- if(fs.length){
+ if(f.length){
   fonte="firestore";
-  videos=fs;
- }else if(rt.length){
+  videos=f;
+ }else if(r.length){
   fonte="realtime";
-  videos=rt;
+  videos=r;
  }else{
   fonte="nenhuma";
   videos=[];
  }
 
- atualizarFila();
- render();
- renderADM();
- diagnostico();
-}
-
-function atualizarFila(){
  const ids=videos.map(v=>v.id);
- const anterior=ordemVisitante.length?
-  ordemVisitante:recuperarFila();
+ const anterior=ordem.length?ordem:lerOrdem();
 
- const oficiais=ordemFirebase.filter(id=>ids.includes(id));
+ const base=fonte==="realtime"&&ordemOficial.length?
+  [...ordemOficial.filter(id=>ids.includes(id)),...ids]:
+  ids;
 
- const base=fonte==="realtime"&&oficiais.length?
-  [...oficiais,...ids.filter(id=>!oficiais.includes(id))]:
-  [...videos]
-   .sort((a,b)=>{
-    if(a.ordem!==b.ordem)return a.ordem-b.ordem;
-    return b.criadoEm-a.criadoEm;
-   })
-   .map(v=>v.id);
-
- ordemVisitante=[
-  ...anterior.filter(id=>ids.includes(id)),
-  ...base.filter(id=>!anterior.includes(id))
+ ordem=[
+  ...new Set([
+   ...anterior.filter(id=>ids.includes(id)),
+   ...base
+  ])
  ];
 
- salvarFila();
+ guardarOrdem();
 
- if(!ordemPendente){
-  ordemEdicao=[...base];
- }
+ if(!ordemPendente)ordemADM=[...ordem];
+
+ render();
+ renderADM();
 }
-
-function listaOrdenada(){
- const mapa=new Map(videos.map(v=>[v.id,v]));
-
- return ordemVisitante
-  .map(id=>mapa.get(id))
-  .filter(Boolean);
-}
-
-/* RENDERIZAR SOMENTE VÍDEOS */
 
 function render(){
+ const grade=$("grade");
+ const mapa=new Map(videos.map(v=>[v.id,v]));
 
- const grade=$("gradeVideos");
- grade.replaceChildren();
-
- if(!firestoreCarregado||!realtimeCarregado){
-  $("estado").textContent="Carregando vídeos do Firebase...";
-  return;
- }
-
- const lista=listaOrdenada();
-
- if(!lista.length){
-  $("estado").textContent=
-   firestoreErro||realtimeErro?
-   "Não foi possível localizar vídeos. Verifique as permissões do Firebase e o diagnóstico no ADM.":
-   "Nenhum vídeo cadastrado foi encontrado.";
+ if(!videos.length){
+  $("estado").textContent=prontoFS&&prontoRT?
+   (erroFS||erroRT?
+    "Não foi possível localizar vídeos. Verifique as permissões do Firebase.":
+    "Nenhum vídeo cadastrado encontrado."):
+   "Carregando vídeos...";
+  grade.replaceChildren();
   return;
  }
 
  $("estado").textContent="";
 
- for(const v of lista){
+ const fragmento=document.createDocumentFragment();
+
+ for(const id of ordem){
+  const v=mapa.get(id);
+  if(!v)continue;
 
   const card=document.createElement("article");
-  card.className="video-card";
+  card.className="card";
 
-  const titulo=document.createElement("div");
-  titulo.className="video-titulo";
-  titulo.textContent=v.titulo;
+  const h=document.createElement("h3");
+  h.textContent=v.titulo;
 
   const player=document.createElement("div");
-  player.className="video-player";
+  player.className="player";
 
-  const iframe=document.createElement("iframe");
+  const thumb=document.createElement("button");
+  thumb.className="thumb";
+  thumb.type="button";
+  thumb.setAttribute("aria-label","Assistir "+v.titulo);
 
-  iframe.src=
-   "https://www.youtube-nocookie.com/embed/"+
-   v.youtube+"?enablejsapi=1&rel=0";
+  const img=document.createElement("img");
+  img.src="https://i.ytimg.com/vi/"+v.youtube+"/hqdefault.jpg";
+  img.alt=v.titulo;
+  img.loading="lazy";
+  img.decoding="async";
 
-  iframe.title=v.titulo;
-  iframe.loading="lazy";
-  iframe.referrerPolicy="strict-origin-when-cross-origin";
+  const play=document.createElement("span");
+  play.className="play";
+  play.textContent="▶";
 
-  iframe.allow=
-   "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  thumb.append(img,play);
 
-  iframe.allowFullscreen=true;
+  thumb.onclick=()=>{
+   const iframe=document.createElement("iframe");
+   iframe.src="https://www.youtube-nocookie.com/embed/"+
+    v.youtube+"?autoplay=1&rel=0";
+   iframe.title=v.titulo;
+   iframe.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";
+   iframe.allowFullscreen=true;
+   iframe.referrerPolicy="strict-origin-when-cross-origin";
+   player.replaceChildren(iframe);
+  };
 
-  player.append(iframe);
+  player.append(thumb);
 
-  card.append(titulo,player);
+  card.append(h,player);
 
   if(v.descricao){
-   const descricao=document.createElement("div");
-   descricao.className="video-descricao";
-   descricao.textContent=v.descricao;
-   card.append(descricao);
+   const p=document.createElement("div");
+   p.className="descricao";
+   p.textContent=v.descricao;
+   card.append(p);
   }
 
   const acoes=document.createElement("div");
-  acoes.className="video-acoes";
+  acoes.className="acoes";
 
-  const botao=document.createElement("button");
-  botao.className="fim-fila";
-  botao.textContent="X";
-  botao.title="Enviar vídeo ao final da fila";
+  const x=document.createElement("button");
+  x.className="fim";
+  x.textContent="X";
+  x.title="Enviar vídeo ao final da fila";
 
-  botao.onclick=()=>{
-   enviarFinal(v.id);
+  x.onclick=()=>{
+   ordem=ordem.filter(item=>item!==id);
+   ordem.push(id);
+   guardarOrdem();
+   render();
   };
 
-  acoes.append(botao);
+  acoes.append(x);
   card.append(acoes);
-  grade.append(card);
+  fragmento.append(card);
  }
-}
 
-function enviarFinal(id){
- ordemVisitante=ordemVisitante.filter(x=>x!==id);
- ordemVisitante.push(id);
- salvarFila();
- render();
-}
-
-/* DIAGNÓSTICO */
-
-function diagnostico(){
-
- $("fonteAtual").textContent=
-  fonte==="firestore"?
-  "Fonte ativa: Cloud Firestore — restaurar/publico → videos":
-  fonte==="realtime"?
-  "Fonte ativa: Realtime Database — restaurar/videos":
-  "Nenhuma fonte com vídeos válidos encontrada.";
-
- $("diagnostico").textContent=
-  "Firestore: "+converterFirestore().length+" vídeo(s)."+
-  (firestoreErro?" Erro: "+firestoreErro:"")+
-  "\nRealtime Database: "+converterRealtime().length+" vídeo(s)."+
-  (realtimeErro?" Erro: "+realtimeErro:"");
-
- $("contador").textContent=
-  videos.length+" vídeo(s) disponível(is).";
+ grade.replaceChildren(fragmento);
 }
 
 /* ADMINISTRADOR */
 
 $("abrirADM").onclick=()=>{
  $("modal").classList.add("aberto");
- diagnostico();
 };
 
 $("fecharADM").onclick=()=>{
@@ -873,96 +402,67 @@ $("fecharADM").onclick=()=>{
 };
 
 $("modal").onclick=e=>{
- if(e.target===$("modal")){
-  $("modal").classList.remove("aberto");
- }
+ if(e.target===$("modal"))$("modal").classList.remove("aberto");
 };
 
 document.addEventListener("keydown",e=>{
- if(e.key==="Escape"){
-  $("modal").classList.remove("aberto");
- }
+ if(e.key==="Escape")$("modal").classList.remove("aberto");
 });
 
 $("entrar").onclick=async()=>{
-
- $("erroLogin").textContent="";
-
  try{
+  $("erroLogin").textContent="";
   await signInWithEmailAndPassword(
-   auth,
-   $("email").value.trim(),
-   $("senha").value
+   auth,$("email").value.trim(),$("senha").value
   );
  }catch(e){
-  $("erroLogin").textContent=
-   "Erro ao entrar: "+e.code;
+  $("erroLogin").textContent="Erro: "+e.code;
  }
 };
 
 $("sair").onclick=()=>signOut(auth);
 
 onAuthStateChanged(auth,u=>{
-
  $("login").style.display=u?"none":"block";
- $("conteudoADM").style.display=u?"block":"none";
-
- $("usuarioAtual").textContent=
-  u?"Conectado: "+u.email:"";
+ $("adm").style.display=u?"block":"none";
+ $("usuario").textContent=u?"Conectado: "+u.email:"";
 
  if(u){
   $("nomeSite").value=config.titulo;
   $("numeroWhats").value=config.whatsapp;
-  diagnostico();
   renderADM();
  }
 });
 
-/* CONFIGURAÇÕES */
-
 function configurar(){
  $("tituloSite").textContent=config.titulo||"RESTAURAR";
-
  $("whatsapp").href="https://wa.me/"+
-  String(config.whatsapp||"5547988233530")
-   .replace(/\D/g,"");
+  String(config.whatsapp||"5547988233530").replace(/\D/g,"");
 }
 
 $("salvarConfig").onclick=async()=>{
-
  try{
   await update(configRef,{
    titulo:$("nomeSite").value.trim()||"RESTAURAR",
    whatsapp:$("numeroWhats").value.replace(/\D/g,"")
   });
-
-  mensagem("mensagemADM","Configurações salvas.");
+  msg("mensagemADM","Configurações salvas.");
  }catch(e){
-  mensagem("mensagemADM",e.message,true);
+  msg("mensagemADM",e.message,true);
  }
 };
 
-/* CADASTRO E EDIÇÃO */
-
-function limparFormulario(){
-
- for(const id of [
-  "videoID",
-  "videoTitulo",
-  "videoLink",
-  "videoDescricao"
- ]){
-  $(id).value="";
- }
+function limpar(){
+ ["videoID","videoTitulo","videoLink","videoDescricao"]
+  .forEach(id=>$(id).value="");
 
  $("tituloFormulario").textContent="CADASTRAR VÍDEO";
  $("salvarVideo").textContent="SALVAR VÍDEO";
 }
 
-$("limparFormulario").onclick=limparFormulario;
+$("limpar").onclick=limpar;
 
-function editarVideo(id){
-
+function editar(id){
  const v=videos.find(x=>x.id===id);
  if(!v)return;
 
@@ -975,142 +475,113 @@ function editarVideo(id){
  $("salvarVideo").textContent="SALVAR ALTERAÇÕES";
 
  $("videoTitulo").scrollIntoView({
-  behavior:"smooth",
-  block:"center"
+  behavior:"smooth",block:"center"
  });
 }
 
-function dadosVideo(){
- return {
-  titulo:$("videoTitulo").value.trim(),
-  link:$("videoLink").value.trim(),
-  descricao:$("videoDescricao").value.trim()
- };
+function reconstruirFS(itens){
+ if(formatoFS==="objeto"){
+  return Object.fromEntries(
+   itens.map(item=>[item.id,item.valor])
+  );
+ }
+ return itens.map(item=>item.valor);
 }
 
-async function gravarFirestore(novaLista){
- // Atualiza apenas o campo videos.
- // Não substitui estudos nem testemunhos.
+async function salvarFirestore(itens){
  await updateDoc(documento,{
-  videos:novaLista
+  videos:reconstruirFS(itens)
  });
 }
 
 $("salvarVideo").onclick=async()=>{
-
  if(!auth.currentUser){
-  mensagem("mensagemADM","Entre no administrador.",true);
-  return;
+  return msg("mensagemADM","Entre no administrador.",true);
  }
 
  const id=$("videoID").value;
- const dados=dadosVideo();
+ const titulo=$("videoTitulo").value.trim();
+ const link=$("videoLink").value.trim();
+ const descricao=$("videoDescricao").value.trim();
 
- if(!dados.titulo||!youtubeID(dados.link)){
-  mensagem(
-   "mensagemADM",
-   "Informe título e link válido do YouTube.",
-   true
-  );
-  return;
+ if(!titulo||!ytId(link)){
+  return msg("mensagemADM","Informe título e link válido.",true);
  }
 
- const botao=$("salvarVideo");
- botao.disabled=true;
+ const b=$("salvarVideo");
+ b.disabled=true;
 
  try{
-
   if(fonte==="firestore"){
+   const itens=dadosFS.map(x=>({...x}));
 
-   const lista=[...firestoreVideos];
-
-   const registro={
-    title:dados.titulo,
-    url:dados.link,
-    description:dados.descricao
+   const novo={
+    title:titulo,
+    url:link,
+    description:descricao
    };
 
-   if(id){
-    const indice=Number(id);
-
-    if(!Number.isInteger(indice)||
-       indice<0||indice>=lista.length){
-     throw new Error(
-      "Identificador inválido para edição no Firestore."
-     );
-    }
-
-    lista[indice]={
-     ...lista[indice],
-     ...registro
-    };
-
+   if(id!==""){
+    const item=itens.find(x=>x.id===id);
+    if(!item)throw Error("Vídeo não encontrado.");
+    item.valor={...item.valor,...novo};
    }else{
-    lista.push(registro);
+    const novoId=formatoFS==="objeto"?
+     "video_"+Date.now():""+itens.length;
+
+    itens.push({id:novoId,valor:novo});
    }
 
-   await gravarFirestore(lista);
+   await salvarFirestore(itens);
 
   }else{
-
-   const registro={
-    titulo:dados.titulo,
-    link:dados.link,
-    descricao:dados.descricao,
-    atualizadoEm:Date.now()
+   const novo={
+    titulo,link,descricao,atualizadoEm:Date.now()
    };
 
    if(id){
-    await update(
-     ref(database,"restaurar/videos/"+id),
-     registro
-    );
+    await update(ref(db,"restaurar/videos/"+id),novo);
    }else{
     await set(push(videosRef),{
-     ...registro,
-     criadoEm:Date.now()
+     ...novo,criadoEm:Date.now()
     });
    }
   }
 
-  limparFormulario();
-
-  mensagem(
-   "mensagemADM",
-   "Vídeo salvo com sucesso no Firebase."
-  );
+  limpar();
+  msg("mensagemADM","Vídeo salvo no Firebase.");
 
  }catch(e){
-  mensagem(
-   "mensagemADM",
-   "Erro ao salvar: "+e.message,
-   true
-  );
+  msg("mensagemADM","Erro: "+e.message,true);
  }finally{
-  botao.disabled=false;
+  b.disabled=false;
  }
 };
 
-/* LISTA DO ADMINISTRADOR */
-
 function renderADM(){
-
  if(!auth.currentUser)return;
 
  const area=$("listaADM");
  area.replaceChildren();
 
+ $("fonte").textContent=
+  "Fonte ativa: "+fonte+
+  "\nVídeos: "+videos.length+
+  (erroFS?"\nFirestore: "+erroFS:"")+
+  (erroRT?"\nRealtime: "+erroRT:"");
+
  const mapa=new Map(videos.map(v=>[v.id,v]));
 
- ordemEdicao=[
-  ...ordemEdicao.filter(id=>mapa.has(id)),
-  ...videos.map(v=>v.id).filter(id=>!ordemEdicao.includes(id))
+ ordemADM=[
+  ...new Set([
+   ...ordemADM.filter(id=>mapa.has(id)),
+   ...videos.map(v=>v.id)
+  ])
  ];
 
- ordemEdicao.forEach((id,i)=>{
-
+ for(const [i,id] of ordemADM.entries()){
   const v=mapa.get(id);
-  if(!v)return;
+  if(!v)continue;
 
   const linha=document.createElement("div");
   linha.className="linha";
@@ -1118,200 +589,141 @@ function renderADM(){
   const info=document.createElement("div");
   info.className="linha-info";
 
-  const titulo=document.createElement("strong");
-  titulo.textContent=(i+1)+". "+v.titulo;
+  const strong=document.createElement("strong");
+  strong.textContent=(i+1)+". "+v.titulo;
 
-  const subtitulo=document.createElement("small");
-  subtitulo.textContent=v.link;
+  const small=document.createElement("small");
+  small.textContent=v.link;
 
-  info.append(titulo,subtitulo);
+  info.append(strong,small);
 
   const acoes=document.createElement("div");
   acoes.className="linha-acoes";
 
-  function botao(texto,acao,classe=""){
+  function bot(texto,fn,classe=""){
    const b=document.createElement("button");
    b.textContent=texto;
    b.className=classe;
-   b.onclick=acao;
-   return b;
+   b.onclick=fn;
+   acoes.append(b);
   }
 
-  const subir=botao("↑",()=>mover(id,-1));
-  subir.disabled=i===0;
+  bot("↑",()=>mover(id,-1));
+  bot("↓",()=>mover(id,1));
+  bot("EDITAR",()=>editar(id));
 
-  const descer=botao("↓",()=>mover(id,1));
-  descer.disabled=i===ordemEdicao.length-1;
-
-  const editar=botao("EDITAR",()=>editarVideo(id));
-
-  const excluir=botao("EXCLUIR",async()=>{
-
-   if(!confirm("Excluir este vídeo do Firebase?"))return;
+  bot("EXCLUIR",async()=>{
+   if(!confirm("Excluir este vídeo?"))return;
 
    try{
-
     if(fonte==="firestore"){
-     const indice=Number(id);
-
-     if(!Number.isInteger(indice)||
-        indice<0||indice>=firestoreVideos.length){
-      throw new Error("Identificador inválido.");
-     }
-
-     const nova=[...firestoreVideos];
-     nova.splice(indice,1);
-
-     await gravarFirestore(nova);
-
-    }else{
-     await remove(
-      ref(database,"restaurar/videos/"+id)
+     await salvarFirestore(
+      dadosFS.filter(x=>x.id!==id)
      );
+    }else{
+     await remove(ref(db,"restaurar/videos/"+id));
     }
 
-    mensagem("mensagemOrdem","Vídeo excluído.");
-
+    msg("mensagemOrdem","Vídeo excluído.");
    }catch(e){
-    mensagem("mensagemOrdem",e.message,true);
+    msg("mensagemOrdem",e.message,true);
    }
-
   },"danger");
 
-  acoes.append(subir,descer,editar,excluir);
   linha.append(info,acoes);
   area.append(linha);
- });
+ }
 }
 
 function mover(id,direcao){
-
- const i=ordemEdicao.indexOf(id);
+ const i=ordemADM.indexOf(id);
  const j=i+direcao;
 
- if(j<0||j>=ordemEdicao.length)return;
+ if(j<0||j>=ordemADM.length)return;
 
- [ordemEdicao[i],ordemEdicao[j]]=
- [ordemEdicao[j],ordemEdicao[i]];
+ [ordemADM[i],ordemADM[j]]=
+ [ordemADM[j],ordemADM[i]];
 
  ordemPendente=true;
  renderADM();
-
- mensagem(
-  "mensagemOrdem",
-  "Ordem alterada. Clique em SALVAR ORDEM."
- );
+ msg("mensagemOrdem","Clique em SALVAR ORDEM.");
 }
 
 $("salvarOrdem").onclick=async()=>{
-
  if(!auth.currentUser)return;
 
- const botao=$("salvarOrdem");
- botao.disabled=true;
-
  try{
-
   if(fonte==="firestore"){
-
-   const mapa=new Map(
-    firestoreVideos.map((v,i)=>[String(i),v])
+   const mapa=new Map(dadosFS.map(x=>[x.id,x]));
+   await salvarFirestore(
+    ordemADM.map(id=>mapa.get(id)).filter(Boolean)
    );
-
-   const nova=ordemEdicao
-    .map(id=>mapa.get(id))
-    .filter(Boolean);
-
-   await gravarFirestore(nova);
-
   }else if(fonte==="realtime"){
-
-   await set(ordemRef,ordemEdicao);
-
+   await set(ordemRef,ordemADM);
   }else{
-   throw new Error("Nenhuma fonte de vídeos ativa.");
+   throw Error("Nenhuma fonte de vídeos disponível.");
   }
 
   ordemPendente=false;
-  ordemVisitante=[...ordemEdicao];
-  salvarFila();
+  ordem=[...ordemADM];
+  guardarOrdem();
+  render();
 
-  mensagem("mensagemOrdem","Ordem salva no Firebase.");
-
+  msg("mensagemOrdem","Ordem salva.");
  }catch(e){
-  mensagem("mensagemOrdem",e.message,true);
- }finally{
-  botao.disabled=false;
+  msg("mensagemOrdem",e.message,true);
  }
 };
 
-/* LEITURA DO CLOUD FIRESTORE */
+/* FIREBASE — SOMENTE VÍDEOS */
 
-onSnapshot(documento,snapshot=>{
+onSnapshot(documento,s=>{
+ const d=s.exists()?s.data():{};
+ const valor=d.videos;
 
- const dados=snapshot.exists()?snapshot.data():{};
+ formatoFS=Array.isArray(valor)?"array":"objeto";
 
- firestoreVideos=registrosFirestore(dados.videos);
+ dadosFS=Array.isArray(valor)?
+  valor.map((v,i)=>({id:String(i),valor:v})):
+  (valor&&typeof valor==="object"?
+   Object.entries(valor).map(([id,v])=>({id,valor:v})):
+   []);
 
- firestoreCarregado=true;
- firestoreErro="";
-
- selecionarFonte();
-
-},e=>{
-
- firestoreCarregado=true;
- firestoreErro=e.message;
- firestoreVideos=[];
-
- selecionarFonte();
-});
-
-/* LEITURA DO REALTIME DATABASE */
-
-onValue(videosRef,snapshot=>{
-
- realtimeVideos=snapshot.val()||{};
- realtimeCarregado=true;
- realtimeErro="";
-
- selecionarFonte();
+ prontoFS=true;
+ erroFS="";
+ atualizar();
 
 },e=>{
-
- realtimeCarregado=true;
- realtimeErro=e.message;
- realtimeVideos={};
-
- selecionarFonte();
+ prontoFS=true;
+ erroFS=e.message;
+ dadosFS=[];
+ atualizar();
 });
 
-/* ORDEM DOS VÍDEOS */
+onValue(videosRef,s=>{
+ dadosRT=s.val()||{};
+ prontoRT=true;
+ erroRT="";
+ atualizar();
 
-onValue(ordemRef,snapshot=>{
+},e=>{
+ prontoRT=true;
+ erroRT=e.message;
+ dadosRT={};
+ atualizar();
+});
 
- const valor=snapshot.val();
- ordemFirebase=Array.isArray(valor)?valor:[];
-
- if(!ordemPendente){
-  ordemVisitante=[];
-  atualizarFila();
-  render();
-  renderADM();
- }
-
+onValue(ordemRef,s=>{
+ ordemOficial=Array.isArray(s.val())?s.val():[];
 },e=>{
  console.warn("Erro na ordem:",e);
 });
 
-/* CONFIGURAÇÕES */
-
-onValue(configRef,snapshot=>{
-
+onValue(configRef,s=>{
  config={
   titulo:"RESTAURAR",
   whatsapp:"5547988233530",
-  ...(snapshot.val()||{})
+  ...(s.val()||{})
  };
 
  configurar();
