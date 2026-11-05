@@ -3,1060 +3,772 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000000">
 <title>Estudos Bíblicos | Jadir Brito</title>
-
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+main{width:min(1200px,95%);margin:auto;min-height:85vh;padding:25px 0}
+.grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#101010;border:1px solid #292929;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.card-corpo{padding:20px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:21px;line-height:1.4;margin:0 0 12px}
+.card p{color:#bbb;font-size:15px;line-height:1.7;flex:1;white-space:pre-wrap;overflow-wrap:anywhere}
+.btn{background:#d4aa55;color:#000;border:0;border-radius:5px;padding:12px 18px;font-weight:bold}
+.btn:hover{background:#edc879}
+.btn.sec{background:#333;color:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+.aviso{color:#aaa;text-align:center;padding:20px}
+.artigo{display:none;max-width:850px;margin:auto}
+.artigo h1{font-size:clamp(27px,5vw,40px);line-height:1.3}
+.artigo-imagem{display:block;max-width:100%;max-height:550px;object-fit:contain;margin:25px auto;border-radius:8px}
+.artigo-texto{font-size:18px;line-height:1.9;color:#ddd;overflow-wrap:anywhere}
+.artigo-texto p{margin:0 0 23px;white-space:pre-wrap}
+.voltar{background:#222;color:#fff;border:1px solid #444;border-radius:5px;padding:12px 18px;margin-bottom:25px}
+.whatsapp{position:fixed;bottom:20px;left:20px;z-index:50;background:#168b49;color:#fff;padding:13px 17px;border-radius:35px;text-decoration:none;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:bold;box-shadow:0 4px 18px #0008}
+.whatsapp svg{width:25px;height:25px;fill:currentColor}
+footer{position:relative;min-height:55px;border-top:1px solid #222}
+.adminA{position:absolute;right:12px;bottom:10px;background:none;border:0;color:#444;font-size:11px;opacity:.45}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:100;overflow:auto;padding:20px}
+.modal.aberto{display:block}
+.painel{max-width:900px;margin:25px auto;background:#111;border:1px solid #333;border-radius:12px;padding:25px}
+.fechar{float:right;background:none;border:0;color:#fff;font-size:27px}
+label{display:block;color:#ddd;margin:15px 0 5px}
+input,textarea{display:block;width:100%;padding:12px;background:#050505;color:#fff;border:1px solid #444;border-radius:5px}
+textarea{min-height:110px;resize:vertical}
+#estudoTexto{min-height:320px}
+.botoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.linha{padding:15px 0;border-bottom:1px solid #333;display:flex;align-items:center;gap:12px}
+.linha-info{flex:1;min-width:0;overflow-wrap:anywhere}
+.linha-acoes{display:flex;gap:6px;flex-wrap:wrap}
+.linha-acoes button{background:#333;color:#fff;border:0;border-radius:5px;padding:8px}
+.linha-acoes .excluir{background:#a32323}
+.status{color:#a2e7b2}
+.erro{color:#ff8585}
+hr{border:0;border-top:1px solid #333;margin:27px 0}
+.estat-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+.estat-card{background:#1b1b1b;border:1px solid #333;border-radius:8px;padding:16px;text-align:center}
+.estat-numero{font-size:26px;font-weight:bold;color:#d4aa55;margin-bottom:8px}
+.estat-label{font-size:12px;color:#bbb}
+.tabela-wrap{overflow-x:auto}
+.tabela{width:100%;border-collapse:collapse;font-size:14px}
+.tabela th,.tabela td{padding:12px 9px;border-bottom:1px solid #333;text-align:left}
+.tabela th{color:#d4aa55}
+.tabela td{color:#ddd}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.filtros button{background:#252525;color:#fff;border:1px solid #444;border-radius:5px;padding:9px 14px}
+.filtros button.ativo{background:#d4aa55;color:#000}
+.nota{color:#aaa;font-size:13px;line-height:1.6}
+@media(max-width:850px){
+.grade{grid-template-columns:repeat(2,minmax(0,1fr))}
+.estat-grade{grid-template-columns:repeat(2,1fr)}
 }
-
-body {
-  margin: 0;
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
-button, input, textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-main {
-  width: min(1200px, 95%);
-  margin: auto;
-  min-height: 85vh;
-  padding: 25px 0;
-}
-
-.grade {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #101010;
-  border: 1px solid #292929;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.card img {
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  display: block;
-}
-
-.card-corpo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card h3 {
-  font-size: 21px;
-  line-height: 1.4;
-  margin: 0 0 12px;
-}
-
-.card p {
-  color: #bbb;
-  font-size: 15px;
-  line-height: 1.7;
-  flex: 1;
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
-}
-
-.btn {
-  background: #d4aa55;
-  color: #000;
-  border: 0;
-  border-radius: 5px;
-  padding: 12px 18px;
-  font-weight: bold;
-}
-
-.btn:hover {
-  background: #edc879;
-}
-
-.btn.sec {
-  background: #333;
-  color: #fff;
-}
-
-.btn:disabled {
-  opacity: .5;
-  cursor: wait;
-}
-
-.aviso {
-  color: #aaa;
-  text-align: center;
-  padding: 20px;
-}
-
-.artigo {
-  display: none;
-  max-width: 850px;
-  margin: auto;
-}
-
-.artigo h1 {
-  font-size: clamp(27px, 5vw, 40px);
-  line-height: 1.3;
-}
-
-.artigo-imagem {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  max-height: 550px;
-  object-fit: contain;
-  margin: 25px auto;
-  border-radius: 8px;
-}
-
-.artigo-texto {
-  font-size: 18px;
-  line-height: 1.9;
-  color: #ddd;
-  overflow-wrap: anywhere;
-}
-
-.artigo-texto p {
-  margin: 0 0 23px;
-  white-space: pre-wrap;
-}
-
-.voltar {
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 5px;
-  padding: 12px 18px;
-  margin-bottom: 25px;
-}
-
-/* WHATSAPP */
-
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 50;
-  background: #168b49;
-  color: #fff;
-  padding: 13px 17px;
-  border-radius: 35px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 13px;
-  font-weight: bold;
-  box-shadow: 0 4px 18px #0008;
-}
-
-.whatsapp:hover {
-  background: #20a85c;
-}
-
-.whatsapp svg {
-  width: 25px;
-  height: 25px;
-  fill: currentColor;
-  flex-shrink: 0;
-}
-
-/* RODAPÉ E ADMINISTRADOR */
-
-footer {
-  position: relative;
-  min-height: 55px;
-  border-top: 1px solid #222;
-}
-
-.adminA {
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  background: none;
-  border: 0;
-  color: #444;
-  font-size: 11px;
-  opacity: .45;
-}
-
-.adminA:hover {
-  opacity: 1;
-  color: #fff;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000e;
-  z-index: 100;
-  overflow: auto;
-  padding: 20px;
-}
-
-.modal.aberto {
-  display: block;
-}
-
-.painel {
-  max-width: 850px;
-  margin: 25px auto;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 25px;
-}
-
-.fechar {
-  float: right;
-  background: none;
-  border: 0;
-  color: #fff;
-  font-size: 27px;
-}
-
-label {
-  display: block;
-  color: #ddd;
-  margin: 15px 0 5px;
-}
-
-input, textarea {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  background: #050505;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 5px;
-}
-
-textarea {
-  min-height: 110px;
-  resize: vertical;
-}
-
-#estudoTexto {
-  min-height: 320px;
-}
-
-.botoes {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 15px;
-}
-
-.linha {
-  padding: 15px 0;
-  border-bottom: 1px solid #333;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.linha-info {
-  flex: 1;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.linha-acoes {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.linha-acoes button {
-  background: #333;
-  color: #fff;
-  border: 0;
-  border-radius: 5px;
-  padding: 8px;
-}
-
-.linha-acoes .excluir {
-  background: #a32323;
-}
-
-.status {
-  color: #a2e7b2;
-}
-
-.erro {
-  color: #ff8585;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #333;
-  margin: 27px 0;
-}
-
-@media(max-width: 850px) {
-  .grade {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media(max-width: 550px) {
-  .grade {
-    grid-template-columns: 1fr;
-  }
-
-  main {
-    padding: 15px 0;
-  }
-
-  .artigo-texto {
-    font-size: 16px;
-  }
-
-  .painel {
-    padding: 15px;
-  }
-
-  .linha {
-    flex-wrap: wrap;
-  }
-
-  .linha-acoes {
-    width: 100%;
-  }
-
-  .whatsapp {
-    font-size: 11px;
-    padding: 12px 14px;
-    bottom: 15px;
-    left: 12px;
-  }
-
-  .whatsapp svg {
-    width: 23px;
-    height: 23px;
-  }
+@media(max-width:550px){
+.grade{grid-template-columns:1fr}
+main{padding:15px 0}
+.artigo-texto{font-size:16px}
+.painel{padding:15px}
+.linha{flex-wrap:wrap}
+.linha-acoes{width:100%}
+.whatsapp{font-size:11px;padding:12px 14px;bottom:15px;left:12px}
 }
 </style>
 </head>
-
 <body>
 
 <main>
-
 <section id="paginaInicial">
-  <p id="estado" class="aviso">Carregando estudos...</p>
-  <div id="gradeEstudos" class="grade"></div>
+<p id="estado" class="aviso">Carregando estudos...</p>
+<div id="gradeEstudos" class="grade"></div>
 </section>
 
 <article id="paginaArtigo" class="artigo">
-
-  <button class="voltar" onclick="voltarEstudos()">
-    ← VOLTAR AOS ESTUDOS
-  </button>
-
-  <h1 id="artigoTitulo"></h1>
-
-  <div id="artigoConteudo"></div>
-
-  <button class="btn"
-          onclick="voltarEstudos()"
-          style="margin-top:35px">
-    VER OUTROS ESTUDOS
-  </button>
-
+<button class="voltar" onclick="voltarEstudos()">← VOLTAR AOS ESTUDOS</button>
+<h1 id="artigoTitulo"></h1>
+<div id="artigoConteudo"></div>
+<button class="btn" onclick="voltarEstudos()" style="margin-top:35px">VER OUTROS ESTUDOS</button>
 </article>
-
 </main>
 
-<!-- WHATSAPP FLUTUANTE -->
-
-<a
-  class="whatsapp"
-  href="https://wa.me/5547988233530"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Oração e Aconselhamento pelo WhatsApp"
->
-
+<a class="whatsapp" href="https://wa.me/5547988233530" target="_blank" rel="noopener noreferrer" aria-label="Oração e Aconselhamento">
 <svg viewBox="0 0 24 24" aria-hidden="true">
 <path d="M12 .5A11.5 11.5 0 002.1 17.8L.5 23.5l5.9-1.5A11.5 11.5 0 1012 .5zm0 20.9a9.4 9.4 0 01-4.8-1.3l-.4-.2-3.5.9.9-3.4-.2-.4a9.4 9.4 0 118 4.4zm5.2-7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7-.2-.3.4-.8.9-1 .9-.2.1-.4 0-.7-.1-.4-.2-1.4-.5-2.6-1.7-1-.9-1.7-2-1.9-2.3-.2-.4 0-.5.2-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 2.8 1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.8 2.7 1.1 3.2.9 3.8.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4z"/>
 </svg>
-
 <span>ORAÇÃO E ACONSELHAMENTO</span>
-
 </a>
 
 <footer>
-  <button class="adminA" id="abrirADM" title="Administrador">
-    A
-  </button>
+<button class="adminA" id="abrirADM" title="Administrador">A</button>
 </footer>
-
-<!-- ADMINISTRADOR -->
 
 <div class="modal" id="modal">
 <div class="painel">
-
 <button class="fechar" id="fecharADM">×</button>
-
 <h2>ADMINISTRADOR</h2>
 
 <div id="acessoSenha">
-
 <label>Senha do administrador</label>
-<input
-  id="senhaAcesso"
-  type="password"
-  placeholder="Digite a senha"
->
-
+<input id="senhaAcesso" type="password" placeholder="Digite a senha">
 <div class="botoes">
 <button class="btn" id="validarSenha">ENTRAR</button>
 </div>
-
 <p id="erroSenha" class="erro"></p>
-
 </div>
 
 <div id="loginFirebase" style="display:none">
-
 <p>Entre com sua conta administrativa do Firebase.</p>
-
 <label>E-mail</label>
 <input id="email" type="email">
-
 <label>Senha do Firebase</label>
 <input id="senhaFirebase" type="password">
-
 <div class="botoes">
 <button class="btn" id="entrarFirebase">AUTENTICAR</button>
 </div>
-
 <p id="erroLogin" class="erro"></p>
-
 </div>
 
 <div id="conteudoADM" style="display:none">
-
 <p id="usuarioAtual" class="status"></p>
-
 <button class="btn sec" id="sair">SAIR</button>
 
 <hr>
+<h2>ESTATÍSTICAS DE ACESSO</h2>
+<p class="nota">Acompanhe os visitantes, os estudos mais acessados e o tempo de leitura.</p>
 
+<div class="filtros">
+<button data-periodo="hoje">HOJE</button>
+<button data-periodo="7">7 DIAS</button>
+<button data-periodo="30">30 DIAS</button>
+<button data-periodo="todos" class="ativo">TODOS</button>
+</div>
+
+<div class="estat-grade">
+<div class="estat-card">
+<div class="estat-numero" id="totalVisitantes">0</div>
+<div class="estat-label">VISITANTES ÚNICOS</div>
+</div>
+<div class="estat-card">
+<div class="estat-numero" id="totalVisitas">0</div>
+<div class="estat-label">VISITAS AO SITE</div>
+</div>
+<div class="estat-card">
+<div class="estat-numero" id="totalLeituras">0</div>
+<div class="estat-label">ESTUDOS ABERTOS</div>
+</div>
+<div class="estat-card">
+<div class="estat-numero" id="tempoMedio">0min</div>
+<div class="estat-label">TEMPO MÉDIO POR VISITA</div>
+</div>
+</div>
+
+<h3>ACESSOS POR ESTUDO</h3>
+<div class="tabela-wrap">
+<table class="tabela">
+<thead>
+<tr><th>ESTUDO</th><th>ACESSOS</th><th>TEMPO MÉDIO</th></tr>
+</thead>
+<tbody id="tabelaEstudos"></tbody>
+</table>
+</div>
+<p id="mensagemEstatisticas" class="nota"></p>
+
+<hr>
 <h3 id="tituloFormulario">CADASTRAR ESTUDO</h3>
-
 <input id="estudoID" type="hidden">
-
 <label>Título do estudo</label>
 <input id="estudoTitulo">
-
 <label>Imagem de capa (URL)</label>
 <input id="estudoCapa">
-
 <label>Descrição resumida</label>
 <textarea id="estudoResumo"></textarea>
-
 <label>Conteúdo completo</label>
 <textarea id="estudoTexto"></textarea>
-
 <label>Imagens adicionais (uma URL por linha)</label>
 <textarea id="estudoImagens"></textarea>
-
 <div class="botoes">
 <button class="btn" id="salvarEstudo">SALVAR ESTUDO</button>
 <button class="btn sec" id="limparFormulario">LIMPAR</button>
 </div>
-
 <p id="mensagemADM"></p>
 
 <hr>
-
 <h3>ESTUDOS CADASTRADOS</h3>
-
 <p id="contador"></p>
-
 <div id="listaADM"></div>
-
 <p>Use as setas para organizar os estudos.</p>
-
 <button class="btn" id="salvarOrdem">SALVAR ORDEM</button>
-
 <p id="mensagemOrdem"></p>
-
 </div>
 </div>
 </div>
 
 <script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  getDatabase,
-  ref,
-  onValue,
-  push,
-  set,
-  update,
-  remove
-}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-
+getDatabase,ref,onValue,push,set,update,remove
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
-  authDomain: "namoro-f18ac.firebaseapp.com",
-  databaseURL: "https://namoro-f18ac-default-rtdb.firebaseio.com",
-  projectId: "namoro-f18ac",
-  storageBucket: "namoro-f18ac.firebasestorage.app",
-  messagingSenderId: "336479537433",
-  appId: "1:336479537433:web:dd282c67e98ca196e05d88",
-  measurementId: "G-1YLR1JNZYY"
+const firebaseConfig={
+apiKey:"AIzaSyAWs1MDxOQYjqZ5LlzC4IlXscyDs-N9xfM",
+authDomain:"namoro-f18ac.firebaseapp.com",
+databaseURL:"https://namoro-f18ac-default-rtdb.firebaseio.com",
+projectId:"namoro-f18ac",
+storageBucket:"namoro-f18ac.firebasestorage.app",
+messagingSenderId:"336479537433",
+appId:"1:336479537433:web:dd282c67e98ca196e05d88",
+measurementId:"G-1YLR1JNZYY"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const auth=getAuth(app);
+const $=id=>document.getElementById(id);
+const estudosRef=ref(db,"restaurar/estudos");
+const ordemRef=ref(db,"restaurar/ordemEstudos");
+const visitasRef=ref(db,"restaurar/estatisticas/visitas");
 
-const $ = id => document.getElementById(id);
+let estudos={},ordem=[],ordemEdicao=[];
+let carregado=false,acessoLiberado=false;
+let visitas={},periodo="todos";
+let cancelarEscutaVisitas=null;
+let estudoAtual=null;
+let ultimaMarcacao=Date.now();
+let segundosSessao=0;
+let segundosEstudos={};
+let aberturas={};
+let ultimoEnvio=Promise.resolve();
 
-const estudosRef = ref(db, "restaurar/estudos");
-const ordemRef = ref(db, "restaurar/ordemEstudos");
+const idAleatorio=()=>crypto.randomUUID();
 
-let estudos = {};
-let ordem = [];
-let ordemEdicao = [];
-let carregado = false;
-let acessoLiberado = false;
+let visitanteId;
+try{
+visitanteId=localStorage.getItem("estudosVisitanteId");
+if(!visitanteId){
+visitanteId=idAleatorio();
+localStorage.setItem("estudosVisitanteId",visitanteId);
+}
+}catch(e){visitanteId=idAleatorio()}
 
-function titulo(e) {
-  return e.titulo || "Estudo bíblico";
+const visitaId=push(visitasRef).key;
+const inicioVisita=Date.now();
+
+function titulo(e){return e.titulo||"Estudo bíblico"}
+function capa(e){return e.capa||e.imagem||""}
+function resumo(e){return e.resumo||e.descricao||""}
+function conteudo(e){return e.texto||e.conteudo||""}
+function imagens(e){
+if(Array.isArray(e.imagens))return e.imagens;
+if(typeof e.imagens==="string")
+return e.imagens.split("\n").map(x=>x.trim()).filter(Boolean);
+return [];
+}
+function urlValida(url){
+try{
+const u=new URL(url);
+return ["https:","http:"].includes(u.protocol);
+}catch(e){return false}
+}
+function tempoLegivel(s){
+s=Math.max(0,Math.round(Number(s)||0));
+return Math.floor(s/60)+"min "+s%60+"s";
 }
 
-function capa(e) {
-  return e.capa || e.imagem || "";
+function registrarTempo(){
+const agora=Date.now();
+if(document.visibilityState==="visible"){
+const delta=Math.max(0,Math.min(30,(agora-ultimaMarcacao)/1000));
+segundosSessao+=delta;
+if(estudoAtual){
+segundosEstudos[estudoAtual]=(segundosEstudos[estudoAtual]||0)+delta;
+}
+}
+ultimaMarcacao=agora;
 }
 
-function resumo(e) {
-  return e.resumo || e.descricao || "";
-}
-
-function conteudo(e) {
-  return e.texto || e.conteudo || "";
-}
-
-function imagens(e) {
-  if (Array.isArray(e.imagens)) {
-    return e.imagens;
-  }
-
-  if (typeof e.imagens === "string") {
-    return e.imagens
-      .split("\n")
-      .map(x => x.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function urlValida(url) {
-  try {
-    const u = new URL(url);
-    return u.protocol === "https:" ||
-           u.protocol === "http:";
-  } catch {
-    return false;
-  }
-}
-
-function obterOrdem() {
-  const ids = Object.keys(estudos).sort((a, b) =>
-    (Number(estudos[b].criadoEm) || 0) -
-    (Number(estudos[a].criadoEm) || 0)
-  );
-
-  const vistos = new Set();
-  const resultado = [];
-
-  if (Array.isArray(ordem)) {
-    for (const id of ordem) {
-      if (estudos[id] && !vistos.has(id)) {
-        resultado.push(id);
-        vistos.add(id);
-      }
-    }
-  }
-
-  for (const id of ids) {
-    if (!vistos.has(id)) {
-      resultado.push(id);
-    }
-  }
-
-  return resultado;
-}
-
-function renderizar() {
-  if (!carregado) return;
-
-  const grade = $("gradeEstudos");
-  grade.replaceChildren();
-
-  const lista = obterOrdem();
-
-  $("estado").textContent =
-    lista.length ? "" : "Nenhum estudo cadastrado.";
-
-  for (const id of lista) {
-    const e = estudos[id];
-    if (!e) continue;
-
-    const card = document.createElement("article");
-    card.className = "card";
-
-    if (urlValida(capa(e))) {
-      const img = document.createElement("img");
-      img.src = capa(e);
-      img.alt = titulo(e);
-      img.loading = "lazy";
-      card.append(img);
-    }
-
-    const corpo = document.createElement("div");
-    corpo.className = "card-corpo";
-
-    const h = document.createElement("h3");
-    h.textContent = titulo(e);
-
-    const p = document.createElement("p");
-    p.textContent = resumo(e);
-
-    const b = document.createElement("button");
-    b.className = "btn";
-    b.textContent = "LER ESTUDO COMPLETO";
-    b.onclick = () => abrirEstudo(id);
-
-    corpo.append(h, p, b);
-    card.append(corpo);
-    grade.append(card);
-  }
-
-  const id = new URLSearchParams(location.search)
-    .get("estudo");
-
-  if (id && estudos[id]) {
-    mostrarEstudo(id);
-  }
-
-  renderADM();
-}
-
-function adicionarImagem(area, url, alt) {
-  if (!urlValida(url)) return;
-
-  const img = document.createElement("img");
-  img.src = url;
-  img.alt = alt;
-  img.className = "artigo-imagem";
-  img.loading = "lazy";
-
-  area.append(img);
-}
-
-function mostrarEstudo(id) {
-  const e = estudos[id];
-  if (!e) return;
-
-  $("paginaInicial").style.display = "none";
-  $("paginaArtigo").style.display = "block";
-
-  $("artigoTitulo").textContent = titulo(e);
-
-  const area = $("artigoConteudo");
-  area.replaceChildren();
-
-  adicionarImagem(area, capa(e), titulo(e));
-
-  const texto = document.createElement("div");
-  texto.className = "artigo-texto";
-
-  for (const parte of String(conteudo(e))
-    .split(/\n\s*\n/)) {
-
-    if (!parte.trim()) continue;
-
-    const p = document.createElement("p");
-    p.textContent = parte.trim();
-    texto.append(p);
-  }
-
-  area.append(texto);
-
-  for (const url of imagens(e)) {
-    adicionarImagem(area, url, titulo(e));
-  }
-
-  document.title = titulo(e) + " | Estudos Bíblicos";
-  window.scrollTo(0, 0);
-}
-
-function abrirEstudo(id) {
-  const u = new URL(location.href);
-  u.searchParams.set("estudo", id);
-
-  history.pushState({}, "", u);
-  mostrarEstudo(id);
-}
-
-window.voltarEstudos = function() {
-  const u = new URL(location.href);
-  u.searchParams.delete("estudo");
-
-  history.pushState({}, "", u);
-
-  $("paginaArtigo").style.display = "none";
-  $("paginaInicial").style.display = "block";
-
-  document.title = "Estudos Bíblicos";
-  window.scrollTo(0, 0);
+function enviarEstatisticas(){
+const dados={
+visitante:visitanteId,
+inicio:inicioVisita,
+atualizadoEm:Date.now(),
+segundos:Math.round(segundosSessao),
+aberturas,
+estudos:Object.fromEntries(
+Object.entries(segundosEstudos).map(([id,s])=>[id,Math.round(s)])
+)
 };
+ultimoEnvio=ultimoEnvio.catch(()=>{}).then(()=>
+set(ref(db,"restaurar/estatisticas/visitas/"+visitaId),dados)
+).catch(e=>console.warn("Estatísticas:",e));
+}
 
-window.addEventListener("popstate", () => {
-  const id = new URLSearchParams(location.search)
-    .get("estudo");
+function marcarEstudo(id){
+registrarTempo();
+estudoAtual=id;
+aberturas[id]=(aberturas[id]||0)+1;
+enviarEstatisticas();
+}
 
-  if (id && estudos[id]) {
-    mostrarEstudo(id);
-  } else {
-    $("paginaArtigo").style.display = "none";
-    $("paginaInicial").style.display = "block";
-    document.title = "Estudos Bíblicos";
-  }
+function sairDoEstudo(){
+registrarTempo();
+estudoAtual=null;
+enviarEstatisticas();
+}
+
+setInterval(()=>{
+registrarTempo();
+enviarEstatisticas();
+},15000);
+
+document.addEventListener("visibilitychange",()=>{
+registrarTempo();
+enviarEstatisticas();
 });
+
+window.addEventListener("pagehide",()=>{
+registrarTempo();
+enviarEstatisticas();
+});
+
+enviarEstatisticas();
+
+function obterOrdem(){
+const ids=Object.keys(estudos).sort((a,b)=>
+(Number(estudos[b].criadoEm)||0)-(Number(estudos[a].criadoEm)||0)
+);
+const vistos=new Set(),resultado=[];
+if(Array.isArray(ordem)){
+for(const id of ordem){
+if(estudos[id]&&!vistos.has(id)){
+resultado.push(id);vistos.add(id);
+}
+}
+}
+for(const id of ids)if(!vistos.has(id))resultado.push(id);
+return resultado;
+}
+
+function renderizar(){
+if(!carregado)return;
+const grade=$("gradeEstudos");
+grade.replaceChildren();
+const lista=obterOrdem();
+$("estado").textContent=lista.length?"":"Nenhum estudo cadastrado.";
+
+for(const id of lista){
+const e=estudos[id];
+if(!e)continue;
+const card=document.createElement("article");
+card.className="card";
+
+if(urlValida(capa(e))){
+const img=document.createElement("img");
+img.src=capa(e);img.alt=titulo(e);img.loading="lazy";
+card.append(img);
+}
+
+const corpo=document.createElement("div");
+corpo.className="card-corpo";
+const h=document.createElement("h3");
+h.textContent=titulo(e);
+const p=document.createElement("p");
+p.textContent=resumo(e);
+const b=document.createElement("button");
+b.className="btn";
+b.textContent="LER ESTUDO COMPLETO";
+b.onclick=()=>abrirEstudo(id);
+corpo.append(h,p,b);
+card.append(corpo);
+grade.append(card);
+}
+
+const id=new URLSearchParams(location.search).get("estudo");
+if(id&&estudos[id]&&estudoAtual!==id)mostrarEstudo(id);
+renderADM();
+renderEstatisticas();
+}
+
+function adicionarImagem(area,url,alt){
+if(!urlValida(url))return;
+const img=document.createElement("img");
+img.src=url;img.alt=alt;
+img.className="artigo-imagem";
+img.loading="lazy";
+area.append(img);
+}
+
+function mostrarEstudo(id){
+const e=estudos[id];
+if(!e)return;
+if(estudoAtual!==id)marcarEstudo(id);
+$("paginaInicial").style.display="none";
+$("paginaArtigo").style.display="block";
+$("artigoTitulo").textContent=titulo(e);
+const area=$("artigoConteudo");
+area.replaceChildren();
+adicionarImagem(area,capa(e),titulo(e));
+const texto=document.createElement("div");
+texto.className="artigo-texto";
+
+for(const parte of String(conteudo(e)).split(/\n\s*\n/)){
+if(!parte.trim())continue;
+const p=document.createElement("p");
+p.textContent=parte.trim();
+texto.append(p);
+}
+area.append(texto);
+for(const url of imagens(e))adicionarImagem(area,url,titulo(e));
+document.title=titulo(e)+" | Estudos Bíblicos";
+window.scrollTo(0,0);
+}
+
+function abrirEstudo(id){
+const u=new URL(location.href);
+u.searchParams.set("estudo",id);
+history.pushState({},"",u);
+mostrarEstudo(id);
+}
+
+window.voltarEstudos=function(){
+sairDoEstudo();
+const u=new URL(location.href);
+u.searchParams.delete("estudo");
+history.pushState({},"",u);
+mostrarPaginaInicial();
+};
+
+function mostrarPaginaInicial(){
+$("paginaArtigo").style.display="none";
+$("paginaInicial").style.display="block";
+document.title="Estudos Bíblicos";
+window.scrollTo(0,0);
+}
+
+window.addEventListener("popstate",()=>{
+const id=new URLSearchParams(location.search).get("estudo");
+if(id&&estudos[id]){
+mostrarEstudo(id);
+}else{
+sairDoEstudo();
+mostrarPaginaInicial();
+}
+});
+
+/* RELATÓRIOS */
+
+function filtrarVisitas(){
+const agora=Date.now();
+return Object.values(visitas).filter(v=>{
+if(!v||!v.inicio)return false;
+if(periodo==="todos")return true;
+const inicio=Number(v.inicio);
+if(periodo==="hoje"){
+return new Date(inicio).toDateString()===new Date().toDateString();
+}
+const dias=Number(periodo);
+return inicio>=agora-dias*86400000;
+});
+}
+
+function renderEstatisticas(){
+if(!auth.currentUser||!acessoLiberado)return;
+const registros=filtrarVisitas();
+const visitantes=new Set(registros.map(v=>v.visitante).filter(Boolean)).size;
+let leituras=0,segundos=0;
+
+for(const v of registros){
+segundos+=Number(v.segundos)||0;
+for(const n of Object.values(v.aberturas||{})){
+leituras+=Number(n)||0;
+}
+}
+
+$("totalVisitantes").textContent=visitantes;
+$("totalVisitas").textContent=registros.length;
+$("totalLeituras").textContent=leituras;
+$("tempoMedio").textContent=tempoLegivel(registros.length?segundos/registros.length:0);
+
+const linhas=[];
+for(const id of Object.keys(estudos)){
+let acessos=0,tempo=0;
+for(const v of registros){
+acessos+=Number(v.aberturas?.[id])||0;
+tempo+=Number(v.estudos?.[id])||0;
+}
+linhas.push({id,acessos,tempo});
+}
+linhas.sort((a,b)=>b.acessos-a.acessos);
+
+const tbody=$("tabelaEstudos");
+tbody.replaceChildren();
+for(const item of linhas){
+const tr=document.createElement("tr");
+const td1=document.createElement("td");
+const td2=document.createElement("td");
+const td3=document.createElement("td");
+td1.textContent=titulo(estudos[item.id]);
+td2.textContent=item.acessos;
+td3.textContent=tempoLegivel(item.acessos?item.tempo/item.acessos:0);
+tr.append(td1,td2,td3);
+tbody.append(tr);
+}
+if(!linhas.length){
+const tr=document.createElement("tr");
+const td=document.createElement("td");
+td.colSpan=3;
+td.textContent="Nenhum estudo cadastrado.";
+tr.append(td);tbody.append(tr);
+}
+}
+
+document.querySelectorAll("[data-periodo]").forEach(btn=>{
+btn.onclick=()=>{
+periodo=btn.dataset.periodo;
+document.querySelectorAll("[data-periodo]").forEach(b=>
+b.classList.toggle("ativo",b===btn)
+);
+renderEstatisticas();
+};
+});
+
+function iniciarEstatisticas(){
+if(cancelarEscutaVisitas)return;
+cancelarEscutaVisitas=onValue(visitasRef,s=>{
+visitas=s.val()||{};
+$("mensagemEstatisticas").textContent="Dados atualizados pelo Firebase.";
+renderEstatisticas();
+},e=>{
+$("mensagemEstatisticas").textContent="Erro ao carregar estatísticas: "+e.message;
+});
+}
+
+function pararEstatisticas(){
+if(cancelarEscutaVisitas){
+cancelarEscutaVisitas();
+cancelarEscutaVisitas=null;
+}
+visitas={};
+}
 
 /* ADMINISTRADOR */
 
-$("abrirADM").onclick = () => {
-  $("modal").classList.add("aberto");
-  atualizarPainel();
+$("abrirADM").onclick=()=>{
+$("modal").classList.add("aberto");
+atualizarPainel();
 };
 
-$("fecharADM").onclick = () => {
-  $("modal").classList.remove("aberto");
+$("fecharADM").onclick=()=>{
+$("modal").classList.remove("aberto");
 };
 
-$("validarSenha").onclick = () => {
-  if ($("senhaAcesso").value !== "848218") {
-    $("erroSenha").textContent = "Senha incorreta.";
-    return;
-  }
-
-  acessoLiberado = true;
-  $("erroSenha").textContent = "";
-  $("senhaAcesso").value = "";
-
-  atualizarPainel();
-};
-
-function atualizarPainel() {
-  $("acessoSenha").style.display =
-    acessoLiberado ? "none" : "block";
-
-  $("loginFirebase").style.display =
-    acessoLiberado && !auth.currentUser
-      ? "block" : "none";
-
-  $("conteudoADM").style.display =
-    acessoLiberado && auth.currentUser
-      ? "block" : "none";
-
-  if (auth.currentUser) {
-    $("usuarioAtual").textContent =
-      "Conectado: " + auth.currentUser.email;
-  }
+$("validarSenha").onclick=()=>{
+if($("senhaAcesso").value!=="848218"){
+$("erroSenha").textContent="Senha incorreta.";
+return;
 }
-
-$("entrarFirebase").onclick = async () => {
-  try {
-    await signInWithEmailAndPassword(
-      auth,
-      $("email").value.trim(),
-      $("senhaFirebase").value
-    );
-
-    $("erroLogin").textContent = "";
-  } catch (e) {
-    $("erroLogin").textContent = "Erro: " + e.code;
-  }
+acessoLiberado=true;
+$("erroSenha").textContent="";
+$("senhaAcesso").value="";
+atualizarPainel();
 };
 
-$("sair").onclick = async () => {
-  await signOut(auth);
-  acessoLiberado = false;
-  atualizarPainel();
-};
-
-onAuthStateChanged(auth, atualizarPainel);
-
-function limpar() {
-  [
-    "estudoID",
-    "estudoTitulo",
-    "estudoCapa",
-    "estudoResumo",
-    "estudoTexto",
-    "estudoImagens"
-  ].forEach(id => $(id).value = "");
-
-  $("tituloFormulario").textContent =
-    "CADASTRAR ESTUDO";
-
-  $("salvarEstudo").textContent =
-    "SALVAR ESTUDO";
-}
-
-$("limparFormulario").onclick = limpar;
-
-$("salvarEstudo").onclick = async () => {
-  if (!auth.currentUser || !acessoLiberado) return;
-
-  const id = $("estudoID").value;
-  const tituloNovo = $("estudoTitulo").value.trim();
-  const textoNovo = $("estudoTexto").value.trim();
-  const capaNova = $("estudoCapa").value.trim();
-
-  const imgs = $("estudoImagens").value
-    .split("\n")
-    .map(x => x.trim())
-    .filter(Boolean);
-
-  if (!tituloNovo || !textoNovo) {
-    $("mensagemADM").textContent =
-      "Informe título e conteúdo.";
-    return;
-  }
-
-  if (
-    (capaNova && !urlValida(capaNova)) ||
-    imgs.some(x => !urlValida(x))
-  ) {
-    $("mensagemADM").textContent =
-      "Verifique os links das imagens.";
-    return;
-  }
-
-  const dados = {
-    titulo: tituloNovo,
-    capa: capaNova,
-    resumo: $("estudoResumo").value.trim(),
-    texto: textoNovo,
-    imagens: imgs,
-    criadoEm: id
-      ? (Number(estudos[id]?.criadoEm) || Date.now())
-      : Date.now(),
-    atualizadoEm: Date.now()
-  };
-
-  const btn = $("salvarEstudo");
-  btn.disabled = true;
-
-  try {
-    if (id) {
-      await update(
-        ref(db, "restaurar/estudos/" + id),
-        dados
-      );
-    } else {
-      await set(push(estudosRef), dados);
-    }
-
-    $("mensagemADM").textContent =
-      "Estudo salvo com sucesso.";
-
-    limpar();
-  } catch (e) {
-    $("mensagemADM").textContent =
-      "Erro: " + e.message;
-  } finally {
-    btn.disabled = false;
-  }
-};
-
-function renderADM() {
-  if (!auth.currentUser || !acessoLiberado) return;
-
-  const lista = $("listaADM");
-  lista.replaceChildren();
-
-  const ids = obterOrdem();
-
-  $("contador").textContent =
-    ids.length + " estudos cadastrados.";
-
-  if (
-    !ordemEdicao.length ||
-    ordemEdicao.some(id => !estudos[id]) ||
-    ids.some(id => !ordemEdicao.includes(id))
-  ) {
-    ordemEdicao = [...ids];
-  }
-
-  ordemEdicao.forEach((id, pos) => {
-    const e = estudos[id];
-    if (!e) return;
-
-    const linha = document.createElement("div");
-    linha.className = "linha";
-
-    const info = document.createElement("div");
-    info.className = "linha-info";
-
-    const strong = document.createElement("strong");
-    strong.textContent = titulo(e);
-    info.append(strong);
-
-    const acoes = document.createElement("div");
-    acoes.className = "linha-acoes";
-
-    const editar = document.createElement("button");
-    editar.textContent = "EDITAR";
-
-    editar.onclick = () => {
-      $("estudoID").value = id;
-      $("estudoTitulo").value = titulo(e);
-      $("estudoCapa").value = capa(e);
-      $("estudoResumo").value = resumo(e);
-      $("estudoTexto").value = conteudo(e);
-      $("estudoImagens").value = imagens(e).join("\n");
-
-      $("tituloFormulario").textContent =
-        "EDITAR ESTUDO";
-
-      $("salvarEstudo").textContent =
-        "SALVAR ALTERAÇÕES";
-
-      $("tituloFormulario").scrollIntoView({
-        behavior: "smooth"
-      });
-    };
-
-    const subir = document.createElement("button");
-    subir.textContent = "↑";
-    subir.disabled = pos === 0;
-    subir.onclick = () => mover(pos, -1);
-
-    const descer = document.createElement("button");
-    descer.textContent = "↓";
-    descer.disabled =
-      pos === ordemEdicao.length - 1;
-    descer.onclick = () => mover(pos, 1);
-
-    const excluir = document.createElement("button");
-    excluir.textContent = "EXCLUIR";
-    excluir.className = "excluir";
-
-    excluir.onclick = async () => {
-      if (!confirm(
-        "Excluir definitivamente este estudo?"
-      )) return;
-
-      try {
-        await remove(
-          ref(db, "restaurar/estudos/" + id)
-        );
-      } catch (e) {
-        alert("Erro ao excluir: " + e.message);
-      }
-    };
-
-    acoes.append(editar, subir, descer, excluir);
-    linha.append(info, acoes);
-    lista.append(linha);
-  });
-}
-
-function mover(pos, direcao) {
-  const destino = pos + direcao;
-
-  if (
-    destino < 0 ||
-    destino >= ordemEdicao.length
-  ) return;
-
-  [
-    ordemEdicao[pos],
-    ordemEdicao[destino]
-  ] = [
-    ordemEdicao[destino],
-    ordemEdicao[pos]
-  ];
-
-  renderADM();
-}
-
-$("salvarOrdem").onclick = async () => {
-  if (!auth.currentUser || !acessoLiberado) return;
-
-  try {
-    await set(ordemRef, ordemEdicao);
-
-    $("mensagemOrdem").textContent =
-      "Ordem salva.";
-  } catch (e) {
-    $("mensagemOrdem").textContent =
-      "Erro: " + e.message;
-  }
-};
-
-onValue(estudosRef, s => {
-  estudos = s.val() || {};
-  carregado = true;
-  renderizar();
-}, e => {
-  $("estado").textContent =
-    "Erro ao carregar: " + e.message;
+$("senhaAcesso").addEventListener("keydown",e=>{
+if(e.key==="Enter")$("validarSenha").click();
 });
 
-onValue(ordemRef, s => {
-  ordem = s.val() || [];
-  ordemEdicao = [];
-  renderizar();
-}, e => {
-  console.warn(e);
+function atualizarPainel(){
+$("acessoSenha").style.display=acessoLiberado?"none":"block";
+$("loginFirebase").style.display=acessoLiberado&&!auth.currentUser?"block":"none";
+$("conteudoADM").style.display=acessoLiberado&&auth.currentUser?"block":"none";
+
+if(acessoLiberado&&auth.currentUser){
+$("usuarioAtual").textContent="Conectado: "+auth.currentUser.email;
+iniciarEstatisticas();
+renderADM();
+renderEstatisticas();
+}else{
+pararEstatisticas();
+}
+}
+
+$("entrarFirebase").onclick=async()=>{
+try{
+await signInWithEmailAndPassword(
+auth,$("email").value.trim(),$("senhaFirebase").value
+);
+$("erroLogin").textContent="";
+}catch(e){
+$("erroLogin").textContent="Erro: "+e.code;
+}
+};
+
+$("sair").onclick=async()=>{
+await signOut(auth);
+acessoLiberado=false;
+atualizarPainel();
+};
+
+onAuthStateChanged(auth,atualizarPainel);
+
+function limpar(){
+[
+"estudoID","estudoTitulo","estudoCapa",
+"estudoResumo","estudoTexto","estudoImagens"
+].forEach(id=>$(id).value="");
+$("tituloFormulario").textContent="CADASTRAR ESTUDO";
+$("salvarEstudo").textContent="SALVAR ESTUDO";
+}
+
+$("limparFormulario").onclick=limpar;
+
+$("salvarEstudo").onclick=async()=>{
+if(!auth.currentUser||!acessoLiberado)return;
+const id=$("estudoID").value;
+const tituloNovo=$("estudoTitulo").value.trim();
+const textoNovo=$("estudoTexto").value.trim();
+const capaNova=$("estudoCapa").value.trim();
+const imgs=$("estudoImagens").value.split("\n").map(x=>x.trim()).filter(Boolean);
+
+if(!tituloNovo||!textoNovo){
+$("mensagemADM").textContent="Informe título e conteúdo.";
+return;
+}
+if((capaNova&&!urlValida(capaNova))||imgs.some(x=>!urlValida(x))){
+$("mensagemADM").textContent="Verifique os links das imagens.";
+return;
+}
+
+const dados={
+titulo:tituloNovo,
+capa:capaNova,
+resumo:$("estudoResumo").value.trim(),
+texto:textoNovo,
+imagens:imgs,
+criadoEm:id?(Number(estudos[id]?.criadoEm)||Date.now()):Date.now(),
+atualizadoEm:Date.now()
+};
+
+const btn=$("salvarEstudo");
+btn.disabled=true;
+try{
+if(id){
+await update(ref(db,"restaurar/estudos/"+id),dados);
+}else{
+await set(push(estudosRef),dados);
+}
+$("mensagemADM").textContent="Estudo salvo com sucesso.";
+limpar();
+}catch(e){
+$("mensagemADM").textContent="Erro: "+e.message;
+}finally{
+btn.disabled=false;
+}
+};
+
+function renderADM(){
+if(!auth.currentUser||!acessoLiberado)return;
+const lista=$("listaADM");
+lista.replaceChildren();
+const ids=obterOrdem();
+$("contador").textContent=ids.length+" estudos cadastrados.";
+
+if(!ordemEdicao.length||
+ordemEdicao.some(id=>!estudos[id])||
+ids.some(id=>!ordemEdicao.includes(id))){
+ordemEdicao=[...ids];
+}
+
+ordemEdicao.forEach((id,pos)=>{
+const e=estudos[id];
+if(!e)return;
+const linha=document.createElement("div");
+linha.className="linha";
+const info=document.createElement("div");
+info.className="linha-info";
+const strong=document.createElement("strong");
+strong.textContent=titulo(e);
+info.append(strong);
+const acoes=document.createElement("div");
+acoes.className="linha-acoes";
+
+const editar=document.createElement("button");
+editar.textContent="EDITAR";
+editar.onclick=()=>{
+$("estudoID").value=id;
+$("estudoTitulo").value=titulo(e);
+$("estudoCapa").value=capa(e);
+$("estudoResumo").value=resumo(e);
+$("estudoTexto").value=conteudo(e);
+$("estudoImagens").value=imagens(e).join("\n");
+$("tituloFormulario").textContent="EDITAR ESTUDO";
+$("salvarEstudo").textContent="SALVAR ALTERAÇÕES";
+$("tituloFormulario").scrollIntoView({behavior:"smooth"});
+};
+
+const subir=document.createElement("button");
+subir.textContent="↑";
+subir.disabled=pos===0;
+subir.onclick=()=>mover(pos,-1);
+
+const descer=document.createElement("button");
+descer.textContent="↓";
+descer.disabled=pos===ordemEdicao.length-1;
+descer.onclick=()=>mover(pos,1);
+
+const excluir=document.createElement("button");
+excluir.textContent="EXCLUIR";
+excluir.className="excluir";
+excluir.onclick=async()=>{
+if(!confirm("Excluir definitivamente este estudo?"))return;
+try{
+await remove(ref(db,"restaurar/estudos/"+id));
+}catch(e){alert("Erro ao excluir: "+e.message)}
+};
+
+acoes.append(editar,subir,descer,excluir);
+linha.append(info,acoes);
+lista.append(linha);
 });
+}
+
+function mover(pos,direcao){
+const destino=pos+direcao;
+if(destino<0||destino>=ordemEdicao.length)return;
+[ordemEdicao[pos],ordemEdicao[destino]]=
+[ordemEdicao[destino],ordemEdicao[pos]];
+renderADM();
+}
+
+$("salvarOrdem").onclick=async()=>{
+if(!auth.currentUser||!acessoLiberado)return;
+try{
+await set(ordemRef,ordemEdicao);
+$("mensagemOrdem").textContent="Ordem salva.";
+}catch(e){
+$("mensagemOrdem").textContent="Erro: "+e.message;
+}
+};
+
+onValue(estudosRef,s=>{
+estudos=s.val()||{};
+carregado=true;
+renderizar();
+},e=>{
+$("estado").textContent="Erro ao carregar: "+e.message;
+});
+
+onValue(ordemRef,s=>{
+ordem=s.val()||[];
+ordemEdicao=[];
+renderizar();
+},e=>console.warn(e));
 
 </script>
-
 </body>
 </html>
