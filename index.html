@@ -3,9 +3,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#000000">
 <title>Estudos Bíblicos | Jadir Brito</title>
+
+<link rel="preconnect" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://namoro-f18ac-default-rtdb.firebaseio.com">
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif}
@@ -87,10 +91,10 @@ main{padding:15px 0}
 </section>
 
 <article id="paginaArtigo" class="artigo">
-<button class="voltar" onclick="voltarEstudos()">← VOLTAR AOS ESTUDOS</button>
+<button class="voltar" id="voltar">← VOLTAR AOS ESTUDOS</button>
 <h1 id="artigoTitulo"></h1>
 <div id="artigoConteudo"></div>
-<button class="btn" onclick="voltarEstudos()" style="margin-top:35px">VER OUTROS ESTUDOS</button>
+<button class="btn" id="verOutros" style="margin-top:35px">VER OUTROS ESTUDOS</button>
 </article>
 </main>
 
@@ -110,16 +114,7 @@ main{padding:15px 0}
 <button class="fechar" id="fecharADM">×</button>
 <h2>ADMINISTRADOR</h2>
 
-<div id="acessoSenha">
-<label>Senha do administrador</label>
-<input id="senhaAcesso" type="password" placeholder="Digite a senha">
-<div class="botoes">
-<button class="btn" id="validarSenha">ENTRAR</button>
-</div>
-<p id="erroSenha" class="erro"></p>
-</div>
-
-<div id="loginFirebase" style="display:none">
+<div id="loginFirebase">
 <p>Entre com sua conta administrativa do Firebase.</p>
 <label>E-mail</label>
 <input id="email" type="email">
@@ -235,7 +230,7 @@ const ordemRef=ref(db,"restaurar/ordemEstudos");
 const visitasRef=ref(db,"restaurar/estatisticas/visitas");
 
 let estudos={},ordem=[],ordemEdicao=[];
-let carregado=false,acessoLiberado=false;
+let carregado=false;
 let visitas={},periodo="todos";
 let cancelarEscutaVisitas=null;
 let estudoAtual=null;
@@ -244,6 +239,7 @@ let segundosSessao=0;
 let segundosEstudos={};
 let aberturas={};
 let ultimoEnvio=Promise.resolve();
+let ultimoRegistroEstatisticas=0;
 
 const idAleatorio=()=>crypto.randomUUID();
 
@@ -263,18 +259,21 @@ function titulo(e){return e.titulo||"Estudo bíblico"}
 function capa(e){return e.capa||e.imagem||""}
 function resumo(e){return e.resumo||e.descricao||""}
 function conteudo(e){return e.texto||e.conteudo||""}
+
 function imagens(e){
 if(Array.isArray(e.imagens))return e.imagens;
 if(typeof e.imagens==="string")
 return e.imagens.split("\n").map(x=>x.trim()).filter(Boolean);
 return [];
 }
+
 function urlValida(url){
 try{
 const u=new URL(url);
 return ["https:","http:"].includes(u.protocol);
 }catch(e){return false}
 }
+
 function tempoLegivel(s){
 s=Math.max(0,Math.round(Number(s)||0));
 return Math.floor(s/60)+"min "+s%60+"s";
@@ -283,7 +282,7 @@ return Math.floor(s/60)+"min "+s%60+"s";
 function registrarTempo(){
 const agora=Date.now();
 if(document.visibilityState==="visible"){
-const delta=Math.max(0,Math.min(30,(agora-ultimaMarcacao)/1000));
+const delta=Math.max(0,Math.min(65,(agora-ultimaMarcacao)/1000));
 segundosSessao+=delta;
 if(estudoAtual){
 segundosEstudos[estudoAtual]=(segundosEstudos[estudoAtual]||0)+delta;
@@ -292,7 +291,13 @@ segundosEstudos[estudoAtual]=(segundosEstudos[estudoAtual]||0)+delta;
 ultimaMarcacao=agora;
 }
 
-function enviarEstatisticas(){
+function enviarEstatisticas(forcar=false){
+if(!forcar&&(
+document.visibilityState!=="visible"||
+Date.now()-ultimoRegistroEstatisticas<60000
+))return;
+
+ultimoRegistroEstatisticas=Date.now();
 const dados={
 visitante:visitanteId,
 inicio:inicioVisita,
@@ -303,6 +308,7 @@ estudos:Object.fromEntries(
 Object.entries(segundosEstudos).map(([id,s])=>[id,Math.round(s)])
 )
 };
+
 ultimoEnvio=ultimoEnvio.catch(()=>{}).then(()=>
 set(ref(db,"restaurar/estatisticas/visitas/"+visitaId),dados)
 ).catch(e=>console.warn("Estatísticas:",e));
@@ -312,31 +318,31 @@ function marcarEstudo(id){
 registrarTempo();
 estudoAtual=id;
 aberturas[id]=(aberturas[id]||0)+1;
-enviarEstatisticas();
+enviarEstatisticas(true);
 }
 
 function sairDoEstudo(){
 registrarTempo();
 estudoAtual=null;
-enviarEstatisticas();
+enviarEstatisticas(true);
 }
 
 setInterval(()=>{
 registrarTempo();
 enviarEstatisticas();
-},15000);
+},60000);
 
 document.addEventListener("visibilitychange",()=>{
 registrarTempo();
-enviarEstatisticas();
+if(document.visibilityState==="hidden")enviarEstatisticas(true);
 });
 
 window.addEventListener("pagehide",()=>{
 registrarTempo();
-enviarEstatisticas();
+enviarEstatisticas(true);
 });
 
-enviarEstatisticas();
+enviarEstatisticas(true);
 
 function obterOrdem(){
 const ids=Object.keys(estudos).sort((a,b)=>
@@ -369,7 +375,10 @@ card.className="card";
 
 if(urlValida(capa(e))){
 const img=document.createElement("img");
-img.src=capa(e);img.alt=titulo(e);img.loading="lazy";
+img.src=capa(e);
+img.alt=titulo(e);
+img.loading="lazy";
+img.decoding="async";
 card.append(img);
 }
 
@@ -390,16 +399,17 @@ grade.append(card);
 
 const id=new URLSearchParams(location.search).get("estudo");
 if(id&&estudos[id]&&estudoAtual!==id)mostrarEstudo(id);
-renderADM();
-renderEstatisticas();
+if(auth.currentUser)renderADM();
 }
 
 function adicionarImagem(area,url,alt){
 if(!urlValida(url))return;
 const img=document.createElement("img");
-img.src=url;img.alt=alt;
+img.src=url;
+img.alt=alt;
 img.className="artigo-imagem";
 img.loading="lazy";
+img.decoding="async";
 area.append(img);
 }
 
@@ -435,13 +445,16 @@ history.pushState({},"",u);
 mostrarEstudo(id);
 }
 
-window.voltarEstudos=function(){
+function voltarEstudos(){
 sairDoEstudo();
 const u=new URL(location.href);
 u.searchParams.delete("estudo");
 history.pushState({},"",u);
 mostrarPaginaInicial();
-};
+}
+
+$("voltar").onclick=voltarEstudos;
+$("verOutros").onclick=voltarEstudos;
 
 function mostrarPaginaInicial(){
 $("paginaArtigo").style.display="none";
@@ -477,7 +490,7 @@ return inicio>=agora-dias*86400000;
 }
 
 function renderEstatisticas(){
-if(!auth.currentUser||!acessoLiberado)return;
+if(!auth.currentUser)return;
 const registros=filtrarVisitas();
 const visitantes=new Set(registros.map(v=>v.visitante).filter(Boolean)).size;
 let leituras=0,segundos=0;
@@ -523,7 +536,8 @@ const tr=document.createElement("tr");
 const td=document.createElement("td");
 td.colSpan=3;
 td.textContent="Nenhum estudo cadastrado.";
-tr.append(td);tbody.append(tr);
+tr.append(td);
+tbody.append(tr);
 }
 }
 
@@ -565,29 +579,14 @@ atualizarPainel();
 
 $("fecharADM").onclick=()=>{
 $("modal").classList.remove("aberto");
+pararEstatisticas();
 };
-
-$("validarSenha").onclick=()=>{
-if($("senhaAcesso").value!=="848218"){
-$("erroSenha").textContent="Senha incorreta.";
-return;
-}
-acessoLiberado=true;
-$("erroSenha").textContent="";
-$("senhaAcesso").value="";
-atualizarPainel();
-};
-
-$("senhaAcesso").addEventListener("keydown",e=>{
-if(e.key==="Enter")$("validarSenha").click();
-});
 
 function atualizarPainel(){
-$("acessoSenha").style.display=acessoLiberado?"none":"block";
-$("loginFirebase").style.display=acessoLiberado&&!auth.currentUser?"block":"none";
-$("conteudoADM").style.display=acessoLiberado&&auth.currentUser?"block":"none";
+$("loginFirebase").style.display=auth.currentUser?"none":"block";
+$("conteudoADM").style.display=auth.currentUser?"block":"none";
 
-if(acessoLiberado&&auth.currentUser){
+if(auth.currentUser&&$("modal").classList.contains("aberto")){
 $("usuarioAtual").textContent="Conectado: "+auth.currentUser.email;
 iniciarEstatisticas();
 renderADM();
@@ -603,6 +602,7 @@ await signInWithEmailAndPassword(
 auth,$("email").value.trim(),$("senhaFirebase").value
 );
 $("erroLogin").textContent="";
+atualizarPainel();
 }catch(e){
 $("erroLogin").textContent="Erro: "+e.code;
 }
@@ -610,7 +610,6 @@ $("erroLogin").textContent="Erro: "+e.code;
 
 $("sair").onclick=async()=>{
 await signOut(auth);
-acessoLiberado=false;
 atualizarPainel();
 };
 
@@ -628,7 +627,7 @@ $("salvarEstudo").textContent="SALVAR ESTUDO";
 $("limparFormulario").onclick=limpar;
 
 $("salvarEstudo").onclick=async()=>{
-if(!auth.currentUser||!acessoLiberado)return;
+if(!auth.currentUser)return;
 const id=$("estudoID").value;
 const tituloNovo=$("estudoTitulo").value.trim();
 const textoNovo=$("estudoTexto").value.trim();
@@ -672,7 +671,7 @@ btn.disabled=false;
 };
 
 function renderADM(){
-if(!auth.currentUser||!acessoLiberado)return;
+if(!auth.currentUser)return;
 const lista=$("listaADM");
 lista.replaceChildren();
 const ids=obterOrdem();
@@ -746,7 +745,7 @@ renderADM();
 }
 
 $("salvarOrdem").onclick=async()=>{
-if(!auth.currentUser||!acessoLiberado)return;
+if(!auth.currentUser)return;
 try{
 await set(ordemRef,ordemEdicao);
 $("mensagemOrdem").textContent="Ordem salva.";
@@ -755,9 +754,33 @@ $("mensagemOrdem").textContent="Erro: "+e.message;
 }
 };
 
+/* CACHE TEMPORÁRIO */
+
+try{
+const cache=JSON.parse(sessionStorage.getItem("cacheEstudosPublicos")||"null");
+if(cache&&cache.dados&&Date.now()-cache.tempo<1800000){
+estudos=cache.dados;
+ordem=cache.ordem||[];
+carregado=true;
+renderizar();
+}
+}catch(e){}
+
+function salvarCache(){
+try{
+const payload=JSON.stringify({tempo:Date.now(),dados:estudos,ordem});
+if(payload.length<1500000){
+sessionStorage.setItem("cacheEstudosPublicos",payload);
+}
+}catch(e){}
+}
+
+/* SINCRONIZAÇÃO FIREBASE */
+
 onValue(estudosRef,s=>{
 estudos=s.val()||{};
 carregado=true;
+salvarCache();
 renderizar();
 },e=>{
 $("estado").textContent="Erro ao carregar: "+e.message;
@@ -766,7 +789,8 @@ $("estado").textContent="Erro ao carregar: "+e.message;
 onValue(ordemRef,s=>{
 ordem=s.val()||[];
 ordemEdicao=[];
-renderizar();
+salvarCache();
+if(carregado)renderizar();
 },e=>console.warn(e));
 
 </script>
